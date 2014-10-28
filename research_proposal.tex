@@ -17,12 +17,17 @@ Semantic annotation schemes represent the meaning of natural language. An exampl
 
 \section{Aims}
 
-I use RNNs to learn a recently introduced semantic annotation scheme, Universal Conceptual Cognitive Annotation (UCCA)~\cite{abend2013universal}. This scheme takes a semantic approach to grammatical representation, describing the relations between different parts of the text. Due to the success of RNNs in learning composite linguistic structures, it seems promising that they can successfully learn a semantic grammatical annotation like UCCA.
+I will use RNNs to learn a recently introduced semantic annotation scheme, Universal Conceptual Cognitive Annotation (UCCA)~\cite{abend2013universal}. This scheme takes a semantic approach to grammatical representation, describing the relations between different parts of the text. Due to the success of RNNs in learning composite linguistic structures, it seems promising that they can successfully learn a semantic grammatical annotation like UCCA.
 
 
 \section{Techniques}
 
-Recursive Neural Networks, DT-RNNs, Recursive Autoencoders
+\subsection{Distributed Representations}
+Recursive Autoencoders, RAAM
+\subsection{Backpropagation Through Structure (BPTS)}
+\cite{goller1996learning} describe a method for learning distributed continuous representation tuned for a supervised task, using a recursive "folding" architecture. The structure can be a general Directed Acyclic Graph (DAG), and is not limited to a tree or sequence. \cite{sperduti1997supervised} train supervised recursive neural networks for the classification of structures. In both cases, 
+\subsection{Recursive Neural Networks}
+DT-RNNs
 
 
 \bibliography{research_proposal}{}
