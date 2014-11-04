@@ -1,12 +1,12 @@
 \documentclass[11pt]{article}
 \usepackage{cite}
 \usepackage{fullpage}
-\usepackage{url}
+\usepackage{hyperref}
 \usepackage{array}
 
-\title{Research Proposal \\ PhD Stage A}
+\title{Research Proposal}
 \author{Daniel Hershcovich}
-\date{\today}
+\date{\today \\ \textit{The Hebrew University of Jerusalem}}
 
 \begin{document}
 \maketitle
@@ -14,44 +14,89 @@
 \begin{table}[!th]
 \begin{tabular}{>{\bfseries}l p{0.8\textwidth}}
 Supervisor & Prof. Ari Rappoport \\
-Title & Learning Structured Semantic Annotation With Deep Neural Network Models
+Title & Deep Learning of Semantic Structure Annotation
 \end{tabular}
 \end{table}
 
+
+
 \section{Background}
+
+\subsection{Annotation of linguistic structure}
+
+Semantic tasks in natural language processing, such as machine translation and sentiment analysis, require understanding the meaning of text. Since text is merely a sequence of words, it has to be represented in a way that will convey its meaning. One simple approach, known as the bag-of-words model\cite{harris1954distributional}, looks only at which multi-set of words occurs in the text. This can already provide substantial information about the meaning of the text, but it ignores the order of words. The n-gram model\cite{Brown:1992:CNG:176313.176316} counts sequences of words with regard to their order, incorporating some of the meaning encoded in the text structure. These models are quite successfully applied to a variety of tasks. Nevertheless, an undeniable part in the meaning of language resides in its hierarchical structure, and syntax is a way to model this structure formally. Using frameworks such as constituency parsing (phrase structure grammar)\cite{chomsky1957syntactic} or dependency parsing\cite{tesniere1959elements} can improve the performance in semantic tasks.
+
+However, syntactic annotations suffer from limitations, since they do not represent the semantic structure of text directly. Simple manipulations such as switching from an active construction to a passive one, which nearly do not alter the meaning of text, can yield a significantly different syntactic structure. Moreover, the same syntactic structure can express conceptually distinct semantic constructs\cite{abend2013ucca}.
+
+
+\subsubsection{Semantic annotation}
+
+Semantic annotation schemes represent the meaning of natural language utterances directly. An example is semantic role labeling\cite{Baker:1998:BFP:980845.980860}, which annotates predicates and their arguments, classifying them into specific roles. As opposed to syntactic annotation, which reflects language-specific formal patterns, semantic annotation corresponds to a higher level of cognitive processing, and the same framework can potentially apply to any language. Moreover, a rich semantic annotation scheme may be more beneficial than syntactic annotation as an input for applications that attempt to solve a semantic task.
+
+
+\subsubsection{UCCA}
+
+Universal Conceptual Cognitive Annotation (UCCA) is a recently introduced semantic annotation scheme \cite{abend2013ucca}\cite{abend2013universal}. This scheme takes a semantic approach to grammatical representation, describing relations between words and phrases in the whole text. It has a coarse foundational layer that can be extended by any number of additional layers to provide more refinements and sophistication. It already covers the most important semantic relations in language, including verb-argument structure, adjuncts, clause embeddings and linkage. The scheme is motivated and justified by Cognitive Linguistics theories that provide a theoretical framework for the semantic structure of language, supported by cross-linguistic evidence.
+
+UCCA is designed to stay close to the human cognitive processing of language. Therefore, it is easy for human annotators to grasp, and does not require expertise in linguistics or long training. A corpus containing 160K words from the English Wikipedia has been manually annotated with the foundational layer\footnote{Available online at \url{http://homepages.inf.ed.ac.uk/oabend/ucca.html}}.
+
+The intention of the UCCA project is to use the manual annotation for supervised learning of semantic distinctions that are natural for human annotators, while inducing distributional regularities from text in an unsupervised manner.
+
 
 \subsection{Deep neural networks}
 
-Deep learning in artificial neural networks has received much attention in several fields of computer science, including computer vision, speech recognition and natural language processing, due to their best performance in various tasks. Several different architectures have come to be included under the term “deep learning”, among them multilayer perceptrons (MLPs), deep belief networks (DBNs), convolutional neural networks (CNNs), and recursive neural networks (RNNs). In natural language processing, many of the methods rely strongly on word embeddings---representation of words as vectors in a continuous vector space with tens or hundreds of dimensions, such that linguistic and semantic regularities between the words are captured in the vectors. This kind of representation can be learned in an unsupervised manner, from a large unlabeled corpus. Moreover, RNNs have been shown to be able to learn semantically meaningful continuous vector representations of multi-word phrases, in the same space. Approaches based on RNNs have achieved state-of-the-art performance in syntactic parsing and sentiment analysis.
+Deep learning in artificial neural networks has received much attention in several fields of computer science, including computer vision, speech recognition and natural language processing, due to their best performance in various tasks\cite{Collobert:2011:NLP:1953048.2078186}. Several different architectures have come to be included under the term \textit{deep learning}, among them multilayer perceptrons (MLPs), deep belief networks (DBNs), convolutional neural networks (CNNs), and recursive neural networks (RNNs).
 
-\subsection{Semantic annotation}
 
-Semantic annotation schemes represent the meaning of natural language. An example is semantic role labeling, which annotates predicates and their arguments, classifying them into specific roles. As opposed to syntactic annotation, which reflects language-specific formal patterns, semantic annotation corresponds to a higher level of cognitive processing, and the same framework can potentially apply to any language. Moreover, a rich semantic annotation scheme may be more beneficial as an input for applications that attempt to solve a semantic task, such as machine translation, word sense disambiguation and sentiment analysis.
+\subsubsection{Distributed representation}
 
-\subsection{UCCA}
+In natural language processing, many of the deep learning methods rely strongly on word embeddings---representation of words as vectors in a continuous vector space with tens or hundreds of dimensions\cite{turian2010word}, such that linguistic and semantic regularities between the words are captured in the vectors\cite{mikolovlinguistic}. This kind of representation can be learned in an unsupervised manner, from a large unlabeled corpus.
 
-Universal Conceptual Cognitive Annotation (UCCA) is a recently introduced semantic annotation scheme \cite{abend2013universal}. This scheme takes a semantic approach to grammatical representation, describing relations between words and phrases in the whole text. It has a foundational layer that can be extended by any number of additional layers to provide more refinements and sophistication.
+Several models have been suggested to learn distributed representations for phrases, based on the representations for single words. Recursive auto-associative memory (RAAM) is an early model for representation of compositional structures recursively\cite{pollack1990recursive}, which was implemented as the recursive autoencoder (RAE): it learns a representation for a given tree structure by minimizing the reconstruction error. Later, this model was generalized to construct the tree\cite{socher2011rae}.
+
+RNNs have been shown to be able to learn semantically meaningful continuous vector representations of multi-word phrases, in the same space\cite{socher2010learning}. Approaches based on RNNs have achieved state-of-the-art performance in syntactic parsing and sentiment analysis\cite{socher2013parsing}\cite{socher2013recursive}.
+
 
 
 \section{Aims}
 
-In my research, I intend on performing supervised learning of the UCCA structure, including at least the Foundational Layer. Furthermore, I will devise a method for supervised learning of DAG structures, using representation learning for the features. It will be useful for other tasks in natural language processing and machine learning in general.
+In my research, I intend on pursuing the following goals:
+
+\begin{itemize}
+  \item devising a method for automatic prediction of the UCCA structure, including at least the Foundational Layer and possibly more refinements as they are defined, and a method for deep learning of DAG structures for text
+  \item evaluating the distributed representation that is learned in the process of training a deep learning model on the UCCA task, and showing that it reflects the semantic similarity and relatedness between phrases better than the representation learned while training a network for the prediction of a syntactic structure
+  \item using the new automatic annotation to improve the performance of existing techniques for solving semantic tasks, such as sentiment analysis, that are based on syntactic parsing for the representation of text compositionality
+\end{itemize}
+
+
 
 \section{Techniques}
-
-\subsection{Distributed representations}
-
-Recursive Autoencoders, RAAM
 
 \subsection{Backpropagation through structure (BPTS)}
 
 Goller and K{\"u}chler describe a method for learning distributed continuous representation tuned for a supervised task, using a recursive "folding" architecture \cite{goller1996learning}. The structure can be a general Directed Acyclic Graph (DAG), and is not limited to a tree or sequence. Sperduti and Starita train supervised recursive neural networks for the classification of structures \cite{sperduti1997supervised}. In both cases, 
+
 
 \subsection{Recursive neural networks}
 
 Due to the success of RNNs in learning composite linguistic structures, it seems promising that they can successfully learn a semantic grammatical annotation like UCCA.
 
 DT-RNNs
+
+
+
+\section{Preliminary results}
+
+Predicting the labels on a pre-made binary tree structure, that was created from the original UCCA DAG by omitting edges and binarizing, I was able to achieve $43\%$ accuracy\footnote{Python code available online at \url{https://github.com/danielhers/ucca-rntn}}. This was done by training a Recursive Neural Tensor Network\cite{socher2013recursive} on the trees, where the label for each node is taken to be the label of the remaining edge leading to it from the original DAG. This is significantly better than a random baseline, since there are 12 possible labels in the UCCA foundational layer: such a baseline would achieve less than $10\%$ accuracy.
+
+
+
+\section{Significance}
+
+
+
+\section{Feasibility}
+
 
 
 \section{Previous work}
