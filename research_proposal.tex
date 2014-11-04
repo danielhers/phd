@@ -1,60 +1,41 @@
-\documentclass[11pt]{article} \usepackage{cite}
+\documentclass[11pt]{article}
+\usepackage{cite}
+\usepackage{fullpage}
+\usepackage{url}
+\usepackage{array}
+
+\title{Research Proposal \\ PhD Stage A}
+\author{Daniel Hershcovich}
+\date{\today}
 
 \begin{document}
+\maketitle
 
-\title{PhD Research Proposal \\ Stage A} \author{Daniel Hershcovich}
-\date{\today} \maketitle
-
+\begin{table}[!th]
+\begin{tabular}{>{\bfseries}l p{0.8\textwidth}}
+Supervisor & Prof. Ari Rappoport \\
+Title & Learning Structured Semantic Annotation With Deep Neural Network Models
+\end{tabular}
+\end{table}
 
 \section{Background}
 
 \subsection{Deep neural networks}
 
-Deep learning in artificial neural networks has received much attention in
-several fields of computer science, including computer vision, speech
-recognition and natural language processing, due to their best performance in
-various tasks. Several different architectures have come to be included under
-the term “deep learning”, among them multilayer perceptrons (MLPs), deep belief
-networks (DBNs), convolutional neural networks (CNNs), and recursive neural
-networks (RNNs). In natural language processing, many of the methods rely
-strongly on word embeddings---representation of words as vectors in a continuous
-vector space with tens or hundreds of dimensions, such that linguistic and
-semantic regularities between the words are captured in the vectors. This kind
-of representation can be learned in an unsupervised manner, from a large
-unlabeled corpus. Moreover, RNNs have been shown to be able to learn
-semantically meaningful continuous vector representations of multi-word phrases,
-in the same space. Approaches based on RNNs have achieved state-of-the-art
-performance in syntactic parsing and sentiment analysis.
+Deep learning in artificial neural networks has received much attention in several fields of computer science, including computer vision, speech recognition and natural language processing, due to their best performance in various tasks. Several different architectures have come to be included under the term “deep learning”, among them multilayer perceptrons (MLPs), deep belief networks (DBNs), convolutional neural networks (CNNs), and recursive neural networks (RNNs). In natural language processing, many of the methods rely strongly on word embeddings---representation of words as vectors in a continuous vector space with tens or hundreds of dimensions, such that linguistic and semantic regularities between the words are captured in the vectors. This kind of representation can be learned in an unsupervised manner, from a large unlabeled corpus. Moreover, RNNs have been shown to be able to learn semantically meaningful continuous vector representations of multi-word phrases, in the same space. Approaches based on RNNs have achieved state-of-the-art performance in syntactic parsing and sentiment analysis.
 
 \subsection{Semantic annotation}
 
-Semantic annotation schemes represent the meaning of natural language. An
-example is semantic role labeling, which annotates predicates and their
-arguments, classifying them into specific roles. As opposed to syntactic
-annotation, which reflects language-specific formal patterns, semantic
-annotation corresponds to a higher level of cognitive processing, and the same
-framework can potentially apply to any language. Moreover, a rich semantic
-annotation scheme may be more beneficial as an input for applications that
-attempt to solve a semantic task, such as machine translation, word sense
-disambiguation and sentiment analysis.
+Semantic annotation schemes represent the meaning of natural language. An example is semantic role labeling, which annotates predicates and their arguments, classifying them into specific roles. As opposed to syntactic annotation, which reflects language-specific formal patterns, semantic annotation corresponds to a higher level of cognitive processing, and the same framework can potentially apply to any language. Moreover, a rich semantic annotation scheme may be more beneficial as an input for applications that attempt to solve a semantic task, such as machine translation, word sense disambiguation and sentiment analysis.
 
 \subsection{UCCA}
 
-Universal Conceptual Cognitive Annotation (UCCA) is a recently introduced
-semantic annotation scheme \cite{abend2013universal}. This scheme takes a
-semantic approach to grammatical representation, describing relations between
-words and phrases in the whole text. It has a foundational layer that can be
-extended by any number of additional layers to provide more refinements and
-sophistication.
+Universal Conceptual Cognitive Annotation (UCCA) is a recently introduced semantic annotation scheme \cite{abend2013universal}. This scheme takes a semantic approach to grammatical representation, describing relations between words and phrases in the whole text. It has a foundational layer that can be extended by any number of additional layers to provide more refinements and sophistication.
 
 
 \section{Aims}
 
-In my research, I intend on performing supervised learning of the UCCA
-structure, including at least the Foundational Layer. Furthermore, I will devise
-a method for supervised learning of DAG structures, using representation
-learning for the features. It will be useful for other tasks in natural language
-processing and machine learning in general.
+In my research, I intend on performing supervised learning of the UCCA structure, including at least the Foundational Layer. Furthermore, I will devise a method for supervised learning of DAG structures, using representation learning for the features. It will be useful for other tasks in natural language processing and machine learning in general.
 
 \section{Techniques}
 
@@ -64,26 +45,20 @@ Recursive Autoencoders, RAAM
 
 \subsection{Backpropagation through structure (BPTS)}
 
-Goller and K{\"u}chler describe a method for learning distributed continuous
-representation tuned for a supervised task, using a recursive "folding"
-architecture \cite{goller1996learning}. The structure can be a general Directed
-Acyclic Graph (DAG), and is not limited to a tree or sequence. Sperduti and
-Starita train supervised recursive neural networks for the classification of
-structures \cite{sperduti1997supervised}. In both cases, 
+Goller and K{\"u}chler describe a method for learning distributed continuous representation tuned for a supervised task, using a recursive "folding" architecture \cite{goller1996learning}. The structure can be a general Directed Acyclic Graph (DAG), and is not limited to a tree or sequence. Sperduti and Starita train supervised recursive neural networks for the classification of structures \cite{sperduti1997supervised}. In both cases, 
 
 \subsection{Recursive neural networks}
 
-Due to the success of RNNs in learning composite linguistic structures, it seems
-promising that they can successfully learn a semantic grammatical annotation
-like UCCA.
+Due to the success of RNNs in learning composite linguistic structures, it seems promising that they can successfully learn a semantic grammatical annotation like UCCA.
 
 DT-RNNs
 
 
 \section{Previous work}
 
-Beka \cite{beka2013thesis} has attempted supervised learning of a simplification
-of UCCA by using a flat structure.
+Beka \cite{beka2013thesis} has attempted supervised learning of a simplification of UCCA by using a flat structure.
 
 
-\bibliography{research_proposal}{} \bibliographystyle{plain} \end{document}
+\bibliography{research_proposal}{}
+\bibliographystyle{plain}
+\end{document}
