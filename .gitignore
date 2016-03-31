@@ -4,3 +4,5 @@
 *.dvi
 *.log
 *.pdf
+*.out
+*.synctex.gz
