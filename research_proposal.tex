@@ -34,7 +34,7 @@
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 \SetKwRepeat{Do}{do}{while}
-\renewcommand\AlCapFnt{\normalfont\small}
+\renewcommand\AlCapFnt{\normalfont}
 
 \makeatletter
 \renewcommand{\paragraph}{
@@ -92,8 +92,8 @@ expressions \cite{schneider2014discriminative}.
 We call formal representations supporting all three properties 
 {\it Broad-coverage Semantic Structures} (BSS).
 
-\begin{figure}[t]
-  \begin{subfigure}[t]{\columnwidth}
+\begin{figure}[ht!]
+  \begin{subfigure}{\columnwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:graduation}}
   \parbox{.8\textwidth}{
   \begin{tikzpicture}[level distance=10mm, ->]
@@ -123,7 +123,7 @@ We call formal representations supporting all three properties
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}[t]{\textwidth}
+  \begin{subfigure}{\textwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:shower}}
   \parbox{.8\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
@@ -148,7 +148,7 @@ We call formal representations supporting all three properties
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}[t]{.9\textwidth}
+  \begin{subfigure}{.9\textwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:home}}
   \hspace{.1\textwidth}
   \parbox{.7\textwidth}{
@@ -167,7 +167,7 @@ We call formal representations supporting all three properties
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}[t]{.9\textwidth}
+  \begin{subfigure}{.9\textwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:gave}}
   \hspace{.2\textwidth}
   \parbox{.6\textwidth}{
@@ -492,8 +492,7 @@ are thus sufficient for determining which of $u$'s children contains the head no
 %This is appropriate, since edges in a semantic constituency graph express the relation between units,
 %whereas in syntactic constituency trees the identity of a node depends on the nodes below it.
 
-\begin{algorithm}[t]
-  \small
+\begin{algorithm}[ht!]
   \KwData{constituency tree ${T_c}=(V_c,E_c,\ell_c)$}
  \KwResult{dependency tree $T_d=(V_d,E_d,\ell_d)$}
  \ForEach{$u \in V_c$} {
@@ -559,8 +558,7 @@ see \algref{alg:dep2con}.
 In practice, it mostly selects the UCCA label \textit{Center}.
 The conversion procedure from dependency to constituency is given in \algref{alg:dep2con}.
 
-\begin{algorithm}[t]
-  \small
+\begin{algorithm}[ht!]
  \KwData{dependency tree $T_d=(V_d,E_d,\ell_d)$}
  \KwResult{constituency tree $T_c=(V_c,E_c,\ell_c)$}
  $r \leftarrow \mathrm{Node()}$\;
@@ -592,8 +590,7 @@ The conversion procedure from dependency to constituency is given in \algref{alg
  \label{alg:dep2con}
 \end{algorithm}
 
-\begin{algorithm}[ht]
-  \small
+\begin{algorithm}[ht!]
   \KwData{node $u \in V_d$}
  \KwResult{label $\ell \in L$}
  \uIf{$\mathrm{IsPunctuation}(u)$}{
@@ -615,7 +612,7 @@ The conversion procedure from dependency to constituency is given in \algref{alg
 
 Converting the sentence in \figref{fig:graduation} to a constituency tree consists of simply removing the remote edge:
 
-\begin{figure}[h]
+\begin{figure}[ht!]
   \centering
   \begin{tikzpicture}[level distance=10mm, ->]
     \node (ROOT) [fill=black, circle] {}
@@ -637,11 +634,12 @@ Converting the sentence in \figref{fig:graduation} to a constituency tree consis
       } edge from parent node[right] {\scriptsize $H$} }
       ;
   \end{tikzpicture}
+  \caption{Example for conversion to a constituency tree.}
 \end{figure}
 
 The corresponding dependency tree is given in the following figure:
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 \centering
 \begin{dependency}[theme = simple]
 \begin{deptext}[column sep=.7em,ampersand replacement=\^]
@@ -654,6 +652,7 @@ After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
 \depedge{7}{6}{R}
 \depedge{5}{7}{A}
 \end{dependency}
+  \caption{Example for conversion to a dependency tree.}
 \end{figure}
 
 \subsection{Transition-Based Broad-Coverage Semantic Parsing}\label{sec:direct_approach}
@@ -789,7 +788,7 @@ for the novel \textsc{Left-Remote$_X$} and \textsc{Right-Remote$_X$} transitions
 \begin{figure}
 \begin{adjustbox}{width=.98\textwidth,margin=3pt,frame}
 \begin{tabular}{>{\small}l}
-\begin{subfigure}[t]{.5\textwidth}
+\begin{subfigure}[ht!]{.5\textwidth}
 {\footnotesize Features from \cite{zhang2009transition}:} \\
 \textbf{unigrams} \\
 $s_0te, s_0we, s_1te, s_1we, s_2te, s_2we, s_3te, s_3we,$ \\
@@ -811,7 +810,7 @@ $s_0llwe, s_0lrwe, s_0luwe, s_0rlwe, s_0rrwe,$ \\
 $s_0ruwe, s_0ulwe, s_0urwe, s_0uuwe, s_1llwe,$ \\
 $s_1lrwe, s_1luwe, s_1rlwe, s_1rrwe, s_1ruwe$ \\
 \end{subfigure}
-\begin{subfigure}[t]{.5\textwidth}
+\begin{subfigure}[ht!]{.5\textwidth}
 \textbf{disco} \cite{maier2015discontinuous} \\
 $s_0xwe, s_1xwe, s_2xwe, s_3xwe,$ \\
 $s_0xte, s_1xte, s_2xte, s_3xte,$ \\
@@ -944,7 +943,7 @@ corpus as test set, without re-tuning any parameters.
 
 
 \begin{table}
-  \scalebox{.8}{
+  \centering
 \begin{tabular}{l|ccc|c}
 & \multicolumn{3}{c|}{Wiki} & 20K \\
 & \small Train & \small Dev & \small Test & Leagues \\
@@ -969,7 +968,6 @@ corpus as test set, without re-tuning any parameters.
 %\# parents & 0.98 & 0.97 & 0.98 & 0.95 \\
 \# children & 1.67 & 1.67 & 1.67 & 1.61 
 \end{tabular}
-}
 \caption{Statistics of the \textit{Wiki} and \textit{20K Leagues} UCCA corpora.
 All counts exclude the root node.
 }
@@ -1108,8 +1106,8 @@ all non-terminal nodes are lost and have to be reconstructed by a
 simple rule-based inverse conversion. Both conversions yield zero scores on remote edges,
 since these are invariably removed when converting to trees.
 
-\begin{table}[ht]
-  \scalebox{.8}{
+\begin{table}[ht!]
+  \centering
 \begin{tabular}{l|ccc|ccc}
 & \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
 & \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
@@ -1132,7 +1130,6 @@ Upper Bound & 93.8 & 83.7 & 88.4 & $-$ & 0 & 0 \\
 \textsc{bsp} & 60.6 & 53.9 & 57.1 & 20.2 & 10.3 & 13.6 \\
 \textsc{bsp}$_{\mathrm{Tree}}$ & 60.2 & 52.8 & 56.2 & $-$ & 0 & 0 \\
 \end{tabular}
-}
 \caption{
   Main experimental results in percents (on the \textit{Wiki} test set, except for the bottom part). Columns correspond to labeled precision,
   recall and F-score for the different parsers, for both primary (left-hand side)
@@ -1179,8 +1176,8 @@ important, and the \textbf{ratio} feature greatly improves recall on
 primary edges. \textbf{disco} features have a positive contribution,
 likely to be amplified in languages with a higher percentage of discontinuous units, such as German.
 
-\begin{table}[ht]
-  \scalebox{.8}{
+\begin{table}[ht!]
+  \centering
 \begin{tabular}{l|ccc|ccc}
 & \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
 & \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
@@ -1198,7 +1195,6 @@ likely to be amplified in languages with a higher percentage of discontinuous un
 \textsc{bsp}$-$\textbf{remote} & 63.5 & 53.2 & 57.9 & 17.2 & 10.6 & 13.1 \\
 \textsc{bsp}$-$\textbf{ratio} & 63.7 & 48.3 & 55.0 & 25.4 & 13.6 & 17.7
 \end{tabular}
-}
 \caption{
   Results on the development set for the feature ablation experiment, in percents.
   The first row corresponds to \textsc{bsp} as in the main experiment.
