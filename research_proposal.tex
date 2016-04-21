@@ -52,7 +52,7 @@
 
 \begin{table}[!th]
 \begin{tabular}{>{\bfseries}l p{0.5\textwidth}}
-Supervisor & Prof. Ari Rappoport \\
+Supervisors & Prof. Ari Rappoport and Dr. Omri Abend \\
 Title & Universal Semantic Parsing With Neural Networks
 \end{tabular}
 \end{table}
@@ -551,6 +551,43 @@ through structure}, another variant of backpropagation, using a recursive
 "folding" architecture that can represent a general tree or a directed acyclic
 graph (DAG) structure\cite{goller1996learning}.
 
+\begin{figure}[ht!]
+  \begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,->]
+  \tikzstyle{vertex}=[circle,draw=black,minimum size=34pt]
+  \foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}
+    \node[vertex] (G-\name) at (\x,0) {$\name$};
+
+  \foreach \from/\to in {John/and,and/Mary,Mary/Went,Went/Home}
+    \draw (G-\from) -- (G-\to);
+  \end{tikzpicture}
+  \caption{}\label{fig:rnn}
+  \end{subfigure}
+  \begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}[level distance=12mm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [draw=black, circle] {}
+      child {node [draw=black, circle] {}
+      {
+        child {node {John} edge from parent node[left] {}}
+        child {node {and} edge from parent node[left] {}}
+        child {node {Mary} edge from parent node[left] {}}
+      } edge from parent node[left] {}}
+      child {node {went} edge from parent node[left] {}}
+      child {node {home} edge from parent node[left] {}}
+      ;
+  \end{tikzpicture}
+  \caption{}\label{fig:recnn}
+  \end{subfigure}
+  \caption{\label{fig:nns}
+    A recurrent neural network (a) combines distributed representations along a
+    linear structure, whereas a recursive neural network (b) does so along a
+    pre-determined hierarchical structure.
+  }
+\end{figure}
+
 
 \section{Experiments}\label{sec:experiments}
 
@@ -828,7 +865,7 @@ enough already, as the semantic distinctions that are apparent in syntax are
 already covered in the scheme.
 
 
-\section{Future Work}\label{sec:future}
+\section{Work Plan}\label{sec:plan}
 
 I intend to further explore conversion-based parsing approaches,
 including different target representations and more sophisticated conversion procedures \cite{kong-15},
