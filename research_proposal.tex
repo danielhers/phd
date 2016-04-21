@@ -553,33 +553,39 @@ graph (DAG) structure\cite{goller1996learning}.
 
 \begin{figure}[ht!]
   \begin{subfigure}{\textwidth}
+  \parbox{.2\textwidth}{\caption{}\label{fig:rnn}}
+  \parbox{.8\textwidth}{
   \centering
   \begin{tikzpicture}[shorten >=1pt,->]
-  \tikzstyle{vertex}=[circle,draw=black,minimum size=34pt]
-  \foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}
-    \node[vertex] (G-\name) at (\x,0) {$\name$};
-
+  \tikzstyle{vertex}=[circle,draw=black]
+  \foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}{
+    \node[vertex] (G-\name) at (\x,1) {};
+    \node (\name) at (\x,0) {\name};
+    \draw (\name) -- (G-\name);
+  }
   \foreach \from/\to in {John/and,and/Mary,Mary/Went,Went/Home}
     \draw (G-\from) -- (G-\to);
   \end{tikzpicture}
-  \caption{}\label{fig:rnn}
+  }
   \end{subfigure}
   \begin{subfigure}{\textwidth}
+  \parbox{.2\textwidth}{\caption{}\label{fig:recnn}}
+  \parbox{.8\textwidth}{
   \centering
-  \begin{tikzpicture}[level distance=12mm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [draw=black, circle] {}
-      child {node [draw=black, circle] {}
-      {
-        child {node {John} edge from parent node[left] {}}
-        child {node {and} edge from parent node[left] {}}
-        child {node {Mary} edge from parent node[left] {}}
-      } edge from parent node[left] {}}
-      child {node {went} edge from parent node[left] {}}
-      child {node {home} edge from parent node[left] {}}
-      ;
+  \begin{tikzpicture}[<-]
+  \tikzstyle{vertex}=[circle,draw=black]
+  \node[vertex] {}
+    child {node [vertex] {}
+    {
+      child {node {John} edge from parent node[] {}}
+      child {node {and} edge from parent node[] {}}
+      child {node {Mary} edge from parent node[] {}}
+    } edge from parent node[] {}}
+    child {node {went} edge from parent node[] {}}
+    child {node {home} edge from parent node[] {}}
+    ;
   \end{tikzpicture}
-  \caption{}\label{fig:recnn}
+  }
   \end{subfigure}
   \caption{\label{fig:nns}
     A recurrent neural network (a) combines distributed representations along a
