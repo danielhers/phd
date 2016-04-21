@@ -838,8 +838,7 @@ in enabling computers to understand natural language.
 
 \section{Challenges}\label{sec:challenges}
 
-\subsection{Dataset size}
-
+\paragraph{Dataset size.}
 Models with a large number of parameters typically require training on very
 large datasets, and the number of parameters in a deep learning model usually
 scales linearly with the number of layers and quadratically with the size of
@@ -852,8 +851,7 @@ Furthermore, the dataset can be enlarged and extended to more languages by furth
 labeling efforts.
 
 
-\subsection{Scheme coarseness}
-
+\paragraph{Scheme coarseness.}
 The UCCA framework was developed with the foundational layer first, including
 relation types that are mainly relevant for syntax. This layer gives only a
 coarse annotation: for examples, it labels processes or states and their
@@ -874,22 +872,41 @@ already covered in the scheme.
 \section{Work Plan}\label{sec:plan}
 
 I intend to further explore conversion-based parsing approaches,
-including different target representations and more sophisticated conversion procedures \cite{kong-15},
-to shed light on the commonalities and differences between representations, suggesting ways to
-design better semantic representations.
-I believe that UCCA's merits in providing a cross-linguistically applicable, broad-coverage
-annotation will support ongoing efforts to incorporate deeper semantic structures
-into a variety of applications, such as machine translation \cite{jones2012semantics}
-and summarization \cite{liu2015toward}.
+including different target representations and more sophisticated conversion
+procedures \cite{kong-15},
+to shed light on the commonalities and differences between representations,
+suggesting ways to design better semantic representations.
+I believe that UCCA's merits in providing a cross-linguistically applicable,
+broad-coverage annotation will support ongoing efforts to incorporate deeper
+semantic structures into a variety of applications, such as machine translation
+\cite{jones2012semantics} and summarization \cite{liu2015toward}.
 
 \paragraph{Improving the conversion procedure.}
 Several decision have to be made in the conversion between dependency and
 constituency annotation.
-In the conversion from constituency to dependency, a head terminal has to be
-selected for each node. When converting in the other direction, labels for the
-added edges have to be determined.
-Currently, I handle these decisions by crude heuristics, but a more
-sophisticated way can be devised. These will be reflected by higher upper bounds.
+Currently, I handle these decisions by heuristics, but a more
+sophisticated way can be devised \cite{fernandez2015parsing}.
+These will be reflected by higher upper bounds, and a more realistic evaluation
+of the performance of existing technology on the UCCA parsing task.
+Several of these decisions can be deferred to a machine learning solution,
+to improve their accuracy:
+\begin{itemize}
+\item In the conversion from constituency to dependency, a head terminal has to be
+selected for each node. One of the advantages of UCCA is the fact that it is not bound
+to select a head for a unit when the selection would be arbitrary, whereas dependency
+annotations are. However, some of the head selection rules are justified, and an
+optimal strategy here would improve the accuracy of converted dependency graphs.
+\item When converting from dependency to constituency, labels for the
+added edges have to be determined, since the intermediate non-terminal nodes are absent
+from the dependency graph. Here, too, a more informed labeling algorithm would
+improve the accuracy of restored UCCA graphs after conversion.
+\item Restored non-terminals are always assumed to be high-attaching, even though
+in some cases this decision is incorrect. An improved algorithm would learn to select
+the correct attachment position for the introduced nodes.
+\item Unary nodes are missing from the restored graphs, even though they exist in the
+original annotation. In order for the conversion to be accurate, these nodes have to
+be restored.
+\end{itemize}
 
 \paragraph{Improving the direct parser.}
 \textsc{bsp} reaches promising results, but it is very basic in terms of the
