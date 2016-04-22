@@ -917,10 +917,23 @@ with a simpler transition system but better classification and inference techniq
 scores significantly for many parsers, as it enables maintaining multiple candidates
 for the best action sequence, correcting for mistakes made early in the parse when
 not enough of the input was seen to make an accurate prediction.
-\item In terms of machine learning, I use a linear classifier with hand-crafted
-features. As the experiment with the LSTM parser shows, implementing a parser
-based on neural networks should also give a significant improvement to
+\item The parser currently uses hand-crafted features, which may not be the best
+representation for the classifier to be able to accurately predict the correct action
+at each step. Although feature ablation experiments showed that each of the feature
+sets has a positive contribution, they can probably be improved to reach higher scores.
+As an example, using embeddings for features rather than binary
+indicators will enable sharing information across similar tokens and more efficient
+representation.
+\item Linear classifier trained with the perceptron algorithm have been used in
+dependency parsing extensively, but different models have recently yielded improved
+results.
+As the experiment with the LSTM parser shows, implementing a parser
+based on recurrent neural networks should also give a significant improvement to
 parsing scores.
+Even neural network models with input from a fixed window (rather than a full recurrent
+history) achieve state-of-the-art scores in dependency parsing
+\cite{chen2014fast,andor2016globally}, and should be easy to implement for boosting
+the performance of \textsc{bsp}.
 \end{itemize}
 
 \paragraph{Applying the parser to semantic tasks.}
