@@ -910,12 +910,18 @@ be restored.
 
 \paragraph{Improving the direct parser.}
 \textsc{bsp} reaches promising results, but it is very basic in terms of the
-techniques used in it. Using beam search rather than greedy inference tends to
-improve the parsing scores significantly.
-In terms of machine learning, I use a linear classifier with hand-crafted
+techniques used in it: for this reason, it currently reaches lower scores than parsers
+with a simpler transition system but better classification and inference techniques.
+\begin{itemize}
+\item Using beam search rather than greedy inference improves the parsing
+scores significantly for many parsers, as it enables maintaining multiple candidates
+for the best action sequence, correcting for mistakes made early in the parse when
+not enough of the input was seen to make an accurate prediction.
+\item In terms of machine learning, I use a linear classifier with hand-crafted
 features. As the experiment with the LSTM parser shows, implementing a parser
 based on neural networks should also give a significant improvement to
 parsing scores.
+\end{itemize}
 
 \paragraph{Applying the parser to semantic tasks.}
 In order to evaluate the contribution of UCCA and \textsc{bsp} to semantic tasks,
