@@ -57,23 +57,24 @@ Universal Semantic Parsing With Neural Networks \\
 
 \begin{document}
 
-\begin{table}[!th]
+\maketitle
+
+\begin{table}[!th]\small
+\begin{tabular}{lr>{\bfseries}r}
+Daniel Hershcovich & \R{דניאל הרשקוביץ} & \R{שם התלמיד:} \\
+Prof. Ari Rappoport and Dr. Omri Abend & \R{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \R{שמות המדריכים:}
+\end{tabular}
+\end{table}
+
+\vspace{\fill}
+
+\begin{table}[!th]\small\centering
 \hebt{הריני מאשר את הנושא ואת התוכנית, ומסכים להדריך את המועמד בביצוע עבודה זו:}
 
 \begin{tabular}{cc}
 \R {עמרי אבנד} & \R{ארי רפופורט} \\
 \\
 ___________________ & ___________________
-\end{tabular}
-\end{table}
-
-
-{\let\newpage\relax\maketitle}
-
-\begin{table}[!th]\small
-\begin{tabular}{lr>{\bfseries}r}
-Daniel Hershcovich & \R{דניאל הרשקוביץ} & \R{שם התלמיד:} \\
-Prof. Ari Rappoport and Dr. Omri Abend & \R{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \R{שמות המדריכים:}
 \end{tabular}
 \end{table}
 
@@ -114,7 +115,7 @@ predicates and their arguments, classifying them into specific roles. As
 opposed to syntactic annotation, which reflects language-specific formal
 patterns, semantic annotation corresponds to a higher level of cognitive
 processing, and the same framework can potentially apply to any language.
-Moreover, a rich semantic annotation scheme may be more beneficial than
+Moreover, a rich semantic annotation scheme may be better than
 syntactic annotation as an input for applications that attempt to solve a
 semantic task, due to their tighter relation to the meaning of the text.
 
@@ -148,7 +149,7 @@ pursuing either graph-based methods that predict the highest ranking graph
 \cite[for AMR parsing]{flanigan2014discriminative},
 or a transition-based method (see \secref{sec:transition_based})
 that builds the parse incrementally following a series of local
-decisions \cite[and much subsequent work]{Nivre03anefficient}.
+decisions \cite{Nivre03anefficient}.
 
 Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
 \cite{flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
@@ -197,9 +198,9 @@ Formal representations supporting all three properties are referred to as
 {\it Broad-coverage Semantic Structures} (BSS) \cite{hershcovich2016broad}.
 
 \begin{figure}[ht!]\small
-  \begin{subfigure}{\columnwidth}
-  \parbox{.2\textwidth}{\caption{}\label{fig:graduation}}
-  \parbox{.8\textwidth}{
+  \begin{subfigure}{.6\textwidth}
+  \parbox{.1\textwidth}{\caption{}\label{fig:graduation}}
+  \parbox{.3\textwidth}{
   \begin{tikzpicture}[level distance=10mm, ->]
     \node (ROOT) [fill=black, circle] {}
       child {node (After) {After} edge from parent node[left] {\scriptsize $L$}}
@@ -227,10 +228,9 @@ Formal representations supporting all three properties are referred to as
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{.9\textwidth}
-  \parbox{.2\textwidth}{\caption{}\label{fig:home}}
-  \hspace{.1\textwidth}
-  \parbox{.7\textwidth}{
+  \begin{subfigure}{.4\textwidth}
+  \parbox{.1\textwidth}{\caption{}\label{fig:home}}
+  \parbox{.3\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -246,10 +246,9 @@ Formal representations supporting all three properties are referred to as
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{.9\textwidth}
-  \parbox{.2\textwidth}{\caption{}\label{fig:gave}}
-  \hspace{.2\textwidth}
-  \parbox{.6\textwidth}{
+  \begin{subfigure}{.4\textwidth}
+  \parbox{.1\textwidth}{\caption{}\label{fig:gave}}
+  \parbox{.3\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -265,9 +264,9 @@ Formal representations supporting all three properties are referred to as
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{\textwidth}
-  \parbox{.2\textwidth}{\caption{}\label{fig:shower}}
-  \parbox{.8\textwidth}{
+  \begin{subfigure}{.6\textwidth}
+  \parbox{.1\textwidth}{\caption{}\label{fig:shower}}
+  \parbox{.3\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -312,13 +311,6 @@ which has no existing parser prior to my work.
 Several other models either support some of these properties \cite{oepen2015semeval},
 or avoid grounding semantic units altogether
 (notably, AMR \cite{banarescu2013abstract}).
-
-\paragraph{Notation.}
-Let $L$ be the set of possible edge labels.
-A BSS is a directed acyclic graph $G=(V,E, \ell)$
-over a sequence of tokens $w_1, \ldots, w_n$,
-where $\ell:E\to L$ is a function of \textit{edge labels}.
-For each token $w_i$ ($i=1, \ldots, n$), there exists a leaf (or a terminal) $t_i \in V$.
 
 \subsection{Universal Conceptual Cognitive Annotation}\label{sec:ucca}
 Universal Cognitive Conceptual Annotation (UCCA)
@@ -554,12 +546,11 @@ of a pre-annotated hierarchical representation (typically syntactic trees) for
 compositionality \cite{socher2010learning}.
 
 A RecNN has a state at each node of the structure: if $C_i$ denotes the set of children of
-node $i$, then
+node $i$,
 \[
   h_i=g(\{f(c)\;|\;c\in C_i\})
 \]
-where $g$ is a function that aggregates the different representations, such as
-concatenation, addition or $\mathrm{max}$.
+where $g$ is an aggregation function, such as concatenation, addition or $\mathrm{max}$.
 
 A RecNN can also be used for structure prediction, or parsing
 \cite{socher2013recursive,dyer2015transition}: as the parse is being created, the model can
@@ -702,9 +693,9 @@ Punctuation marks are excluded from the evaluation, but not from the datasets.
 
 \paragraph{Conversions.}
 Since no existing BSS parser exists, I convert BSS to different representations where
-existing parsers can be applied in order to obtain a comparison to my technique.
-I explore two conversion scenarios: one into (possibly discontinuous) constituency trees,
-and one into CoNLL-style dependencies. In the first setting I experiment with \textsc{uparse},
+existing parsers can be applied in order to obtain a comparison, in
+two conversion scenarios: one into (possibly discontinuous) constituency trees,
+and one into CoNLL-style dependencies. In the first setting \textsc{uparse} is used,
 the only transition-based constituency parser able to parse trees with
 discontinuous constituents.
 In the second setting I use the MaltParser with arc-standard and
@@ -735,6 +726,8 @@ predict trees.
 
 \tabref{table:results} presents the experimental results, as well as
 upper bounds for the conversion-based methods.
+In addition to the results on the test set,
+the table presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
 \textsc{bsp} obtains comparable F-scores to MaltParser and \textsc{uparse}
 in terms of primary edges, but unlike them, is able to predict some
 of the remote edges as well. 
@@ -752,8 +745,7 @@ F-score higher than the arc-standard MaltParser, which
 differs from it only in its classifier.
 This suggests that applying a similar neural network-based approach to
 \textsc{bsp} is likely to improve results,
-and further underscores the effectiveness of transition-based 
-methods for BSS parsing. 
+and further underscores the effectiveness of transition-based methods.
 
 The conversion to constituency format only removes remote edges,
 and thus obtains a perfect primary edge score.
@@ -762,64 +754,42 @@ all non-terminal nodes are lost and have to be reconstructed by a
 simple rule-based inverse conversion. Both conversions yield zero scores on remote edges,
 since these are invariably removed when converting to trees.
 
-\tabref{table:results_ood} presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
-
 \begin{table}[ht!]\small
   \centering
-\begin{tabular}{l|ccc|ccc}
+\begin{tabular}{l|ccc|ccc||ccc|ccc}
+& \multicolumn{6}{c||}{In-Domain (Wiki)} & \multicolumn{6}{c}{Out-of-Domain (20K Leagues)} \\
+& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote}
 & \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
+& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF}
 & \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
 \hline
 \multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Constituency Tree Conversion} \\
-\textsc{uparse} & 64 & 67.3 & 65.4 & $-$ & 0 & 0 \\
-Upper Bound & 100 & 100 & 100 & $-$ & 0 & 0 \\
+\textsc{uparse} & 64 & 67.3 & 65.4 & $-$ & 0 & 0 & 57 & 59.4 & 58 \\
+Upper Bound & 100 & 100 & 100 & $-$ & 0 & 0 & 100 & 100 & 100 & $-$ & 0 & 0 \\
 \hline
 \multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Dependency Tree Conversion} \\
-Malt$_{\textrm{arc-standard}}$ & 63.4 & 57.3 & 60.1 & $-$ & 0 & 0 \\
-Malt$_{\textrm{arc-eager}}$ & 63.9 & 57.9 & 60.5 & $-$ & 0 & 0 \\
-LSTM & {\bf 73.2} & {\bf 66.2} & {\bf 69.2} & $-$ & 0 & 0 \\
-Upper Bound & 93.8 & 83.7 & 88.4 & $-$ & 0 & 0 \\
+Malt$_{\textrm{arc-standard}}$ & 63.4 & 57.3 & 60.1 & $-$ & 0 & 0 & 62.3 & 55.9 & 58.7 & $-$ & 0 & 0 \\
+Malt$_{\textrm{arc-eager}}$ & 63.9 & 57.9 & 60.5 & $-$ & 0 & 0 & 62.8 & 56.3 & 59.2 & $-$ & 0 & 0 \\
+LSTM & {\bf 73.2} & {\bf 66.2} & {\bf 69.2} & $-$ & 0 & 0 & {\bf 70.1} & {\bf 63.3} & {\bf 66.1} & $-$ & 0 & 0 \\
+Upper Bound & 93.8 & 83.7 & 88.4 & $-$ & 0 & 0 & 93.5 & 82.5 & 87.6 & $-$ & 0 & 0 \\
 \hline
 \multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Direct Approach} \\
-\textsc{bsp} & 62.4 & 56 & 59 & 15.3 & 11.8 & 13.3 \\
-\textsc{bsp}$_{\mathrm{Tree}}$ & 63.8 & 56.5 & 59.9 & $-$ & 0 & 0 \\
+\textsc{bsp} & 62.4 & 56 & 59 & 15.3 & 11.8 & 13.3 & 60.6 & 53.9 & 57.1 & 20.2 & 10.3 & 13.6 \\
+\textsc{bsp}$_{\mathrm{Tree}}$ & 63.8 & 56.5 & 59.9 & $-$ & 0 & 0 & 60.2 & 52.8 & 56.2 & $-$ & 0 & 0 \\
 \end{tabular}
 \caption{
-  Experimental results in percents on the \textit{Wiki} test set. Columns correspond to labeled precision,
+  Experimental results in percents on the \textit{Wiki} test set (left) and
+  on the \textit{20K Leagues} set (right; when trained on the \textit{Wiki} set without re-tuning).
+  Columns correspond to labeled precision,
   recall and F-score for the different parsers, for both primary (left-hand side)
   and remote (right-hand side) edges. Top: results for \textsc{uparse}
   after conversion to constituency tree annotation. Middle: results for the
   MaltParser arc-eager and arc-standard, and
   the LSTM parser, after conversion to dependency tree annotation.
   Bottom: results for our \textsc{bsp}, when trained on the complete UCCA DAGs (\textsc{bsp}),
+  and when trained on UCCA trees, obtained by removing remote edges (\textsc{bsp}$_{\mathrm{Tree}}$).
 }
 \label{table:results}
-
-\end{table}\small
-\begin{table}[ht!]
-  \centering
-\begin{tabular}{l|ccc|ccc}
-& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
-& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
-\hline
-\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Constituency Tree Conversion} \\
-\textsc{uparse} & 57 & 59.4 & 58 \\
-Upper Bound & 100 & 100 & 100 \\
-\hline
-\multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Dependency Tree Conversion} \\
-Malt$_{\textrm{arc-standard}}$ & 62.3 & 55.9 & 58.7 & $-$ & 0 & 0 \\
-Malt$_{\textrm{arc-eager}}$ & 62.8 & 56.3 & 59.2 & $-$ & 0 & 0 \\
-LSTM & {\bf 70.1} & {\bf 63.3} & {\bf 66.1} & $-$ & 0 & 0 \\
-Upper Bound & 93.5 & 82.5 & 87.6 & $-$ & 0 & 0 \\
-\hline
-\multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Out-of-domain} \\
-\textsc{bsp} & 60.6 & 53.9 & 57.1 & 20.2 & 10.3 & 13.6 \\
-\textsc{bsp}$_{\mathrm{Tree}}$ & 60.2 & 52.8 & 56.2 & $-$ & 0 & 0 \\
-\end{tabular}
-\caption{
-  Experimental results on out-of-domain data (\textit{20K Leagues}).
-}
-\label{table:results_ood}
 \end{table}
 
 
