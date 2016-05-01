@@ -1,4 +1,6 @@
 \documentclass[11pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[hebrew,english]{babel}
 \usepackage{cite}
 \usepackage{fullpage}
 \usepackage{ifpdf}
@@ -43,17 +45,35 @@
   {\normalfont\normalsize\bfseries}
 }
 
-\title{Research Proposal}
-\author{Daniel Hershcovich}
-\date{\today \\ \textit{The Hebrew University of Jerusalem}}
+\newcommand{\heb}[1]{\begin{small}\R{#1}\end{small}}
+\newcommand{\hebt}[1]{\begin{scriptsize}\R{#1}\end{scriptsize}}
+
+\title{\hebt{תכנית-מחקר המוגשת לאישור כתכנית לעבודת-דוקטור} \\
+\vspace{1cm}
+Universal Semantic Parsing With Neural Networks \\
+\R{ניתוח סמנטי אוניברסלי באמצעות רשתות נוירונים}
+}
+\date{\today}
 
 \begin{document}
-\maketitle
 
 \begin{table}[!th]
-\begin{tabular}{>{\bfseries}l p{0.5\textwidth}}
-Supervisors & Prof. Ari Rappoport and Dr. Omri Abend \\
-Title & Universal Semantic Parsing With Neural Networks
+\hebt{הריני מאשר את הנושא ואת התוכנית, ומסכים להדריך את המועמד בביצוע עבודה זו:}
+
+\begin{tabular}{cc}
+\R {עמרי אבנד} & \R{ארי רפופורט} \\
+\\
+___________________ & ___________________
+\end{tabular}
+\end{table}
+
+
+{\let\newpage\relax\maketitle}
+
+\begin{table}[!th]
+\begin{tabular}{lr>{\bfseries}r}
+Daniel Hershcovich & \R{דניאל הרשקוביץ} & \R{שם התלמיד:} \\
+Prof. Ari Rappoport and Dr. Omri Abend & \R{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \R{שמות המדריכים:}
 \end{tabular}
 \end{table}
 
@@ -881,7 +901,13 @@ broad-coverage annotation will support ongoing efforts to incorporate deeper
 semantic structures into a variety of applications, such as machine translation
 \cite{jones2012semantics} and summarization \cite{liu2015toward}.
 
-\paragraph{Improving the conversion procedure.}
+In the coming year, I will focus my research on improving the different parsing approaches
+(\secref{sec:improving_conversions} and \secref{sec:improving_bsp}).
+In the following year, I intend to continue my research by demonstrating the effectiveness
+of the parser when applied to semantic tasks (\secref{sec:semantic_tasks}).
+
+
+\subsection{Improving the conversion procedure}\label{sec:improving_conversions}
 Several decision have to be made in the conversion between dependency and
 constituency annotation.
 Currently, I handle these decisions by heuristics, but a more
@@ -890,41 +916,58 @@ These will be reflected by higher upper bounds, and a more realistic evaluation
 of the performance of existing technology on the UCCA parsing task.
 Several of these decisions can be deferred to a machine learning solution,
 to improve their accuracy:
-\begin{itemize}
-\item In the conversion from constituency to dependency, a head terminal has to be
+
+\paragraph{Head selection in constituency-to-dependency conversion.}
+In the conversion from constituency to dependency, a head terminal has to be
 selected for each node. One of the advantages of UCCA is the fact that it is not bound
 to select a head for a unit when the selection would be arbitrary, whereas dependency
-annotations are. However, some of the head selection rules are justified, and an
-optimal strategy here would improve the accuracy of converted dependency graphs.
-\item When converting from dependency to constituency, labels for the
+annotations are. However, some of the head selection rules are justified, and a
+better strategy here would improve the accuracy of converted dependency graphs.
+I will investigate methods for more informed head selection.
+
+\paragraph{Edge labeling in dependency-to-constituency conversion.}
+When converting from dependency to constituency, labels for the
 added edges have to be determined, since the intermediate non-terminal nodes are absent
-from the dependency graph. Here, too, a more informed labeling algorithm would
-improve the accuracy of restored UCCA graphs after conversion.
-\item Restored non-terminals are always assumed to be high-attaching, even though
-in some cases this decision is incorrect. An improved algorithm would learn to select
-the correct attachment position for the introduced nodes.
-\item Unary nodes are missing from the restored graphs, even though they exist in the
+from the dependency graph. I will improve the labeling algorithm to
+increase the accuracy of restored UCCA graphs after conversion.
+
+\paragraph{Attachment position in dependency-to-constituency conversion.}
+Restored non-terminals are always assumed to be high-attaching, even though
+in some cases this decision is incorrect.
+I will modify the algorithm to select the correct attachment position for the introduced nodes.
+
+\paragraph{Restoring unary nodes in dependency-to-constituency conversion.}
+Unary nodes are missing from the restored graphs, even though they exist in the
 original annotation. In order for the conversion to be accurate, these nodes have to
 be restored.
-\end{itemize}
+I will apply machine-learning methods \cite{fernandez2015parsing} to restore these unary nodes.
 
-\paragraph{Improving the direct parser.}
+\subsection{Improving the direct parser}\label{sec:improving_bsp}
 \textsc{bsp} reaches promising results, but it is very basic in terms of the
 techniques used in it: for this reason, it currently reaches lower scores than parsers
 with a simpler transition system but better classification and inference techniques.
-\begin{itemize}
-\item Using beam search rather than greedy inference improves the parsing
-scores significantly for many parsers, as it enables maintaining multiple candidates
+
+\paragraph{Beam search.}
+Using beam search rather than greedy inference should improve the parsing
+scores significantly, as it does for many parsers, as it enables maintaining multiple candidates
 for the best action sequence, correcting for mistakes made early in the parse when
 not enough of the input was seen to make an accurate prediction.
-\item The parser currently uses hand-crafted features, which may not be the best
+I will implement beam search in \textsc{bsp} and evaluate its contribution to the parsing accuracy.
+
+\paragraph{Embedding features.}
+The parser currently uses hand-crafted features, which may not be the best
 representation for the classifier to be able to accurately predict the correct action
 at each step. Although feature ablation experiments showed that each of the feature
 sets has a positive contribution, they can probably be improved to reach higher scores.
 As an example, using embeddings for features rather than binary
 indicators will enable sharing information across similar tokens and more efficient
-representation.
-\item Linear classifier trained with the perceptron algorithm have been used in
+representation \cite{chen2014fast},
+and a BiLSTM-based distributed representation may be an even better representation
+\cite{kiperwasser2016simple}.
+I will try both of these approaches.
+
+\paragraph{Neural network classifier.}
+Linear classifiers trained with the perceptron algorithm have been used in
 dependency parsing extensively, but different models have recently yielded improved
 results.
 As the experiment with the LSTM parser shows, implementing a parser
@@ -932,15 +975,37 @@ based on recurrent neural networks should also give a significant improvement to
 parsing scores.
 Even neural network models with input from a fixed window (rather than a full recurrent
 history) achieve state-of-the-art scores in dependency parsing
-\cite{chen2014fast,andor2016globally}, and should be easy to implement for boosting
-the performance of \textsc{bsp}.
-\end{itemize}
+\cite{chen2014fast,andor2016globally}, and should boost the performance of \textsc{bsp}.
+I will apply different neural architectures to \textsc{bsp} and compare them.
 
-\paragraph{Applying the parser to semantic tasks.}
+\subsection{Applying the parser to semantic tasks}\label{sec:semantic_tasks}
 In order to evaluate the contribution of UCCA and \textsc{bsp} to semantic tasks,
 I intend to perform experiments using it to calculate distributed representations for
 phrases and sentences, and to derive various features whose impact can be assessed quantitatively.
 
+\paragraph{Sentiment analysis.}
+Earlier work on sentiment analysis either ignores the text structure, or
+combines distributed representation along a syntactic structure \cite{socher2013recursive}.
+I will use the automatic methods for UCCA parsing to build sentiment classifiers that calculate semantic composition
+using a semantic structure, and asses whether the resulting representation contributes to the accuracy of the
+classifiers as compared to syntactic representation.
+
+
+\paragraph{Machine translation.}
+Syntax-based machine translation works by either scoring syntactically-plausible target sentences higher,
+or by using syntactic transduction grammars to go through an intermediate syntactic representation between
+the source language and the target language \cite{nadejde2013edinburgh}.
+Despite their theoretical soundness, syntactic machine translation methods still lag behind simpler methods
+such as phrase-based machine translation.
+I will investigate ways in which UCCA can replace syntactic structures in these techniques, and perhaps
+yield better models.
+
+\paragraph{Automatic summarization.}
+Similarly to machine translation, meaning representation can be used for abstractive summarization:
+the text is first converted to an abstract representation, and then a summary is generated from the abstract
+representation. Previous work used AMR \cite{banarescu2013abstract} for this approach \cite{liu2015toward}.
+I intend to use UCCA and quantify the contribution of the fact that the scheme is grounded on the words of the
+text to the accuracy of both encoding into an abstract representation and decoding it to generate the summary.
 
 
 \bibliography{references}
