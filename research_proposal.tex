@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 \usepackage[utf8x]{inputenc}
 \usepackage[hebrew,english]{babel}
 \usepackage{cite}
@@ -53,7 +53,7 @@
 Universal Semantic Parsing With Neural Networks \\
 \R{ניתוח סמנטי אוניברסלי באמצעות רשתות נוירונים}
 }
-\date{\today}
+\date{2016 \R{מאי}}
 
 \begin{document}
 
@@ -70,7 +70,7 @@ ___________________ & ___________________
 
 {\let\newpage\relax\maketitle}
 
-\begin{table}[!th]
+\begin{table}[!th]\small
 \begin{tabular}{lr>{\bfseries}r}
 Daniel Hershcovich & \R{דניאל הרשקוביץ} & \R{שם התלמיד:} \\
 Prof. Ari Rappoport and Dr. Omri Abend & \R{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \R{שמות המדריכים:}
@@ -196,7 +196,7 @@ expressions \cite{schneider2014discriminative}.
 Formal representations supporting all three properties are referred to as
 {\it Broad-coverage Semantic Structures} (BSS) \cite{hershcovich2016broad}.
 
-\begin{figure}[ht!]
+\begin{figure}[ht!]\small
   \begin{subfigure}{\columnwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:graduation}}
   \parbox{.8\textwidth}{
@@ -367,72 +367,72 @@ complex arguments (e.g., coordination) and relations
 (e.g., complex adverbials, such a ``very clearly''). UCCA graphs may contain implicit
 units that have no correspondent in the text.
 
-\figref{fig:soybeans} shows the UCCA annotation for the sentence
-``A similar technique is almost impossible to apply to other crops, such as cotton, soybeans and rice.''.
-The sentence was used by \cite{oepen2015semeval} to compare between difference semantic parsing schemes.
-It includes a single Scene, whose main relation is ``apply'', a secondary relation ``almost impossible'', as well as two complex arguments: ``a similar technique'' and the coordinated argument ``such as cotton, soybeans, and rice.''
-The scene contains an implicit unit, as the agent of ``apply'' has no correspondent in the text.
+%\figref{fig:soybeans} shows the UCCA annotation for the sentence
+%``A similar technique is almost impossible to apply to other crops, such as cotton, soybeans and rice.''.
+%The sentence was used by \cite{oepen2015semeval} to compare between difference semantic parsing schemes.
+%It includes a single Scene, whose main relation is ``apply'', a secondary relation ``almost impossible'', as well as two complex arguments: ``a similar technique'' and the coordinated argument ``such as cotton, soybeans, and rice.''
+%The scene contains an implicit unit, as the agent of ``apply'' has no correspondent in the text.
 
-\begin{figure}
-  \centering
-  \scalebox{.6}{
-  \begin{tikzpicture}[level distance=20mm, ->,
-  level 1/.style={sibling distance=8em},
-  level 2/.style={sibling distance=4em},
-  level 3/.style={sibling distance=4em}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node [fill=black, circle] {}
-      {
-        child {node {A} edge from parent node[left] {\scriptsize $E$}}
-        child {node {similar} edge from parent node[left] {\scriptsize $E$}}
-        child {node {technique} edge from parent node[right] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $A\quad$ \hspace{1mm} } }
-      child {node {is} edge from parent node[left] {\scriptsize $F$}}
-      child {node [fill=black, circle] {}
-      {
-        child {node {almost} edge from parent node[left] {\scriptsize $E$}}
-        child {node {impossible} edge from parent node[right] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $D$} }
-      child {node {\textbf{IMPLICIT}} edge from parent node[left] {\scriptsize $A$}}
-      child {node {to} edge from parent node[left] {\scriptsize $F$}}
-      child {node {apply} edge from parent node[left] {\scriptsize $P\quad$}}
-      child {node [fill=black, circle] {}
-      {
-        child {node {to} edge from parent node[left] {\scriptsize $R$}}
-        child {node {other} edge from parent node[left] {\scriptsize $E$}}
-        child {node {crops} edge from parent node[left] {\scriptsize $C$}}
-        child {node {,} edge from parent node[left] {\scriptsize $U$}}
-        child {node [fill=black, circle] {}
-        {
-          child {node {such as} edge from parent node[left] {\scriptsize $R$}}
-          child {node {cotton} edge from parent node[left] {\scriptsize $C$}}
-          child {node {,} edge from parent node[left] {\scriptsize $U$}}
-          child {node {soybeans} edge from parent node[left] {\scriptsize $C$}}
-          child {node {and} edge from parent node[left] {\scriptsize $N$}}
-          child {node {rice} edge from parent node[right] {\scriptsize $\; C$}}
-        } edge from parent node[right] {\scriptsize $\; E$ \hspace{1mm} } }
-      } edge from parent node[left] {\scriptsize $A\;$ \hspace{1mm} } }
-      child {node {.} edge from parent node[right] {\scriptsize $\quad \quad U$}}
-      ;
-  \end{tikzpicture}
-  }
-  \caption{Additional UCCA example
-  \label{fig:soybeans}
-  }
-\end{figure}
+%\begin{figure}\small
+%  \centering
+%  \scalebox{.6}{
+%  \begin{tikzpicture}[level distance=20mm, ->,
+%  level 1/.style={sibling distance=8em},
+%  level 2/.style={sibling distance=4em},
+%  level 3/.style={sibling distance=4em}]
+%    \node (ROOT) [fill=black, circle] {}
+%      child {node [fill=black, circle] {}
+%      {
+%        child {node {A} edge from parent node[left] {\scriptsize $E$}}
+%        child {node {similar} edge from parent node[left] {\scriptsize $E$}}
+%        child {node {technique} edge from parent node[right] {\scriptsize $C$}}
+%      } edge from parent node[left] {\scriptsize $A\quad$ \hspace{1mm} } }
+%      child {node {is} edge from parent node[left] {\scriptsize $F$}}
+%      child {node [fill=black, circle] {}
+%      {
+%        child {node {almost} edge from parent node[left] {\scriptsize $E$}}
+%        child {node {impossible} edge from parent node[right] {\scriptsize $C$}}
+%      } edge from parent node[left] {\scriptsize $D$} }
+%      child {node {\textbf{IMPLICIT}} edge from parent node[left] {\scriptsize $A$}}
+%      child {node {to} edge from parent node[left] {\scriptsize $F$}}
+%      child {node {apply} edge from parent node[left] {\scriptsize $P\quad$}}
+%      child {node [fill=black, circle] {}
+%      {
+%        child {node {to} edge from parent node[left] {\scriptsize $R$}}
+%        child {node {other} edge from parent node[left] {\scriptsize $E$}}
+%        child {node {crops} edge from parent node[left] {\scriptsize $C$}}
+%        child {node {,} edge from parent node[left] {\scriptsize $U$}}
+%        child {node [fill=black, circle] {}
+%        {
+%          child {node {such as} edge from parent node[left] {\scriptsize $R$}}
+%          child {node {cotton} edge from parent node[left] {\scriptsize $C$}}
+%          child {node {,} edge from parent node[left] {\scriptsize $U$}}
+%          child {node {soybeans} edge from parent node[left] {\scriptsize $C$}}
+%          child {node {and} edge from parent node[left] {\scriptsize $N$}}
+%          child {node {rice} edge from parent node[right] {\scriptsize $\; C$}}
+%        } edge from parent node[right] {\scriptsize $\; E$ \hspace{1mm} } }
+%      } edge from parent node[left] {\scriptsize $A\;$ \hspace{1mm} } }
+%      child {node {.} edge from parent node[right] {\scriptsize $\quad \quad U$}}
+%      ;
+%  \end{tikzpicture}
+%  }
+%  \caption{Additional UCCA example
+%  \label{fig:soybeans}
+%  }
+%\end{figure}
 
-Supervised learning of a simplified version of UCCA has already been attempted by
-flattening the structure, to get a sequence tagging
-problem\cite{beka2013thesis}. An accuracy of $65\%$ was achieved using a
-maximum-entropy model. After these initial results, however, the task was
-abandoned, firstly because the data set was still small at the time (only a few
-thousands of words), and secondly due to the realization that further
-conversion from a flat tagging scheme to the full hierarchic one is not
-trivial, and could cause subsequent error in the annotation. Therefore, a
-direct hierarchic structure prediction may be more reliable. Some attempts were
-made by \cite{beka2013thesis} at a partial rule-based heuristic approach, but they proved inefficient.
-On the identification of scene-evoking nouns, a subset of a specific type of
-relation in UCCA, the performance was not very high either.
+%Supervised learning of a simplified version of UCCA has already been attempted by
+%flattening the structure, to get a sequence tagging
+%problem\cite{beka2013thesis}. An accuracy of $65\%$ was achieved using a
+%maximum-entropy model. After these initial results, however, the task was
+%abandoned, firstly because the data set was still small at the time (only a few
+%thousands of words), and secondly due to the realization that further
+%conversion from a flat tagging scheme to the full hierarchic one is not
+%trivial, and could cause subsequent error in the annotation. Therefore, a
+%direct hierarchic structure prediction may be more reliable. Some attempts were
+%made by \cite{beka2013thesis} at a partial rule-based heuristic approach, but they proved inefficient.
+%On the identification of scene-evoking nouns, a subset of a specific type of
+%relation in UCCA, the performance was not very high either.
 
 \subsection{Distributed Representation}\label{sec:distributed}
 
@@ -571,7 +571,7 @@ through structure}, another variant of backpropagation, using a recursive
 "folding" architecture that can represent a general tree or a directed acyclic
 graph (DAG) structure\cite{goller1996learning}.
 
-\begin{figure}[ht!]
+\begin{figure}[ht!]\small
   \begin{subfigure}{\textwidth}
   \parbox{.2\textwidth}{\caption{}\label{fig:rnn}}
   \parbox{.8\textwidth}{
@@ -648,7 +648,7 @@ In the out-of-domain experiments, the same parser
 Leagues} corpus as test set, without re-tuning any parameters.
 
 
-\begin{table}
+\begin{table}\small
   \centering
 \begin{tabular}{l|ccc|c}
 & \multicolumn{3}{c|}{Wiki} & 20K \\
@@ -762,7 +762,9 @@ all non-terminal nodes are lost and have to be reconstructed by a
 simple rule-based inverse conversion. Both conversions yield zero scores on remote edges,
 since these are invariably removed when converting to trees.
 
-\begin{table}[ht!]
+\tabref{table:results_ood} presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
+
+\begin{table}[ht!]\small
   \centering
 \begin{tabular}{l|ccc|ccc}
 & \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
@@ -793,9 +795,7 @@ Upper Bound & 93.8 & 83.7 & 88.4 & $-$ & 0 & 0 \\
 }
 \label{table:results}
 
-\tabref{table:results_ood} presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
-
-\end{table}
+\end{table}\small
 \begin{table}[ht!]
   \centering
 \begin{tabular}{l|ccc|ccc}
@@ -887,6 +887,19 @@ sufficiently informative for assisting in semantic tasks, because they may
 depend on more refined distinctions. However, for many tasks it should be
 enough already, as the semantic distinctions that are apparent in syntax are
 already covered in the scheme.
+
+\section{Required Resources}\label{sec:resources}
+
+The resources currently used in my research are the
+UCCA Wikipedia corpus and the
+UCCA \textit{Twenty Thousand Leagues Under the Sea} English-French parallel corpus.
+In order to demonstrate the universality of the UCCA scheme and the advantages of its general structure,
+it needs to be applied to more languages and domains.
+Specifically, as discontinuous constructions are especially abundant in languages such as German
+\cite{maier2015discontinuous}, a German corpus annotated with UCCA will be a valuable resource for evaluating
+parsers for BSS.
+The universality should be assessed further by experimenting with languages even more different than English,
+such as Chinese. This will require constructing annotated corpora with native speakers of these languages.
 
 
 \section{Work Plan}\label{sec:plan}
