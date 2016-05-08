@@ -891,7 +891,7 @@ of the parser when applied to semantic tasks (\secref{sec:semantic_tasks}).
 
 
 \subsection{Improving the conversion procedure}\label{sec:improving_conversions}
-Several decision have to be made in the conversion between dependency and
+Several decisions have to be made in the conversion between dependency and
 constituency annotation.
 Currently, I handle these decisions by heuristics, but a more
 sophisticated way can be devised \cite{fernandez2015parsing}.
@@ -967,28 +967,36 @@ I intend to perform experiments using it to calculate distributed representation
 phrases and sentences, and to derive various features whose impact can be assessed quantitatively.
 
 \paragraph{Sentiment analysis.}
-Earlier work on sentiment analysis either ignores the text structure, or
+Earlier work on sentiment analysis either ignores the text structure (e.g. using a bag-of-words approach), or
 combines distributed representation along a syntactic structure \cite{socher2013recursive}.
 I will use the automatic methods for UCCA parsing to build sentiment classifiers that calculate semantic composition
 using a semantic structure, and asses whether the resulting representation contributes to the accuracy of the
 classifiers as compared to syntactic representation.
+Distributed representation of phrases and sentences is useful for a variety of semantic tasks,
+but sentiment analysis is a relatively common and important one where compositionality plays a major role:
+for example, negation words and intensifiers modify the value of composed phrases, and correctly identifying
+their arguments is crucial.
 
 
 \paragraph{Machine translation.}
-Syntax-based machine translation works by either scoring syntactically-plausible target sentences higher,
+Syntax-based machine translation works by either giving syntactically-plausible target sentences higher scores,
 or by using syntactic transduction grammars to go through an intermediate syntactic representation between
 the source language and the target language \cite{nadejde2013edinburgh}.
 Despite their theoretical soundness, syntactic machine translation methods still lag behind simpler methods
 such as phrase-based machine translation.
 I will investigate ways in which UCCA can replace syntactic structures in these techniques, and perhaps
 yield better models.
+The advantage of UCCA as compared to syntactic annotation schemes for machine translation is apparent,
+as translation tends to preserve semantic structure more than syntactic structure \cite{sulem2015conceptual}.
+Using UCCA as an intermediate representation is thus likely to achieve translated sentences that are more
+semantically similar to the source.
 
-\paragraph{Automatic summarization.}
-Similarly to machine translation, meaning representation can be used for abstractive summarization:
-the text is first converted to an abstract representation, and then a summary is generated from the abstract
-representation. Previous work used AMR \cite{banarescu2013abstract} for this approach \cite{liu2015toward}.
-I intend to use UCCA and quantify the contribution of the fact that the scheme is grounded on the words of the
-text to the accuracy of both encoding into an abstract representation and decoding it to generate the summary.
+%\paragraph{Automatic summarization.}
+%Similarly to machine translation, meaning representation can be used for abstractive summarization:
+%the text is first converted to an abstract representation, and then a summary is generated from the abstract
+%representation. Previous work used AMR \cite{banarescu2013abstract} for this approach \cite{liu2015toward}.
+%I intend to use UCCA and quantify the contribution of the fact that the scheme is grounded on the words of the
+%text to the accuracy of both encoding into an abstract representation and decoding it to generate the summary.
 
 
 \bibliography{references}
