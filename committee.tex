@@ -51,6 +51,18 @@
 \setbeamercovered{transparent}
 \begin{itemize}[<+>]
  \item Semantic Role Labeling
+	\begin{dependency}[theme = simple]
+	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\depedge{2}{1}{L}
+	\depedge{2}{3}{U}
+	\depedge[dashed]{2}{4}{A}
+	\depedge{5}{4}{A}
+	\depedge{2}{5}{H}
+	\depedge{7}{6}{R}
+	\depedge{5}{7}{A}
+	\end{dependency}
  \item Semantic Dependencies
  \item Abstract Meaning Representation
  \item Universal Conceptual Cognitive Annotation
