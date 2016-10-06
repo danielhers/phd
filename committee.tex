@@ -1,0 +1,73 @@
+% Presentation flag: uncomment to enable presentation features (slower compilation)
+\newcommand*{\PRESENTATION}
+
+% Preliminaries
+\ifdefined\PRESENTATION
+	\documentclass[t]{beamer}
+\else
+	\documentclass[t,handout]{beamer}
+\fi
+\mode<presentation>
+\usetheme{Warsaw}
+\useoutertheme{infolines} 
+
+% Includes
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{nicefrac}
+\usepackage{color}
+\usepackage{perpage}
+\usepackage{tikz}
+\usepackage{tikz-dependency}
+
+\MakePerPage{footnote}
+
+% Outline slides
+\AtBeginSection
+{\begin{frame} \frametitle{Outline} \tableofcontents[currentsection,currentsubsection] \end{frame}}
+\AtBeginSubsection
+{\begin{frame} \frametitle{Outline} \tableofcontents[currentsection,currentsubsection] \end{frame}}
+
+
+\begin{document}
+
+\title[]{Universal Semantic Parsing with Neural Networks}
+\author{Daniel Hershcovich}
+\institute[]{PhD Committee Meeting}
+\date{October 25, 2016}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\section{Background}
+
+\begin{frame}
+\frametitle{Semantic Annotation Schemes}
+\setbeamercovered{transparent}
+\begin{itemize}[<+>]
+ \item Semantic Role Labeling
+ \item Semantic Dependencies
+ \item Abstract Meaning Representation
+ \item Universal Conceptual Cognitive Annotation
+\end{itemize}
+%\begin{center}
+% \includegraphics[width=0.6\textwidth,keepaspectratio]{mnist}
+%\end{center}
+\end{frame}
+
+
+\section[]{Conclusion}
+
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}
+ \item 
+\end{itemize}
+\end{frame}
+
+\end{document}
