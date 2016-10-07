@@ -50,18 +50,22 @@
 \frametitle{Semantic Annotation Schemes}
 \setbeamercovered{transparent}
 \begin{itemize}[<+>]
- \item Semantic Role Labeling
+ \item Semantic Role Labeling (e.g. PropBank)
 	\begin{dependency}[theme = simple]
 	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
 	\end{deptext}
-	\depedge{2}{1}{L}
-	\depedge{2}{3}{U}
-	\depedge[dashed]{2}{4}{A}
-	\depedge{5}{4}{A}
-	\depedge{2}{5}{H}
-	\depedge{7}{6}{R}
-	\depedge{5}{7}{A}
+	%\deproot[edge unit distance=.7em]{5}{move.01}
+	\node[xshift=4.15em,yshift=3em]{move.01}
+	child{node at ($(\wordref{1}{5})$) {}};
+	\node[xshift=-7em,yshift=3em,color=gray]{AM-TMP}
+	child{node at ($(\wordref{1}{1})$) {}}
+	child{node at ($(\wordref{1}{2})$) {}};
+	\node[xshift=.655em,yshift=3em,color=red]{A1}
+	child{node at ($(\wordref{1}{4})$) {}};
+	\node[xshift=8.3em,yshift=3em,color=green]{A2}
+	child{node at ($(\wordref{1}{6})$) {}}
+	child{node at ($(\wordref{1}{7})$) {}};
 	\end{dependency}
  \item Semantic Dependencies
  \item Abstract Meaning Representation
