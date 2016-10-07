@@ -67,7 +67,14 @@
 	child{node at ($(\wordref{1}{6})$) {}}
 	child{node at ($(\wordref{1}{7})$) {}};
 	\end{dependency}
- \item Semantic Dependencies
+ \item Semantic Dependencies (e.g. DM)
+	\begin{dependency}[theme = simple]
+	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\deproot[edge unit distance=.7em]{5}{top}
+	\depedge{1}{2}{ARG1}
+	\end{dependency}
  \item Abstract Meaning Representation
  \item Universal Conceptual Cognitive Annotation
 \end{itemize}
