@@ -21,6 +21,8 @@
 \usepackage{color}
 \usepackage{perpage}
 \usepackage{tikz}
+\usetikzlibrary{graphs,graphs.standard,graphdrawing,quotes,shapes}
+\usegdlibrary{ layered }
 \usepackage{tikz-dependency}
 
 \MakePerPage{footnote}
@@ -127,6 +129,29 @@ Prague Dependency Treebank tectogrammatical layer (PSD)
 
 \begin{frame}
 \frametitle{Abstract Meaning Representation (AMR)}
+\begin{tikzpicture}
+\graph[layered layout, sibling distance=5cm, layer distance=2cm, edges={nodes={sloped}}]{
+a4 Paris[as={Paris}, black];
+a2 John[as={John}, black];
+a1[as={person}, black];
+a0[as={move-01}, black];
+a3[as={city}, black];
+a2[as={name}, black];
+a5[as={after}, black];
+a4[as={name}, black];
+a6[as={graduate-01}, black];
+
+a1 ->  ["name"' above, black] a2;
+a0 ->  ["ARG0"' above, black] a1;
+a0 ->  ["ARG2"' above, black] a3;
+a0 ->  ["time"' above, black] a5;
+a3 ->  ["name"' above, black] a4;
+a2 ->  ["op1"' above, black] a2 John;
+a5 ->  ["op1"' above, black] a6;
+a4 ->  ["op1"' above, black] a4 Paris;
+};
+\draw[->, above, black] (a6) to node[sloped] {ARG0} (a1);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}
