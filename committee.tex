@@ -48,39 +48,85 @@
 
 \begin{frame}
 \frametitle{Semantic Annotation Schemes}
-\setbeamercovered{transparent}
-\begin{itemize}[<+>]
- \item Semantic Role Labeling (e.g. PropBank)
-	\begin{dependency}[theme = simple]
-	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-	\end{deptext}
-	%\deproot[edge unit distance=.7em]{5}{move.01}
-	\node[xshift=4.15em,yshift=3em]{move.01}
-	child{node at ($(\wordref{1}{5})$) {}};
-	\node[xshift=-7em,yshift=3em,color=gray]{AM-TMP}
-	child{node at ($(\wordref{1}{1})$) {}}
-	child{node at ($(\wordref{1}{2})$) {}};
-	\node[xshift=.655em,yshift=3em,color=red]{A1}
-	child{node at ($(\wordref{1}{4})$) {}};
-	\node[xshift=8.3em,yshift=3em,color=green]{A2}
-	child{node at ($(\wordref{1}{6})$) {}}
-	child{node at ($(\wordref{1}{7})$) {}};
-	\end{dependency}
- \item Semantic Dependencies (e.g. DM)
-	\begin{dependency}[theme = simple]
-	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-	\end{deptext}
-	\deproot[edge unit distance=.7em]{5}{top}
-	\depedge{1}{2}{ARG1}
-	\end{dependency}
+\begin{itemize}
+ \item Semantic Role Labeling
+ \item Semantic Dependencies
  \item Abstract Meaning Representation
  \item Universal Conceptual Cognitive Annotation
 \end{itemize}
 %\begin{center}
 % \includegraphics[width=0.6\textwidth,keepaspectratio]{mnist}
 %\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Semantic Role Labeling (SRL)}
+\centering
+\vspace*{\fill}
+PropBank
+\vspace*{\fill}
+
+\begin{dependency}
+	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	% PropBank
+	\node[xshift=4.91em,yshift=3em]{move.01}
+	child{node at ($(\wordref{1}{5})$) {}};
+	\node[xshift=-9.5em,yshift=3em,color=gray]{AM-TMP}
+	child{node at ($(\wordref{1}{1})$) {}}
+	child{node at ($(\wordref{1}{2})$) {}};
+	\node[xshift=.65em,yshift=3em,color=red]{A1}
+	child{node at ($(\wordref{1}{4})$) {}};
+	\node[xshift=10.5em,yshift=3em,color=green]{A2}
+	child{node at ($(\wordref{1}{6})$) {}}
+	child{node at ($(\wordref{1}{7})$) {}};
+	% FrameNet
+	\node[xshift=4.91em,yshift=-3em]{Motion}
+	child{node at ($(\wordref{1}{5})$) {}};
+	\node[xshift=-9.5em,yshift=-3em,color=gray]{Time}
+	child{node at ($(\wordref{1}{1})$) {}}
+	child{node at ($(\wordref{1}{2})$) {}};
+	\node[xshift=.65em,yshift=-3em,color=red]{Theme}
+	child{node at ($(\wordref{1}{4})$) {}};
+	\node[xshift=10.5em,yshift=-3em,color=green]{Goal}
+	child{node at ($(\wordref{1}{6})$) {}}
+	child{node at ($(\wordref{1}{7})$) {}};
+\end{dependency}
+
+\vspace*{\fill}
+FrameNet
+\end{frame}
+
+\begin{frame}
+\frametitle{Semantic Dependency Parsing (SDP)}
+\centering
+\vspace*{\fill}
+DELPH-IN MRS-derived bi-lexical dependencies (DM)
+\vspace*{\fill}
+
+\begin{dependency}[theme=simple]
+	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\deproot{5}{top}
+	\depedge{1}{2}{ARG2}
+	\depedge{1}{5}{ARG1}
+	\depedge{5}{4}{ARG1}
+	\depedge{6}{5}{ARG1}
+	\depedge{6}{7}{ARG2}
+	\deproot[edge below]{5}{top}
+	\depedge[edge below]{5}{2}{TWHEN}
+	\depedge[edge below]{5}{4}{ACT-arg}
+	\depedge[edge below]{5}{7}{DIR3-arg}
+\end{dependency}
+
+\vspace*{\fill}
+Prague Dependency Treebank tectogrammatical layer (PSD)
+\end{frame}
+
+\begin{frame}
+\frametitle{Abstract Meaning Representation}
 \end{frame}
 
 
