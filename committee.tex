@@ -126,7 +126,40 @@ Prague Dependency Treebank tectogrammatical layer (PSD)
 \end{frame}
 
 \begin{frame}
-\frametitle{Abstract Meaning Representation}
+\frametitle{Abstract Meaning Representation (AMR)}
+\end{frame}
+
+\begin{frame}
+\frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
+\centering
+\vspace*{\fill}
+
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->]
+    \node (ROOT) [fill=black, circle] {}
+      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=black, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=black, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=black, circle] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent node[left] {\scriptsize $A$} }
+      } edge from parent node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+    \node (LKG) at (-1.8,0) [fill=black!20, circle] {};
+        \draw[bend right] (LKG) to node [auto, left] {\scriptsize $LR$} (After);
+        \draw (LKG) to[out=-60, in=120] node [below] {\scriptsize $LA$\quad\;} (graduation);
+        \draw (LKG) to[out=30, in=90] node [above] {\scriptsize $LA$} (moved);
+\end{tikzpicture}
+\vspace*{\fill}
 \end{frame}
 
 
