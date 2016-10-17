@@ -46,7 +46,7 @@
 \end{frame}
 
 
-\section{Background}
+\section{Semantic Annotation Schemes}
 
 \begin{frame}
 \frametitle{Semantic Annotation Schemes}
@@ -56,9 +56,6 @@
  \item Abstract Meaning Representation
  \item Universal Conceptual Cognitive Annotation
 \end{itemize}
-%\begin{center}
-% \includegraphics[width=0.6\textwidth,keepaspectratio]{mnist}
-%\end{center}
 \end{frame}
 
 \begin{frame}
@@ -247,6 +244,29 @@ a4 ->  ["op1"' above, black] a4 Paris;
     \draw[bend left,dashed,->] (takeashower) to node [auto] {\scriptsize $A$} (John);
     \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
   \end{tikzpicture}
+\end{frame}
+
+
+\section[]{UCCA Parsing}
+
+\begin{frame}
+\frametitle{Goal 1}
+UCCA parser:
+\begin{itemize}
+\item New general techniques for broad-coverage parsing.
+\item Meaning representation for machine translation and its evaluation.\footnote{
+Alexandra Birch, Barry Haddow, Ond\v{r}ej Bojar, and Omri Abend. 2016. HUME: Human UCCA-based
+evaluation of machine translation. arXiv preprint arXiv:1607.00030}
+\item Semantic features for text understanding.
+\end{itemize}
+\begin{center}
+ \includegraphics[width=0.6\textwidth,keepaspectratio]{hume}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Transition-Based Parsing}
+Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buffer $B$ and stack $S$.
 \end{frame}
 
 
