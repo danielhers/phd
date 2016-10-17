@@ -12,7 +12,6 @@
 \useoutertheme{infolines} 
 
 % Includes
-\usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -20,10 +19,11 @@
 \usepackage{nicefrac}
 \usepackage{color}
 \usepackage{perpage}
+\usepackage{multicol}
 \usepackage{tikz}
-\usetikzlibrary{graphs,graphs.standard,graphdrawing,quotes,shapes}
-\usegdlibrary{ layered }
 \usepackage{tikz-dependency}
+\usetikzlibrary{graphs,graphs.standard,graphdrawing,quotes,shapes}
+\usegdlibrary{layered}
 
 \MakePerPage{footnote}
 
@@ -65,7 +65,7 @@
 \frametitle{Semantic Role Labeling (SRL)}
 \centering
 \vspace*{\fill}
-PropBank
+{\color{blue} PropBank}
 \vspace*{\fill}
 
 \begin{dependency}
@@ -73,58 +73,58 @@ PropBank
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
 	\end{deptext}
 	% PropBank
-	\node[xshift=4.91em,yshift=3em]{move.01}
+	\node[xshift=4.91em,yshift=3em,color=blue]{move.01}
 	child{node at ($(\wordref{1}{5})$) {}};
-	\node[xshift=-9.5em,yshift=3em,color=gray]{AM-TMP}
+	\node[xshift=-9.5em,yshift=3em,color=blue]{AM-TMP}
 	child{node at ($(\wordref{1}{1})$) {}}
 	child{node at ($(\wordref{1}{2})$) {}};
-	\node[xshift=.65em,yshift=3em,color=red]{A1}
+	\node[xshift=.65em,yshift=3em,color=blue]{A1}
 	child{node at ($(\wordref{1}{4})$) {}};
-	\node[xshift=10.5em,yshift=3em,color=green]{A2}
+	\node[xshift=10.5em,yshift=3em,color=blue]{A2}
 	child{node at ($(\wordref{1}{6})$) {}}
 	child{node at ($(\wordref{1}{7})$) {}};
 	% FrameNet
-	\node[xshift=4.91em,yshift=-3em]{Motion}
+	\node[xshift=4.91em,yshift=-3em,color=red]{Motion}
 	child{node at ($(\wordref{1}{5})$) {}};
-	\node[xshift=-9.5em,yshift=-3em,color=gray]{Time}
+	\node[xshift=-9.5em,yshift=-3em,color=red]{Time}
 	child{node at ($(\wordref{1}{1})$) {}}
 	child{node at ($(\wordref{1}{2})$) {}};
 	\node[xshift=.65em,yshift=-3em,color=red]{Theme}
 	child{node at ($(\wordref{1}{4})$) {}};
-	\node[xshift=10.5em,yshift=-3em,color=green]{Goal}
+	\node[xshift=10.5em,yshift=-3em,color=red]{Goal}
 	child{node at ($(\wordref{1}{6})$) {}}
 	child{node at ($(\wordref{1}{7})$) {}};
 \end{dependency}
 
 \vspace*{\fill}
-FrameNet
+{\color{red} FrameNet}
 \end{frame}
 
 \begin{frame}
 \frametitle{Semantic Dependency Parsing (SDP)}
 \centering
 \vspace*{\fill}
-DELPH-IN MRS-derived bi-lexical dependencies (DM)
+{\color{blue} DELPH-IN MRS-derived bi-lexical dependencies (DM)}
 \vspace*{\fill}
 
 \begin{dependency}[theme=simple]
 	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
 	\end{deptext}
-	\deproot{5}{top}
-	\depedge{1}{2}{ARG2}
-	\depedge{1}{5}{ARG1}
-	\depedge{5}{4}{ARG1}
-	\depedge{6}{5}{ARG1}
-	\depedge{6}{7}{ARG2}
-	\deproot[edge below]{5}{top}
-	\depedge[edge below]{5}{2}{TWHEN}
-	\depedge[edge below]{5}{4}{ACT-arg}
-	\depedge[edge below]{5}{7}{DIR3-arg}
+	\deproot{5}{\color{blue} top}
+	\depedge{1}{2}{\color{blue} ARG2}
+	\depedge{1}{5}{\color{blue} ARG1}
+	\depedge{5}{4}{\color{blue} ARG1}
+	\depedge{6}{5}{\color{blue} ARG1}
+	\depedge{6}{7}{\color{blue} ARG2}
+	\deproot[edge below]{5}{\color{red} top}
+	\depedge[edge below]{5}{2}{\color{red} TWHEN}
+	\depedge[edge below]{5}{4}{\color{red} ACT-arg}
+	\depedge[edge below]{5}{7}{\color{red} DIR3-arg}
 \end{dependency}
 
 \vspace*{\fill}
-Prague Dependency Treebank tectogrammatical layer (PSD)
+{\color{red} Prague Dependency Treebank tectogrammatical layer (PSD)}
 \end{frame}
 
 \begin{frame}
@@ -158,7 +158,6 @@ a4 ->  ["op1"' above, black] a4 Paris;
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
 \centering
 \vspace*{\fill}
-
 \begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->]
     \node (ROOT) [fill=black, circle] {}
       child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
@@ -187,13 +186,76 @@ a4 ->  ["op1"' above, black] a4 Paris;
 \vspace*{\fill}
 \end{frame}
 
+\begin{frame}
+\frametitle{Structural Properties}
+\centering
+\noindent
+(1) non-terminal nodes, (2) reentrancy, (3) discontinuity
+\vspace*{\fill}
+\begin{minipage}{.48\linewidth}{\centering
+  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node [fill=black, circle] {}
+      {
+        child {node {John} edge from parent node[left] {\scriptsize $C$}}
+        child {node {and} edge from parent node[left] {\scriptsize $N$}}
+        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[left] {\scriptsize $A$} }
+      child {node {went} edge from parent node[left] {\scriptsize $P$}}
+      child {node {home} edge from parent node[left] {\scriptsize $A$}}
+      ;
+  \end{tikzpicture}
+  }
+\end{minipage}
+\hfill
+\begin{minipage}{.48\linewidth}{\centering
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node [fill=black, circle] {}
+      {
+      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
+      	child {node (everything) {everything} edge from parent[white]}
+      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[right] {\scriptsize $P$} }
+      ;
+    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
+  \end{tikzpicture}
+  }
+\end{minipage}
+
+\vspace{-6mm}
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
+      child {node (totakeaquickshower) [fill=black, circle] {}
+      {
+        child {node {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node (takeashower) [fill=black, circle] {}
+        {
+          child {node {take} edge from parent node[left] {\scriptsize $C$}}
+          child {node {a} edge from parent node[right] {\scriptsize $F$}}
+          child {node (quick) {quick} edge from parent[white]}
+          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
+        } edge from parent node[right] {\scriptsize $P$} }
+      } edge from parent node[left] {\scriptsize $A$} }
+      ;
+    \draw[bend left,dashed,->] (takeashower) to node [auto] {\scriptsize $A$} (John);
+    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
+  \end{tikzpicture}
+\end{frame}
+
 
 \section[]{Conclusion}
 
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
- \item 
+ \item UCCA
 \end{itemize}
 \end{frame}
 
