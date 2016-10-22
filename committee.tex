@@ -185,9 +185,9 @@ a4 ->  ["op1"' above, black] a4 Paris;
 
 \begin{frame}
 \frametitle{Structural Properties}
-\centering
 \noindent
 (1) non-terminal nodes, (2) reentrancy, (3) discontinuity
+\centering
 \vspace*{\fill}
 \begin{minipage}{.48\linewidth}{\centering
   \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
@@ -250,14 +250,14 @@ a4 ->  ["op1"' above, black] a4 Paris;
 \section[]{UCCA Parsing}
 
 \begin{frame}
-\frametitle{Goal 1}
-UCCA parser:
+\frametitle{Goal 1: UCCA Parser}
+Impact:
 \begin{itemize}
 \item New general techniques for broad-coverage parsing.
 \item Meaning representation for machine translation and its evaluation.\footnote{
 Alexandra Birch, Barry Haddow, Ond\v{r}ej Bojar, and Omri Abend. 2016. HUME: Human UCCA-based
 evaluation of machine translation. arXiv preprint arXiv:1607.00030}
-\item Semantic features for text understanding.
+\item Semantic features for text understanding based on the graph.
 \end{itemize}
 \begin{center}
  \includegraphics[width=0.6\textwidth,keepaspectratio]{hume}
@@ -267,6 +267,19 @@ evaluation of machine translation. arXiv preprint arXiv:1607.00030}
 \begin{frame}
 \frametitle{Transition-Based Parsing}
 Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buffer $B$ and stack $S$.
+\end{frame}
+
+
+\section[]{Distributed Representation}
+
+\begin{frame}
+\frametitle{Goal 2: UCCA-Based Distributed Representation of Sentences and Documents}
+Impact:
+\begin{itemize}
+\item General automatic semantic feature extractor for text.
+\item Accurate measure for text similarity.
+\item Understand the semantic contribution of different compositional elements.
+\end{itemize}
 \end{frame}
 
 
