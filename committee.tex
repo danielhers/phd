@@ -251,6 +251,8 @@ a4 ->  ["op1"' above, black] a4 Paris;
 
 \begin{frame}
 \frametitle{Goal 1: UCCA Parser}
+Fast and accurate parser supporting UCCA's structural properties.
+
 Impact:
 \begin{itemize}
 \item New general techniques for broad-coverage parsing.
@@ -273,12 +275,33 @@ Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buf
 \section[]{Distributed Representation}
 
 \begin{frame}
-\frametitle{Goal 2: UCCA-Based Distributed Representation of Sentences and Documents}
+\frametitle{Goal 2: UCCA-Based Distributed Representation}
+Vector representation for sentences and documents,
+based on recursive composition on the UCCA graph.
+
 Impact:
 \begin{itemize}
 \item General automatic semantic feature extractor for text.
 \item Accurate measure for text similarity.
 \item Understand the semantic contribution of different compositional elements.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recursive Neural Networks}
+\end{frame}
+
+
+\section[]{Applications}
+
+\begin{frame}
+\frametitle{Goal 3: Applications}
+Use the UCCA parser and distributed representation to improve
+performance on semantic tasks:
+\begin{itemize}
+\item Sentiment analysis.
+\item Machine translation.
+\item Automatic summarization.
 \end{itemize}
 \end{frame}
 
