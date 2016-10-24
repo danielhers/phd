@@ -430,7 +430,8 @@ represent a sequence based on the vectors for individual elements:
 	\end{tikzpicture}
 \end{center}
 
-Recursive neural networks (also known as "tree RNNs", but any DAG works)
+\pause
+Recursive neural networks (AKA "tree RNNs", but any DAG works)
 use hierarchical structure of the input:
 
 \vspace*{\fill}
@@ -469,7 +470,7 @@ performance on semantic tasks:
 \section[]{Experiments}
 
 \begin{frame}
-\frametitle{UCCA Parser}
+\frametitle{UCCA Parser Experiment}
 \begin{itemize}
  \item Transition-based parser using
  \begin{itemize}
@@ -477,7 +478,7 @@ performance on semantic tasks:
    \item Dense perceptron with pre-trained word embeddings.
    \item Feedforward neural network with real-valued features.
  \end{itemize}
- \item Baselines: bilexical DAG parser after conversion.
+ \item Baselines: bilexical DAG parsers after conversion.
 \end{itemize}
 \vspace*{\fill}
 \begin{center}
@@ -544,6 +545,8 @@ Results on Wiki test set.
 
 \begin{frame}
 \frametitle{Tree Approximation}
+Training without remote edges:
+
 \begin{center}
 	\begin{tabular}{l|ccc}
 	& \textbf{LP} & \textbf{LR} & \textbf{LF} \\
