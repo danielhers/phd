@@ -25,6 +25,26 @@
 \usetikzlibrary{graphs,graphs.standard,graphdrawing,quotes,shapes}
 \usegdlibrary{layered}
 
+\makeatletter
+\pgfdeclareshape{vector}{
+	  \inheritsavedanchors[from={rectangle}]
+	  \inheritbackgroundpath[from={rectangle}]
+	  \inheritanchorborder[from={rectangle}]
+	  \foreach \x in {center,north east,north west,north,south,south east,south west,east,west}{
+	    \inheritanchor[from={rectangle}]{\x}
+	  }
+
+    \backgroundpath{
+      \pgftransformshift{\pgfpoint{-16pt}{-4pt}}
+		  \draw[rounded corners=2pt] (0,0) rectangle (32pt,8pt);
+    }
+
+    \beforebackgroundpath{
+      \draw[step=8pt,help lines,-] (8pt,.1pt) grid (24pt,7.9pt);
+    }
+}
+\makeatother
+
 \MakePerPage{footnote}
 
 % Outline slides
@@ -283,8 +303,22 @@ Impact:
 \begin{itemize}
 \item General automatic semantic feature extractor for text.
 \item Accurate measure for text similarity.
-\item Understand the semantic contribution of different compositional elements.
+\item Understand the semantic contribution of different elements.
 \end{itemize}
+\centering
+  \begin{tikzpicture}[<-]
+  \tikzstyle{vertex}=[vector,draw=black]
+  \node[vertex] {}
+    child {node [vertex] {}
+    {
+      child {node {John} edge from parent node[] {}}
+      child {node {and} edge from parent node[] {}}
+      child {node {Mary} edge from parent node[] {}}
+    } edge from parent node[] {}}
+    child {node {went} edge from parent node[] {}}
+    child {node {home} edge from parent node[] {}}
+    ;
+  \end{tikzpicture}
 \end{frame}
 
 \begin{frame}
