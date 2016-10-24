@@ -16,6 +16,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{bbm}
+\usepackage{bm}
 \usepackage{nicefrac}
 \usepackage{color}
 \usepackage{perpage}
@@ -273,6 +274,7 @@ a4 ->  ["op1"' above, black] a4 Paris;
 \frametitle{Goal 1: UCCA Parser}
 Fast and accurate parser supporting UCCA's structural properties.
 
+\vspace*{\fill}
 Impact:
 \begin{itemize}
 \item New general techniques for broad-coverage parsing.
@@ -280,6 +282,8 @@ Impact:
 Alexandra Birch, Barry Haddow, Ond\v{r}ej Bojar, and Omri Abend. 2016. HUME: Human UCCA-based
 evaluation of machine translation. arXiv preprint arXiv:1607.00030}
 \item Semantic features for text understanding based on the graph.
+
+\vspace*{\fill}
 \end{itemize}
 \begin{center}
  \includegraphics[width=0.6\textwidth,keepaspectratio]{hume}
@@ -289,6 +293,39 @@ evaluation of machine translation. arXiv preprint arXiv:1607.00030}
 \begin{frame}
 \frametitle{Transition-Based Parsing}
 Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buffer $B$ and stack $S$.
+Classifier determines transition to apply at each step.
+
+\vspace*{\fill}
+\pause
+{
+\centering
+\begin{tikzpicture}
+\draw[xstep=2cm,ystep=0.5cm,color=gray] (-.01,0) grid (4,.5);
+\node[anchor=west] at (-.5,.25) {$\bm S$};
+\node[anchor=west] at (0,.25) {After};
+\node[anchor=west] at (2,.25) {graduation};
+\draw[xstep=1.5cm,ystep=0.5cm,color=gray] (4.49,0) grid (10.5,.5);
+\node[anchor=west] at (4,.25) {$\bm B$};
+\node[anchor=west] at (4.5,.25) {John};
+\node[anchor=west] at (6,.25) {moved};
+\node[anchor=west] at (7.5,.25) {to};
+\node[anchor=west] at (9,.25) {Paris};
+\node[anchor=west] at (3,-.5) {$\bm G$};
+\node (ROOT) [fill=black, circle] at (5,-.5) {}
+  child {node  {After} edge from parent [->] node[left] {\scriptsize $L$\;}}
+  child {node [fill=black, circle] {}
+  {
+    child {node {graduation} edge from parent [->] node[right] {\scriptsize $P$}}
+  } edge from parent [->] node[right] {\scriptsize $H$} };
+\end{tikzpicture}
+}
+
+\vspace*{\fill}
+\pause
+Transitions for UCCA parsing:\\
+\textsc{Shift, Reduce, Node$_X$,}\\
+\textsc{Left-Edge$_X$, Right-Edge$_X$, Left-Remote$_X$, Right-Remote$_X$,}
+\textsc{Swap, Finish}\\
 \end{frame}
 
 
@@ -299,30 +336,37 @@ Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buf
 Vector representation for sentences and documents,
 based on recursive composition on the UCCA graph.
 
+\vspace*{\fill}
 Impact:
 \begin{itemize}
 \item General automatic semantic feature extractor for text.
 \item Accurate measure for text similarity.
 \item Understand the semantic contribution of different elements.
 \end{itemize}
+
+\vspace*{\fill}
 \centering
-  \begin{tikzpicture}[<-]
-  \tikzstyle{vertex}=[vector,draw=black]
-  \node[vertex] {}
-    child {node [vertex] {}
-    {
-      child {node {John} edge from parent node[] {}}
-      child {node {and} edge from parent node[] {}}
-      child {node {Mary} edge from parent node[] {}}
-    } edge from parent node[] {}}
-    child {node {went} edge from parent node[] {}}
-    child {node {home} edge from parent node[] {}}
-    ;
-  \end{tikzpicture}
+\begin{tikzpicture}[<-]
+\tikzstyle{vertex}=[vector,draw=black]
+\node[vertex] {}
+  child {node [vertex] {}
+  {
+    child {node {John} edge from parent node[] {}}
+    child {node {and} edge from parent node[] {}}
+    child {node {Mary} edge from parent node[] {}}
+  } edge from parent node[] {}}
+  child {node {went} edge from parent node[] {}}
+  child {node {home} edge from parent node[] {}}
+  ;
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}
 \frametitle{Recursive Neural Networks}
+Word embeddings represent words as vectors in $\mathbb{R}^n$.
+
+\vspace*{\fill}
+\pause
 \end{frame}
 
 
