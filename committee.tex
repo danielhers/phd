@@ -542,4 +542,59 @@ performance on semantic tasks:
 Results on Wiki test set.
 \end{frame}
 
+\begin{frame}
+\frametitle{Tree Approximation}
+\begin{center}
+	\begin{tabular}{l|ccc}
+	& \textbf{LP} & \textbf{LR} & \textbf{LF} \\
+	\hline
+	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Constituency Tree Approximation} \\
+	Upper Bound & 100 & 100 & 100 \vspace{.1cm} \\
+	\textsc{uparse} & 63 & 64.7 & 63.7 \\
+	\hline
+	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Dependency Tree Approximation} \\
+	Upper Bound & 93.7 & 83.6 & 88.4 \vspace{.1cm} \\
+	MaltParser & 64.9 & 57.9 & 61 \\
+	LSTM Parser & {\bf 74.9} & {\bf 66.4} & {\bf 70.2} \\
+	\hline
+	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Direct Tree Parsing} \\
+	Sparse perceptron $-$ \textsc{Remote} & 65.5 & 57.5 & 61.3 \\
+	Dense perceptron $-$ \textsc{Remote} & 57.2 & 57.3 & 57.2 \\
+	Feedforward NN $-$ \textsc{Remote} & 66.3 & 64.4 & 65.3
+	\end{tabular}
+\end{center}
+
+Results on Wiki test set for tree approximation experiment.
+\end{frame}
+
+
+\section[]{Roadmap}
+
+\begin{frame}
+\frametitle{Developments in UCCA}
+\begin{itemize}
+ \item Annotation in more languages, e.g. German.
+ \item Refinement and addition of layers, e.g. coreference.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Work Plan}
+\begin{itemize}
+ \item Improvements to upper bound of bilexical conversions.
+ \item Improvements to transition-based parser:
+ \begin{itemize}
+  \item Beam search.
+  \item LSTM architectures: stack/bidirectional/attention.
+  \item Dynamic oracle, training with exploration.
+ \end{itemize}
+ \item Applications:
+ \begin{itemize}
+  \item Summarization.
+  \item Translation.
+  \item Investigate learned representation.
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
 \end{document}
