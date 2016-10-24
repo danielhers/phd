@@ -297,28 +297,27 @@ Classifier determines transition to apply at each step.
 
 \vspace*{\fill}
 \pause
-{
-\centering
-\begin{tikzpicture}
-\draw[xstep=2cm,ystep=0.5cm,color=gray] (-.01,0) grid (4,.5);
-\node[anchor=west] at (-.5,.25) {$\bm S$};
-\node[anchor=west] at (0,.25) {After};
-\node[anchor=west] at (2,.25) {graduation};
-\draw[xstep=1.5cm,ystep=0.5cm,color=gray] (4.49,0) grid (10.5,.5);
-\node[anchor=west] at (4,.25) {$\bm B$};
-\node[anchor=west] at (4.5,.25) {John};
-\node[anchor=west] at (6,.25) {moved};
-\node[anchor=west] at (7.5,.25) {to};
-\node[anchor=west] at (9,.25) {Paris};
-\node[anchor=west] at (3,-.5) {$\bm G$};
-\node (ROOT) [fill=black, circle] at (5,-.5) {}
-  child {node  {After} edge from parent [->] node[left] {\scriptsize $L$\;}}
-  child {node [fill=black, circle] {}
-  {
-    child {node {graduation} edge from parent [->] node[right] {\scriptsize $P$}}
-  } edge from parent [->] node[right] {\scriptsize $H$} };
-\end{tikzpicture}
-}
+\begin{center}
+	\begin{tikzpicture}
+	\draw[xstep=2cm,ystep=0.5cm,color=gray] (-.01,0) grid (4,.5);
+	\node[anchor=west] at (-.5,.25) {$\bm S$};
+	\node[anchor=west] at (0,.25) {After};
+	\node[anchor=west] at (2,.25) {graduation};
+	\draw[xstep=1.5cm,ystep=0.5cm,color=gray] (4.49,0) grid (10.5,.5);
+	\node[anchor=west] at (4,.25) {$\bm B$};
+	\node[anchor=west] at (4.5,.25) {John};
+	\node[anchor=west] at (6,.25) {moved};
+	\node[anchor=west] at (7.5,.25) {to};
+	\node[anchor=west] at (9,.25) {Paris};
+	\node[anchor=west] at (3,-.5) {$\bm G$};
+	\node (ROOT) [fill=black, circle] at (5,-.5) {}
+	  child {node  {After} edge from parent [->] node[left] {\scriptsize $L$\;}}
+	  child {node [fill=black, circle] {}
+	  {
+	    child {node {graduation} edge from parent [->] node[right] {\scriptsize $P$}}
+	  } edge from parent [->] node[right] {\scriptsize $H$} };
+	\end{tikzpicture}
+\end{center}
 
 \vspace*{\fill}
 \pause
@@ -345,20 +344,38 @@ Impact:
 \end{itemize}
 
 \vspace*{\fill}
-\centering
-\begin{tikzpicture}[<-]
-\tikzstyle{vertex}=[vector,draw=black]
-\node[vertex] {}
-  child {node [vertex] {}
-  {
-    child {node {John} edge from parent node[] {}}
-    child {node {and} edge from parent node[] {}}
-    child {node {Mary} edge from parent node[] {}}
-  } edge from parent node[] {}}
-  child {node {went} edge from parent node[] {}}
-  child {node {home} edge from parent node[] {}}
-  ;
-\end{tikzpicture}
+\begin{center}
+  \begin{tikzpicture}[level distance=1cm, sibling distance=2cm, ->]
+    \node (ROOT) [fill=black, vector] {}
+      child {node (After) {After} edge from parent [shorten <=3mm]
+        node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=black, vector] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=black, vector] {}
+      {
+        child {node (John) {John} edge from parent [shorten <=2mm]
+          node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=black, vector] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent [shorten <=2.5mm,shorten >=3mm] node[left] {\scriptsize $A$} }
+      } edge from parent [shorten <=3.5mm,shorten >=4mm] node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->,shorten <=2.5mm] (graduation) to node [auto] {\scriptsize $A$} (John);
+    \node (LKG) at (-1.8,0) [fill=black!20, vector] {};
+        \draw[bend right,shorten <=4mm] (LKG) to
+          node [auto, left] {\scriptsize $LR$} (After);
+        \draw (LKG) to[out=-60, in=120]
+          node [below] {\scriptsize $LA$\quad\;} (graduation);
+        \draw[shorten <=2mm] (LKG) to[out=30, in=90]
+          node [above] {\scriptsize $LA$} (moved);
+  \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -367,6 +384,42 @@ Word embeddings represent words as vectors in $\mathbb{R}^n$.
 
 \vspace*{\fill}
 \pause
+Recurrent neural networks (or variations, e.g. LSTM)
+represent a sequence based on the vectors for individual elements:
+
+\vspace*{\fill}
+\begin{center}
+	\begin{tikzpicture}[shorten >=1pt,->]
+	\tikzstyle{vertex}=[vector,draw=black]
+	\foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}{
+	  \node[vertex] (G-\name) at (\x,1) {};
+	  \node (\name) at (\x,0) {\name};
+	  \draw (\name) -- (G-\name);
+	}
+	\foreach \from/\to in {John/and,and/Mary,Mary/Went,Went/Home}
+	  \draw [shorten <=5mm,shorten >=5mm] (G-\from) -- (G-\to);
+	\end{tikzpicture}
+\end{center}
+
+Recursive neural networks (also known as "tree RNNs", but any DAG works)
+use hierarchical structure of the input:
+
+\vspace*{\fill}
+\begin{center}
+	\begin{tikzpicture}[<-]
+	\tikzstyle{vertex}=[vector]
+	\node[vertex] {}
+	  child {node [vertex] {}
+	  {
+	    child {node {John} edge from parent node[] {}}
+	    child {node {and} edge from parent node[] {}}
+	    child {node {Mary} edge from parent node[] {}}
+	  } edge from parent node[] {}}
+	  child {node {went} edge from parent node[] {}}
+	  child {node {home} edge from parent node[] {}}
+	  ;
+	\end{tikzpicture}
+\end{center}
 \end{frame}
 
 
