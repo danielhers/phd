@@ -268,6 +268,35 @@ a4 ->  ["op1"' above, black] a4 Paris;
 \end{frame}
 
 
+\begin{frame}
+\frametitle{UCCA Corpora}
+\begin{center}
+	\begin{tabular}{l|ccc|c}
+	& \multicolumn{3}{c|}{Wiki} & 20K \\
+	& \small Train & \small Dev & \small Test & Leagues \\
+	\hline
+	\# passages & 300 & 34 & 34 & 154 \\
+	\# sentences & 4267 & 453 & 518 & 506 \\
+	\hline
+	\# nodes & 298,665 & 33,263 & 37,262 & 29,315 \\
+	\% terminal & 42.95 & 43.62 & 42.89 & 42.09 \\
+	\% non-term. & 58.30 & 57.46 & 58.31 & 60.01 \\
+	\% discont. & 0.53 & 0.51 & 0.47 & 0.81 \\
+	\% reentrant & 2.31 & 1.76 & 2.18 & 2.03 \\
+	\hline
+	\# edges & 287,381 & 32,015 & 35,846 & 27,749 \\
+	\% primary & 98.29 & 98.81 & 98.75 & 97.73 \\
+	\% remote & 1.71 & 1.19 & 1.25 & 2.27 \\
+	\hline
+	\multicolumn{3}{l}{\footnotesize Average per non-terminal node} \\
+	\# children & 1.67 & 1.68 & 1.66 & 1.61 
+	\end{tabular}
+\end{center}
+
+Excluding root node, implicit nodes, and linkage nodes and edges.
+\end{frame}
+
+
 \section[]{UCCA Parsing}
 
 \begin{frame}
@@ -437,13 +466,80 @@ performance on semantic tasks:
 \end{frame}
 
 
-\section[]{Conclusion}
+\section[]{Experiments}
 
 \begin{frame}
-\frametitle{Conclusion}
+\frametitle{UCCA Parser}
 \begin{itemize}
- \item UCCA
+ \item Transition-based parser using
+ \begin{itemize}
+   \item Sparse perceptron with binary features.
+   \item Dense perceptron with pre-trained word embeddings.
+   \item Feedforward neural network with real-valued features.
+ \end{itemize}
+ \item Baselines: bilexical DAG parser after conversion.
 \end{itemize}
+\vspace*{\fill}
+\begin{center}
+	\begin{dependency}[theme = simple]
+	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\depedge{2}{1}{L}
+	\depedge{2}{3}{U}
+	\depedge[dashed]{2}{4}{A}
+	\depedge{5}{4}{A}
+	\depedge{2}{5}{H}
+	\depedge{7}{6}{R}
+	\depedge{5}{7}{A}
+	\end{dependency}
+	\begin{dependency}[theme = simple]
+	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
+	John \^ gave \^ everything \^ up \\
+	\end{deptext}
+	\depedge{1}{2}{A}
+	\depedge{3}{2}{A}
+	\depedge{4}{2}{C}
+	\end{dependency}
+  \hspace*{\fill}
+	\begin{dependency}[theme = simple]
+	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
+	John \^ and \^ Mary \^ went \^ home \\
+	\end{deptext}
+	\depedge[edge start x offset=-6pt]{1}{4}{A}
+	\depedge{2}{1}{N}
+	\depedge{3}{1}{C}
+	\depedge{5}{4}{A}
+	\end{dependency}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+\begin{center}
+	\begin{tabular}{l|ccc|ccc}
+	& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
+	& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
+	\hline
+	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Bilexical Approximation} \\
+	Upper Bound % on the test set and ood set only
+	& 93.4 & 83.7 & 88.3 & 73.9 & 49.5 & 59.3 \vspace{.1cm} \\
+	DAGParser
+	& 63.7 & 	56.1	 & 59.5	 & 0.8	 & 9.5	 &  1.4 \\
+	TurboParser
+	& 60.2	 & 47.4	 & 52.9	 & 2.2	 & 7.8	 &  3.4 \\
+	\hline
+	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Direct Approach} \\
+	Sparse perceptron
+	& 64 & 55.6 & 59.5 & 16 & 11.6 & 13.4 \\
+	Dense perceptron
+	& 55 & 54.8 & 54.9 & 15.2 & 16.9 & 16 \\
+	Feedforward NN
+	& {\bf 65} & {\bf 62.5} & {\bf 63.7} & {\bf 20.7} & {\bf 11.3} & {\bf 14.6}
+	\end{tabular}
+\end{center}
+
+Results on Wiki test set.
 \end{frame}
 
 \end{document}
