@@ -1,44 +1,21 @@
 \documentclass[12pt]{article}
 \usepackage{fontspec}
-\usepackage{cite}
 \usepackage{fullpage}
-\usepackage{ifpdf}
 \usepackage{hyperref}
 \usepackage{array}
-\usepackage{times}
 \usepackage{url}
 \usepackage{amsmath}
-\usepackage{breqn}
-\usepackage{latexsym}
 \usepackage{pgfplotstable}
 \usepackage{algorithm2e}
-\usepackage{hhline}
 \usepackage{multirow}
-\usepackage{caption}
 \usepackage{subcaption}
 \usepackage{color}
-\usepackage{lipsum,adjustbox}
+\usepackage{adjustbox}
 \usepackage{tikz}
 \usepackage{tikz-dependency}
 \usetikzlibrary{shapes,fit,calc,er,positioning,intersections,decorations.shapes,mindmap,trees}
 \tikzset{decorate sep/.style 2 args={decorate,decoration={shape backgrounds,shape=circle,
       shape size=#1,shape sep=#2}}}
-
-\newcommand{\secref}[1]{Section~\ref{#1}}
-\newcommand{\figref}[1]{Figure~\ref{#1}}
-\newcommand{\tabref}[1]{Table~\ref{#1}}
-\newcommand{\algref}[1]{Algorithm~\ref{#1}}
-\DeclareMathOperator*{\argmin}{argmin}
-\DeclareMathOperator*{\argmax}{argmax}
-\SetKwRepeat{Do}{do}{while}
-\renewcommand\AlCapFnt{\normalfont}
-
-\makeatletter
-\renewcommand{\paragraph}{
-  \@startsection{paragraph}{4}
-  {\z@}{.3ex \@plus .3ex \@minus .2ex}{-1em}
-  {\normalfont\normalsize\bfseries}
-}
 
 \newfontfamily\hebfont[Script=Hebrew, Scale=MatchUppercase]{FreeSans}
 \newcommand{\heb}[1]{\bgroup\textdir TRT\hebfont #1\egroup}
@@ -63,123 +40,20 @@ Prof. Ari Rappoport and Dr. Omri Abend & \heb{פרופ' ארי רפופורט ו
 
 \section{Introduction}\label{sec:introduction}
 
-\subsection{Linguistic Annotation}
-
-Semantic tasks in natural language processing, such as machine translation and
-sentiment analysis, require understanding the meaning of text. Since text is
-merely a sequence of words, it has to be represented in a way that will convey
-its meaning. One simple approach, known as the bag-of-words model, looks only
-at which words occur in the text. This can already provide
-substantial information about the meaning, but it ignores the order of words,
-which clearly conveys important information as well. The n-gram model counts
-sequences of words with regard to their order, incorporating at least some of
-the meaning encoded in the text structure. These models and variations of them
-are quite successfully applied to a variety of
-tasks\cite{mikolov2013efficient}. Nevertheless, an undeniable part in the
-meaning of language resides in its hierarchical structure. Syntax is a way to
-model this structure formally. Using syntactic features can improve the
-performance in semantic tasks\cite{vandeghinste2013parse}.
-
-However, syntactic annotations suffer from limitations, since they do not
-represent the semantic structure of text directly. Simple manipulations such as
-switching from an active construction to a passive one, which nearly do not
-alter the meaning of text, can yield a significantly different syntactic
-structure. Moreover, the same syntactic construct can express conceptually
-distinct semantic structures\cite{abend2013ucca}.
-
-
-\subsection{Semantic Parsing}
-
-Semantic annotation schemes attempt to represent the meaning of natural
-language utterances directly. An example is semantic role
-labeling\cite{baker1998framenet}\cite{paass2014semantic}, which annotates
-predicates and their arguments, classifying them into specific roles. As
-opposed to syntactic annotation, which reflects language-specific formal
-patterns, semantic annotation corresponds to a higher level of cognitive
-processing, and the same framework can potentially apply to any language.
-Moreover, a rich semantic annotation scheme may be better than
-syntactic annotation as an input for applications that attempt to solve a
-semantic task, due to their tighter relation to the meaning of the text.
-
-While earlier work on semantic parsing has mostly concentrated on shallow semantic analysis,
-focusing on semantic role labeling of verbal argument structures,
-the focus has recently shifted to parsing of more elaborate representations that account
-for a wider range of phenomena. 
-Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
-%addressed in two SemEval tasks \cite{oepen2014semeval,oepen2015semeval},
-%experimenting with the Prague tectogrammatical layer \cite{sgallhp:1986,bohmova2003prague},
-%and with dependencies derived from the Enju parser\footnote{See
-%\url{http://kmcs.nii.ac.jp/enju/}.}, and Lingo ERG \cite{Flic:02}.
-It addresses a wide range of semantic phenomena,
-and supports discontinuous units and multiple parents
-(see \secref{sec:broad_coverage}).
-However, SDP uses
-bi-lexical dependencies, disallowing non-terminal nodes, and thus faces difficulties in supporting
-structures that have no clear head, such as coordination \cite{Ivanova2012who}.
-
-Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
-Within the grammar-based literature, most work relied on Combinatory Categorial Grammar (CCG)
-\cite{Steedman:00}, which allows computing semantic structure compositionally from the
-syntactic derivations. Notable examples include the Boxer parser \cite{bos2005towards}
-and the AMR parser by \cite{artzi2015broad}.
-Other examples include parsing with Hyperedge Replacement Grammars
-\cite{jones2012semantics,chiang2013parsing,peng2015synchronous} and
-graph grammars \cite{koller2015semantic}.
-A different line of work takes a discriminative, grammarless approach,
-pursuing either graph-based methods that predict the highest ranking graph
-(tree or DAG) that satisfies a given set of constraints
-\cite[for AMR parsing]{flanigan2014discriminative},
-or a transition-based method (see \secref{sec:transition_based})
-that builds the parse incrementally following a series of local
-decisions \cite{Nivre03anefficient}.
-
-Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
-\cite{flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
-While sharing much of my work's motivation,
-AMR does not ground its units in the words and constituents of the text.
-This complicates the parsing task, as it requires
-that the alignment between words and logical symbols be automatically
-(and imprecisely) detected.
-\cite{wang2015transition} applied a transition-based approach to AMR parsing,
-but their method involved first syntactically parsing the input, and then converting
-the resulting tree into an AMR.
-
-\subsection{Broad-Coverage Semantic Representation}\label{sec:broad_coverage}
-
+Semantic applications in natural language processing (e.g., machine translation)
+require understanding the meaning of text.
+Syntactic representations suffer from limitations, since they do not
+represent semantic structure directly,
+which semantic annotation schemes attempt to do.
 In order to represent the full range of semantic structures exhibited by
-natural language, there are three structural properties that should be supported.
-The first is \textbf{multiple parents},
-representing arguments and relations (semantic units) that are shared between predicates.
-For instance, in the sentence
-``After graduation, John moved to Paris'', ``John'' is an argument of both ``graduation''
-and ``moved'', yielding a DAG structure (\figref{fig:graduation}), rather than a tree.
+natural language, three properties should be supported: reentrancy,
+representing arguments shared between predicates (Figure~\ref{fig:graduation});
+non-terminal nodes for multi-word units (Figure~\ref{fig:home});
+and discontinuity of semantic units in the text (Figure~\ref{fig:gave}).
+The only semantic annotation scheme that supports the combination of these criteria is UCCA
+\cite{abend2013universal}.
 
-The second is \textbf{non-terminal nodes} for representing units
-comprising more than one word.
-While bi-lexical dependencies partially circumvent this requirement, by
-representing complex units in terms of their headwords, they fall short
-when representing units that have no clear head.
-Frequent examples of such constructions include
-coordination structures (e.g., ``\textit{John and Mary} went home''; \figref{fig:home}),
-some multi-word expressions (e.g., ``The Haves and the \textit{Have Nots}''),
-and prepositional phrases.
-In these cases, dependency schemes often apply some annotation convention that
-selects one of the sub-units
-as the head, but as different head selections are needed for different purposes,
-standardization problems arise \cite{Ivanova2012who}.
-For example, selecting the preposition to head prepositional phrases yields better
-parsing results \cite{Schwartz:12}, while the head noun can be more useful for
-information extraction purposes.
-
-Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
-``John \textit{gave} everything \textit{up}''
-(\figref{fig:gave}), the phrasal verb ``gave ... up'' forms a single semantic unit.
-Discontinuities are also pervasive with other multi-word
-expressions \cite{schneider2014discriminative}.
-Formal representations supporting all three properties are referred to as
-{\it Broad-coverage Semantic Structures} (BSS) \cite{hershcovich2016broad}.
-
-\begin{figure}[ht!]\small
+\begin{figure}[ht]\small
   \begin{subfigure}{.6\textwidth}
   \parbox{.1\textwidth}{\caption{}\label{fig:graduation}}
   \parbox{.3\textwidth}{
@@ -203,10 +77,6 @@ Formal representations supporting all three properties are referred to as
       } edge from parent node[right] {\scriptsize $H$} }
       ;
     \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
-    \node (LKG) at (-1.8,0) [fill=black!20, circle] {};
-          \draw[bend right] (LKG) to node [auto, left] {\scriptsize $LR$} (After);
-          \draw (LKG) to[out=-60, in=190] node [below] {\scriptsize $LA\quad$} (graduation);
-    \draw (LKG) to[out=30, in=90] node [above] {\scriptsize $LA$} (moved);
   \end{tikzpicture}
   }
   \end{subfigure}
@@ -257,7 +127,7 @@ Formal representations supporting all three properties are referred to as
       child {node (totakeaquickshower) [fill=black, circle] {}
       {
         child {node {to} edge from parent node[left] {\scriptsize $F$}}
-        child {node (takeashower) [fill=black, circle] {}
+        child {node [fill=black, circle] {}
         {
           child {node {take} edge from parent node[left] {\scriptsize $C$}}
           child {node {a} edge from parent node[right] {\scriptsize $F$}}
@@ -266,166 +136,70 @@ Formal representations supporting all three properties are referred to as
         } edge from parent node[right] {\scriptsize $P$} }
       } edge from parent node[left] {\scriptsize $A$} }
       ;
-    \draw[bend left,dashed,->] (takeashower) to node [auto] {\scriptsize $A$} (John);
+    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
     \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
   \end{tikzpicture}
   }
   \end{subfigure}
   \caption{\label{fig:examples}
-    Semantic representation of the three structural properties
-    required for BSS, according to the UCCA scheme.
+    UCCA examples.
     (\subref{fig:graduation}) includes a remote edge (dashed),
-    resulting in ``John'' having two parents, and a linkage relation (gray node and its outgoing edges).
+    resulting in ``John'' having two parents.
     (\subref{fig:home}) includes a coordination construction (``John and Mary'').
     (\subref{fig:gave}) includes a discontinuous unit (``gave ... up'').
     (\subref{fig:shower}) includes both a remote edge and a discontinuous unit (``take a ... shower'').
-    Legend: $P$ -- a Scene's main relation, $A$ -- participant,
-    $L$ -- inter-scene linker, $H$ -- linked Scene, $C$ -- center, $D$ -- adverbial,
-    $R$ -- relator, $N$ -- connector, $U$ -- punctuation, $F$ -- function unit,
-    $LR$ -- link relation, $LA$ -- link argument.
-    Pre-terminal nodes are omitted for brevity.
+    Legend: $P$ -- Process (a Scene's main relation), $A$ -- Participant,
+    $L$ -- inter-scene Linker, $H$ -- Parallel Scene, $C$ -- Center, $D$ -- Adverbial,
+    $R$ -- Relator, $N$ -- Connector, $U$ -- Punctuation, $F$ -- Function unit.
   }
 \end{figure}
 
-However, no existing parser supports the combination of these criteria.
-The only semantic annotation scheme that supports them is UCCA (see \secref{sec:ucca}),
-which has no existing parser prior to my work.
-Several other models either support some of these properties \cite{oepen2015semeval},
-or avoid grounding semantic units altogether
-(notably, AMR \cite{banarescu2013abstract}).
-
-\subsection{Universal Conceptual Cognitive Annotation}\label{sec:ucca}
 Universal Cognitive Conceptual Annotation (UCCA)
-is a cross-linguistically applicable semantic representation scheme,
-that builds on the established ``Basic Linguistic Theory'' framework for typological description
-\cite{Dixon:10b,Dixon:10a,Dixon:12}, and on the Cognitive Linguistics literature.
-UCCA is a multi-layered representation, where each layer corresponds to a ``module'' of
-semantic distinctions (e.g., predicate-argument structures, adverbials, coreference etc.).
-%Importantly, the same set of categories can be applied across different lexical items and languages.
-%This stands in contrast to more schemes such as FrameNet \cite{Baker:98},
-%PropBank \cite{Palmer:05} and AMR, that define an open-ended, lexically-based set of categories,
-%which while providing further information, are more prone to coverage issues \cite{Palmer:10},
-%and may result in a different set of relations when applied to different languages \cite{Xue2014not}.
+is a cross-linguistically applicable semantic representation scheme.
+It covers the predicate-argument
+structures evoked by predicates of all grammatical categories, the inter-relations between them,
+as well as other major linguistic phenomena.
+UCCA has demonstrated applicability to multiple languages,
+rapid annotation \cite{abend2017uccaapp},
+stability in translation \cite{sulem2015conceptual}
+and benefit for various applications
+\cite{birch2016hume,choshen2018usim,sulem2018samsa,sulem2018simple}.
 
-Formally, a UCCA structure over a sentence is a DAG, whose leaves correspond to the sentence's words.
-The nodes of the graph, or its ``units'', are either terminals or several
-sub-units (not necessarily contiguous) jointly viewed as a
-single entity according to some semantic or cognitive consideration.
-Edges bear a category, indicating the role of the sub-unit in the relation that the parent represents.
-UCCA structures support all three criteria of BSS: multiple parents, non-terminal nodes, and
-discontinuous units.
+While semantic representation schemes are different in form and focus,
+much of their semantic content is shared \cite{abend2017state}.
+Recent work in semantic parsing has targeted
+Abstract Meaning Representation \cite{banarescu2013abstract} and
+Semantic Dependencies \cite{oepen2016towards}.
+Universal Dependencies \cite{nivre2016universal}
+is a \textit{syntactic} dependency scheme aiming for cross-lingual consistency,
+whose annotation is often similar to the common practice in semantic treebanks
+(Figure~\ref{fig:original_example_ud}).
 
-UCCA's foundational layer covers the predicate-argument
-structures evoked by predicates of all grammatical categories
-(verbal, nominal, adjectival and others), the inter-relations between them,
-as well as other major linguistic phenomena such as coordination and multi-word expressions.
-This set of categories has demonstrated applicability to multiple languages, including
-English, French, German and Czech, support for rapid annotation, and semantic stability in translation:
-UCCA annotations of translated text usually contain the same set of relationships
-\cite{sulem2015conceptual}. This finding supports the claim that UCCA represents an abstract
-level of semantics, shared by different languages.
+\begin{figure}[th]
+  \centering
+    \begin{dependency}[text only label, label style={above,font=\tt}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \end{deptext}
+        \depedge[edge unit distance=1ex]{2}{1}{case}
+        \depedge[edge unit distance=1ex]{4}{3}{punct}
+        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
+        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{2}{5}{obl}
+        \depedge[edge unit distance=1ex]{7}{6}{case}
+        \deproot[edge unit distance=1.5ex]{5}{root}
+        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
+    \end{dependency}
+\caption{Example UD tree, demonstrating practices common in semantic annotation:
+linking content words to content words, and the preference of lexical heads over functional ones.
+\label{fig:original_example_ud}}
+\end{figure}
 
-The layer's basic notion is the {\it Scene}, which describes a movement, an action or a state.
-Each Scene contains one Main Relation, as well as one or more Participants.
-For example, the sentence ``After graduation, John moved to Paris'' contains two Scenes,
-whose main relations are ``graduation'' and ``moved''. ``John'' is a Participant in both Scenes,
-while ``Paris'' only of the latter.
-The scheme marks one of the incoming edges for each non-root
-as ``primary'' and the others as ``remote'' edges.
-The two Scenes in this sentence are both arguments of the \textit{Linker} ``After'',
-which in this case expresses a temporal relation between them.
-\figref{fig:examples} presents the UCCA annotation of this and other examples.
-
-Further categories account for relations between Scenes and the internal structures of
-complex arguments (e.g., coordination) and relations
-(e.g., complex adverbials, such a ``very clearly''). UCCA graphs may contain implicit
-units that have no correspondent in the text.
-
-%\figref{fig:soybeans} shows the UCCA annotation for the sentence
-%``A similar technique is almost impossible to apply to other crops, such as cotton, soybeans and rice.''.
-%The sentence was used by \cite{oepen2015semeval} to compare between difference semantic parsing schemes.
-%It includes a single Scene, whose main relation is ``apply'', a secondary relation ``almost impossible'', as well as two complex arguments: ``a similar technique'' and the coordinated argument ``such as cotton, soybeans, and rice.''
-%The scene contains an implicit unit, as the agent of ``apply'' has no correspondent in the text.
-
-%\begin{figure}\small
-%  \centering
-%  \scalebox{.6}{
-%  \begin{tikzpicture}[level distance=20mm, ->,
-%  level 1/.style={sibling distance=8em},
-%  level 2/.style={sibling distance=4em},
-%  level 3/.style={sibling distance=4em}]
-%    \node (ROOT) [fill=black, circle] {}
-%      child {node [fill=black, circle] {}
-%      {
-%        child {node {A} edge from parent node[left] {\scriptsize $E$}}
-%        child {node {similar} edge from parent node[left] {\scriptsize $E$}}
-%        child {node {technique} edge from parent node[right] {\scriptsize $C$}}
-%      } edge from parent node[left] {\scriptsize $A\quad$ \hspace{1mm} } }
-%      child {node {is} edge from parent node[left] {\scriptsize $F$}}
-%      child {node [fill=black, circle] {}
-%      {
-%        child {node {almost} edge from parent node[left] {\scriptsize $E$}}
-%        child {node {impossible} edge from parent node[right] {\scriptsize $C$}}
-%      } edge from parent node[left] {\scriptsize $D$} }
-%      child {node {\textbf{IMPLICIT}} edge from parent node[left] {\scriptsize $A$}}
-%      child {node {to} edge from parent node[left] {\scriptsize $F$}}
-%      child {node {apply} edge from parent node[left] {\scriptsize $P\quad$}}
-%      child {node [fill=black, circle] {}
-%      {
-%        child {node {to} edge from parent node[left] {\scriptsize $R$}}
-%        child {node {other} edge from parent node[left] {\scriptsize $E$}}
-%        child {node {crops} edge from parent node[left] {\scriptsize $C$}}
-%        child {node {,} edge from parent node[left] {\scriptsize $U$}}
-%        child {node [fill=black, circle] {}
-%        {
-%          child {node {such as} edge from parent node[left] {\scriptsize $R$}}
-%          child {node {cotton} edge from parent node[left] {\scriptsize $C$}}
-%          child {node {,} edge from parent node[left] {\scriptsize $U$}}
-%          child {node {soybeans} edge from parent node[left] {\scriptsize $C$}}
-%          child {node {and} edge from parent node[left] {\scriptsize $N$}}
-%          child {node {rice} edge from parent node[right] {\scriptsize $\; C$}}
-%        } edge from parent node[right] {\scriptsize $\; E$ \hspace{1mm} } }
-%      } edge from parent node[left] {\scriptsize $A\;$ \hspace{1mm} } }
-%      child {node {.} edge from parent node[right] {\scriptsize $\quad \quad U$}}
-%      ;
-%  \end{tikzpicture}
-%  }
-%  \caption{Additional UCCA example
-%  \label{fig:soybeans}
-%  }
-%\end{figure}
-
-%Supervised learning of a simplified version of UCCA has already been attempted by
-%flattening the structure, to get a sequence tagging
-%problem\cite{beka2013thesis}. An accuracy of $65\%$ was achieved using a
-%maximum-entropy model. After these initial results, however, the task was
-%abandoned, firstly because the data set was still small at the time (only a few
-%thousands of words), and secondly due to the realization that further
-%conversion from a flat tagging scheme to the full hierarchic one is not
-%trivial, and could cause subsequent error in the annotation. Therefore, a
-%direct hierarchic structure prediction may be more reliable. Some attempts were
-%made by \cite{beka2013thesis} at a partial rule-based heuristic approach, but they proved inefficient.
-%On the identification of scene-evoking nouns, a subset of a specific type of
-%relation in UCCA, the performance was not very high either.
-
-\subsection{Distributed Representation}\label{sec:distributed}
-
-Another approach to meaning representation, which has gained popularity recently, is the
-representation of words as vectors in a continuous vector space with tens or
-hundreds of dimensions\cite{turian2010word}, such that linguistic and semantic
-regularities between the words are captured in the
-vectors\cite{mikolov2013linguistic}. This kind of representation, called
-\textit{word embedding}, can be learned in an unsupervised manner, from large
-unlabeled corpora.
-Several methods have been developed for generalizing these models to create embeddings
-for multi-word phrases, sentences, and even complete documents (see \secref{sec:deep_learning}).
-These provides complementary semantic information about the text,
-readily used in many machine learning techniques that operate on vectors of numbers.
-The more accurately these vectors represent the meaning of the text, the better semantic tasks
-can be solved using them.
-However, composing these representation so as to maintain the semantic structure remains a challenge.
-
-
+My research is concerned with learning to parse UCCA graphs from text, representing its semantics.
+I introduce a general graph parser,
+and investigate the relationship with other representations to find beneficial commonalities and
+differences highlighting the potential utility of semantic parsers for text understanding applications.
+The analysis also exposes challenges semantic parsers must address,
+and potential sources for improvement.
 
 \section{Goals}\label{sec:goals}
 
@@ -497,7 +271,7 @@ several fields of computer science, including computer vision, speech
 recognition and natural language processing, due to their best performance in
 various tasks\cite{collobert2011nlp}.
 In natural language processing, many of the deep learning methods rely strongly
-on distributed representation (see \secref{sec:distributed}).
+on distributed representation (see \S\ref{sec:distributed}).
 
 Neural networks are typically trained by gradient descent, where the gradient for the network parameters
 is calculated using backpropagation.
@@ -604,7 +378,7 @@ and the out-of-domain data is taken from the English part of the UCCA
 \textit{Twenty Thousand Leagues Under the Sea} English-French parallel corpus
 (henceforth, \textit{20K Leagues}).\footnote{Both are available at
 \url{http://www.cs.huji.ac.il/~oabend/ucca.html}}
-\tabref{table:data} presents some statistics for the two corpora, demonstrating that while
+Table~\ref{table:data} presents some statistics for the two corpora, demonstrating that while
 the \textit{Wiki} corpus is over ten times larger, the overall statistics are
 similar.
 Passages of indices up to 655 of the \textit{Wiki} corpus are used as training
@@ -615,7 +389,7 @@ and so this was done here too.
 Inter-relations between sentences are thus discarded (0.18\% of the edges).
 Linkage nodes and edges are also discarded, as they often express
 inter-sentence relations and are thus mostly redundant when applied at the
-sentence level, as well as implicit nodes (see \secref{sec:introduction}).
+sentence level, as well as implicit nodes (see \S\ref{sec:introduction}).
 In the out-of-domain experiments, the same parser
 (trained on the \textit{Wiki} corpus) is applied to the entire \textit{20K
 Leagues} corpus as test set, without re-tuning any parameters.
@@ -706,7 +480,7 @@ predict trees.
 
 \subsection{Results}\label{sec:results}
 
-\tabref{table:results} presents the experimental results, as well as
+Table~\ref{table:results} presents the experimental results, as well as
 upper bounds for the conversion-based methods.
 In addition to the results on the test set,
 the table presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
@@ -867,9 +641,9 @@ semantic structures into a variety of applications, such as machine translation
 \cite{jones2012semantics} and summarization \cite{liu2015toward}.
 
 In the coming year, I will focus my research on improving the different parsing approaches
-(\secref{sec:improving_conversions} and \secref{sec:improving_bsp}).
+(\S\ref{sec:improving_conversions} and \S\ref{sec:improving_bsp}).
 In the following year, I intend to continue my research by demonstrating the effectiveness
-of the parser when applied to semantic tasks (\secref{sec:semantic_tasks}).
+of the parser when applied to semantic tasks (\S\ref{sec:semantic_tasks}).
 
 
 \subsection{Improving the conversion procedure}\label{sec:improving_conversions}
