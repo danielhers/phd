@@ -256,6 +256,17 @@ units called neurons.
 Artificial neural networks operate on dense input representations
 by linear and non-linear transformations, and combinations thereof.
 
+When dealing with language data, it is very common to work with sequences, such
+as words (sequences of letters), sentences (sequences of words) and documents.
+Recurrent neural networks \cite{elman1990finding} allow representing
+arbitrarily sized structured
+inputs in a fixed-size vector, while paying attention to the structured
+properties of the input.
+Specifically, a bidirectional recurrent neural network (BiRNN) is
+an extension of RNNs that take into account both the
+past and the future. A specific flavor of RNN called a long short-term memory network
+(LSTM) is very common as it yields strong results.
+
 
 \section{Experiments}\label{sec:experiments}
 
