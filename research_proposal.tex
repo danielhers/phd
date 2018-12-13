@@ -1,14 +1,9 @@
 \documentclass[12pt]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage[hebrew,english]{babel}
+\usepackage{fontspec}
 \usepackage{cite}
 \usepackage{fullpage}
 \usepackage{ifpdf}
-\ifpdf
-  \usepackage{hyperref}
-\else
-  \usepackage[hypertex]{hyperref}
-\fi
+\usepackage{hyperref}
 \usepackage{array}
 \usepackage{times}
 \usepackage{url}
@@ -45,15 +40,15 @@
   {\normalfont\normalsize\bfseries}
 }
 
-\newcommand{\heb}[1]{\begin{small}\R{#1}\end{small}}
-\newcommand{\hebt}[1]{\begin{scriptsize}\R{#1}\end{scriptsize}}
+\newfontfamily\hebfont[Script=Hebrew, Scale=MatchUppercase]{FreeSans}
+\newcommand{\heb}[1]{\bgroup\textdir TRT\hebfont #1\egroup}
 
-\title{\hebt{תכנית-מחקר המוגשת לאישור כתכנית לעבודת-דוקטור} \\
+\title{\heb{תכנית-מחקר המוגשת לאישור כתכנית לעבודת-דוקטור} \\
 \vspace{1cm}
 Universal Semantic Parsing With Neural Networks \\
-\R{ניתוח סמנטי אוניברסלי באמצעות רשתות נוירונים}
+\heb{ניתוח סמנטי אוניברסלי באמצעות רשתות נוירונים}
 }
-\date{2016 \R{מאי}}
+\date{2016 \heb{מאי}}
 
 \begin{document}
 
@@ -61,22 +56,11 @@ Universal Semantic Parsing With Neural Networks \\
 
 \begin{table}[!th]\small
 \begin{tabular}{lr>{\bfseries}r}
-Daniel Hershcovich & \R{דניאל הרשקוביץ} & \R{שם התלמיד:} \\
-Prof. Ari Rappoport and Dr. Omri Abend & \R{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \R{שמות המדריכים:}
+Daniel Hershcovich & \heb{דניאל הרשקוביץ} & \heb{שם התלמיד:} \\
+Prof. Ari Rappoport and Dr. Omri Abend & \heb{פרופ' ארי רפופורט וד"ר עמרי אבנד} & \heb{שמות המדריכים:}
 \end{tabular}
 \end{table}
 
-\vspace{\fill}
-
-\begin{table}[!th]\small\centering
-\hebt{הריני מאשר את הנושא ואת התוכנית, ומסכים להדריך את המועמד בביצוע עבודה זו:}
-
-\begin{tabular}{cc}
-\R {עמרי אבנד} & \R{ארי רפופורט} \\
-\\
-___________________ & ___________________
-\end{tabular}
-\end{table}
 
 
 \section{Introduction}\label{sec:introduction}
