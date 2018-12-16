@@ -223,10 +223,9 @@ In my research, I pursue the following goals:
 Transition-based parsers \cite{Nivre03anefficient} build trees or graphs
 as they scan the text incrementally.
 The parse is created by applying a \textit{transition} at each step to the parser state,
-defined using three data structures: a buffer $B$ of tokens and nodes to be processed,
-a stack $S$ of nodes currently being processed,
-and a graph $G=(V,E,\ell)$ of constructed nodes and labeled edges.
-Some of the states are marked as \textit{terminal}, meaning that $G$ is the final output.
+defined using a buffer of tokens and nodes to be processed,
+a stack of nodes currently being processed,
+and a graph of constructed nodes and labeled edges.
 A classifier is used at each step to select the next transition based on features
 that encode the parser's current state.
 During training, an oracle creates training instances for the classifier,
@@ -238,34 +237,51 @@ results in syntactic dependency parsing
 strong performance in a variety of other semantic and syntactic settings
 \cite{maier2015discontinuous,damonte-17}.
 Transition-based methods are a natural starting point for UCCA parsing,
-as the set of distinctions it represents, which is centered around predicate-argument
-structures and their inter-relations, is similar in spirit to the distinctions
+as the set of distinctions it represents is similar in spirit to the distinctions
 conveyed by dependency schemes.
 
 
 \subsection{Neural Networks}\label{sec:neural_networks}
 
-Over the past few years, neural networks have re-emerged as powerful
-machine-learning models, yielding state-of-the-art results in fields such as image
-recognition and speech processing. More recently, neural network models
-started to be applied also to textual natural language signals, again with very
-promising results \cite{goldberg2016primer}.
-As the name suggest, they are
-inspired by the brain's computation mechanism, which consists of computation
-units called neurons.
-Artificial neural networks operate on dense input representations
-by linear and non-linear transformations, and combinations thereof.
+Neural networks are powerful machine learning models.
+They have yielded state-of-the-art results in many fields,
+including natural language processing \cite{goldberg2016primer}.
+Inspired by the brain's computation mechanism,
+artificial neural networks operate on dense input representations
+by a combination of linear and non-linear transformations.
 
-When dealing with language data, it is very common to work with sequences, such
-as words (sequences of letters), sentences (sequences of words) and documents.
+Language data is commonly manifested as sequences
+(e.g., sentences are sequences of words).
 Recurrent neural networks \cite{elman1990finding} allow representing
-arbitrarily sized structured
-inputs in a fixed-size vector, while paying attention to the structured
-properties of the input.
-Specifically, a bidirectional recurrent neural network (BiRNN) is
-an extension of RNNs that take into account both the
-past and the future. A specific flavor of RNN called a long short-term memory network
-(LSTM) is very common as it yields strong results.
+arbitrarily sized sequences in a fixed-size vector,
+without ignoring the structured properties of the input.
+A specific flavor called Long Short Term Memory
+(LSTM) is very common as it learns relatively long-term dependencies.
+A bidirectional recurrent neural network, such as a BiLSTM,
+takes into account both the past and future.
+
+
+\subsection{Multitask Learning}\label{sec:multitask}
+
+Multitask learning \cite{caruana1998multitask} allows exploiting the overlap between tasks
+to effectively extend the training data, 
+and has greatly advanced with neural networks and representation learning.
+It has been used over the years for NLP tasks with varying degrees of similarity.
+
+Neural multitask learning has mostly been effective in tackling formally similar
+tasks \cite{P16-2038},
+including
+multilingual syntactic dependency parsing \cite{Q16-1031,guo2016exploiting},
+as well as multilingual \cite{duong2017multilingual},
+and cross-domain semantic parsing \cite{herzig-berant:2017:Short,W17-2607}.
+
+Sharing parameters with a low-level task
+has shown great benefit for transition-based syntactic parsing
+\cite{bohnet2012transition,Zhang2016StackpropagationIR,constant-nivre:2016:P16-1,more2016joint}.
+Recent work has achieved state-of-the-art results in multiple NLP tasks
+by jointly learning the tasks forming the NLP standard pipeline using 
+a single neural model \cite{collobert2011natural,D17-1206},
+thereby avoiding cascading errors, common in pipelines.
 
 
 \section{Experiments}\label{sec:experiments}
