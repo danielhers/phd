@@ -491,113 +491,22 @@ Empirical comparison with UD reveals that most content differences between it an
   For example, only 73\% of arguments are shared between UCCA and UD,
   i.e., many semantic participants cannot be recovered from UD.
 
-\section{Significance}\label{sec:significance}
-
-
-Despite the recent diversity of semantic parsing work,
-the effectiveness of different approaches for
-structurally and semantically different schemes is not well-understood
-\cite{kuhlmann2016towards}.
-Our contribution to this literature is a general parser
-that supports multiple parents, discontinuous units and non-terminal nodes.
-
-A parser for UCCA will enable using the framework for new tasks,
-in addition to existing applications such as machine translation
-evaluation \cite{birch2016hume}.
-We believe UCCA's merits in providing a cross-linguistically applicable,
-broad-coverage annotation will support ongoing efforts to incorporate deeper
-semantic structures into various applications,
-such as sentence simplification \cite{narayan2014hybrid} and summarization \cite{liu2015toward}.
-
-
-We demonstrate that semantic parsers can leverage a range of 
-semantically and syntactically annotated data, to improve their performance.
-Our experiments show that MTL improves UCCA parsing,
-using AMR, DM and UD parsing as auxiliaries.
-We propose a unified DAG representation, 
-construct protocols for converting these schemes into the unified format,
-and generalize a transition-based DAG parser to support all these tasks,
-allowing it to be jointly trained on them.
-
-While we focus on UCCA in this work, our parser is capable of parsing any
-scheme that can be represented in the unified DAG format,
-and preliminary results on AMR, DM and UD are promising.
-
-UCCA may have a substantial impact on various semantic NLP tasks. For example,
-for machine translation, many approaches currently rely on syntactic parsing as
-a component, assuming that syntactic structures in one languages tend to be
-translated to the same structures in another language. However, UCCA is more
-stable than syntactic annotation cross-linguistically, when looking at
-translated sentences\cite{sulem2014thesis}. Indeed, UCCA directly represents
-the meaning of the text, which is invariant to translation (by the definition
-of the translation task), whereas syntax is only a proxy that varies between
-languages.
-
-Recent work in neural networks-based machine translation provide some sort of
-an intermediate encoding in the form of distributed representation that can be
-encoded from the source language and then decoded into the target
-language\cite{zou2013bilingual}, or using memory and treating the text as a
-sequence to be converted to another sequence\cite{sutskever2014sequence}.
-However, the encoding is based just on averaging across words in the source
-sentence, on a flat sequence representation, or at best on a syntactic
-representation. A semantic representation like a UCCA graph would perhaps be a
-better candidate for the structure by which the encoding and decoding is
-performed.
-
-Perhaps just as critical as the successful prediction of UCCA structure, if not
-even more critical for the NLP community, is the distributed representation
-created when forming phrases using this structure. Current methods in NLP form
-multi-word representation based on averaging across words or on syntax, which
-may be sub-optimal in representing the true meaning of text. Using a more
-semantically faithful way to compose words, such as UCCA, may be a key factor
-in enabling computers to understand natural language.
-
-
 
 \section{Challenges}\label{sec:challenges}
 
 \paragraph{Dataset size.}
-Models with a large number of parameters typically require training on very
-large datasets, and the number of parameters in a deep learning model usually
-scales linearly with the number of layers and quadratically with the size of
-the representation, along with other factors that may require more parameters.
-Since the UCCA dataset is small in relation to other datasets (such as the Penn
-Treebank), training deep learning models on it may pose a challenge.
-However, as the experimental results show, the neural network-based LSTM parser
-already reaches very high scores on the UCCA task.
-Furthermore, the dataset can be enlarged and extended to more languages by further
-labeling efforts.
+Models with a large number of parameters typically require very large
+training sets.
+Since the UCCA datasets are small in relation to other schemes,
+training neural network models on them posed a challenge.
+While the data is slowly growing and extended to more languages by further labeling efforts,
+multitask learning proved to be an effective method to overcome the data scarcity issue.
 
-
-\paragraph{Scheme coarseness.}
-The UCCA framework was developed with the foundational layer first, including
-relation types that are mainly relevant for syntax. This layer gives only a
-coarse annotation: for examples, it labels processes or states and their
-participants, but not the role of each participant. The intention is to
-gradually refine the annotation to include more fine-grained relation types,
-starting with the simplest distinctions. It is possible that learning
-the foundational layer alone is easier than learning a more
-refined annotation, which would require deeper semantic understanding.
-This remains to be investigated when refinements are introduced.
-
-The coarseness of the foundational layer may mean it is not
-sufficiently informative for assisting in semantic tasks, because they may
-depend on more refined distinctions. However, for many tasks it should be
-enough already, as the semantic distinctions that are apparent in syntax are
-already covered in the scheme.
-
-\section{Required Resources}\label{sec:resources}
-
-The resources currently used in my research are the
-UCCA Wikipedia corpus and the
-UCCA \textit{Twenty Thousand Leagues Under the Sea} English-French parallel corpus.
-In order to demonstrate the universality of the UCCA scheme and the advantages of its general structure,
-it needs to be applied to more languages and domains.
-Specifically, as discontinuous constructions are especially abundant in languages such as German
-\cite{maier2015discontinuous}, a German corpus annotated with UCCA will be a valuable resource for evaluating
-parsers for BSS.
-The universality should be assessed further by experimenting with languages even more different than English,
-such as Chinese. This will require constructing annotated corpora with native speakers of these languages.
+\paragraph{Scheme comparison.}
+While many distinctions are shared between UCCA and other semantic and syntactic schemes,
+they are largely obscured by differences in representation format and convention.
+Conversion to a common graph format and assimilation of superficial structures
+allowed deep inspection of content divergences and convergences.
 
 
 \section{Work Plan}\label{sec:plan}
