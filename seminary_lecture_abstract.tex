@@ -470,8 +470,58 @@ The best multitask models are significantly better than single-task models,
 demonstrating that even a small training set for the main task may suffice,
 given enough auxiliary training data (as in French).
 
+\paragraph{Discussion.}
+
+Task similarity is an important factor in multitask learning
+\cite{E17-2026,E17-1005}.
+Empirical comparison with UD reveals that most content differences between it and UCCA are due to:
+  \begin{enumerate}
+      \item UCCA's distinction of Scene-evoking words and phrases, absent in UD.
+      \item UCCA's distinction between primary relations, secondary relations
+        and Participants, in contrast to UD's core/non-core distinction.
+      \item Different treatment of multi-word expressions (MWEs),
+        where UCCA has a stronger tendency to explicitly mark them.
+      \item UCCA's conflation of several syntactic realizations of inter-clause linkage,
+        and disambiguation of other cases that UD treats similarly.
+   \end{enumerate}
+
+  The differences between the schemes are substantial, and suggest that
+  UCCA parsing in particular and semantic parsing in general are likely to benefit
+  downstream text understanding applications.
+  For example, only 73\% of arguments are shared between UCCA and UD,
+  i.e., many semantic participants cannot be recovered from UD.
 
 \section{Significance}\label{sec:significance}
+
+
+Despite the recent diversity of semantic parsing work,
+the effectiveness of different approaches for
+structurally and semantically different schemes is not well-understood
+\cite{kuhlmann2016towards}.
+Our contribution to this literature is a general parser
+that supports multiple parents, discontinuous units and non-terminal nodes.
+
+A parser for UCCA will enable using the framework for new tasks,
+in addition to existing applications such as machine translation
+evaluation \cite{birch2016hume}.
+We believe UCCA's merits in providing a cross-linguistically applicable,
+broad-coverage annotation will support ongoing efforts to incorporate deeper
+semantic structures into various applications,
+such as sentence simplification \cite{narayan2014hybrid} and summarization \cite{liu2015toward}.
+
+
+We demonstrate that semantic parsers can leverage a range of 
+semantically and syntactically annotated data, to improve their performance.
+Our experiments show that MTL improves UCCA parsing,
+using AMR, DM and UD parsing as auxiliaries.
+We propose a unified DAG representation, 
+construct protocols for converting these schemes into the unified format,
+and generalize a transition-based DAG parser to support all these tasks,
+allowing it to be jointly trained on them.
+
+While we focus on UCCA in this work, our parser is capable of parsing any
+scheme that can be represented in the unified DAG format,
+and preliminary results on AMR, DM and UD are promising.
 
 UCCA may have a substantial impact on various semantic NLP tasks. For example,
 for machine translation, many approaches currently rely on syntactic parsing as
