@@ -286,189 +286,189 @@ thereby avoiding cascading errors, common in pipelines.
 
 \section{Experiments}\label{sec:experiments}
 
-\subsection{Experimental Setup}\label{sec:setup}
+\paragraph{Data.}
 
-In my first experiment, I applied two methods for UCCA parsing:
-one based on conversion to simpler structures and using existing parser,
-and the other where I developed a novel transition-based BSS parser.
+Experiments are performed on the English Wikipedia UCCA corpus (Wiki),
+the \textit{Twenty Thousand Leagues Under the Sea} UCCA corpora (20K),
+annotated in English, French and German;
+LDC2017T10 for AMR;
+the DM representation from SDP 2016;
+and all English, French and German treebanks from UD v2.1.
 
-\paragraph{Data.}\label{sec:data}
-The English UCCA-annotated corpora \cite{abend2013universal} is used
-as a test case, in both in-domain and out-of-domain scenarios.
-The in-domain data is taken from the UCCA Wikipedia corpus (henceforth, \textit{Wiki}),
-and the out-of-domain data is taken from the English part of the UCCA
-\textit{Twenty Thousand Leagues Under the Sea} English-French parallel corpus
-(henceforth, \textit{20K Leagues}).\footnote{Both are available at
-\url{http://www.cs.huji.ac.il/~oabend/ucca.html}}
-Table~\ref{table:data} presents some statistics for the two corpora, demonstrating that while
-the \textit{Wiki} corpus is over ten times larger, the overall statistics are
-similar.
-Passages of indices up to 655 of the \textit{Wiki} corpus are used as training
-set, passages 656--700 as development set, and passages 701--695 as in-domain test set.
-While UCCA edges can cross sentence boundaries, the common
-practice in semantic parsing is to train parsers on individual sentences,
-and so this was done here too.
-Inter-relations between sentences are thus discarded (0.18\% of the edges).
-Linkage nodes and edges are also discarded, as they often express
-inter-sentence relations and are thus mostly redundant when applied at the
-sentence level, as well as implicit nodes (see \S\ref{sec:introduction}).
-In the out-of-domain experiments, the same parser
-(trained on the \textit{Wiki} corpus) is applied to the entire \textit{20K
-Leagues} corpus as test set, without re-tuning any parameters.
-
-
-\begin{table}\small
-  \centering
-\begin{tabular}{l|ccc|c}
-& \multicolumn{3}{c|}{Wiki} & 20K \\
-& \small Train & \small Dev & \small Test & Leagues \\
-\hline
-\# passages & 281 & 35 & 43 & 154 \\
-\# sentences & 4021 & 537 & 608 & 522 \\
-\hline
-\# nodes & 277,587 & 40,700 & 45,047 & 29,965 \\
-\% terminal & 42.41 & 42.8 & 42.66 & 41.23 \\
-\% non-term. & 57.59 & 57.20 & 57.34 & 58.77 \\
-\% implicit & 0.29 & 0.35 & 0.27 & 0.8 \\
-\% linkage & 0.92 & 0.96 & 0.9 & 1.25 \\
-\% discont. & 0.52 & 0.55 & 0.47 & 0.79 \\
-\% \textgreater 1 parent & 2.29 & 1.89 & 2.21 & 1.98 \\
-\hline
-\# edges & 272,018 & 39,660 & 44,139 & 28,723 \\
-\% primary & 95.37 & 95.70 & 95.90 & 94.48 \\
-\% remote & 1.69 & 1.24 & 1.32 & 2.19 \\
-\% linkage & 2.94 & 3.06 & 2.78 & 3.33 \\
-\hline
-\multicolumn{3}{l}{\footnotesize Average per non-linkage non-terminal node} \\
-\# children & 1.67 & 1.67 & 1.67 & 1.61 
-\end{tabular}
-\caption{Statistics of the \textit{Wiki} and \textit{20K Leagues} UCCA corpora.
-All counts exclude the root node.
-}
-\label{table:data}
-\end{table}
 
 \paragraph{Evaluation.}
-Since there are no standard evaluation measures for BSS, I define
-two simple measures for comparing such structures.
-Assume $G_p=(V_p,E_p,\ell_p)$ and $G_g=(V_g,E_g,\ell_g)$
-are the predicted and gold-standard DAGs over the same
-sequence of terminals $W = \{w_1,\ldots,w_n\}$, respectively.
-For an edge $e=(u,v)$ in either graph,
-where $u$ is the parent and $v$ is the child, define its yield $y(e) \subseteq W$ as the
+Comparing UCCA structures
+$G_p=(V_p,E_p,\ell_p)$ and $G_g=(V_g,E_g,\ell_g)$,
+over the same sequence of terminals $W = \{w_1,\ldots,w_n\}$
+is done as follows.
+For an edge $e=(u,v)$ in either graph, its yield $y(e) \subseteq W$ is the
 set of terminals in $W$ that are descendants of $v$.
 Define the set of \textit{mutual edges} between $G_p$ and $G_g$:
 \[
-  M(G_p,G_g) =
-  \left\{(e_1,e_2) \in E_p \times E_g \;|\;
-  y(e_1) = y(e_2) \wedge \ell_p(e_1)=\ell_g(e_2)\right\}
+    M(G_p,G_g) =
+    \left\{(e_1,e_2) \in E_p \times E_g \;|\;
+    y(e_1) = y(e_2) \wedge \ell_p(e_1)=\ell_g(e_2)\right\}
 \]
-Labeled precision and recall are defined by dividing $|M(G_p,G_g)|$ by $|E_p|$ and $|E_g|$, respectively.
-Two variants of this measure are reported, one where only non-remote edges are considered,
-and another where remote edges are considered. The measure collapses to the standard
-PARSEVAL constituency evaluation measure if $G_p$ are $G_g$ are trees.
-Punctuation marks are excluded from the evaluation, but not from the datasets.
 
-\paragraph{Conversions.}
-Since no existing BSS parser exists, I convert BSS to different representations where
-existing parsers can be applied in order to obtain a comparison, in
-two conversion scenarios: one into (possibly discontinuous) constituency trees,
-and one into CoNLL-style dependencies. In the first setting \textsc{uparse} is used,
-the only transition-based constituency parser able to parse trees with
-discontinuous constituents.
-In the second setting I use the MaltParser with arc-standard and
-arc-eager transition sets \cite{nivre2007maltparser},
-and the stack LSTM-based arc-standard parser \cite{dyer2015transition}.
-In the MaltParser, I use both SVM and perceptron classifiers, and report
-results obtained with the SVM classifier, which are about 1\% F-score higher.
-Default settings are used in all cases.
-\textsc{uparse} uses beam search by default,
-with a beam size of 4, where the other parsers use greedy search.
-
-Upper bounds for the conversion-based methods are computed by applying
-the conversion and inverse conversion on the gold standard
-graphs and comparing them to the original gold standard.
-
-\paragraph{\textsc{bsp}.}
-I present a novel transition-based broad-coverage parser,
-Broad-coverage Semantic Parser (\textsc{bsp}), that supports multiple parents,
-non-terminal nodes and discontinuous units, based on extending existing
-transition-based parsers with new transitions and features.
-I train \textsc{bsp} both where remote edges
-are included, and when they are excluded from the training data, to allow
-more direct comparison with conversion-based methods that can only
-predict trees.
+Labeled precision and recall are defined by dividing $|M(G_p,G_g)|$ by $|E_p|$ and $|E_g|$, respectively,
+and F-score by taking their harmonic mean.
+Two variants are reported: one where we consider only primary edges,
+and another for remote edges
 
 
-\subsection{Results}\label{sec:results}
+\paragraph{Settings.}
 
-Table~\ref{table:results} presents the experimental results, as well as
-upper bounds for the conversion-based methods.
-In addition to the results on the test set,
-the table presents the results when tested on the \textit{20K Leagues} corpus as out-of-domain data.
-\textsc{bsp} obtains comparable F-scores to MaltParser and \textsc{uparse}
-in terms of primary edges, but unlike them, is able to predict some
-of the remote edges as well. 
-Removing remote edges from the training data of \textsc{bsp} does not
-change results considerably on the primary edges,
-improving them by 0.9\% F-score in the in-domain setting, but reduces
-them by the same amount when applied out-of-domain. 
-Out-of-domain results are largely comparable with the in-domain
-results, demonstrating robustness by \textsc{bsp}
-to domain variation.
+The following settings are explored:
+(1) in-domain setting in English, training and testing on Wiki;
+(2) out-of-domain setting in English, training on Wiki and testing on 20K;
+(3) French in-domain setting, where available training dataset is small,
+training and testing on 20K;
+(4) German in-domain setting on 20K, with somewhat noisy annotation.
+For multitask experiments, we use unlabeled AMR, DM and UD parsing as auxiliary tasks in English,
+and unlabeled UD parsing in French and German.
 
-The LSTM parser obtains the highest primary F-score,
-with a considerable margin. Importantly, it obtains 9.1\%
-F-score higher than the arc-standard MaltParser, which
-differs from it only in its classifier.
-This suggests that applying a similar neural network-based approach to
-\textsc{bsp} is likely to improve results,
-and further underscores the effectiveness of transition-based methods.
+\paragraph{Baselines.}
+As no direct comparison with existing parsers is possible,
+baselines are bi-lexical dependency graph parsers,
+which support reentrancy and discontinuity but not non-terminal nodes;
+and \textit{tree approximation}, converting UCCA to (bi-lexical) trees
+and evaluating constituency and dependency tree parsers on them.
+Baselines are DAGParser \cite{ribeyre-villemontedelaclergerie-seddah:2014:SemEval} and
+TurboParser \cite{almeida-martins:2015:SemEval},
+two bi-lexical dependency graph parsers;
+\textsc{uparse} \cite{maier-lichte:2016:DiscoNLP},
+a transition-based constituency parser supporting discontinuous constituents;
+and two bi-lexical tree parsers:
+MaltParser \cite{nivre2007maltparser},
+and the stack LSTM parser \cite{dyer2015transition}.
 
-The conversion to constituency format only removes remote edges,
-and thus obtains a perfect primary edge score.
-The conversion to dependency format loses considerably more information, since
-all non-terminal nodes are lost and have to be reconstructed by a
-simple rule-based inverse conversion. Both conversions yield zero scores on remote edges,
-since these are invariably removed when converting to trees.
 
-\begin{table}[ht!]\small
-  \centering
-\begin{tabular}{l|ccc|ccc||ccc|ccc}
-& \multicolumn{6}{c||}{In-Domain (Wiki)} & \multicolumn{6}{c}{Out-of-Domain (20K Leagues)} \\
-& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote}
-& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
-& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF}
-& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
+\paragraph{Results.}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength\tabcolsep{3pt}
+\begin{subfigure}{.475\textwidth}
+\begin{tabular}{l|lll|lll}
+& \multicolumn{3}{c|}{\bf Primary} & \multicolumn{3}{c}{\bf Remote} \\
+& \textbf{LP} & \textbf{LR} & \textbf{LF}
+& \textbf{LP} & \textbf{LR} & \textbf{LF} \\
 \hline
-\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Constituency Tree Conversion} \\
-\textsc{uparse} & 64 & 67.3 & 65.4 & $-$ & 0 & 0 & 57 & 59.4 & 58 \\
-Upper Bound & 100 & 100 & 100 & $-$ & 0 & 0 & 100 & 100 & 100 & $-$ & 0 & 0 \\
+\multicolumn{4}{l|}{\bf English (in-domain)} \\
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Bi-lexical Approximation} \\
+DAGParser
+& 61.8 & 55.8 & 58.6 & 9.5 & 0.5 & 1 \\
+TurboParser
+& 57.7 & 46 & 51.2 & 77.8 & 1.8 & 3.7 \\
 \hline
-\multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Dependency Tree Conversion} \\
-Malt$_{\textrm{arc-standard}}$ & 63.4 & 57.3 & 60.1 & $-$ & 0 & 0 & 62.3 & 55.9 & 58.7 & $-$ & 0 & 0 \\
-Malt$_{\textrm{arc-eager}}$ & 63.9 & 57.9 & 60.5 & $-$ & 0 & 0 & 62.8 & 56.3 & 59.2 & $-$ & 0 & 0 \\
-LSTM & {\bf 73.2} & {\bf 66.2} & {\bf 69.2} & $-$ & 0 & 0 & {\bf 70.1} & {\bf 63.3} & {\bf 66.1} & $-$ & 0 & 0 \\
-Upper Bound & 93.8 & 83.7 & 88.4 & $-$ & 0 & 0 & 93.5 & 82.5 & 87.6 & $-$ & 0 & 0 \\
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Tree Approximation} \\
+\textsc{uparse}
+& 60.9 & 61.2 & 61.1 & -- & -- & -- \\
 \hline
-\multicolumn{4}{l}{\rule{0pt}{4ex} \footnotesize Direct Approach} \\
-\textsc{bsp} & 62.4 & 56 & 59 & 15.3 & 11.8 & 13.3 & 60.6 & 53.9 & 57.1 & 20.2 & 10.3 & 13.6 \\
-\textsc{bsp}$_{\mathrm{Tree}}$ & 63.8 & 56.5 & 59.9 & $-$ & 0 & 0 & 60.2 & 52.8 & 56.2 & $-$ & 0 & 0 \\
-\end{tabular}
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Bi-lexical Tree Approximation} \\
+MaltParser
+& 62.8 & 57.7 & 60.2 & -- & -- & -- \\
+LSTM Parser
+& 73.2 & 66.9 & 69.9 & -- & -- & -- \\
+\hline
+Single
+& 74.4 & 72.9 & 73.6 & 53 & 50 & 51.5 \\
+Multitask &&& \\
+AMR
+& 74.7 & 72.8 & 73.7 & 48.7 & 51.1 & 49.9 \\
+DM
+& 75.7 & 73.9 & 74.8 & 54.9 & 53 & \textbf{53.9} \\
+UD
+& 75 & 73.2 & 74.1 & 49 & 52.7 & 50.8 \\
+AMR + DM
+& 75.6 & 73.9 & 74.7 & 49.9 & 53 & 51.4 \\
+AMR + UD
+& 74.9 & 72.7 & 73.8 & 47.1 & 50 & 48.5 \\
+DM + UD
+& 75.9 & 73.9 & \textbf{74.9} & 48 & 54.8 & 51.2 \\
+All
+& 75.6 & 73.1 & 74.4 & 50.9 & 53.2 & 52
+\end{tabular}\label{tab:id_results}
+\vspace{24.5mm}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{.475\textwidth}
+\begin{tabular}{l|lll|lll}
+& \multicolumn{3}{c|}{\bf Primary} & \multicolumn{3}{c}{\bf Remote} \\
+& \textbf{LP} & \textbf{LR} & \textbf{LF}
+& \textbf{LP} & \textbf{LR} & \textbf{LF} \\
+\hline
+\multicolumn{4}{l|}{\bf English (out-of-domain)} \\
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Bi-lexical Approximation} \\
+DAGParser
+& 56.4 & 50.6 & 53.4 & -- & 0 & 0 \\
+TurboParser
+& 50.3 & 37.7 & 43.1 & 100 & 0.4 & 0.8 \\
+\hline
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Tree Approximation} \\
+\textsc{uparse}
+& 52.7 & 52.8 & 52.8 & -- & -- & -- \\
+\hline
+\multicolumn{4}{l|}{\rule{0pt}{2ex}
+Bi-lexical Tree Approximation} \\
+MaltParser
+& 57.8 & 53 & 55.3 & -- & -- & -- \\
+LSTM Parser
+& 66.1 & 61.1 & 63.5 & -- & -- & -- \\
+\hline
+Single
+& 69 & 69 & 69 & 41.2 & 19.8 & 26.7 \\
+Multitask &&& \\
+AMR
+& 69.5 & 69.5 & 69.5 & 42.9 & 20.2 & 27.5 \\
+DM
+& 70.7 & 70.7 & 70.7 & 42.7 & 18.6 & 25.9 \\
+UD
+& 69.6 & 69.8 & 69.7 & 41.4 & 22 & 28.7 \\
+AMR + DM
+& 70.7 & 70.2 & 70.5 & 45.8 & 19.4 & 27.3 \\
+AMR + UD
+& 70.2 & 69.9 & 70 & 45.1 & 21.8 & 29.4 \\
+DM + UD
+& 70.8 & 70.3 & 70.6 & 41.6 & 21.6 & 28.4 \\
+All
+& 71.2 & 70.9 & \textbf{71} & 45.1 & 22 & \textbf{29.6} \\
+\hline
+\multicolumn{4}{l|}{\bf French (in-domain)} & \\
+Single & 68.2 & 67 & 67.6 & 26 & \enskip 9.4 & 13.9 \\
+UD & 70.3 & 70 & \textbf{70.1} & 43.8 & 13.2 & 20.3 \\
+\hline
+\multicolumn{4}{l|}{\bf German (in-domain)} & \\
+Single & 73.3 & 71.7 & 72.5 & 57.1 & 17.7 & 27.1 \\
+UD & 73.7 & 72.6 & \textbf{73.2} & 61.8 & 24.9 & \textbf{35.5}
+\end{tabular}\label{tab:ood_results}
+\end{subfigure}
 \caption{
-  Experimental results in percents on the \textit{Wiki} test set (left) and
-  on the \textit{20K Leagues} set (right; when trained on the \textit{Wiki} set without re-tuning).
-  Columns correspond to labeled precision,
-  recall and F-score for the different parsers, for both primary (left-hand side)
-  and remote (right-hand side) edges. Top: results for \textsc{uparse}
-  after conversion to constituency tree annotation. Middle: results for the
-  MaltParser arc-eager and arc-standard, and
-  the LSTM parser, after conversion to dependency tree annotation.
-  Bottom: results for our \textsc{bsp}, when trained on the complete UCCA DAGs (\textsc{bsp}),
-  and when trained on UCCA trees, obtained by removing remote edges (\textsc{bsp}$_{\mathrm{Tree}}$).
-}
-\label{table:results}
+Labeled precision, recall and F-score (in~\%)
+on Wiki (left) and 20K (right).
+}\label{tab:results}
 \end{table}
+
+Table~\ref{tab:results} presents the results.
+The stack LSTM parser obtains the highest primary F-score
+among the baseline parsers, with a considerable margin. However,
+tree approximation parsers are unable to recover any remote edges,
+removed in the conversion.
+The bi-lexical DAG parsers are quite limited in this respect as well.
+The direct UCCA parser, based on BiLSTMs, outperforms all baselines.
+Multitask further improves the primary F-score over the single task parser,
+but using all auxiliary tasks contributes less than just DM and UD.
+For 20K, improvements from using multitask are even more marked. 
+Moreover, the improvement is largely additive.
+The best multitask models are significantly better than single-task models,
+demonstrating that even a small training set for the main task may suffice,
+given enough auxiliary training data (as in French).
 
 
 \section{Significance}\label{sec:significance}
