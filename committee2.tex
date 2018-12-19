@@ -87,45 +87,8 @@
 \end{frame}
 
 
-\section{Semantic Representations}
-
 \begin{frame}
-	\frametitle{UCCA}
-	  \begin{center}
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
-    \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
-      child {node (graduation) [fill=Indigo, circle] {}
-      {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
-      child {node (moved) [fill=Indigo, circle] {}
-      {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
-        child {node [fill=Indigo, circle] {}
-        {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
-      ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
-\end{tikzpicture}
-	  \end{center}
-	
-	\vspace{-17mm}
-	
-	\fbox{\begin{minipage}{.6\textwidth}
-	    \textbf{Semantic parsing}: learning to construct meaning representation from labeled data.
-	\end{minipage}}
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Multitask}
+	\frametitle{Semantic Representations}
 
 	  \begin{flushright}
 	    \scalebox{.6}{
@@ -186,7 +149,7 @@ a4 ->  ["op1"' above] a4 Paris;
 	
 	\begin{flushright}
 	\begin{minipage}{.02\textwidth}
-	{\color{DarkRed}\bf\sffamily\scriptsize SDP:}
+	{\color{DarkRed}\bf\sffamily\tiny SDP:}
 	\end{minipage}
 	\begin{minipage}{.6\textwidth}
 	    \rmfamily
@@ -206,19 +169,178 @@ a4 ->  ["op1"' above] a4 Paris;
 	}
 	\end{minipage}
 	\end{flushright}
-	
-	\vspace{-3mm}
-	
-	\fbox{Many different semantic representation schemes exist.}
+\end{frame}
+
+\begin{frame}
+	\frametitle{UCCA}
+	  \begin{center}
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent node[left] {\scriptsize $A$} }
+      } edge from parent node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+\end{tikzpicture}
+	  \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Structural Properties}
+\noindent
+\centering
+\begin{minipage}{.48\linewidth}{\centering
+(1) non-terminal nodes
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node [fill=black, circle] {}
+      {
+        child {node {John} edge from parent node[left] {\scriptsize $C$}}
+        child {node {and} edge from parent node[left] {\scriptsize $N$}}
+        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[left] {\scriptsize $A$} }
+      child {node {went} edge from parent node[left] {\scriptsize $P$}}
+      child {node {home} edge from parent node[left] {\scriptsize $A$}}
+      ;
+  \end{tikzpicture}
+  }}
+\end{minipage}
+\hfill
+\begin{minipage}{.48\linewidth}{\centering
+(2) reentrancy
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node [fill=black, circle] {}
+      {
+      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
+      	child {node (everything) {everything} edge from parent[white]}
+      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[right] {\scriptsize $P$} }
+      ;
+    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
+  \end{tikzpicture}
+  }}
+\end{minipage}
+
+\vfill
+(3) discontinuity
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
+      child {node (totakeaquickshower) [fill=black, circle] {}
+      {
+        child {node {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node [fill=black, circle] {}
+        {
+          child {node {take} edge from parent node[left] {\scriptsize $C$}}
+          child {node {a} edge from parent node[right] {\scriptsize $F$}}
+          child {node (quick) {quick} edge from parent[white]}
+          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
+        } edge from parent node[right] {\scriptsize $P$} }
+      } edge from parent node[left] {\scriptsize $A$} }
+      ;
+    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
+    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
+  \end{tikzpicture}}
 \end{frame}
 
 
+\begin{frame}
+\frametitle{TUPA}
+\begin{tikzpicture}[every node/.append style={font=\rmfamily}, circle]
+	\node[anchor=west,style={font=\sffamily}] at (-1,.25)     {State:};
+	\draw[xstep=1cm,ystep=5mm,color=gray] (1,0) grid (2,.5);
+	\node[anchor=west,style={font=\sffamily}] at (.9,.75)     {stack};
+	\node[fill=black] at (1.5,0.25) {};
+	\draw[xstep=1cm,ystep=5mm,color=gray] (3,0) grid (10,.5);
+	\node[anchor=west,style={font=\sffamily}] at (2.9,.75) {buffer};
+	\node[anchor=west] at (3,0.25) {\small You};
+	\node[anchor=west] at (4,0.25) {\small want};
+	\node[anchor=west] at (5,0.25) {\small to};
+	\node[anchor=west] at (6,0.25) {\small take};
+	\node[anchor=west] at (7,0.25) {\small a};
+	\node[anchor=west] at (8,0.25) {\small long};
+	\node[anchor=west] at (9,0.25) {\small bath};
+\end{tikzpicture}
+
+\vfill
+\pause
+Transitions:
+
+\{\textsc{Shift, Reduce, Node$_X$, Left-Edge$_X$, Right-Edge$_X$,}\\
+\hspace{5mm}\textsc{Left-Remote$_X$, Right-Remote$_X$, Swap, Finish}\}
+
+\vfill
+\pause
+Classifier:
+\vspace{-7.5mm}
+	\begin{center}\scalebox{.3}{\Huge
+	   \begin{tikzpicture}[-{Latex[length=3mm]},thick]
+	   \tikzstyle{main}=[rounded rectangle, minimum size=15mm, draw=black!80, node distance=12mm]
+	   \node[main] (specific) at (10.5,12.5) {BiLSTM};
+	   \foreach \i/\word in {-4/{After},4/{graduation},17/{to},25/{Paris}} {
+	       \node (x\i) at (\i,8.5) {\word};
+	       \node[main, minimum size=8mm, fill=black, draw=none] (e\i) at (\i,10.5) {};
+	       \path (x\i) edge (e\i);
+	       \path (e\i) edge (specific);
+	   }
+	    \node (x4) at (10.5,8.5) {\ldots};
+	    \node[main] (state) at (20,15) {state};
+	    \node[main] (mlp) at (10.5,15) {MLP};
+	    \path (specific) edge (mlp);
+	    \path (state) edge node[below] {concatenate} (mlp);
+	    \node (transition) at (10.5,17.8) {transition};
+	    \path (mlp) edge node[right] {softmax} (transition);
+	   \end{tikzpicture}}
+	\end{center}
+\end{frame}
 
 \begin{frame}
-	\fbox{For some, labeled data is scarce...}
+\frametitle{Results}
+\centering
+\small
+\setlength\tabcolsep{3pt}
+\begin{tabular}{lcc}
+& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
+\hline
+\small \bf English (in-domain)     & 73.6 & 51.5 \\
+\small \bf English (out-of-domain) & 69.0 & 26.7 \\
+\small \bf French (in-domain)      & 67.6 & 13.9 \\
+\small \bf German (in-domain)      & 72.5 & 27.1
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Data}
+	\fbox{UCCA training data is scarce}
 	\begin{center}
 	\pgfplotstableread[row sep=\\,col sep=&]{
 		corpus & total \\
+	    \color{DarkBlue} \textbf{UD} & 17062 \\
 		\color{DarkRed} \textbf{SDP} & 33964 \\
 		\color{DarkGreen} \textbf{AMR} & 36521 \\
 		\color{Indigo} \textbf{UCCA} & 5225 \\
@@ -246,105 +368,91 @@ a4 ->  ["op1"' above] a4 Paris;
 	\vfill
 	
 	\begin{flushright}
-	    \fbox{... and domains are limited.}
+	    \fbox{and domains are limited.}
 	\end{flushright}
 	\begin{center}
-		\begin{tabular}{lll}
-			\color{Indigo} \textbf{UCCA}  & \color{DarkGreen} \textbf{AMR}  & \color{DarkRed} \textbf{SDP}  \\
-			Wikipedia & blogs & news \\ books & news \\ & emails \\ & reviews
-		\end{tabular}
+	\begin{tabular}{llll}
+		\color{Indigo} \textbf{UCCA}  & \color{DarkGreen} \textbf{AMR}  & \color{DarkRed} \textbf{SDP}  & \color{NavyBlue} \textbf{UD}  \\
+		Wikipedia & blogs & news & blogs \\ books & news && news \\ & emails && emails \\ & reviews && reviews \\ &&& Q\&A
+	\end{tabular}
 	\end{center}
 \end{frame}
 
 
 
 \begin{frame}
-	\fbox{How can we bring them together?}
-	
-	\vfill
-
+	\frametitle{Multitask}
+\centering
     \begin{minipage}{.05\pagewidth}
     \scalebox{6}{\{}
     \end{minipage}
-	\begin{minipage}{.27\pagewidth}
-	    \color{Indigo}
-	    \scalebox{.35}{
-	    \begin{tikzpicture}[level distance=12mm, -{Latex[length=2mm]},
-	        every node/.append style={font=\bf\ttfamily},
-	        every circle node/.append style={fill=Indigo},
-	      level 1/.style={sibling distance=19mm},
-	      level 2/.style={sibling distance=15mm}]
-	      \tikzstyle{word} = [font=\rmfamily,color=black]
-	      \node (ROOT) [circle] {}
-	        child {node (After) [word] {After} edge from parent node[above] {L}}
-	        child {node (hearing) [circle] {}
-	        {
-	          child {node [word] {hearing} edge from parent node[left] {P}}
-	          child {node [word] {this} edge from parent node[left] {A}}
-	        } edge from parent node[right] {H} }
-	        child {node [word] {,} edge from parent node[below] {U}}
-	        child {node (moved) [circle] {}
-	        {
-	          child {node (you) [word] {you} edge from parent node[left] {A}}
-	          child {node [word] {will} edge from parent node[left] {F}}
-	          child {node [word] {come} edge from parent node[left] {P}}
-	          child {node [circle] {}
-	          {
-	            child {node [word] {to} edge from parent node[left] {R}}
-	            child {node [circle] {}
-	            {
-	              child {node [word] {my} edge from parent node[left] {E}}
-	              child {node [word] {poster} edge from parent node[right] {C}}
-	            } edge from parent node[above] {C} }
-	          } edge from parent node[above] {A} }
-	        } edge from parent node[above] {H} }
-	        ;
-	      \draw[dashed,-{Latex[length=2mm]}] (hearing) to node [above] {A} (you);
-	    \end{tikzpicture}
+	\begin{minipage}{.3\pagewidth}
+	    \scalebox{.31}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent node[left] {\scriptsize $A$} }
+      } edge from parent node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+\end{tikzpicture}
 	    }
 	\end{minipage}
-	\begin{minipage}{.14\pagewidth}
-	  \scalebox{.41}{
-	  \begin{tikzpicture}[-{Latex[length=2mm]}, color=DarkGreen, level distance=16mm,
-	      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize\bf\ttfamily},
-	      level 1/.style={sibling distance=18mm}]
-	    \node (ROOT) [draw=DarkGreen,ellipse] {come-01}
-	      child {node [draw=DarkGreen,ellipse] {after}
-	      {
-	        child {node (hear) [draw=DarkGreen,ellipse] {hear-01}
-	        {
-	              child {node (thid) [draw=DarkGreen,ellipse] {this} edge from parent node {ARG1} }
-	        } edge from parent node {op1} }
-	      } edge from parent node {time} }
-	      child {node (you) [draw=DarkGreen,ellipse] {you} edge from parent node {ARG1} }
-	      child {node [draw=DarkGreen,ellipse] {poster}
-	      {
-	        child {node (thid) [draw=DarkGreen,ellipse] {i} edge from parent node {poss} }
-	      } edge from parent node {ARG2} }
-	      ;
-	      \draw (hear) to node {ARG0} (you);
-	  \end{tikzpicture}
+	\begin{minipage}{.24\pagewidth}
+	\scalebox{.3}{
+\begin{tikzpicture}
+\graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
+a4 Paris[as={Paris}];
+a2 John[as={John}];
+a1[as={person}];
+a0[as={move-01}];
+a3[as={city}];
+a2[as={name}];
+a5[as={after}];
+a4[as={name}];
+a6[as={graduate-01}];
+
+a1 ->  ["name"' above] a2;
+a0 ->  ["ARG0"' above] a1;
+a0 ->  ["ARG2"' above] a3;
+a0 ->  ["time"' above] a5;
+a3 ->  ["name"' above] a4;
+a2 ->  ["op1"' above] a2 John;
+a5 ->  ["op1"' above] a6;
+a4 ->  ["op1"' above] a4 Paris;
+};
+\draw[->, above, DarkGreen] (a6) to node[sloped] {ARG0} (a1);
+\end{tikzpicture}
 	  }
 	\end{minipage}
-	\begin{minipage}{.26\pagewidth}
+	\begin{minipage}{.22\pagewidth}
 	    \rmfamily
-	    \scalebox{.45}{
-	    \begin{dependency}[edge style={-{Latex[length=2mm]}, color=DarkRed},
+	    \scalebox{.33}{
+\begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
 	        text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
-	    \begin{deptext}[column sep=.1em,ampersand replacement=\^]
-	    After \^ hearing \^ this \^ , \^ you \^ will \^ come \^ to \^ my \^ poster \\
-	    \end{deptext}
-	        \depedge{1}{2}{ARG2}
-	        \depedge{2}{3}{ARG1}
-	        \depedge{2}{5}{ARG0}
-	        \depedge[edge start x offset=-2mm]{7}{5}{ARG1}
-	        \depedge[edge end x offset=-2mm]{1}{7}{ARG1}
-	        \deproot{7}{top}
-	        \depedge[edge end x offset=2mm]{7}{10}{ARG2}
-	        \depedge[edge end x offset=3mm]{8}{7}{ARG1}
-	        \depedge{8}{10}{ARG2}
-	        \depedge[edge end x offset=-2mm]{9}{10}{poss}
-	    \end{dependency}
+	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\deproot{5}{top}
+	\depedge{1}{2}{ARG2}
+	\depedge{1}{5}{ARG1}
+	\depedge{5}{4}{ARG1}
+	\depedge{6}{5}{ARG1}
+	\depedge{6}{7}{ARG2}
+\end{dependency}
 	}
 	\end{minipage}
     \begin{minipage}{.05\pagewidth}
@@ -352,14 +460,14 @@ a4 ->  ["op1"' above] a4 Paris;
     \end{minipage}
 	
 	\pause
-	\vspace{-5mm}
+	\vfill
 	
 	\begin{center}\scalebox{.3}{\Huge
 	   \begin{tikzpicture}[-{Latex[length=3mm]},thick]
 	   \tikzstyle{main}=[rounded rectangle, minimum size=35mm, draw=black!80, node distance=12mm]
-	   \node[main] (specific) at (0,12) {Task-specific parameters};
-	   \node[main,color=DarkCyan] (shared) at (22,12) {Shared parameters};
-	   \foreach \i/\word in {-4/{After},4/{hearing},17/{my},25/{poster}} {
+	   \node[main] (specific) at (0,12) {Task-specific BiLSTM};
+	   \node[main,color=DarkCyan] (shared) at (22,12) {Shared BiLSTM};
+	   \foreach \i/\word in {-4/{After},4/{graduation},17/{to},25/{Paris}} {
 	       \node (x\i) at (\i,3) {\word};
 	       \node[main, minimum size=16mm, fill=DarkCyan, draw=none] (e\i) at (\i,6) {};
 	       \path[color=DarkCyan] (x\i) edge (e\i);
@@ -367,415 +475,79 @@ a4 ->  ["op1"' above] a4 Paris;
 	       \path[color=DarkCyan] (e\i) edge (shared);
 	   }
 	    \node (x4) at (10.5,3) {\ldots};
-	    \node[main] (mlp) at (10.5,15) {Classifier};
+	    \node[main] (mlp) at (10.5,15) {MLP};
 	    \path (specific) edge (mlp);
 	    \path[color=DarkCyan] (shared) edge (mlp);
 	    \node (transition) at (10.5,17.8) {};
 	    \path (mlp) edge node[right] {} (transition);
 	   \end{tikzpicture}}
 	\end{center}
-	
-	\vfill
-	
-	\fbox{Multitask parsing generalizes across representations!}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Structural Properties}
-\noindent
-(1) non-terminal nodes, (2) reentrancy, (3) discontinuity
-\centering
-\vspace*{\fill}
-\begin{minipage}{.48\linewidth}{\centering
-  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node [fill=black, circle] {}
-      {
-        child {node {John} edge from parent node[left] {\scriptsize $C$}}
-        child {node {and} edge from parent node[left] {\scriptsize $N$}}
-        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $A$} }
-      child {node {went} edge from parent node[left] {\scriptsize $P$}}
-      child {node {home} edge from parent node[left] {\scriptsize $A$}}
-      ;
-  \end{tikzpicture}
-  }
-\end{minipage}
-\hfill
-\begin{minipage}{.48\linewidth}{\centering
-  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node [fill=black, circle] {}
-      {
-      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
-      	child {node (everything) {everything} edge from parent[white]}
-      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[right] {\scriptsize $P$} }
-      ;
-    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
-  \end{tikzpicture}
-  }
-\end{minipage}
-
-\vspace{-6mm}
-  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
-      child {node (totakeaquickshower) [fill=black, circle] {}
-      {
-        child {node {to} edge from parent node[left] {\scriptsize $F$}}
-        child {node (takeashower) [fill=black, circle] {}
-        {
-          child {node {take} edge from parent node[left] {\scriptsize $C$}}
-          child {node {a} edge from parent node[right] {\scriptsize $F$}}
-          child {node (quick) {quick} edge from parent[white]}
-          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
-      ;
-    \draw[bend left,dashed,->] (takeashower) to node [auto] {\scriptsize $A$} (John);
-    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
-  \end{tikzpicture}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{UCCA Corpora}
-\begin{center}
-	\begin{tabular}{l|ccc|c}
-	& \multicolumn{3}{c|}{Wiki} & 20K \\
-	& \small Train & \small Dev & \small Test & Leagues \\
-	\hline
-	\# passages & 300 & 34 & 34 & 154 \\
-	\# sentences & 4267 & 453 & 518 & 506 \\
-	\hline
-	\# nodes & 298,665 & 33,263 & 37,262 & 29,315 \\
-	\% terminal & 42.95 & 43.62 & 42.89 & 42.09 \\
-	\% non-term. & 58.30 & 57.46 & 58.31 & 60.01 \\
-	\% discont. & 0.53 & 0.51 & 0.47 & 0.81 \\
-	\% reentrant & 2.31 & 1.76 & 2.18 & 2.03 \\
-	\hline
-	\# edges & 287,381 & 32,015 & 35,846 & 27,749 \\
-	\% primary & 98.29 & 98.81 & 98.75 & 97.73 \\
-	\% remote & 1.71 & 1.19 & 1.25 & 2.27 \\
-	\hline
-	\multicolumn{3}{l}{\footnotesize Average per non-terminal node} \\
-	\# children & 1.67 & 1.68 & 1.66 & 1.61 
-	\end{tabular}
-\end{center}
-
-Excluding root node, implicit nodes, and linkage nodes and edges.
-\end{frame}
-
-
-\section[]{UCCA Parsing}
-
-\begin{frame}
-\frametitle{Goal 1: UCCA Parser}
-Fast and accurate parser supporting UCCA's structural properties.
-
-\vspace*{\fill}
-Impact:
-\begin{itemize}
-\item New general techniques for broad-coverage parsing.
-\item Meaning representation for machine translation and its evaluation.\footnote{
-Alexandra Birch, Barry Haddow, Ond\v{r}ej Bojar, and Omri Abend. 2016. HUME: Human UCCA-based
-evaluation of machine translation. arXiv preprint arXiv:1607.00030}
-\item Semantic features for text understanding based on the graph.
-
-\vspace*{\fill}
-\end{itemize}
-\begin{center}
- \includegraphics[width=0.6\textwidth,keepaspectratio]{hume}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Transition-Based Parsing}
-Parse sentence $w_1 \ldots w_n$ to graph $G=(V,E,\ell)$ incrementally, using buffer $B$ and stack $S$.
-Classifier determines transition to apply at each step.
-
-\vspace*{\fill}
-\pause
-\begin{center}
-	\begin{tikzpicture}
-	\draw[xstep=2cm,ystep=0.5cm,color=gray] (-.01,0) grid (4,.5);
-	\node[anchor=west] at (-.5,.25) {$\bm S$};
-	\node[anchor=west] at (0,.25) {After};
-	\node[anchor=west] at (2,.25) {graduation};
-	\draw[xstep=1.5cm,ystep=0.5cm,color=gray] (4.49,0) grid (10.5,.5);
-	\node[anchor=west] at (4,.25) {$\bm B$};
-	\node[anchor=west] at (4.5,.25) {John};
-	\node[anchor=west] at (6,.25) {moved};
-	\node[anchor=west] at (7.5,.25) {to};
-	\node[anchor=west] at (9,.25) {Paris};
-	\node[anchor=west] at (3,-.5) {$\bm G$};
-	\node (ROOT) [fill=black, circle] at (5,-.5) {}
-	  child {node  {After} edge from parent [->] node[left] {\scriptsize $L$\;}}
-	  child {node [fill=black, circle] {}
-	  {
-	    child {node {graduation} edge from parent [->] node[right] {\scriptsize $P$}}
-	  } edge from parent [->] node[right] {\scriptsize $H$} };
-	\end{tikzpicture}
-\end{center}
-
-\vspace*{\fill}
-\pause
-Transitions for UCCA parsing:\\
-\textsc{Shift, Reduce, Node$_X$,}\\
-\textsc{Left-Edge$_X$, Right-Edge$_X$, Left-Remote$_X$, Right-Remote$_X$,}
-\textsc{Swap, Finish}\\
-\end{frame}
-
-
-\section[]{Distributed Representation}
-
-\begin{frame}
-\frametitle{Goal 2: UCCA-Based Distributed Representation}
-Vector representation for sentences and documents,
-based on recursive composition on the UCCA graph.
-
-\vspace*{\fill}
-Impact:
-\begin{itemize}
-\item General automatic semantic feature extractor for text.
-\item Accurate measure for text similarity.
-\item Understand the semantic contribution of different elements.
-\end{itemize}
-
-\vspace*{\fill}
-\begin{center}
-  \begin{tikzpicture}[level distance=1cm, sibling distance=2cm, ->]
-    \node (ROOT) [fill=black, vector] {}
-      child {node (After) {After} edge from parent [shorten <=3mm]
-        node[left] {\scriptsize $L$\;}}
-      child {node (graduation) [fill=black, vector] {}
-      {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
-      child {node (moved) [fill=black, vector] {}
-      {
-        child {node (John) {John} edge from parent [shorten <=2mm]
-          node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
-        child {node [fill=black, vector] {}
-        {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent [shorten <=2.5mm,shorten >=3mm] node[left] {\scriptsize $A$} }
-      } edge from parent [shorten <=3.5mm,shorten >=4mm] node[right] {\scriptsize $H$} }
-      ;
-    \draw[dashed,->,shorten <=2.5mm] (graduation) to node [auto] {\scriptsize $A$} (John);
-    \node (LKG) at (-1.8,0) [fill=black!20, vector] {};
-        \draw[bend right,shorten <=4mm] (LKG) to
-          node [auto, left] {\scriptsize $LR$} (After);
-        \draw (LKG) to[out=-60, in=120]
-          node [below] {\scriptsize $LA$\quad\;} (graduation);
-        \draw[shorten <=2mm] (LKG) to[out=30, in=90]
-          node [above] {\scriptsize $LA$} (moved);
-  \end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Recursive Neural Networks}
-Word embeddings represent words as vectors in $\mathbb{R}^n$.
-
-\vspace*{\fill}
-\pause
-Recurrent neural networks (or variations, e.g. LSTM)
-represent a sequence based on the vectors for individual elements:
-
-\vspace*{\fill}
-\begin{center}
-	\begin{tikzpicture}[shorten >=1pt,->]
-	\tikzstyle{vertex}=[vector,draw=black]
-	\foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}{
-	  \node[vertex] (G-\name) at (\x,1) {};
-	  \node (\name) at (\x,0) {\name};
-	  \draw (\name) -- (G-\name);
-	}
-	\foreach \from/\to in {John/and,and/Mary,Mary/Went,Went/Home}
-	  \draw [shorten <=5mm,shorten >=5mm] (G-\from) -- (G-\to);
-	\end{tikzpicture}
-\end{center}
-
-\pause
-Recursive neural networks (AKA "tree RNNs", but any DAG works)
-use hierarchical structure of the input:
-
-\vspace*{\fill}
-\begin{center}
-	\begin{tikzpicture}[<-]
-	\tikzstyle{vertex}=[vector]
-	\node[vertex] {}
-	  child {node [vertex] {}
-	  {
-	    child {node {John} edge from parent node[] {}}
-	    child {node {and} edge from parent node[] {}}
-	    child {node {Mary} edge from parent node[] {}}
-	  } edge from parent node[] {}}
-	  child {node {went} edge from parent node[] {}}
-	  child {node {home} edge from parent node[] {}}
-	  ;
-	\end{tikzpicture}
-\end{center}
-\end{frame}
-
-
-\section[]{Applications}
-
-\begin{frame}
-\frametitle{Goal 3: Applications}
-Use the UCCA parser and distributed representation to improve
-performance on semantic tasks:
-\begin{itemize}
-\item Sentiment analysis.
-\item Machine translation.
-\item Automatic summarization.
-\end{itemize}
-\end{frame}
-
-
-\section[]{Experiments}
-
-\begin{frame}
-\frametitle{UCCA Parser Experiment}
-\begin{itemize}
- \item Transition-based parser using
- \begin{itemize}
-   \item Sparse perceptron with binary features.
-   \item Dense perceptron with pre-trained word embeddings.
-   \item Feedforward neural network with real-valued features.
- \end{itemize}
- \item Baselines: bilexical DAG parsers after conversion.
-\end{itemize}
-\vspace*{\fill}
-\begin{center}
-	\begin{dependency}[theme = simple]
-	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-	\end{deptext}
-	\depedge{2}{1}{L}
-	\depedge{2}{3}{U}
-	\depedge[dashed]{2}{4}{A}
-	\depedge{5}{4}{A}
-	\depedge{2}{5}{H}
-	\depedge{7}{6}{R}
-	\depedge{5}{7}{A}
-	\end{dependency}
-	\begin{dependency}[theme = simple]
-	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
-	John \^ gave \^ everything \^ up \\
-	\end{deptext}
-	\depedge{1}{2}{A}
-	\depedge{3}{2}{A}
-	\depedge{4}{2}{C}
-	\end{dependency}
-  \hspace*{\fill}
-	\begin{dependency}[theme = simple]
-	\begin{deptext}[column sep=.7em,ampersand replacement=\^]
-	John \^ and \^ Mary \^ went \^ home \\
-	\end{deptext}
-	\depedge[edge start x offset=-6pt]{1}{4}{A}
-	\depedge{2}{1}{N}
-	\depedge{3}{1}{C}
-	\depedge{5}{4}{A}
-	\end{dependency}
-\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Results}
-\begin{center}
-	\begin{tabular}{l|ccc|ccc}
-	& \multicolumn{3}{c|}{Primary} & \multicolumn{3}{c}{Remote} \\
-	& \textbf{LP} & \textbf{LR} & \textbf{LF} & \textbf{LP} & \textbf{LR} & \textbf{LF} \\
-	\hline
-	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Bilexical Approximation} \\
-	Upper Bound % on the test set and ood set only
-	& 93.4 & 83.7 & 88.3 & 73.9 & 49.5 & 59.3 \vspace{.1cm} \\
-	DAGParser
-	& 63.7 & 	56.1	 & 59.5	 & 0.8	 & 9.5	 &  1.4 \\
-	TurboParser
-	& 60.2	 & 47.4	 & 52.9	 & 2.2	 & 7.8	 &  3.4 \\
-	\hline
-	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Direct Approach} \\
-	Sparse perceptron
-	& 64 & 55.6 & 59.5 & 16 & 11.6 & 13.4 \\
-	Dense perceptron
-	& 55 & 54.8 & 54.9 & 15.2 & 16.9 & 16 \\
-	Feedforward NN
-	& {\bf 65} & {\bf 62.5} & {\bf 63.7} & {\bf 20.7} & {\bf 11.3} & {\bf 14.6}
-	\end{tabular}
-\end{center}
-
-Results on Wiki test set.
-\end{frame}
-
-\begin{frame}
-\frametitle{Tree Approximation}
-Training without remote edges:
-
-\begin{center}
-	\begin{tabular}{l|ccc}
-	& \textbf{LP} & \textbf{LR} & \textbf{LF} \\
-	\hline
-	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Constituency Tree Approximation} \\
-	Upper Bound & 100 & 100 & 100 \vspace{.1cm} \\
-	\textsc{uparse} & 63 & 64.7 & 63.7 \\
-	\hline
-	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Dependency Tree Approximation} \\
-	Upper Bound & 93.7 & 83.6 & 88.4 \vspace{.1cm} \\
-	MaltParser & 64.9 & 57.9 & 61 \\
-	LSTM Parser & {\bf 74.9} & {\bf 66.4} & {\bf 70.2} \\
-	\hline
-	\multicolumn{4}{l}{\rule{0pt}{2ex} \footnotesize Direct Tree Parsing} \\
-	Sparse perceptron $-$ \textsc{Remote} & 65.5 & 57.5 & 61.3 \\
-	Dense perceptron $-$ \textsc{Remote} & 57.2 & 57.3 & 57.2 \\
-	Feedforward NN $-$ \textsc{Remote} & 66.3 & 64.4 & 65.3
-	\end{tabular}
-\end{center}
-
-Results on Wiki test set for tree approximation experiment.
-\end{frame}
-
-
-\section[]{Roadmap}
-
-\begin{frame}
-\frametitle{Developments in UCCA}
-\begin{itemize}
- \item Annotation in more languages, e.g. German.
- \item Refinement and addition of layers, e.g. coreference.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Work Plan}
-\begin{itemize}
- \item Improvements to upper bound of bilexical conversions.
- \item Improvements to transition-based parser:
- \begin{itemize}
-  \item Beam search.
-  \item LSTM architectures: stack/bidirectional/attention.
-  \item Dynamic oracle, training with exploration.
- \end{itemize}
- \item Applications:
- \begin{itemize}
-  \item Summarization.
-  \item Translation.
-  \item Investigate learned representation.
- \end{itemize}
-\end{itemize}
+\centering
+\small
+\setlength\tabcolsep{3pt}
+\begin{tabular}{lcc}
+& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
+\hline
+\multicolumn{3}{l}{\small \bf English (in-domain)} \\
+\footnotesize Single
+& 73.6 & 51.5 \\
+\cline{1-1}
+%\small \bf Multitask &&& \\
+\footnotesize AMR
+& 73.7 & 49.9 \\
+\footnotesize DM
+& 74.8 & \textbf{53.9} \\
+\footnotesize UD
+& 74.1 & 50.8 \\
+\footnotesize AMR + DM
+& 74.7 & 51.4 \\
+\footnotesize AMR + UD
+& 73.8 & 48.5 \\
+\footnotesize DM + UD
+& \textbf{74.9} & 51.2 \\
+\footnotesize All
+& 74.4 & 52
+\end{tabular}
+\hfill
+\begin{tabular}{lcc}
+& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
+\hline
+\multicolumn{3}{l}{\small \bf English (out-of-domain)} \\
+\footnotesize Single
+& 69 & 26.7 \\
+\cline{1-1}
+%\small \bf Multitask &&& \\
+\footnotesize AMR
+& 69.5 & 27.5 \\
+\footnotesize DM
+& 70.7 & 25.9 \\
+\footnotesize UD
+& 69.7 & 28.7 \\
+\footnotesize AMR + DM
+& 70.5 & 27.3 \\
+\footnotesize AMR + UD
+& 70 & 29.4 \\
+\footnotesize DM + UD
+& 70.6 & 28.4 \\
+\footnotesize All
+& \textbf{71} & \textbf{29.6}
+\end{tabular}
+\vfill
+\begin{tabular}{lcc}
+& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
+\hline
+\multicolumn{3}{l}{\small \bf French (in-domain)} \\
+\small Single & 67.6 & 13.9 \\
+\small UD & \textbf{70.1} & 20.3 \\
+\hline
+\multicolumn{3}{l}{\small \bf German (in-domain)} \\
+\small Single & 72.5 & 27.1 \\
+\small UD & \textbf{73.2} & \textbf{35.5}
+\end{tabular}
 \end{frame}
 
 \end{document}
