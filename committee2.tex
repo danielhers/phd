@@ -13,6 +13,7 @@
 \usepackage{nicefrac}
 \usepackage{color}
 \usepackage{perpage}
+\usepackage{multirow}
 \usepackage{multicol}
 \usepackage{tikz}
 \usepackage{tikz-dependency}
@@ -656,6 +657,63 @@ a4 ->  ["op1"' above] a4 Paris;
 \frametitle{Confusion Matrix}
 \vspace{-1cm}
 \includegraphics[width=1.15\textwidth]{confusion_matrix.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\centering
+\begin{tabular}{cc}
+\bf UCCA & \bf UD \\\\
+Scene/non-Scene & POS-based distinction \\\\
+primary/secondary relations, & core/non-core arguments \\
+participants & \\\\
+more MWEs & less MWEs \\\\
+Participant/Elaborator/ & coordination/subordination/ \\
+Parallel Scenes & complementation/parataxis
+\end{tabular}
+
+\begin{minipage}{.4\textwidth}
+  \scalebox{.8}{
+    \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->, draw=Indigo,
+        every circle node/.append style={fill=Indigo}]
+      \tikzstyle{word} = [font=\rmfamily,color=black]
+      \node (ROOT) [circle] {}
+        child {node (After) [word] {After} edge from parent node[above] {\scriptsize $L$}}
+        child {node (graduation) [circle] {}
+        {
+          child {node [word] {graduation} edge from parent node[left] {\scriptsize $P$}}
+        } edge from parent node[right] {\scriptsize $H$} }
+        child {node [word] {,} edge from parent node[below] {\scriptsize $U$}}
+        child {node (moved) [circle] {}
+        {
+          child {node (John) [word] {John} edge from parent node[left] {\scriptsize $A$}}
+          child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
+          child {node [circle] {}
+          {
+            child {node [word] {to} edge from parent node[left] {\scriptsize $R$}}
+            child {node [word] {Paris} edge from parent node[right] {\scriptsize $C$}}
+          } edge from parent node[above] {\scriptsize $A$} }
+        } edge from parent node[right] {\scriptsize $H$} }
+        ;
+      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (John);
+    \end{tikzpicture}
+    }
+\end{minipage}
+\hfill
+\begin{minipage}{.5\textwidth}
+    \begin{dependency}[text only label, label style={above,font=\tt\scriptsize, color=DarkBlue}, edge style={color=DarkBlue}, font=\scriptsize\rmfamily]
+    \begin{deptext}[column sep=.1em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \end{deptext}
+        \depedge[edge unit distance=1ex]{2}{1}{case}
+        \depedge[edge unit distance=1ex]{4}{3}{punct}
+        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
+        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{2}{5}{obl}
+        \depedge[edge unit distance=1ex]{7}{6}{case}
+        \deproot[edge unit distance=1.5ex]{5}{root}
+        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
+    \end{dependency}
+\end{minipage}
 \end{frame}
 
 \end{document}
