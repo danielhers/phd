@@ -96,24 +96,15 @@
 
 \begin{frame}
 \frametitle{Linguistic Structure Annotation Schemes}
-\begin{itemize}
-	\setlength\itemsep{1em}
-	\item Syntactic dependencies
-	\item Semantic dependencies \cite{oepen2016towards}
-  	\only<2>{
-  	\item Semantic role labeling (PropBank, FrameNet)
-	\item AMR \cite{banarescu2013abstract}
-	\item UCCA \cite{abend2013universal}
-	\item Other semantic representation schemes\footnote{See recent survey \cite{abend2017state}}
-	}
-\end{itemize}
+Syntactic schemes, e.g., Universal Dependencies \cite{nivre2016universal}
+
+Semantic representations, e.g., Semantic dependencies \cite{oepen2016towards}
 \vfill
-\only<1>{
+
 	\begin{flushleft}
 	Syntactic (UD)\\
 	\end{flushleft}
-	\vspace{-1cm}
-	\begin{adjustbox}{margin=1cm 5mm 1cm 5mm,frame,center}
+	\begin{adjustbox}{center}
 	\begin{dependency}
 		\begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
 		You \^ want \^ to \^ take \^ a \^ long \^ bath \\
@@ -134,24 +125,108 @@
 		\depedge[edge below,draw=red]{6}{7}{ARG1}
 	\end{dependency}
 	\end{adjustbox}\\
-	\vspace{-1cm}
 	\begin{flushright}
 	\color{red}Semantic (DM)
 	\end{flushright}
 	\captionof{figure}{Bilexical dependencies.}
-}
-\only<2>{
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Semantic Representations}
 Semantic representation schemes attempt to
 abstract away from syntactic detail that does not affect meaning:
 \begin{center}
 	\fbox{\textrm{\ldots bathed}} = \fbox{\textrm{\ldots took a bath}}
 \end{center}
-}
-\vfill
 \end{frame}
-\note{But before talking about TUPA, a brief introduction to semantic representation. \\
-For a survey on this topic, see this paper from my lab, which is also in this year's ACL.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+	\frametitle{Semantic Representations}
+
+	  \begin{flushright}
+	    \scalebox{.6}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node[font=\bf\sffamily\small,Indigo] at (-3,0) {UCCA:};
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent node[left] {\scriptsize $A$} }
+      } edge from parent node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+\end{tikzpicture}
+	    }
+	  \end{flushright}
+	
+	\vspace{-23mm}
+	
+	\scalebox{.6}{
+\begin{tikzpicture}
+\node[font=\bf\sffamily\small,DarkGreen] at (0,6) {AMR:};
+\graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
+a4 Paris[as={Paris}];
+a2 John[as={John}];
+a1[as={person}];
+a0[as={move-01}];
+a3[as={city}];
+a2[as={name}];
+a5[as={after}];
+a4[as={name}];
+a6[as={graduate-01}];
+
+a1 ->  ["name"' above] a2;
+a0 ->  ["ARG0"' above] a1;
+a0 ->  ["ARG2"' above] a3;
+a0 ->  ["time"' above] a5;
+a3 ->  ["name"' above] a4;
+a2 ->  ["op1"' above] a2 John;
+a5 ->  ["op1"' above] a6;
+a4 ->  ["op1"' above] a4 Paris;
+};
+\draw[->, above, DarkGreen] (a6) to node[sloped] {ARG0} (a1);
+\end{tikzpicture}
+	  }
+	\vspace{-15mm}
+	
+	\begin{flushright}
+	\begin{minipage}{.02\textwidth}
+	{\color{DarkRed}\bf\sffamily\tiny SDP:}
+	\end{minipage}
+	\begin{minipage}{.6\textwidth}
+	    \rmfamily
+	    \scalebox{.7}{
+\begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
+	        text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
+	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+	\end{deptext}
+	\deproot{5}{top}
+	\depedge{1}{2}{ARG2}
+	\depedge{1}{5}{ARG1}
+	\depedge{5}{4}{ARG1}
+	\depedge{6}{5}{ARG1}
+	\depedge{6}{7}{ARG2}
+\end{dependency}
+	}
+	\end{minipage}
+	\end{flushright}
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
@@ -269,9 +344,6 @@ Baseline for the task: TUPA \cite{hershcovich2017a}, a freely available transiti
 
 \begin{frame}
 \frametitle{Conversion}
-Already developed a parser for AMR/SDP/UD?
-We have protocols to convert them to UCCA \cite{hershcovich2018multitask},
-so please consider making a submission!
 
 \begin{minipage}{.04\textwidth}
 \vspace{4mm}
@@ -336,9 +408,9 @@ UD
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
     \end{deptext}
         \depedge{2}{1}{case}
-        \depedge{4}{3}{punct}
+        \depedge{2}{3}{punct}
         \depedge{5}{4}{nsubj}
-        \depedge[edge end x offset=-2pt]{2}{5}{obl}
+        \depedge[edge end x offset=-2pt]{5}{2}{obl}
         \depedge{7}{6}{case}
         \deproot[edge unit distance=2.5ex]{5}{root}
         \depedge{5}{7}{obl}
@@ -469,21 +541,6 @@ UD
 \end{minipage}
 
 \end{frame}
-
-
-\begin{frame}
-\titlepage
-\end{frame}
-
-
-
-\begin{frame}[allowframebreaks]
-\frametitle{References}
-\bibliographystyle{apalike}
-\tiny\bibliography{references}
-\end{frame}
-
-\section{Backup}
 
 \begin{frame}
 \frametitle{Graph Structure}
@@ -999,7 +1056,7 @@ ordinal features (height, number of parents and children)
 \note{Even though the parser is greedy and looks at specific locations in the stack and buffer for features, the BiLSTM effectively allows it to look further into the past and future in order to determine the best transition to apply.}
 
 
-\section{Experiments}
+\section{Multitask Parsing across Semantic Representations}
 
 \begin{frame}
 \frametitle{Experimental Setup}
@@ -1293,15 +1350,7 @@ Corpora: \url{cs.huji.ac.il/~oabend/ucca.html}
 \end{frame}
 
 
-
-\begin{frame}[allowframebreaks]
-\frametitle{References}
-\bibliographystyle{apalike}
-\tiny\bibliography{references}
-\end{frame}
-
-
-\section{Backup}
+\section{Content Differences in Syntactic and Semantic Representations}
 
 
 \begin{frame}
@@ -1357,90 +1406,6 @@ Two variants:
 one for primary edges, and another for remote edges.
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Semantic Representations}
-
-	  \begin{flushright}
-	    \scalebox{.6}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
-    \node[font=\bf\sffamily\small,Indigo] at (-3,0) {UCCA:};
-    \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
-      child {node (graduation) [fill=Indigo, circle] {}
-      {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
-      child {node (moved) [fill=Indigo, circle] {}
-      {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
-        child {node [fill=Indigo, circle] {}
-        {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
-      ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
-\end{tikzpicture}
-	    }
-	  \end{flushright}
-	
-	\vspace{-23mm}
-	
-	\scalebox{.6}{
-\begin{tikzpicture}
-\node[font=\bf\sffamily\small,DarkGreen] at (0,6) {AMR:};
-\graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
-a4 Paris[as={Paris}];
-a2 John[as={John}];
-a1[as={person}];
-a0[as={move-01}];
-a3[as={city}];
-a2[as={name}];
-a5[as={after}];
-a4[as={name}];
-a6[as={graduate-01}];
-
-a1 ->  ["name"' above] a2;
-a0 ->  ["ARG0"' above] a1;
-a0 ->  ["ARG2"' above] a3;
-a0 ->  ["time"' above] a5;
-a3 ->  ["name"' above] a4;
-a2 ->  ["op1"' above] a2 John;
-a5 ->  ["op1"' above] a6;
-a4 ->  ["op1"' above] a4 Paris;
-};
-\draw[->, above, DarkGreen] (a6) to node[sloped] {ARG0} (a1);
-\end{tikzpicture}
-	  }
-	\vspace{-15mm}
-	
-	\begin{flushright}
-	\begin{minipage}{.02\textwidth}
-	{\color{DarkRed}\bf\sffamily\tiny SDP:}
-	\end{minipage}
-	\begin{minipage}{.6\textwidth}
-	    \rmfamily
-	    \scalebox{.7}{
-\begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
-	        text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
-	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-	\end{deptext}
-	\deproot{5}{top}
-	\depedge{1}{2}{ARG2}
-	\depedge{1}{5}{ARG1}
-	\depedge{5}{4}{ARG1}
-	\depedge{6}{5}{ARG1}
-	\depedge{6}{7}{ARG2}
-\end{dependency}
-	}
-	\end{minipage}
-	\end{flushright}
-\end{frame}
 
 %\begin{frame}
 %	\frametitle{UCCA}
@@ -1738,9 +1703,9 @@ a4 ->  ["op1"' above] a4 Paris;
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
     \end{deptext}
         \depedge[edge unit distance=1em]{2}{1}{case}
-        \depedge[edge unit distance=1em]{4}{3}{punct}
+        \depedge[edge unit distance=1em]{2}{3}{punct}
         \depedge[edge unit distance=1em, edge start x offset=-4mm]{5}{4}{nsubj}
-        \depedge[edge unit distance=1em, edge end x offset=-3mm]{2}{5}{obl}
+        \depedge[edge unit distance=1em, edge end x offset=-3mm]{5}{2}{obl}
         \depedge[edge unit distance=1em]{7}{6}{case}
         \deproot[edge unit distance=1em]{5}{root}
         \depedge[edge unit distance=1.5em, edge start x offset=1mm]{5}{7}{obl}
@@ -1992,12 +1957,18 @@ Parallel Scenes & complementation/parataxis
 \end{frame}
 
 \begin{frame}
-\frametitle{Summary}
+\frametitle{Conclusion}
 \begin{itemize}
 \item Transition-based UCCA parser
 \item Multitask learning across semantic representations
 \item In-depth comparison of UCCA and UD
 \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\tiny\bibliography{references}
 \end{frame}
 
 \end{document}
