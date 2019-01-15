@@ -1,4 +1,4 @@
-\documentclass[t,handout,xcolor={svgnames}]{beamer}
+\documentclass[t,xcolor={svgnames}]{beamer}
 
 \mode<presentation>
 \usetheme{Warsaw}
@@ -228,12 +228,14 @@ a4 ->  ["op1"' above] a4 Paris;
 
 
 
+
+\section{The UCCA Semantic Representation Scheme}
+
 \begin{frame}
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
 Cross-linguistically applicable \cite{abend2013universal}.
 Stable in translation \cite{sulem2015conceptual}.
 
-\only<1>{
 \vfill
 English\\
 \vspace{-1cm}
@@ -242,23 +244,8 @@ English\\
 \end{adjustbox}
 \\
 \vspace{-1cm}
-Hebrew}
-
-\only<2>{
-\vspace{2cm}
-The task will involve UCCA parsing in English, German and French
-in different domains (\textit{Wikipedia, 20K Leagues Under the Sea}).
-\vfill
-\begin{center}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{wikipedia.png}\end{minipage}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{squid.jpg}\end{minipage}
-\end{center}}
-
+Hebrew
 \end{frame}
-\note{Some properties of UCCA that make it interesting to work on. \\
-Two main design principles - cross-linguistic applicability and support for intuitive annotation. \\
-Same guidelines across languages. \\
-A parallel English-French corpus has been annotated, and a German corpus is almost complete.}
 
 \begin{frame}
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
@@ -266,16 +253,11 @@ Rapid and intuitive annotation interface \cite{abend2017uccaapp}.
 Usable by non-experts.
 \hfill\url{ucca-demo.cs.huji.ac.il}
 
-\only<1>{
 \vfill
 \begin{adjustbox}{center}
   \includegraphics[width=\pagewidth,height=\textheight,keepaspectratio]{uccaapp.png}
-\end{adjustbox}}
+\end{adjustbox}
 
-\only<2>{
-\vspace{2cm}
-Baseline for the task: TUPA \cite{hershcovich2017a}, a freely available transition-based UCCA parser.
-\hfill\url{bit.ly/tupademo}}
 \end{frame}
 
 
@@ -343,206 +325,6 @@ Baseline for the task: TUPA \cite{hershcovich2017a}, a freely available transiti
 
 
 \begin{frame}
-\frametitle{Conversion}
-
-\begin{minipage}{.04\textwidth}
-\vspace{4mm}
-AMR\\
-\vspace{13mm}
-SDP\\
-\vspace{14mm}
-UD
-\end{minipage}
-\begin{minipage}{.45\textwidth}
-  \centering
-  \scalebox{.6}{
-  \begin{tikzpicture}[->,
-      every node/.append style={sloped,anchor=south,auto=false,font=\tiny},
-      level 1/.style={level distance=14mm,sibling distance=26mm},
-      level 2/.style={level distance=13mm},
-      level 3/.style={level distance=12mm}]
-    \node (ROOT) [draw=black,ellipse] {move-01}
-      child {node [draw=black,ellipse] {after}
-      {
-            child {node (graduation) [draw=black,ellipse] {graduate-01} edge from parent node {op1} }
-      } edge from parent node {time} }
-      child {node (John) [draw=black,ellipse] {person}
-      {
-        child {node [draw=black,ellipse] {name}
-        {
-            child {node [draw=black,ellipse] {"John"} edge from parent node {op1} }
-        } edge from parent node {name} }
-      } edge from parent node {ARG0} }
-      child {node [draw=black,ellipse] {city}
-      {
-        child {node [draw=black,ellipse] {name}
-        {
-            child {node [draw=black,ellipse] {"Paris"} edge from parent node {op1} }
-        } edge from parent node {name} }
-      } edge from parent node {ARG2} }
-      ;
-      \draw (graduation) to node {ARG0} (John);
-  \end{tikzpicture}
-  }
-  
-  \vspace{5mm}
-  \scalebox{.6}{
-    \begin{dependency}[text only label, label style={above}, font=\small]
-    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-    \end{deptext}
-        \depedge{1}{2}{ARG2}
-        \depedge{5}{4}{ARG1}
-        \depedge[edge end x offset=-2pt]{1}{5}{ARG1}
-        \deproot[edge unit distance=3.5ex]{5}{top}
-        \depedge[edge start x offset=-1pt, edge end x offset=3pt]{5}{7}{ARG2}
-        \depedge[edge end x offset=5pt]{6}{5}{ARG1}
-        \depedge{6}{7}{ARG2}
-    \end{dependency}
-    }
-    
-  \vspace{5mm}
-  \scalebox{.6}{
-    \begin{dependency}[text only label, label style={above}, font=\small]
-    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-    \end{deptext}
-        \depedge{2}{1}{case}
-        \depedge{2}{3}{punct}
-        \depedge{5}{4}{nsubj}
-        \depedge[edge end x offset=-2pt]{5}{2}{obl}
-        \depedge{7}{6}{case}
-        \deproot[edge unit distance=2.5ex]{5}{root}
-        \depedge{5}{7}{obl}
-    \end{dependency}
-    }
-
-\end{minipage}
-\begin{minipage}{.02\textwidth}
-\vspace{7mm}
-\Rightarrow
-\vspace{16mm}
-\Rightarrow
-\vspace{20mm}
-\Rightarrow
-\end{minipage}
-\begin{minipage}{.45\textwidth}
-
-  \centering
-  \scalebox{.6}{
-  \begin{tikzpicture}[level distance=16mm, ->,
-      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
-      level 1/.style={sibling distance=28mm},
-      level 2/.style={sibling distance=14mm},
-      level 3/.style={sibling distance=12mm}]
-    \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [word] {moved}
-      child {node [word] {After}
-      {
-            child {node (graduation) [word] {graduation} edge from parent node {op} }
-      } edge from parent node {time} }
-      child {node (John) [fill=black,circle] {}
-      {
-        child {node [word] {John} edge from parent node {name} }
-      } edge from parent node {ARG0} }
-      child {node [fill=black,circle] {}
-      {
-        child {node [word] {Paris} edge from parent node {name} }
-      } edge from parent node {ARG2} }
-      ;
-      \draw[dashed] (graduation) to node {ARG0} (John);
-  \end{tikzpicture}}
-
-  \vspace{5mm}
-  \scalebox{.6}{
-  \begin{tikzpicture}[level distance=14mm, ->,
-      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
-      level 1/.style={sibling distance=29mm,level distance=6mm},
-      level 2/.style={sibling distance=16mm,level distance=14mm}]
-    \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=black,circle] {}
-      child {node (after) [fill=black,circle] {}
-      {
-        child {node [draw=none] {}
-        {
-          child {node [word] (after_word) {After{\color{white}g}} edge from parent [draw=none]}
-        } edge from parent [draw=none] }
-        child {node [draw=none] {}
-        {
-          child {node [word] (graduation) {graduation ,} edge from parent [draw=none]}
-        } edge from parent [draw=none] }
-      } edge from parent node {root}}
-      child {node [draw=none] {}
-      {
-        child {node (moved) [fill=black,circle] {}
-        {
-          child {node [word] {\quad{\color{white}g} John} edge from parent node {ARG1}}
-          child {node [word] {moved{\color{white}g}} edge from parent node {head}}
-        } edge from parent [draw=none] }
-      } edge from parent [draw=none] }
-      child {node (to) [fill=black,circle] {}
-      {
-        child {node [draw=none] {}
-        {
-            child {node [word] (to_word) {to{\color{white}g}} edge from parent [draw=none]}
-          } edge from parent [draw=none] }
-          child {node [draw=none] {}
-        {
-          child {node [word] (Paris) {Paris{\color{white}g}} edge from parent [draw=none]}
-        } edge from parent [draw=none] }
-      } edge from parent node {root}}
-      ;
-      \draw (ROOT) to node {top} (moved);
-      \draw (after) to node {head} (after_word);
-      \draw (after) to node {ARG2} (graduation);
-      \draw[dashed] (after) to node {ARG1} (moved);
-      \draw[dashed] (to) to node {ARG1} (moved);
-      \draw (to) to node {head} (to_word);
-      \draw (moved) to node {ARG2} (Paris);
-      \draw[dashed] (to) to node {ARG2} (Paris);
-  \end{tikzpicture}}
-
-  \vspace{5mm}
-  \scalebox{.6}{
-  \begin{tikzpicture}[level distance=15mm, ->,
-      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
-      level 1/.style={sibling distance=16mm},
-      level 2/.style={sibling distance=12mm}]
-    \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=black,circle] {}
-      child {node (after) [fill=black,circle] {}
-      {
-        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
-        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
-      } edge from parent node {obl}}
-      child {node {}
-      {
-        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
-      } edge from parent [draw=none]}
-      child {node {}
-      {
-        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
-      } edge from parent [draw=none]}
-      child {node {}
-      {
-        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
-      } edge from parent [draw=none]}
-      child {node (to) [fill=black,circle] {}
-      {
-          child {node [word] {to{\color{white}g}} edge from parent node {case}}
-          child {node [word] {Paris{\color{white}g}} edge from parent node {head}}
-      } edge from parent node {obl}}
-      ;
-      \draw (ROOT) to node {punct} (comma);
-      \draw (ROOT) to node {nsubj} (John);
-      \draw (ROOT) to node {head} (moved);
-  \end{tikzpicture}}
-
-\end{minipage}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Graph Structure}
 UCCA structures are directed acyclic graphs (DAGs). \\
 Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. \\
@@ -592,160 +374,6 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
   \end{tabular}
 \end{adjustbox}
 \end{frame}
-
-\begin{frame}
-\frametitle{Evaluation}
-Comparing graphs over the same sequence of tokens,
-\begin{itemize}
-\item Match edges by their terminal yield and label.
-\item Calculate \textbf{labeled precision, recall and F1} scores.
-\item Separate primary and remote edges.
-\end{itemize}
-\vfill
-\begin{adjustbox}{frame,scale=.75,center}
-	\begin{tikzpicture}[level distance=15mm, sibling distance=15mm, ->,
-	    every circle node/.append style={fill=black}]
-	  \tikzstyle{word} = [font=\rmfamily,color=black]
-	  \node at (-1,.7) {gold};
-	  \node (ROOT) at (0,0) [circle] {}
-	    child {node (After) [word] {After} edge from parent node[left] {$L$}}
-	    child {node (graduation) [circle] {}
-	    {
-	      child {node [word] {graduation} edge from parent node[left] {$P$}}
-	    } edge from parent node[left] {$H$} }
-	    child {node [word] {,} edge from parent node[right] {$U$}}
-	    child {node (moved) [circle] {}
-	    {
-	      child {node (Joe) [word] {Joe} edge from parent node[left] {$A$}}
-	      child {node [word] {moved} edge from parent node[left] {$P$}}
-	      child {node [circle] {}
-	      {
-	        child {node [word] {to} edge from parent node[left] {$R$}}
-	        child {node [word] {Paris} edge from parent node[right] {$C$}}
-	      } edge from parent node[right] {$A$} }
-	    } edge from parent node[right] {$H$} }
-	    ;
-	  \draw[dashed,->] (graduation) to node [auto] {$A$} (Joe);
-	  \node at (6,.7) {predicted};
-	  \node (ROOT_) at (7,0) [circle] {}
-	    child {node (After_) [word] {After} edge from parent node[left] {$L$}}
-	    child {node (graduation_) [circle] {}
-	    {
-	      child[red] {node [word] {graduation} edge from parent node[left] {$S$}}
-	    } edge from parent node[left] {$H$} }
-	    child {node [word] {,} edge from parent node[right] {$U$}}
-	    child {node (moved) [circle,xshift=3mm,yshift=-7mm] {}
-	    {
-	      child {node (Joe_) [word] {Joe} edge from parent node[left] {$A$}}
-	      child {node [word] {moved} edge from parent node[left] {$P$}}
-	      child[red] {node [word] {to} edge from parent node[left] {$F$}}
-	      child[red] {node (Paris_) [word] {Paris} edge from parent node[right] {$A$}}
-	    } edge from parent node[right] {$H$} }
-	    ;
-	  \draw[bend left,dashed,->] (graduation_) to node [auto] {$A$} (Joe_);
-	  \draw[bend left,dashed,->,red] (graduation_) to node [auto] {$A$} (Paris_);
-	\end{tikzpicture}
-\end{adjustbox}
-\vfill
-\begin{adjustbox}{scale=.75,center}
-	Primary:
-	\begin{tabular}{ccc}
-		\textbf{LP} & \textbf{LR} & \textbf{LF} \\ \hline
-		$\frac69=67\%$ & $\frac6{10}=60\%$ & 64\%
-	\end{tabular}
-	\hspace{1cm}
-	Remote:
-	\begin{tabular}{ccc}
-		\textbf{LP} & \textbf{LR} & \textbf{LF} \\ \hline
-		$\frac12=50\%$ & $\frac11=100\%$ & 67\%
-	\end{tabular}
-\end{adjustbox}
-\end{frame}
-
-
-\section{The UCCA Semantic Representation Scheme}
-
-\begin{frame}
-\frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
-Cross-linguistically applicable \cite{abend2013universal}.
-Stable in translation \cite{sulem2015conceptual}.
-
-\vfill
-English\\
-\vspace{-1cm}
-\begin{adjustbox}{center}
-  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{crosslinguistic.png}
-\end{adjustbox}
-\\
-\vspace{-1cm}
-Hebrew
-\end{frame}
-\note{Some properties of UCCA that make it interesting to work on. \\
-Two main design principles - cross-linguistic applicability and support for intuitive annotation. \\
-Same guidelines across languages. \\
-A parallel English-French corpus has been annotated, and a German corpus is almost complete.}
-
-\begin{frame}
-\frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
-Rapid and intuitive annotation interface \cite{abend2017uccaapp}.
-Usable by non-experts.
-\hfill\url{ucca-demo.cs.huji.ac.il}
-\vfill
-
-Facilitates semantics-based human machine translation evaluation \cite{birch2016hume}.
-\hfill\url{ucca.cs.huji.ac.il/mteval}
-\vfill
-\begin{adjustbox}{center}
-  \includegraphics[width=\pagewidth,height=\textheight,keepaspectratio]{uccaapp.png}
-\end{adjustbox}
-\end{frame}
-
-\begin{frame}
-\frametitle{Graph Structure}
-UCCA generates a directed acyclic graph (DAG). \\
-Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. \\
-\textit{Remote edges} enable {\color{orange} reentrancy} for argument sharing. \\
-Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
-
-\hspace*{1cm}
-  \begin{tikzpicture}[level distance=16mm, sibling distance=2cm, ->]
-  \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=blue, circle] {}
-      child {node (You) [word] {You} edge from parent node[left] {\scriptsize $A$}}
-      child {node [word] {want} edge from parent node[left] {\scriptsize $P$}}
-      child {node (totakealongbath) [fill=blue, circle] {}
-      {
-        child {node [word] {to} edge from parent node[left] {\scriptsize $F$}}
-        child {node (takeabath) [fill=blue, circle] {}
-        {
-          child {node [word] {take} edge from parent node[right] {\scriptsize $C$}}
-          child {node [word] {a} edge from parent node[right] {\scriptsize $F$}}
-          child {node [word] (long) {long} edge from parent[draw=none]}
-          child {node [word] {bath} edge from parent node[right] {\scriptsize $C$}}
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
-      ;
-    \draw[bend left,dashed,->,orange,very thick] (totakealongbath) to node [auto] {\scriptsize $A$} (You);
-    \draw[bend left,->,red,very thick] (totakealongbath) to node [auto] {\scriptsize $D$} (long);
-    \node at (6,-0.4) {\Large ----- primary edge};
-    \node at (6,-1.4) {\Large - - - remote edge};
-\end{tikzpicture}
-\begin{center}
-  You want to take a long bath
-\end{center}
-
-\vspace{-26mm}
-\begin{adjustbox}{margin=1pt,frame,scale=.9}
-  \begin{tabular}{c>{\small\it}l}
-	  $P$ & process \\
-	  $A$ & participant \\
-	  $C$ & center \\
-	  $D$ & adverbial \\
-	  $F$ & function
-  \end{tabular}
-\end{adjustbox}
-\end{frame}
-\note{No head selection.}
 
 
 
@@ -1057,6 +685,208 @@ ordinal features (height, number of parents and children)
 
 
 \section{Multitask Parsing across Semantic Representations}
+
+
+\begin{frame}
+\frametitle{Conversion}
+
+\begin{minipage}{.04\textwidth}
+\vspace{4mm}
+AMR\\
+\vspace{13mm}
+SDP\\
+\vspace{14mm}
+UD
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \scalebox{.6}{
+  \begin{tikzpicture}[->,
+      every node/.append style={sloped,anchor=south,auto=false,font=\tiny},
+      level 1/.style={level distance=14mm,sibling distance=26mm},
+      level 2/.style={level distance=13mm},
+      level 3/.style={level distance=12mm}]
+    \node (ROOT) [draw=black,ellipse] {move-01}
+      child {node [draw=black,ellipse] {after}
+      {
+            child {node (graduation) [draw=black,ellipse] {graduate-01} edge from parent node {op1} }
+      } edge from parent node {time} }
+      child {node (John) [draw=black,ellipse] {person}
+      {
+        child {node [draw=black,ellipse] {name}
+        {
+            child {node [draw=black,ellipse] {"John"} edge from parent node {op1} }
+        } edge from parent node {name} }
+      } edge from parent node {ARG0} }
+      child {node [draw=black,ellipse] {city}
+      {
+        child {node [draw=black,ellipse] {name}
+        {
+            child {node [draw=black,ellipse] {"Paris"} edge from parent node {op1} }
+        } edge from parent node {name} }
+      } edge from parent node {ARG2} }
+      ;
+      \draw (graduation) to node {ARG0} (John);
+  \end{tikzpicture}
+  }
+  
+  \vspace{5mm}
+  \scalebox{.6}{
+    \begin{dependency}[text only label, label style={above}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \end{deptext}
+        \depedge{1}{2}{ARG2}
+        \depedge{5}{4}{ARG1}
+        \depedge[edge end x offset=-2pt]{1}{5}{ARG1}
+        \deproot[edge unit distance=3.5ex]{5}{top}
+        \depedge[edge start x offset=-1pt, edge end x offset=3pt]{5}{7}{ARG2}
+        \depedge[edge end x offset=5pt]{6}{5}{ARG1}
+        \depedge{6}{7}{ARG2}
+    \end{dependency}
+    }
+    
+  \vspace{5mm}
+  \scalebox{.6}{
+    \begin{dependency}[text only label, label style={above}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \end{deptext}
+        \depedge{2}{1}{case}
+        \depedge{2}{3}{punct}
+        \depedge{5}{4}{nsubj}
+        \depedge[edge end x offset=-2pt]{5}{2}{obl}
+        \depedge{7}{6}{case}
+        \deproot[edge unit distance=2.5ex]{5}{root}
+        \depedge{5}{7}{obl}
+    \end{dependency}
+    }
+
+\end{minipage}
+\begin{minipage}{.02\textwidth}
+\vspace{7mm}
+\Rightarrow
+\vspace{16mm}
+\Rightarrow
+\vspace{20mm}
+\Rightarrow
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+
+  \centering
+  \scalebox{.6}{
+  \begin{tikzpicture}[level distance=16mm, ->,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=28mm},
+      level 2/.style={sibling distance=14mm},
+      level 3/.style={sibling distance=12mm}]
+    \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [word] {moved}
+      child {node [word] {After}
+      {
+            child {node (graduation) [word] {graduation} edge from parent node {op} }
+      } edge from parent node {time} }
+      child {node (John) [fill=black,circle] {}
+      {
+        child {node [word] {John} edge from parent node {name} }
+      } edge from parent node {ARG0} }
+      child {node [fill=black,circle] {}
+      {
+        child {node [word] {Paris} edge from parent node {name} }
+      } edge from parent node {ARG2} }
+      ;
+      \draw[dashed] (graduation) to node {ARG0} (John);
+  \end{tikzpicture}}
+
+  \vspace{5mm}
+  \scalebox{.6}{
+  \begin{tikzpicture}[level distance=14mm, ->,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=29mm,level distance=6mm},
+      level 2/.style={sibling distance=16mm,level distance=14mm}]
+    \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [fill=black,circle] {}
+      child {node (after) [fill=black,circle] {}
+      {
+        child {node [draw=none] {}
+        {
+          child {node [word] (after_word) {After{\color{white}g}} edge from parent [draw=none]}
+        } edge from parent [draw=none] }
+        child {node [draw=none] {}
+        {
+          child {node [word] (graduation) {graduation ,} edge from parent [draw=none]}
+        } edge from parent [draw=none] }
+      } edge from parent node {root}}
+      child {node [draw=none] {}
+      {
+        child {node (moved) [fill=black,circle] {}
+        {
+          child {node [word] {\quad{\color{white}g} John} edge from parent node {ARG1}}
+          child {node [word] {moved{\color{white}g}} edge from parent node {head}}
+        } edge from parent [draw=none] }
+      } edge from parent [draw=none] }
+      child {node (to) [fill=black,circle] {}
+      {
+        child {node [draw=none] {}
+        {
+            child {node [word] (to_word) {to{\color{white}g}} edge from parent [draw=none]}
+          } edge from parent [draw=none] }
+          child {node [draw=none] {}
+        {
+          child {node [word] (Paris) {Paris{\color{white}g}} edge from parent [draw=none]}
+        } edge from parent [draw=none] }
+      } edge from parent node {root}}
+      ;
+      \draw (ROOT) to node {top} (moved);
+      \draw (after) to node {head} (after_word);
+      \draw (after) to node {ARG2} (graduation);
+      \draw[dashed] (after) to node {ARG1} (moved);
+      \draw[dashed] (to) to node {ARG1} (moved);
+      \draw (to) to node {head} (to_word);
+      \draw (moved) to node {ARG2} (Paris);
+      \draw[dashed] (to) to node {ARG2} (Paris);
+  \end{tikzpicture}}
+
+  \vspace{5mm}
+  \scalebox{.6}{
+  \begin{tikzpicture}[level distance=15mm, ->,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=16mm},
+      level 2/.style={sibling distance=12mm}]
+    \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [fill=black,circle] {}
+      child {node (after) [fill=black,circle] {}
+      {
+        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
+        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
+      } edge from parent node {obl}}
+      child {node {}
+      {
+        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node (to) [fill=black,circle] {}
+      {
+          child {node [word] {to{\color{white}g}} edge from parent node {case}}
+          child {node [word] {Paris{\color{white}g}} edge from parent node {head}}
+      } edge from parent node {obl}}
+      ;
+      \draw (ROOT) to node {punct} (comma);
+      \draw (ROOT) to node {nsubj} (John);
+      \draw (ROOT) to node {head} (moved);
+  \end{tikzpicture}}
+
+\end{minipage}
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Experimental Setup}
