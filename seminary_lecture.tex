@@ -376,6 +376,120 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Structural Properties}
+\noindent
+\centering
+\begin{minipage}{.48\linewidth}{\centering
+(1) non-terminal nodes
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node [fill=black, circle] {}
+      {
+        child {node {John} edge from parent node[left] {\scriptsize $C$}}
+        child {node {and} edge from parent node[left] {\scriptsize $N$}}
+        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[left] {\scriptsize $A$} }
+      child {node {went} edge from parent node[left] {\scriptsize $P$}}
+      child {node {home} edge from parent node[left] {\scriptsize $A$}}
+      ;
+  \end{tikzpicture}
+  }}
+\end{minipage}
+\hfill
+\begin{minipage}{.48\linewidth}{\centering
+(2) discontinuity
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node [fill=black, circle] {}
+      {
+      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
+      	child {node (everything) {everything} edge from parent[white]}
+      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
+      } edge from parent node[right] {\scriptsize $P$} }
+      ;
+    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
+  \end{tikzpicture}
+  }}
+\end{minipage}
+
+\vfill
+(3) reentrancy
+
+\scalebox{.8}{
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+      every node/.append style={midway}]
+    \node (ROOT) [fill=black, circle] {}
+      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
+      child {node (totakeaquickshower) [fill=black, circle] {}
+      {
+        child {node {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node [fill=black, circle] {}
+        {
+          child {node {take} edge from parent node[left] {\scriptsize $C$}}
+          child {node {a} edge from parent node[right] {\scriptsize $F$}}
+          child {node (quick) {quick} edge from parent[white]}
+          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
+        } edge from parent node[right] {\scriptsize $P$} }
+      } edge from parent node[left] {\scriptsize $A$} }
+      ;
+    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
+    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
+  \end{tikzpicture}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Data}
+\begin{itemize}
+ \item UCCA Wikipedia corpus ($\stackrel{\text{train}}{4268}+\stackrel{\text{dev}}{454}+\stackrel{\text{test}}{503}$ sentences).
+ \item Out-of-domain: English part of English-French parallel corpus,
+ 	\textit{Twenty Thousand Leagues Under the Sea} (506 sentences).
+\end{itemize}
+
+\vfill
+\begin{center}
+  \includegraphics[width=.5\linewidth]{wikipedia.png}
+  \includegraphics[width=.5\linewidth]{squid.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{UCCA Corpora}
+\centering
+\begin{tabular}{l|ccc|c}
+	& \multicolumn{3}{c|}{Wiki} & 20K \\
+	& \small Train & \small Dev & \small Test & Leagues \\
+	\hline
+	\# passages & 300 & 34 & 33 & 154 \\
+	\# sentences & 4268 & 454 & 503 & 506 \\
+	\hline
+	\# nodes & 298,993 & 33,704 & 35,718 & 29,315 \\
+	\% terminal & 42.96 & 43.54 & 42.87 & 42.09 \\
+	\% non-term. & 58.33 & 57.60 & 58.35 & 60.01 \\
+	\% \textbf{discont.} & \textbf{0.54} & \textbf{0.53} & \textbf{0.44} & \textbf{0.81} \\
+	\% \textbf{reentrant} & \textbf{2.38} & \textbf{1.88} & \textbf{2.15} & \textbf{2.03} \\
+	\hline
+	\# edges & 287,914 & 32,460 & 34,336 & 27,749 \\
+	\% primary & 98.25 & 98.75 & 98.74 & 97.73 \\
+	\% remote & 1.75 & 1.25 & 1.26 & 2.27 \\
+	\hline
+	\multicolumn{3}{l}{\footnotesize Average per non-terminal node} \\
+	\# children & 1.67 & 1.68 & 1.66 & 1.61 
+\end{tabular}
+\captionof{table}{Corpus statistics.}
+\end{frame}
+
+
 
 \section{Transition-based UCCA Parsing (ACL'17)}
 
@@ -673,23 +787,6 @@ ordinal features (height, number of parents and children)
 }
 }
 \end{frame}
-\note{Even though the parser is greedy and looks at specific locations in the stack and buffer for features, the BiLSTM effectively allows it to look further into the past and future in order to determine the best transition to apply.}
-
-
-\begin{frame}
-\frametitle{Experimental Setup}
-\begin{itemize}
- \item UCCA Wikipedia corpus ($\stackrel{\text{train}}{4268}+\stackrel{\text{dev}}{454}+\stackrel{\text{test}}{503}$ sentences).
- \item Out-of-domain: English part of English-French parallel corpus,
- 	\textit{Twenty Thousand Leagues Under the Sea} (506 sentences).
-\end{itemize}
-
-\vfill
-\begin{center}
-  \includegraphics[width=.5\linewidth]{wikipedia.png}
-  \includegraphics[width=.5\linewidth]{squid.jpg}
-\end{center}
-\end{frame}
 
 \begin{frame}
 \frametitle{Baselines}
@@ -729,7 +826,8 @@ Tree parsers (all transition-based):
 	\captionof{figure}{UCCA bilexical DAG approximation (for tree, delete remote edges).}
 \end{center}
 \end{frame}
-\note{Some of the leading parsers.}
+
+
 \begin{frame}
 \frametitle{Bilexical Graph Approximation}
 \begin{enumerate}
@@ -781,6 +879,34 @@ Tree parsers (all transition-based):
 	\end{dependency}
 \end{flushleft}
 \end{frame}
+
+\begin{frame}
+\frametitle{Evaluation}
+\textit{Mutual edges} between predicted graph $G_p=(V_p,E_p,\ell_p)$
+and gold graph $G_g=(V_g,E_g,\ell_g)$,
+both over terminals $W = \{w_1,\ldots,w_n\}$:
+\[
+M(G_p,G_g) =
+    \Bigl\{(e_1,e_2) \in E_p \times E_g \;\Big|\;
+    y(e_1) = y(e_2) \wedge \ell_p(e_1)=\ell_g(e_2)\Bigr\}
+\]
+The yield $y(e) \subseteq W$ of an edge $e=(u,v)$ in either graph
+is the set of terminals in $W$ that are descendants of $v$. \hfill
+$\ell$ is the edge label.
+
+\vfill
+Labeled precision, recall and F-score are then defined as:
+\[
+\text{LP} = \frac{|M(G_p,G_g)|}{|E_p|},\quad
+\text{LR} = \frac{|M(G_p,G_g)|}{|E_g|},
+\]
+\[
+\text{LF} = \frac{2 \cdot \text{LP} \cdot \text{LR}}{\text{LP} + \text{LR}}.
+\]
+Two variants:
+one for primary edges, and another for remote edges.
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Evaluation}
@@ -851,6 +977,7 @@ Comparing graphs over the same sequence of tokens,
 \end{adjustbox}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Results}
 \parser{BiLSTM} obtains the highest F-scores in all metrics:
@@ -888,8 +1015,7 @@ Comparing graphs over the same sequence of tokens,
 	\captionof{table}{Results on the Wiki test set.}
 \end{center}
 \end{frame}
-\note{The experiments show \parser{} outperforms a large variety of baseline parsers. \\
-Remote edges are challenging -- they incorporate the REENTRANCY in the graph, and \parser{} parses them quite effectively.}
+
 
 \begin{frame}
 \frametitle{Results}
@@ -928,11 +1054,126 @@ Comparable on out-of-domain test set:
 	\captionof{table}{Results on the 20K Leagues out-of-domain set.}
 \end{center}
 \end{frame}
-\note{We also evaluated all parsers on the out-of-domain set, to test their domain adaptation ability. The results are quite good, despite the different genre.}
+
+
+\begin{frame}
+\frametitle{TUPA}
+\begin{tikzpicture}[every node/.append style={font=\rmfamily}, circle]
+	\node[anchor=west,style={font=\sffamily}] at (-1,.25)     {State:};
+	\draw[xstep=1cm,ystep=5mm,color=gray] (1,0) grid (2,.5);
+	\node[anchor=west,style={font=\sffamily}] at (.9,.75)     {stack};
+	\node[fill=black] at (1.5,0.25) {};
+	\draw[xstep=12.5mm,ystep=5mm,color=gray] (2.5,0) grid (10,.5);
+	\node[anchor=west,style={font=\sffamily}] at (2.4,.75) {buffer};
+	\node[anchor=west] at (2.5,0.25) {\small After};
+	\node[anchor=west] at (3.75,0.25) {\small gradu.};
+	\node[anchor=west] at (5,0.25) {\small John};
+	\node[anchor=west] at (6.25,0.25) {\small moved};
+	\node[anchor=west] at (7.5,0.25) {\small to};
+	\node[anchor=west] at (8.75,0.25) {\small Paris};
+\end{tikzpicture}
+
+\vfill
+\pause
+Transitions:
+
+\{\textsc{Shift, Reduce, Node$_X$, Left-Edge$_X$, Right-Edge$_X$,}\\
+\hspace{5mm}\textsc{Left-Remote$_X$, Right-Remote$_X$, Swap, Finish}\}
+
+\vfill
+\pause
+Classifier:
+\vspace{-2.5mm}
+	\begin{center}\scalebox{.3}{\Huge
+	   \begin{tikzpicture}[-{Latex[length=3mm]},thick]
+	   \tikzstyle{main}=[rounded rectangle, minimum size=15mm, draw=black!80, node distance=12mm]
+	   \node[main] (specific) at (10.5,12.5) {BiLSTM};
+	   \foreach \i/\word in {-4/{After},4/{graduation},17/{to},25/{Paris}} {
+	       \node (x\i) at (\i,8.5) {\word};
+	       \node[main, minimum size=8mm, fill=black, draw=none] (e\i) at (\i,10.5) {};
+	       \path (x\i) edge (e\i);
+	       \path (e\i) edge (specific);
+	   }
+	    \node (x4) at (10.5,8.5) {\ldots};
+	    \node[main] (state) at (20,15) {state};
+	    \node[main] (mlp) at (10.5,15) {MLP};
+	    \path (specific) edge (mlp);
+	    \path (state) edge node[below] {concatenate} (mlp);
+	    \node (transition) at (10.5,17.8) {transition};
+	    \path (mlp) edge node[right] {softmax} (transition);
+	   \end{tikzpicture}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+\centering
+\small
+\setlength\tabcolsep{3pt}
+\begin{tabular}{lcc}
+& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
+\hline
+\small \bf English (in-domain)     & 73.6 & 51.5 \\
+\small \bf English (out-of-domain) & 69.0 & 26.7 \\
+\small \bf French (in-domain)      & 67.6 & 13.9 \\
+\small \bf German (in-domain)      & 72.5 & 27.1
+\end{tabular}
+\vfill
+
+\begin{center}
+  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{wikipedia.png}\end{minipage}
+  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{squid.jpg}\end{minipage}
+\end{center}
+\end{frame}
 
 
 
 \section{Multitask Parsing across Semantic Representations (ACL'18)}
+
+
+\begin{frame}
+	\frametitle{Data}
+	\fbox{UCCA training data is scarce}
+	\begin{center}
+	\pgfplotstableread[row sep=\\,col sep=&]{
+		corpus & total \\
+	    \color{DarkBlue} \textbf{UD} & 17062 \\
+		\color{DarkRed} \textbf{SDP} & 33964 \\
+		\color{DarkGreen} \textbf{AMR} & 36521 \\
+		\color{Indigo} \textbf{UCCA} & 5225 \\
+	    }\english
+	    \begin{tikzpicture}
+	    \begin{axis}[
+	    xbar stacked,
+	    width=10cm,
+	    height=39mm,
+	    xmin=0,
+	    xmax=60000,
+	    xtick=\empty,
+	    ytick=data,
+	    yticklabels from table={\english}{corpus},
+	    axis x line=none,
+	    ]
+	    \addplot [fill=Navy, point meta=explicit symbolic,
+	    nodes near coords={\pgfmathprintnumber\pgfplotspointmeta~sentences},
+	    nodes near coords align={anchor=west}] table [x=total,y expr=\coordindex,meta=total] {\english};
+	    \end{axis}
+	    \end{tikzpicture}
+	\end{center}
+	
+	\pause
+	\vfill
+	
+	\begin{flushright}
+	    \fbox{and domains are limited.}
+	\end{flushright}
+	\begin{center}
+	\begin{tabular}{llll}
+		\color{Indigo} \textbf{UCCA}  & \color{DarkGreen} \textbf{AMR}  & \color{DarkRed} \textbf{SDP}  & \color{NavyBlue} \textbf{UD}  \\
+		Wikipedia & blogs & news & blogs \\ books & news && news \\ & emails && emails \\ & reviews && reviews \\ &&& Q\&A
+	\end{tabular}
+	\end{center}
+\end{frame}
 
 
 \begin{frame}
@@ -1136,280 +1377,6 @@ UD
 \end{frame}
 
 
-
-
-
-\section{Content Differences in Syntactic and Semantic Representations}
-
-
-\begin{frame}
-\frametitle{UCCA Corpora}
-\centering
-\begin{tabular}{l|ccc|c}
-	& \multicolumn{3}{c|}{Wiki} & 20K \\
-	& \small Train & \small Dev & \small Test & Leagues \\
-	\hline
-	\# passages & 300 & 34 & 33 & 154 \\
-	\# sentences & 4268 & 454 & 503 & 506 \\
-	\hline
-	\# nodes & 298,993 & 33,704 & 35,718 & 29,315 \\
-	\% terminal & 42.96 & 43.54 & 42.87 & 42.09 \\
-	\% non-term. & 58.33 & 57.60 & 58.35 & 60.01 \\
-	\% \textbf{discont.} & \textbf{0.54} & \textbf{0.53} & \textbf{0.44} & \textbf{0.81} \\
-	\% \textbf{reentrant} & \textbf{2.38} & \textbf{1.88} & \textbf{2.15} & \textbf{2.03} \\
-	\hline
-	\# edges & 287,914 & 32,460 & 34,336 & 27,749 \\
-	\% primary & 98.25 & 98.75 & 98.74 & 97.73 \\
-	\% remote & 1.75 & 1.25 & 1.26 & 2.27 \\
-	\hline
-	\multicolumn{3}{l}{\footnotesize Average per non-terminal node} \\
-	\# children & 1.67 & 1.68 & 1.66 & 1.61 
-\end{tabular}
-\captionof{table}{Corpus statistics.}
-\end{frame}
-
-\begin{frame}
-\frametitle{Evaluation}
-\textit{Mutual edges} between predicted graph $G_p=(V_p,E_p,\ell_p)$
-and gold graph $G_g=(V_g,E_g,\ell_g)$,
-both over terminals $W = \{w_1,\ldots,w_n\}$:
-\[
-M(G_p,G_g) =
-    \Bigl\{(e_1,e_2) \in E_p \times E_g \;\Big|\;
-    y(e_1) = y(e_2) \wedge \ell_p(e_1)=\ell_g(e_2)\Bigr\}
-\]
-The yield $y(e) \subseteq W$ of an edge $e=(u,v)$ in either graph
-is the set of terminals in $W$ that are descendants of $v$. \hfill
-$\ell$ is the edge label.
-
-\vfill
-Labeled precision, recall and F-score are then defined as:
-\[
-\text{LP} = \frac{|M(G_p,G_g)|}{|E_p|},\quad
-\text{LR} = \frac{|M(G_p,G_g)|}{|E_g|},
-\]
-\[
-\text{LF} = \frac{2 \cdot \text{LP} \cdot \text{LR}}{\text{LP} + \text{LR}}.
-\]
-Two variants:
-one for primary edges, and another for remote edges.
-\end{frame}
-
-
-%\begin{frame}
-%	\frametitle{UCCA}
-%	  \begin{center}
-%\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
-%    \node (ROOT) [fill=Indigo, circle] {}
-%      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
-%      child {node (graduation) [fill=Indigo, circle] {}
-%      {
-%        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-%      } edge from parent node[left] {\scriptsize $H$} }
-%      child {node {,} edge from parent node[right] {\scriptsize $U$}}
-%      child {node (moved) [fill=Indigo, circle] {}
-%      {
-%        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-%        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
-%        child {node [fill=Indigo, circle] {}
-%        {
-%          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-%          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
-%        } edge from parent node[left] {\scriptsize $A$} }
-%      } edge from parent node[right] {\scriptsize $H$} }
-%      ;
-%    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
-%\end{tikzpicture}
-%	  \end{center}
-%\end{frame}
-
-\begin{frame}
-\frametitle{Structural Properties}
-\noindent
-\centering
-\begin{minipage}{.48\linewidth}{\centering
-(1) non-terminal nodes
-
-\scalebox{.8}{
-  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node [fill=black, circle] {}
-      {
-        child {node {John} edge from parent node[left] {\scriptsize $C$}}
-        child {node {and} edge from parent node[left] {\scriptsize $N$}}
-        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $A$} }
-      child {node {went} edge from parent node[left] {\scriptsize $P$}}
-      child {node {home} edge from parent node[left] {\scriptsize $A$}}
-      ;
-  \end{tikzpicture}
-  }}
-\end{minipage}
-\hfill
-\begin{minipage}{.48\linewidth}{\centering
-(2) discontinuity
-
-\scalebox{.8}{
-  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node [fill=black, circle] {}
-      {
-      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
-      	child {node (everything) {everything} edge from parent[white]}
-      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[right] {\scriptsize $P$} }
-      ;
-    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
-  \end{tikzpicture}
-  }}
-\end{minipage}
-
-\vfill
-(3) reentrancy
-
-\scalebox{.8}{
-  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
-      child {node (totakeaquickshower) [fill=black, circle] {}
-      {
-        child {node {to} edge from parent node[left] {\scriptsize $F$}}
-        child {node [fill=black, circle] {}
-        {
-          child {node {take} edge from parent node[left] {\scriptsize $C$}}
-          child {node {a} edge from parent node[right] {\scriptsize $F$}}
-          child {node (quick) {quick} edge from parent[white]}
-          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
-      ;
-    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
-    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
-  \end{tikzpicture}}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{TUPA}
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}, circle]
-	\node[anchor=west,style={font=\sffamily}] at (-1,.25)     {State:};
-	\draw[xstep=1cm,ystep=5mm,color=gray] (1,0) grid (2,.5);
-	\node[anchor=west,style={font=\sffamily}] at (.9,.75)     {stack};
-	\node[fill=black] at (1.5,0.25) {};
-	\draw[xstep=12.5mm,ystep=5mm,color=gray] (2.5,0) grid (10,.5);
-	\node[anchor=west,style={font=\sffamily}] at (2.4,.75) {buffer};
-	\node[anchor=west] at (2.5,0.25) {\small After};
-	\node[anchor=west] at (3.75,0.25) {\small gradu.};
-	\node[anchor=west] at (5,0.25) {\small John};
-	\node[anchor=west] at (6.25,0.25) {\small moved};
-	\node[anchor=west] at (7.5,0.25) {\small to};
-	\node[anchor=west] at (8.75,0.25) {\small Paris};
-\end{tikzpicture}
-
-\vfill
-\pause
-Transitions:
-
-\{\textsc{Shift, Reduce, Node$_X$, Left-Edge$_X$, Right-Edge$_X$,}\\
-\hspace{5mm}\textsc{Left-Remote$_X$, Right-Remote$_X$, Swap, Finish}\}
-
-\vfill
-\pause
-Classifier:
-\vspace{-2.5mm}
-	\begin{center}\scalebox{.3}{\Huge
-	   \begin{tikzpicture}[-{Latex[length=3mm]},thick]
-	   \tikzstyle{main}=[rounded rectangle, minimum size=15mm, draw=black!80, node distance=12mm]
-	   \node[main] (specific) at (10.5,12.5) {BiLSTM};
-	   \foreach \i/\word in {-4/{After},4/{graduation},17/{to},25/{Paris}} {
-	       \node (x\i) at (\i,8.5) {\word};
-	       \node[main, minimum size=8mm, fill=black, draw=none] (e\i) at (\i,10.5) {};
-	       \path (x\i) edge (e\i);
-	       \path (e\i) edge (specific);
-	   }
-	    \node (x4) at (10.5,8.5) {\ldots};
-	    \node[main] (state) at (20,15) {state};
-	    \node[main] (mlp) at (10.5,15) {MLP};
-	    \path (specific) edge (mlp);
-	    \path (state) edge node[below] {concatenate} (mlp);
-	    \node (transition) at (10.5,17.8) {transition};
-	    \path (mlp) edge node[right] {softmax} (transition);
-	   \end{tikzpicture}}
-	\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Results}
-\centering
-\small
-\setlength\tabcolsep{3pt}
-\begin{tabular}{lcc}
-& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
-\hline
-\small \bf English (in-domain)     & 73.6 & 51.5 \\
-\small \bf English (out-of-domain) & 69.0 & 26.7 \\
-\small \bf French (in-domain)      & 67.6 & 13.9 \\
-\small \bf German (in-domain)      & 72.5 & 27.1
-\end{tabular}
-\vfill
-
-\begin{center}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{wikipedia.png}\end{minipage}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{squid.jpg}\end{minipage}
-\end{center}
-\end{frame}
-
-%\begin{frame}
-%	\frametitle{Data}
-%	\fbox{UCCA training data is scarce}
-%	\begin{center}
-%	\pgfplotstableread[row sep=\\,col sep=&]{
-%		corpus & total \\
-%	    \color{DarkBlue} \textbf{UD} & 17062 \\
-%		\color{DarkRed} \textbf{SDP} & 33964 \\
-%		\color{DarkGreen} \textbf{AMR} & 36521 \\
-%		\color{Indigo} \textbf{UCCA} & 5225 \\
-%	    }\english
-%	    \begin{tikzpicture}
-%	    \begin{axis}[
-%	    xbar stacked,
-%	    width=10cm,
-%	    height=39mm,
-%	    xmin=0,
-%	    xmax=60000,
-%	    xtick=\empty,
-%	    ytick=data,
-%	    yticklabels from table={\english}{corpus},
-%	    axis x line=none,
-%	    ]
-%	    \addplot [fill=Navy, point meta=explicit symbolic,
-%	    nodes near coords={\pgfmathprintnumber\pgfplotspointmeta~sentences},
-%	    nodes near coords align={anchor=west}] table [x=total,y expr=\coordindex,meta=total] {\english};
-%	    \end{axis}
-%	    \end{tikzpicture}
-%	\end{center}
-%	
-%	\pause
-%	\vfill
-%	
-%	\begin{flushright}
-%	    \fbox{and domains are limited.}
-%	\end{flushright}
-%	\begin{center}
-%	\begin{tabular}{llll}
-%		\color{Indigo} \textbf{UCCA}  & \color{DarkGreen} \textbf{AMR}  & \color{DarkRed} \textbf{SDP}  & \color{NavyBlue} \textbf{UD}  \\
-%		Wikipedia & blogs & news & blogs \\ books & news && news \\ & emails && emails \\ & reviews && reviews \\ &&& Q\&A
-%	\end{tabular}
-%	\end{center}
-%\end{frame}
-
-
-
 \begin{frame}
 	\frametitle{Multitask}
 \centering
@@ -1595,6 +1562,40 @@ a4 ->  ["op1"' above] a4 Paris;
 \small +UD & \textbf{73.2} & \textbf{35.5}
 \end{tabular}
 \end{frame}
+
+
+
+
+\section{Content Differences in Syntactic and Semantic Representations}
+
+
+\begin{frame}
+	\frametitle{UCCA}
+	  \begin{center}
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
+      } edge from parent node[left] {\scriptsize $H$} }
+      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {\scriptsize $R$}}
+          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
+        } edge from parent node[left] {\scriptsize $A$} }
+      } edge from parent node[right] {\scriptsize $H$} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+\end{tikzpicture}
+	  \end{center}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{UCCA vs. UD}
