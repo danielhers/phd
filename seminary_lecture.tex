@@ -490,32 +490,24 @@ Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color
     every node/.append style={font=\rmfamily}]
 	\node[anchor=west,style={font=\sffamily}] at (0,0) {graph};
     \node(ROOT)[fill=black, circle, visible on=<1->] at (3,0) {}
-      child [visible on=<2->] {node (You) {You} edge from parent node [left] {\scriptsize $A$}}
-      child [visible on=<5->] {node (want) {want} edge from parent node [left] {\scriptsize $P$}}
+      child [visible on=<2->,alt=<2>{draw=red}{}] {node (You) {You} edge from parent node [left] {\scriptsize $A$}}
+      child [visible on=<5->,alt=<5>{draw=red}{}] {node (want) {want} edge from parent node [left] {\scriptsize $P$}}
       child [visible on=<9->] {node (totakealongbath) [fill=blue, circle] {}
       {
         child [visible on=<9->] {node (to) {to} edge from parent node [left] {\scriptsize $F$}}
         child [visible on=<14->] {node (takeabath) [fill=red, circle] {}
         {
           child [visible on=<14->] {node (take) {take} edge from parent node [right] {\scriptsize $C$}}
-          child [visible on=<19->] {node (a) {a} edge from parent node [right] {\scriptsize $F$}}
-          child [visible on=<23->] {node (long) {long} edge from parent [draw=none]}
-          child [visible on=<32->] {node (bath) {bath} edge from parent node [right] {\scriptsize $C$}}
+          child [visible on=<19->,alt=<19>{draw=red}{}] {node (a) {a} edge from parent node [right] {\scriptsize $F$}}
+          child [visible on=<23->,alt=<23>{draw=red}{}] {node (long) {long} edge from parent [draw=none]}
+          child [visible on=<32->,alt=<32>{draw=red}{}] {node (bath) {bath} edge from parent node [right] {\scriptsize $C$}}
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
-    \draw[visible on=<17->] (totakealongbath) to node [left] {\scriptsize $P$} (takeabath);
-    \draw[visible on=<26->] (ROOT) to node [left] {\scriptsize $A$} (totakealongbath);
-    \draw[bend left,dashed, visible on=<12->] (totakealongbath) to node [auto] {\scriptsize $A$} (You);
+    \draw[visible on=<17->,alt=<17>{draw=red}{}] (totakealongbath) to node [left] {\scriptsize $P$} (takeabath);
+    \draw[visible on=<26->,alt=<26>{draw=red}{}] (ROOT) to node [left] {\scriptsize $A$} (totakealongbath);
+    \draw[bend left,dashed, visible on=<12->,alt=<12>{draw=red}{}] (totakealongbath) to node [auto] {\scriptsize $A$} (You);
     \draw[bend left, visible on=<23->] (totakealongbath) to node [auto] {\scriptsize $D$} (long);
-    \draw[visible on=<2>,red] (ROOT) to node {} (You);
-    \draw[visible on=<5>,red] (ROOT) to node {} (want);
-    \draw[visible on=<17>,red] (totakealongbath) to node {} (takeabath);
-    \draw[visible on=<19>,red] (takeabath) to node {} (a);
-    \draw[bend left, visible on=<23>,red] (totakealongbath) to node {} (long);
-    \draw[visible on=<26>,red] (ROOT) to node {} (totakealongbath);
-    \draw[bend left,dashed, visible on=<12>,red] (totakealongbath) to node {} (You);
-    \draw[visible on=<32>,red] (takeabath) to node {} (bath);
 \end{tikzpicture}}
 \end{frame}
 
