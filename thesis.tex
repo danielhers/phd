@@ -58,12 +58,31 @@ Prof. Ari Rappoport and Dr. Omri Abend
 
 \section*{Abstract}
 
-Understanding human language requires a hierarchical representation of meaning.
+Natural language processing (NLP) is a scientific and techonological field
+concerned with developing methods for performing linguistic tasks automatically.
+These include classifying text into categories,
+tagging it for linguistic properties (such as part-of-speech),
+building graphical representations for it
+and generating new text according to some constraints.
+For example, \textit{machine translation} is the task of generating
+text in a target language given source language text.
+
+A major effort in NLP is dedicated to \textit{natural language understanding},
+which aims to be able to comprehend text, reason about it, and act upon it
+in an intelligent way.
+While specific use-cases or benchmarks can be solved with relatively simple
+systems, understanding human language in general
+requires a hierarchical representation of meaning.
 Constructing this representation from text has been the goal of an extensive
 line of work in \textit{semantic parsing}.
 While many semantic representation schemes have been proposed,
 they share many of their basic distinctions, such as between predicates
 (relations, states and events) and arguments (participants).
+
+This thesis focuses on a particular semantic representation scheme called
+\textit{Universal Conceptual Cognitive Annotation} (UCCA).
+A fully automatic parser is presented, and evaluated on multiple languages
+(English, French and German).
 
 
 \pagebreak
@@ -84,6 +103,113 @@ non-terminal nodes for multi-word units (Figure~\ref{fig:home});
 and discontinuity of semantic units in the text (Figure~\ref{fig:gave}).
 The only semantic annotation scheme that supports the combination of these criteria is UCCA
 \citep{abend2013universal}.
+
+
+Semantic tasks in natural language processing, such as machine translation and
+sentiment analysis, require understanding the meaning of text. Since text is
+merely a sequence of words, it has to be represented in a way that will convey
+its meaning. One simple approach, known as the bag-of-words model, looks only
+at which words occur in the text. This can already provide
+substantial information about the meaning, but it ignores the order of words,
+which clearly conveys important information as well. The n-gram model counts
+sequences of words with regard to their order, incorporating at least some of
+the meaning encoded in the text structure. These models and variations of them
+are quite successfully applied to a variety of
+tasks\cite{mikolov2013efficient}. Nevertheless, an undeniable part in the
+meaning of language resides in its hierarchical structure. Syntax is a way to
+model this structure formally. Using syntactic features can improve the
+performance in semantic tasks\cite{vandeghinste2013parse}.
+
+However, syntactic annotations suffer from limitations, since they do not
+represent the semantic structure of text directly. Simple manipulations such as
+switching from an active construction to a passive one, which nearly do not
+alter the meaning of text, can yield a significantly different syntactic
+structure. Moreover, the same syntactic construct can express conceptually
+distinct semantic structures\cite{abend2013ucca}.
+
+Semantic annotation schemes attempt to represent the meaning of natural
+language utterances directly. An example is semantic role
+labeling\cite{baker1998framenet}\cite{paass2014semantic}, which annotates
+predicates and their arguments, classifying them into specific roles. As
+opposed to syntactic annotation, which reflects language-specific formal
+patterns, semantic annotation corresponds to a higher level of cognitive
+processing, and the same framework can potentially apply to any language.
+Moreover, a rich semantic annotation scheme may be better than
+syntactic annotation as an input for applications that attempt to solve a
+semantic task, due to their tighter relation to the meaning of the text.
+
+While earlier work on semantic parsing has mostly concentrated on shallow semantic analysis,
+focusing on semantic role labeling of verbal argument structures,
+the focus has recently shifted to parsing of more elaborate representations that account
+for a wider range of phenomena. 
+Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
+%addressed in two SemEval tasks \cite{oepen2014semeval,oepen2015semeval},
+%experimenting with the Prague tectogrammatical layer \cite{sgallhp:1986,bohmova2003prague},
+%and with dependencies derived from the Enju parser\footnote{See
+%\url{http://kmcs.nii.ac.jp/enju/}.}, and Lingo ERG \cite{Flic:02}.
+It addresses a wide range of semantic phenomena,
+and supports discontinuous units and multiple parents.
+However, SDP uses
+bi-lexical dependencies, disallowing non-terminal nodes, and thus faces difficulties in supporting
+structures that have no clear head, such as coordination \cite{Ivanova2012who}.
+
+Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
+Within the grammar-based literature, most work relied on Combinatory Categorial Grammar (CCG)
+\cite{Steedman:00}, which allows computing semantic structure compositionally from the
+syntactic derivations. Notable examples include the Boxer parser \cite{bos2005towards}
+and the AMR parser by \cite{artzi2015broad}.
+Other examples include parsing with Hyperedge Replacement Grammars
+\cite{jones2012semantics,chiang2013parsing,peng2015synchronous} and
+graph grammars \cite{koller2015semantic}.
+A different line of work takes a discriminative, grammarless approach,
+pursuing either graph-based methods that predict the highest ranking graph
+(tree or DAG) that satisfies a given set of constraints
+\cite[for AMR parsing]{flanigan2014discriminative},
+or a transition-based method
+that builds the parse incrementally following a series of local
+decisions \cite{Nivre03anefficient}.
+
+Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
+\cite{flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
+While sharing much of my work's motivation,
+AMR does not ground its units in the words and constituents of the text.
+This complicates the parsing task, as it requires
+that the alignment between words and logical symbols be automatically
+(and imprecisely) detected.
+\cite{wang2015transition} applied a transition-based approach to AMR parsing,
+but their method involved first syntactically parsing the input, and then converting
+the resulting tree into an AMR.
+
+In order to represent the full range of semantic structures exhibited by
+natural language, there are three structural properties that should be supported.
+The first is \textbf{multiple parents},
+representing arguments and relations (semantic units) that are shared between predicates.
+For instance, in the sentence
+``After graduation, John moved to Paris'', ``John'' is an argument of both ``graduation''
+and ``moved'', yielding a DAG structure rather than a tree.
+
+The second is \textbf{non-terminal nodes} for representing units
+comprising more than one word.
+While bi-lexical dependencies partially circumvent this requirement, by
+representing complex units in terms of their headwords, they fall short
+when representing units that have no clear head.
+Frequent examples of such constructions include
+coordination structures (e.g., ``\textit{John and Mary} went home''),
+some multi-word expressions (e.g., ``The Haves and the \textit{Have Nots}''),
+and prepositional phrases.
+In these cases, dependency schemes often apply some annotation convention that
+selects one of the sub-units
+as the head, but as different head selections are needed for different purposes,
+standardization problems arise \cite{Ivanova2012who}.
+For example, selecting the preposition to head prepositional phrases yields better
+parsing results \cite{Schwartz:12}, while the head noun can be more useful for
+information extraction purposes.
+
+Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
+``John \textit{gave} everything \textit{up}''
+(the phrasal verb ``gave ... up'' forms a single semantic unit.
+Discontinuities are also pervasive with other multi-word
+expressions \cite{schneider2014discriminative}.
 
 \begin{figure}[h]\small\centering
   \begin{subfigure}{\textwidth}\centering
