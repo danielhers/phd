@@ -71,7 +71,9 @@ A major effort in NLP is dedicated to \textit{natural language understanding},
 which aims to be able to comprehend text, reason about it, and act upon it
 in an intelligent way.
 While specific use-cases or benchmarks can be solved with relatively simple
-systems, understanding human language in general
+systems, which either ignore word order (``bag-of-words'' models) or treat
+it as a simple linear structure,
+understanding human language in general
 requires a hierarchical representation of meaning.
 Constructing this representation from text has been the goal of an extensive
 line of work in \textit{semantic parsing}.
@@ -80,7 +82,10 @@ they share many of their basic distinctions, such as between predicates
 (relations, states and events) and arguments (participants).
 
 This thesis focuses on a particular semantic representation scheme called
-\textit{Universal Conceptual Cognitive Annotation} (UCCA).
+\textit{Universal Conceptual Cognitive Annotation} (UCCA),
+whose main design principles are cross-linguistic applicability and stability,
+ease of annotation (even by those who are not experts in linguistics),
+and a modular architecture supporting multiple layers of semantic annotation.
 A fully automatic parser is presented, and evaluated on multiple languages
 (English, French and German).
 
