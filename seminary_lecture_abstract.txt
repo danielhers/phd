@@ -5,17 +5,17 @@ go a long way, symbolic meaning representation is inevitably needed for some
 applications, and may provide an invaluable inductive bias for others.  We
 construct such graphical semantic representations from text, with a focus on a
 particular semantic representation scheme called Universal Conceptual Cognitive
-Annotation (UCCA), whose main design principles are ease of annotation,
-cross-linguistic applicability and stability, and a modular architecture of
-different layers of meaning.  We develop a general parser supporting the graph
-structures UCCA exhibits, allowing directed acyclic graphs with discontinuous
-nodes and non-terminals.  Subsequently, we apply the parser to three other
-representation schemes: Abstract Meaning Representation, Semantic Dependencies
-and the syntactic Universal Dependencies.  We show that training the parser in
-a multitask setting on all of these schemes improves its UCCA parsing accuracy.
-Finally, in an empirical comparison of the content of semantic and syntactic
+Annotation (UCCA), whose main design principles are support for all linguistic
+semantic phenomena, ease of annotation, cross-linguistic applicability and
+stability, and a modular architecture of different layers of meaning.  We
+develop a general parser supporting the graph structures UCCA exhibits,
+allowing directed acyclic graphs with discontinuous nodes and non-terminals.
+Subsequently, we apply the parser to three other representation schemes:
+Abstract Meaning Representation, Semantic Dependencies and the syntactic
+Universal Dependencies.  We show that training the parser in a multitask
+setting on all of these schemes improves its UCCA parsing accuracy.  Finally,
+in an empirical comparison of the content of semantic and syntactic
 representations, we discover several aspects of divergence.  These have
 profound impact on the potential contribution of syntax to semantic parsing,
 and on the usefulness of each of the approaches for semantic tasks in natural
-language processing.
-
+language processing.  
