@@ -3,19 +3,18 @@ about it, and act upon it intelligently.  While simplistic frameworks such as
 end-to-end sequence-to-sequence architectures or even bag-of-words models can
 go a long way, symbolic meaning representation is inevitably needed for some
 applications, and may provide an invaluable inductive bias for others.  We
-construct such graphical semantic representations from text, with a focus on a
+construct such graphical meaning representations from text, with a focus on a
 particular semantic representation scheme called Universal Conceptual Cognitive
 Annotation (UCCA), whose main design principles are support for all linguistic
 semantic phenomena, ease of annotation, cross-linguistic applicability and
 stability, and a modular architecture of different layers of meaning.  We
-develop a general parser supporting the graph structures UCCA exhibits,
-allowing directed acyclic graphs with discontinuous nodes and non-terminals.
-Subsequently, we apply the parser to three other representation schemes:
-Abstract Meaning Representation, Semantic Dependencies and the syntactic
-Universal Dependencies.  We show that training the parser in a multitask
-setting on all of these schemes improves its UCCA parsing accuracy.  Finally,
-in an empirical comparison of the content of semantic and syntactic
-representations, we discover several aspects of divergence.  These have
-profound impact on the potential contribution of syntax to semantic parsing,
-and on the usefulness of each of the approaches for semantic tasks in natural
-language processing.  
+develop a general directed acyclic parser supporting the graph structures UCCA
+exhibits.  Subsequently, we apply the parser to three other representation
+schemes in three languages, demonstrating its flexibility and universality. 
+We show that training the parser in a multitask setting on all of these schemes
+improves its UCCA parsing accuracy, by effectively learning generalizations
+across the different representations.  Finally, in an empirical comparison of
+the content of semantic and syntactic representations, we discover several
+aspects of divergence.  These have profound impact on the potential
+contribution of syntax to semantic parsing, and on the usefulness of each of
+the approaches for semantic tasks in natural language processing.  
