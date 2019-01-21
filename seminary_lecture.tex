@@ -100,23 +100,23 @@
 \frametitle{Natural Language Processing}
 \onslide<1>{Machine translation:}
 \begin{center}
-\onslide<1>{\fbox{After graduation, Daniel moved to Copenhagen}}
+\onslide<1>{\fbox{After graduation, John moved to Copenhagen}}
 
 \onslide<1>{$\downarrow$}
 
-\fbox{\heb{אחרי שדניאל סיים את הלימודים, הוא עבר לקופנהגן}}
+\only<1>{\fbox{\heb{אחרי שג'ון סיים את הלימודים, הוא עבר לקופנהגן}}}
+\only<2>{\fbox{\heb{אחרי ש\underline{\heb{ג'ון}} סיים את הלימודים, הוא עבר ל\underline{\heb{קופנהגן}}}}}
 \end{center}
 
 \pause
+\vspace{-12mm}
 
 Named entity \\
 recognition:
 
-\vspace{-1cm}
+\hspace{28mm} $\uparrow$ \hspace{48mm} $\uparrow$
 
-\hspace{27mm} $\uparrow$ \hspace{5cm} $\uparrow$
-
-\hspace{22mm} Location \hspace{38mm} Person
+\hspace{22.9mm} Location \hspace{36.7mm} Person
 
 \end{frame}
 
@@ -184,7 +184,7 @@ abstract away from syntactic detail that does not affect meaning:
       child {node {,} edge from parent node[right] {\scriptsize $U$}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (Daniel) {Daniel} edge from parent node[left] {\scriptsize $A$}}
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
         child {node {moved} edge from parent node[left] {\scriptsize $P$}}
         child {node [fill=Indigo, circle] {}
         {
@@ -193,7 +193,7 @@ abstract away from syntactic detail that does not affect meaning:
         } edge from parent node[left] {\scriptsize $A$} }
       } edge from parent node[right] {\scriptsize $H$} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (Daniel);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
 \end{tikzpicture}
 	    }
 	  \end{flushright}
@@ -205,7 +205,7 @@ abstract away from syntactic detail that does not affect meaning:
 \node[font=\bf\sffamily\small,DarkGreen] at (0,6) {AMR:};
 \graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
 a4 Copenhagen[as={Copenhagen}];
-a2 Daniel[as={Daniel}];
+a2 John[as={John}];
 a1[as={person}];
 a0[as={move-01}];
 a3[as={city}];
@@ -219,7 +219,7 @@ a0 ->  ["ARG0"' above] a1;
 a0 ->  ["ARG2"' above] a3;
 a0 ->  ["time"' above] a5;
 a3 ->  ["name"' above] a4;
-a2 ->  ["op1"' above] a2 Daniel;
+a2 ->  ["op1"' above] a2 John;
 a5 ->  ["op1"' above] a6;
 a4 ->  ["op1"' above] a4 Copenhagen;
 };
@@ -238,7 +238,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
 	        text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
 	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
 	\end{deptext}
 	\deproot{5}{top}
 	\depedge{1}{2}{ARG2}
@@ -324,7 +324,7 @@ Usable by non-experts.
 				\Tree [.\node [circle] (rootd) {};
 				\edge node [auto=left]{\scriptsize A,1}; \node (Hed) {He};
 				\edge node[auto=right]{\scriptsize P,2}; \node (gave) {gave};
-				\edge node[auto=right]{\scriptsize A,3};\node (Daniel) {Daniel};
+				\edge node[auto=right]{\scriptsize A,3};\node (John) {John};
 				\edge node[auto=right]{\scriptsize A,4};
 				[.\node [circle] (an appled) {};
 				\edge node[auto=left]{\scriptsize E,5}; \node (and) {an};
@@ -335,7 +335,7 @@ Usable by non-experts.
 				\begin{scope}[dashed]
 				\draw (Heu) -- (Hed);
 				\draw (gve) -- (gave);
-				\draw (Daniel) -- (john);
+				\draw (John) -- (john);
 				\draw (anu) -- (and);
 				\draw (appleu) -- (appled);
 				\end{scope}
@@ -415,7 +415,7 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
     \node (ROOT) [fill=black, circle] {}
       child {node [fill=black, circle] {}
       {
-        child {node {Daniel} edge from parent node[left] {\scriptsize $C$}}
+        child {node {John} edge from parent node[left] {\scriptsize $C$}}
         child {node {and} edge from parent node[left] {\scriptsize $N$}}
         child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
       } edge from parent node[left] {\scriptsize $A$} }
@@ -433,7 +433,7 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
   \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
-      child {node {Daniel} edge from parent node[left] {\scriptsize $A$}}
+      child {node {John} edge from parent node[left] {\scriptsize $A$}}
       child {node [fill=black, circle] {}
       {
       	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
@@ -453,7 +453,7 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
   \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
-      child {node (Daniel) {Daniel} edge from parent node[left] {\scriptsize $A$}}
+      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
       child {node {decided} edge from parent node[left] {\scriptsize $P$}}
       child {node (totakeaquickshower) [fill=black, circle] {}
       {
@@ -467,7 +467,7 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
         } edge from parent node[right] {\scriptsize $P$} }
       } edge from parent node[left] {\scriptsize $A$} }
       ;
-    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (Daniel);
+    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
     \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
   \end{tikzpicture}}
 \end{frame}
@@ -1093,7 +1093,7 @@ Comparable on out-of-domain test set:
 	\node[anchor=west,style={font=\sffamily}] at (2.4,.75) {buffer};
 	\node[anchor=west] at (2.5,0.25) {\small After};
 	\node[anchor=west] at (3.75,0.25) {\small gradu.};
-	\node[anchor=west] at (5,0.25) {\small Daniel};
+	\node[anchor=west] at (5,0.25) {\small John};
 	\node[anchor=west] at (6.25,0.25) {\small moved};
 	\node[anchor=west] at (7.5,0.25) {\small to};
 	\node[anchor=west] at (8.75,0.25) {\small Copenhagen};
@@ -1226,11 +1226,11 @@ UD
       {
             child {node (graduation) [draw=black,ellipse] {graduate-01} edge from parent node {op1} }
       } edge from parent node {time} }
-      child {node (Daniel) [draw=black,ellipse] {person}
+      child {node (John) [draw=black,ellipse] {person}
       {
         child {node [draw=black,ellipse] {name}
         {
-            child {node [draw=black,ellipse] {"Daniel"} edge from parent node {op1} }
+            child {node [draw=black,ellipse] {"John"} edge from parent node {op1} }
         } edge from parent node {name} }
       } edge from parent node {ARG0} }
       child {node [draw=black,ellipse] {city}
@@ -1241,7 +1241,7 @@ UD
         } edge from parent node {name} }
       } edge from parent node {ARG2} }
       ;
-      \draw (graduation) to node {ARG0} (Daniel);
+      \draw (graduation) to node {ARG0} (John);
   \end{tikzpicture}
   }
   
@@ -1249,7 +1249,7 @@ UD
   \scalebox{.6}{
     \begin{dependency}[text only label, label style={above}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge{1}{2}{ARG2}
         \depedge{5}{4}{ARG1}
@@ -1265,7 +1265,7 @@ UD
   \scalebox{.6}{
     \begin{dependency}[text only label, label style={above}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge{2}{1}{case}
         \depedge{2}{3}{punct}
@@ -1301,16 +1301,16 @@ UD
       {
             child {node (graduation) [word] {graduation} edge from parent node {op} }
       } edge from parent node {time} }
-      child {node (Daniel) [fill=black,circle] {}
+      child {node (John) [fill=black,circle] {}
       {
-        child {node [word] {Daniel} edge from parent node {name} }
+        child {node [word] {John} edge from parent node {name} }
       } edge from parent node {ARG0} }
       child {node [fill=black,circle] {}
       {
         child {node [word] {Copenhagen} edge from parent node {name} }
       } edge from parent node {ARG2} }
       ;
-      \draw[dashed] (graduation) to node {ARG0} (Daniel);
+      \draw[dashed] (graduation) to node {ARG0} (John);
   \end{tikzpicture}}
 
   \vspace{5mm}
@@ -1336,7 +1336,7 @@ UD
       {
         child {node (moved) [fill=black,circle] {}
         {
-          child {node [word] {\quad{\color{white}g} Daniel} edge from parent node {ARG1}}
+          child {node [word] {\quad{\color{white}g} John} edge from parent node {ARG1}}
           child {node [word] {moved{\color{white}g}} edge from parent node {head}}
         } edge from parent [draw=none] }
       } edge from parent [draw=none] }
@@ -1381,7 +1381,7 @@ UD
       } edge from parent [draw=none]}
       child {node {}
       {
-        child {node [word] (Daniel) {Daniel{\color{white}g}} edge from parent [draw=none]}
+        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
       } edge from parent [draw=none]}
       child {node {}
       {
@@ -1394,7 +1394,7 @@ UD
       } edge from parent node {obl}}
       ;
       \draw (ROOT) to node {punct} (comma);
-      \draw (ROOT) to node {nsubj} (Daniel);
+      \draw (ROOT) to node {nsubj} (John);
       \draw (ROOT) to node {head} (moved);
   \end{tikzpicture}}
 
@@ -1421,7 +1421,7 @@ UD
       child {node {,} edge from parent node[right] {\scriptsize $U$}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (Daniel) {Daniel} edge from parent node[left] {\scriptsize $A$}}
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
         child {node {moved} edge from parent node[left] {\scriptsize $P$}}
         child {node [fill=Indigo, circle] {}
         {
@@ -1430,7 +1430,7 @@ UD
         } edge from parent node[left] {\scriptsize $A$} }
       } edge from parent node[right] {\scriptsize $H$} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (Daniel);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
 \end{tikzpicture}
 	    }
 	\end{minipage}
@@ -1439,7 +1439,7 @@ UD
 \begin{tikzpicture}
 \graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
 a4 Copenhagen[as={Copenhagen}];
-a2 Daniel[as={Daniel}];
+a2 John[as={John}];
 a1[as={person}];
 a0[as={move-01}];
 a3[as={city}];
@@ -1453,7 +1453,7 @@ a0 ->  ["ARG0"' above] a1;
 a0 ->  ["ARG2"' above] a3;
 a0 ->  ["time"' above] a5;
 a3 ->  ["name"' above] a4;
-a2 ->  ["op1"' above] a2 Daniel;
+a2 ->  ["op1"' above] a2 John;
 a5 ->  ["op1"' above] a6;
 a4 ->  ["op1"' above] a4 Copenhagen;
 };
@@ -1467,7 +1467,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
 	        text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
 	\begin{deptext}[column sep=1.5em,ampersand replacement=\^]
-	After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
 	\end{deptext}
 	\deproot{5}{top}
 	\depedge{1}{2}{ARG2}
@@ -1482,7 +1482,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \begin{dependency}[edge style={-{Latex[length=2mm]}, color=DarkBlue},
         text only label, label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=1.5em,ampersand replacement=\^, color=DarkBlue]
-    After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge[edge unit distance=1em]{2}{1}{case}
         \depedge[edge unit distance=1em]{2}{3}{punct}
@@ -1608,7 +1608,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       child {node {,} edge from parent node[right] {\scriptsize $U$}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (Daniel) {Daniel} edge from parent node[left] {\scriptsize $A$}}
+        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
         child {node {moved} edge from parent node[left] {\scriptsize $P$}}
         child {node [fill=Indigo, circle] {}
         {
@@ -1617,7 +1617,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
         } edge from parent node[left] {\scriptsize $A$} }
       } edge from parent node[right] {\scriptsize $H$} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (Daniel);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
 \end{tikzpicture}
 	  \end{center}
 \end{frame}
@@ -1641,7 +1641,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
         child {node [word] {,} edge from parent node[below] {\scriptsize $U$}}
         child {node (moved) [circle] {}
         {
-          child {node (Daniel) [word] {Daniel} edge from parent node[left] {\scriptsize $A$}}
+          child {node (John) [word] {John} edge from parent node[left] {\scriptsize $A$}}
           child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
           child {node [circle] {}
           {
@@ -1650,13 +1650,13 @@ a4 ->  ["op1"' above] a4 Copenhagen;
           } edge from parent node[above] {\scriptsize $A$} }
         } edge from parent node[right] {\scriptsize $H$} }
         ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (Daniel);
+      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (John);
     \end{tikzpicture}
     }
     
     \begin{dependency}[text only label, label style={above,font=\tt, color=DarkBlue}, edge style={color=DarkBlue}, font=\small\rmfamily]
     \begin{deptext}[column sep=1.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge[edge unit distance=1ex]{2}{1}{case}
         \depedge[edge unit distance=1ex]{2}{3}{punct}
@@ -1690,7 +1690,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
         } edge from parent [draw=none]}
         child {node {}
         {
-          child {node [word] (Daniel) {Daniel{\color{white}g}} edge from parent [draw=none]}
+          child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
         } edge from parent [draw=none]}
         child {node {}
         {
@@ -1704,7 +1704,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       } edge from parent node {head}}
       ;
       \draw (ROOT) to node {punct} (comma);
-      \draw (ROOT) to node {nsubj} (Daniel);
+      \draw (ROOT) to node {nsubj} (John);
       \draw (ROOT) to node {head} (moved);
   \end{tikzpicture}}
 \end{frame}
@@ -1742,7 +1742,7 @@ Parallel Scenes & complementation/parataxis
         child {node [word] {,} edge from parent node[below] {\scriptsize $U$}}
         child {node (moved) [circle] {}
         {
-          child {node (Daniel) [word] {Daniel} edge from parent node[left] {\scriptsize $A$}}
+          child {node (John) [word] {John} edge from parent node[left] {\scriptsize $A$}}
           child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
           child {node [circle] {}
           {
@@ -1751,7 +1751,7 @@ Parallel Scenes & complementation/parataxis
           } edge from parent node[above] {\scriptsize $A$} }
         } edge from parent node[right] {\scriptsize $H$} }
         ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (Daniel);
+      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (John);
     \end{tikzpicture}
     }
 \end{minipage}
@@ -1759,7 +1759,7 @@ Parallel Scenes & complementation/parataxis
 \begin{minipage}{.5\textwidth}
     \begin{dependency}[text only label, label style={above,font=\tt\scriptsize, color=DarkBlue}, edge style={color=DarkBlue}, font=\scriptsize\rmfamily]
     \begin{deptext}[column sep=.1em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ Daniel \^ moved \^ to \^ Copenhagen \\
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge[edge unit distance=1ex]{2}{1}{case}
         \depedge[edge unit distance=1ex]{2}{3}{punct}
