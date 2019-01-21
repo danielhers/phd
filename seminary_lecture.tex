@@ -202,7 +202,6 @@ Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical depend
     \end{adjustbox}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{Semantic Representations}
 Semantic representation schemes
@@ -217,6 +216,7 @@ abstract away from syntactic detail that does not affect meaning:
 \end{frame}
 
 
+\def\semanticrepresentations{
 \begin{frame}
     \frametitle{Semantic Representations}
 
@@ -278,7 +278,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \vspace{-15mm}
     
     \begin{flushright}
-    \begin{minipage}{.02\textwidth}
+    \begin{minipage}{.01\textwidth}
     {\color{DarkRed}\bf\sffamily\tiny SDP:}
     \end{minipage}
     \begin{minipage}{.6\textwidth}
@@ -286,7 +286,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
         \scalebox{.7}{
 \begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
             text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
-    \begin{deptext}[column sep=1.5em,ampersand replacement=\^]
+    \begin{deptext}[column sep=1em,ampersand replacement=\^]
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
     \deproot{5}{top}
@@ -299,9 +299,9 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     }
     \end{minipage}
     \end{flushright}
-\end{frame}
+\end{frame}}
 
-
+\semanticrepresentations
 
 
 \section{The UCCA Semantic Representation Scheme}
@@ -1205,6 +1205,7 @@ Classifier:
 
 \section{Multitask Parsing across Semantic Representations (ACL'18)}
 
+\semanticrepresentations
 
 \begin{frame}
     \frametitle{Data}
