@@ -171,39 +171,35 @@
 
 \begin{frame}
 \frametitle{Linguistic Structure Annotation Schemes}
-Syntactic schemes, e.g., Universal Dependencies \cite{nivre2016universal}
+Represent structure as a graph.
 
-Semantic representations, e.g., Semantic dependencies \cite{oepen2016towards}
 \vfill
 
-	\begin{flushleft}
-	Syntactic (UD)\\
-	\end{flushleft}
+Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical dependencies
+
+\vfill
+
 	\begin{adjustbox}{center}
 	\begin{dependency}
 		\begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
 		You \^ want \^ to \^ take \^ a \^ long \^ bath \\
 		\end{deptext}
-		\deproot{2}{root}
-		\depedge{2}{1}{nsubj}
-		\depedge[edge start x offset=-4pt]{2}{4}{xcomp}
-		\depedge{2}{3}{mark}
-		\depedge{4}{7}{dobj}
-		\depedge{7}{5}{det}
-		\depedge{7}{6}{amod}
-		\deproot[edge below,edge style={red},edge unit distance=1em]{2}{top}
-		\depedge[edge below,draw=red]{2}{4}{ARG2}
-		\depedge[edge below,draw=red]{2}{1}{ARG1}
-		\depedge[edge below,draw=red,edge unit distance=1.6em,edge start x offset=6pt]{4}{1}{ARG1}
-		\depedge[edge below,draw=red]{4}{7}{ARG2}
-		\depedge[edge below,draw=red]{5}{7}{BV}
-		\depedge[edge below,draw=red]{6}{7}{ARG1}
+		\deproot[draw=DarkBlue]{2}{root}
+		\depedge[draw=DarkBlue]{2}{1}{nsubj}
+		\depedge[edge start x offset=-4pt,draw=DarkBlue]{2}{4}{xcomp}
+		\depedge[draw=DarkBlue]{2}{3}{mark}
+		\depedge[draw=DarkBlue]{4}{7}{dobj}
+		\depedge[draw=DarkBlue]{7}{5}{det}
+		\depedge[draw=DarkBlue]{7}{6}{amod}
+		\deproot[edge below,edge style={DarkRed},edge unit distance=1em]{2}{top}
+		\depedge[edge below,draw=DarkRed]{2}{4}{ARG2}
+		\depedge[edge below,draw=DarkRed]{2}{1}{ARG1}
+		\depedge[edge below,draw=DarkRed,edge unit distance=1.6em,edge start x offset=6pt]{4}{1}{ARG1}
+		\depedge[edge below,draw=DarkRed]{4}{7}{ARG2}
+		\depedge[edge below,draw=DarkRed]{5}{7}{BV}
+		\depedge[edge below,draw=DarkRed]{6}{7}{ARG1}
 	\end{dependency}
-	\end{adjustbox}\\
-	\begin{flushright}
-	\color{red}Semantic (DM)
-	\end{flushright}
-	\captionof{figure}{Bilexical dependencies.}
+	\end{adjustbox}
 \end{frame}
 
 
@@ -869,7 +865,7 @@ No existing UCCA parsers $\Rightarrow$ conversion-based approximation.
 
 \vfill
 \footnotesize
-Bilexical DAG parsers (allow {\color{orange}reentrancy}):
+Bi-lexical DAG parsers (allow {\color{orange}reentrancy}):
 \begin{itemize}
  \item DAGParser \cite{ribeyre-villemontedelaclergerie-seddah:2014:SemEval}:
  transition-based.
@@ -879,7 +875,7 @@ Bilexical DAG parsers (allow {\color{orange}reentrancy}):
 
 Tree parsers (all transition-based):
 \begin{itemize}
- \item MaltParser \cite{nivre2007maltparser}: bilexical tree parser.
+ \item MaltParser \cite{nivre2007maltparser}: bi-lexical tree parser.
  \item Stack LSTM Parser \cite{dyer2015transition}: bilexical tree parser.
  \item \textsc{uparse} \cite{maier2015discontinuous}: allows {\color{blue}non-terminals}, {\color{red}discontinuity}.
 \end{itemize}
