@@ -143,7 +143,7 @@
 }
 
 \only<4>{
-  Sequence-to-sequence works, but lacks inductive bias.
+  Sequence-to-sequence sometimes works, but lacks inductive bias.
 
   \begin{center}
     \begin{tikzpicture}[->]
@@ -180,8 +180,8 @@ Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical depend
 \vfill
 
     \begin{adjustbox}{center}
-    \begin{dependency}
-        \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
+    \begin{dependency}[line width=1.5pt]
+        \begin{deptext}[column sep=2.5em,ampersand replacement=\^,font=\rmfamily]
     	You \^ want \^ to \^ take \^ a \^ long \^ bath \\
         \end{deptext}
         \deproot[draw=DarkBlue]{2}{root}
@@ -315,7 +315,49 @@ Rapid and intuitive annotation by non-experts.
 \vfill
 
 \begin{adjustbox}{center}
-  \includegraphics[width=.85\textwidth]{crosslinguistic.png}
+            \begin{tikzpicture}[level distance=8mm, sibling distance=5mm,
+                draw=Indigo,
+                every node/.append style={font=\rmfamily},
+            	every circle node/.append style={fill=Indigo}]
+                \begin{scope}[frontier/.style={distance from root=25mm}]
+                \Tree [.\node [circle] (root u) {};
+                  \edge node [auto=right]{L}; \node (After u) {After};
+                  \edge node[auto=right]{H};
+                  [.\node [circle](an appleu) {};
+                    \edge node[auto=right]{P}; \node (graduation u) {graduation};
+                  ]
+                  \edge node[auto=right]{};
+                  [.\node [circle](John moved to Paris u) {};
+                    \edge node[auto=right]{A}; \node (John u) {John};
+                    \edge node[auto=left]{P}; \node (moved u) {moved};
+                    [.\node [circle](John moved to Paris u) {};
+                      \edge node[auto=right]{R}; \node (to u) {to};
+                      \edge node[auto=left]{C}; \node (Paris u) {Paris};
+                    ]
+                  ]
+                ]
+                \end{scope}
+                \begin{scope}[yshift=-41mm,grow'=up, frontier/.style={distance from root=12mm}]
+                \Tree [.\node [circle] (rootd) {};
+                  \edge node [auto=left]{}; \node (After d) {\heb{אחרי}};
+                  \edge node[auto=right]{}; \node (gave) {gave};
+                  \edge node[auto=right]{};\node (John) {John};
+                  \edge node[auto=right]{};
+                  [.\node [circle] (an appled) {};
+                    \edge node[auto=left]{}; \node (and) {an};
+                    \edge node[auto=right]{}; \node (appled) {apple};
+                  ]
+                ]
+                \end{scope}
+                \begin{scope}[dashed]
+                  \draw (graduation u) to node[auto] {A} (John u);
+                  \draw (After u) -- (After d);
+                  \draw (graduation u) -- (gave);
+                  \draw (John u) -- (John);
+                  \draw (moved u) -- (and);
+                  \draw (to u) -- (appled);
+                \end{scope}
+            \end{tikzpicture}
 \end{adjustbox}
 \end{frame}
 
