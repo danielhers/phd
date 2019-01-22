@@ -391,7 +391,9 @@ Semantics-based \textbf{evaluation} of
                 \begin{tikzpicture}[sibling distance=3mm, level distance=7mm,
                 every node/.append style={font=\rmfamily},
             	every circle node/.append style={fill=black}]
-                \begin{scope}[frontier/.style={distance from root=15mm}]
+                \begin{scope}[frontier/.style={distance from root=15mm},
+            	edge from parent path={(\tikzparentnode.center) ..
+            	    controls +(0,-.25) and +(0,.25) .. (\tikzchildnode.north)}]
                 \Tree [.\node [circle] (rootu) {};
                 \edge node [auto=right]{}; \node (Heu) {He};
                 \edge node[auto=right down]{}; \node (gve) {gve};
@@ -406,7 +408,10 @@ Semantics-based \textbf{evaluation} of
                 \edge node[auto=left]{}; \node (john) {john};
                 ]]
                 \end{scope}
-                \begin{scope}[yshift=-41mm,grow'=up, frontier/.style={distance from root=12mm}]
+                \begin{scope}[yshift=-41mm,grow'=up,
+                  frontier/.style={distance from root=12mm},
+                  edge from parent path={(\tikzparentnode.center) ..
+            	  controls +(0,.25) and +(0,-.25) .. (\tikzchildnode.south)}]
                 \Tree [.\node [circle] (rootd) {};
                 \edge node [auto=left]{}; \node (Hed) {He};
                 \edge node[auto=right]{}; \node (gave) {gave};
