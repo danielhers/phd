@@ -322,7 +322,7 @@ Rapid and intuitive annotation by non-experts.
             	    controls +(0,-.25) and +(0,.25) .. (\tikzchildnode.north)}]
                 \Tree [.\node [circle] (root u) {};
                   \edge node [auto=right]{L}; \node (After u) {After};
-                  \edge node[auto=right]{H};
+                  \edge node[auto=left]{H};
                   [.\node [circle,xshift=8mm](graduation John u) {};
                     \edge node[auto=right]{P}; \node (graduation u) {graduation};
                   ]
@@ -351,8 +351,8 @@ Rapid and intuitive annotation by non-experts.
                     \edge node[auto=right]{D}; \node (siyem d) {\heb{שסיים}};
                   ]
                   \edge node [auto=right]{L}; \node (ahrei d) {\heb{אחרי}};
+                  \edge node[auto=right]{H};
                   [.\node [circle] (hu avar lecopenhagen d) {};
-                  \edge node[auto=left]{H};
                     \edge node[auto=left]{A}; \node (lecopenhagen d) {\heb{לקופנהגן}};
                     \edge node[auto=left]{P}; \node (avar d) {\heb{עבר}};
                     \edge node[auto=right]{A}; \node (John d) {\heb{ג'ון}};
@@ -446,7 +446,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
 
 \hspace*{1cm}
-  \begin{tikzpicture}[level distance=16mm, sibling distance=2cm, ->,
+  \begin{tikzpicture}[level distance=16mm, sibling distance=28mm, ->,
   level 2/.style={level distance=9mm, sibling distance=1cm},
   level 4/.style={level distance=14mm}]
   \tikzstyle{word} = [font=\rmfamily,color=black]
@@ -470,9 +470,11 @@ Phrases may be {\color{red} discontinuous} (e.g., multi-word expressions).
       ;
     \draw[bend left,dashed,->,orange,very thick] (totakealongbath) to node [auto] {\scriptsize $A$} (You);
     \draw[bend left,->,red,very thick] (takealongbath) to node [auto] {\scriptsize $D$} (long);
-    \node at (6,-0.4) {\Large ----- primary edge};
-    \node at (6,-1.4) {\Large - - - remote edge};
+    \node[visible on=<2->] at (6,-0.4) {\Large ----- primary edge};
+    \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
+
+\pause
 
 \vspace{-26mm}
 \begin{adjustbox}{margin=1pt,frame,scale=.9}
