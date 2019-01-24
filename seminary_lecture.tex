@@ -340,7 +340,7 @@ Rapid and intuitive annotation by non-experts.
                 ]
                 \draw (graduation John u) to node[auto] {\scriptsize A} (John u);
                 \end{scope}
-                \begin{scope}[xshift=23mm,yshift=-58mm,grow'=up,level distance=9mm,
+                \begin{scope}[xshift=2cm,yshift=-58mm,grow'=up,level distance=9mm,
                     sibling distance=4mm, frontier/.style={distance from root=19mm},
                     edge from parent path={(\tikzparentnode.center) ..
                     controls +(0,.25) and +(0,-.25) .. (\tikzchildnode.south)},
@@ -363,10 +363,10 @@ Rapid and intuitive annotation by non-experts.
                 \end{scope}
                 \begin{scope}[dashed,thick]
                   \draw[DarkRed] (After u) to[out=-45,in=135] (ahrei d);
-                  \draw[DarkGreen] (graduation u) -- (halimudim d);
+                  \draw[DarkGreen] (graduation u) to[out=-90,in=100] (John siyem et halimudim d);
                   \draw[DarkBlue] (John u) -- (John d);
                   \draw[orange] (moved u) to[out=-30,in=90] (avar d);
-                  \draw[magenta] (to Copenhagen u) to[out=-90,in=110] (lecopenhagen d);
+                  \draw[magenta] (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
                 \end{scope}
             \end{tikzpicture}
 \end{adjustbox}
