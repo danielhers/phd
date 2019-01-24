@@ -308,8 +308,10 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 \begin{frame}
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
-Cross-linguistically applicable and stable \cite{sulem2015conceptual}. \\
-Rapid and intuitive annotation by non-experts.
+Rapid and intuitive annotation of linguistic semantic phenomena. \\
+\onslide<2->{
+  Cross-linguistically applicable and stable \cite{sulem2015conceptual}.
+}
 
 \vfill
 
@@ -340,34 +342,37 @@ Rapid and intuitive annotation by non-experts.
                 ]
                 \draw (graduation John u) to node[auto] {\scriptsize A} (John u);
                 \end{scope}
-                \begin{scope}[xshift=2cm,yshift=-58mm,grow'=up,level distance=9mm,
-                    sibling distance=4mm, frontier/.style={distance from root=19mm},
-                    edge from parent path={(\tikzparentnode.center) ..
-                    controls +(0,.25) and +(0,-.25) .. (\tikzchildnode.south)},
-                    edge from parent/.append style={nodes={font=\scriptsize}}]
-                \Tree [.\node [circle] (rootd) {};
-                  \edge node[auto=left]{H};
-                  [.\node [circle,xshift=-5mm] (John siyem et halimudim d) {};
-                    \edge node[auto=left]{P}; \node (halimudim d) {\heb{הלימודים}};
-                    \edge node[auto=left]{F}; \node (et d) {\heb{את}};
-                    \edge node[auto=right]{D}; \node (siyem d) {\heb{שסיים}};
+                \onslide<2->{
+                  \begin{scope}[xshift=2cm,yshift=-58mm,grow'=up,level distance=9mm,
+                      sibling distance=4mm, frontier/.style={distance from root=19mm},
+                      edge from parent path={(\tikzparentnode.center) ..
+                      controls +(0,.25) and +(0,-.25) .. (\tikzchildnode.south)},
+                      edge from parent/.append style={nodes={font=\scriptsize}}]
+                  \Tree [.\node [circle] (rootd) {};
+                    \edge node[auto=left]{H};
+                    [.\node [circle,xshift=-5mm] (John siyem et halimudim d) {};
+                      \edge node[auto=left]{P}; \node (halimudim d) {\heb{הלימודים}};
+                      \edge node[auto=left]{F}; \node (et d) {\heb{את}};
+                      \edge node[auto=right]{D}; \node (siyem d) {\heb{שסיים}};
+                    ]
+                    \edge node [auto=right]{L}; \node (ahrei d) {\heb{אחרי}};
+                    \edge node[auto=right]{H};
+                    [.\node [circle] (hu avar lecopenhagen d) {};
+                      \edge node[auto=left]{A}; \node (lecopenhagen d) {\heb{לקופנהגן}};
+                      \edge node[auto=left]{P}; \node (avar d) {\heb{עבר}};
+                      \edge node[auto=right]{A}; \node (John d) {\heb{ג'ון}};
+                    ]
                   ]
-                  \edge node [auto=right]{L}; \node (ahrei d) {\heb{אחרי}};
-                  \edge node[auto=right]{H};
-                  [.\node [circle] (hu avar lecopenhagen d) {};
-                    \edge node[auto=left]{A}; \node (lecopenhagen d) {\heb{לקופנהגן}};
-                    \edge node[auto=left]{P}; \node (avar d) {\heb{עבר}};
-                    \edge node[auto=right]{A}; \node (John d) {\heb{ג'ון}};
-                  ]
-                ]
-                \end{scope}
-                \begin{scope}[dashed,thick]
-                  \draw[DarkRed] (After u) to[out=-45,in=135] (ahrei d);
-                  \draw[DarkGreen] (graduation u) to[out=-90,in=100] (John siyem et halimudim d);
-                  \draw[DarkBlue] (John u) -- (John d);
-                  \draw[orange] (moved u) to[out=-30,in=90] (avar d);
-                  \draw[magenta] (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
-                \end{scope}
+                  \end{scope}
+                }\onslide<3>{
+                  \begin{scope}[dashed,thick]
+                    \draw[DarkRed] (After u) to[out=-45,in=135] (ahrei d);
+                    \draw[DarkGreen] (graduation u) to[out=-90,in=100] (John siyem et halimudim d);
+                    \draw[DarkBlue] (John u) -- (John d);
+                    \draw[orange] (moved u) to[out=-30,in=90] (avar d);
+                    \draw[magenta] (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
+                  \end{scope}
+                }
             \end{tikzpicture}
 \end{adjustbox}
 \end{frame}
