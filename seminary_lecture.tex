@@ -225,24 +225,24 @@ abstract away from syntactic detail that does not affect meaning:
 \begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
     \node[font=\bf\sffamily\Huge,Indigo] at (-3,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
       {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
         child {node [fill=Indigo, circle] {}
         {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Copenhagen} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
 \end{tikzpicture}
         }
       \end{flushright}
@@ -454,29 +454,30 @@ Phrases may be {\color{red} discontinuous}.
 
 \hspace*{1cm}
   \begin{tikzpicture}[level distance=16mm, sibling distance=28mm, ->,
-  level 2/.style={level distance=9mm, sibling distance=1cm},
-  level 4/.style={level distance=14mm}]
+  level 2/.style={level distance=9mm, sibling distance=8mm},
+  level 4/.style={level distance=14mm, sibling distance=18mm},
+  edge from parent/.append style={nodes={font=\scriptsize}}]
   \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=blue, circle] {}
-      child {node (They) [word] {They} edge from parent node[left] {\scriptsize $A$}}
-      child {node [word] {need} edge from parent node[left] {\scriptsize $P$}}
+      child {node (They) [word] {They} edge from parent node[left] {A}}
+      child {node [word] {need} edge from parent node[left] {P}}
       child {node (totakealongbath) [fill=blue, circle] {}
       {
-        child {node [word] {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node [word] {to} edge from parent node[left] {F}}
         child {node (takealongbath) [fill=blue, circle] {}
         {
           child {node (takeabath) [fill=blue, circle] {}
           {
-            child {node [word] {take} edge from parent node[above] {\scriptsize $C$}}
-            child {node [word] {a} edge from parent node[right] {\scriptsize $F$}}
+            child {node [word] {take} edge from parent node[above] {C}}
+            child {node [word] {a} edge from parent node[right] {F}}
             child {node [word] (short) {short} edge from parent[draw=none]}
-            child {node [word] {break} edge from parent node[right] {\scriptsize $C$}}
-          } edge from parent node[left] {\scriptsize $C$} }
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
+            child {node [word] {break} edge from parent node[right] {C}}
+          } edge from parent node[left] {C} }
+        } edge from parent node[right] {P} }
+      } edge from parent node[right] {A} }
       ;
-    \draw[bend left,dashed,->,orange,very thick] (totakealongbath) to node [auto] {\scriptsize $A$} (They);
-    \draw[bend left,->,red,very thick] (takealongbath) to node [auto] {\scriptsize $D$} (short);
+    \draw[bend left,dashed,->,orange,very thick] (totakealongbath) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,->,red,very thick] (takealongbath) to node [auto] {\scriptsize D} (short);
     \node[visible on=<2->] at (6,-0.4) {\Large ----- primary edge};
     \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
@@ -486,11 +487,11 @@ Phrases may be {\color{red} discontinuous}.
 \vspace{-26mm}
 \begin{adjustbox}{margin=1pt,frame,scale=.9}
   \begin{tabular}{c>{\small\it}l}
-      $P$ & process \\
-      $A$ & participant \\
-      $C$ & center \\
-      $D$ & adverbial \\
-      $F$ & function
+      P & process \\
+      A & participant \\
+      C & center \\
+      D & adverbial \\
+      F & function
   \end{tabular}
 \end{adjustbox}
 \end{frame}
@@ -505,16 +506,17 @@ Phrases may be {\color{red} discontinuous}.
 
 \scalebox{.8}{
   \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
-      every node/.append style={midway}]
+      every node/.append style={midway},
+      edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=black, circle] {}
       child {node [fill=black, circle] {}
       {
-        child {node {John} edge from parent node[left] {\scriptsize $C$}}
-        child {node {and} edge from parent node[left] {\scriptsize $N$}}
-        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $A$} }
-      child {node {went} edge from parent node[left] {\scriptsize $P$}}
-      child {node {home} edge from parent node[left] {\scriptsize $A$}}
+        child {node {John} edge from parent node[left] {C}}
+        child {node {and} edge from parent node[left] {N}}
+        child {node {Mary} edge from parent node[left] {C}}
+      } edge from parent node[left] {A} }
+      child {node {went} edge from parent node[left] {P}}
+      child {node {home} edge from parent node[left] {A}}
       ;
   \end{tikzpicture}
   }}
@@ -525,17 +527,18 @@ Phrases may be {\color{red} discontinuous}.
 
 \scalebox{.8}{
   \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
+      every node/.append style={midway},
+      edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=black, circle] {}
-      child {node {John} edge from parent node[left] {\scriptsize $A$}}
+      child {node {John} edge from parent node[left] {A}}
       child {node [fill=black, circle] {}
       {
-      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
+      	child {node {gave} edge from parent node[left] {C}}
       	child {node (everything) {everything} edge from parent[white]}
-      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[right] {\scriptsize $P$} }
+      	child {node {up} edge from parent node[left] {C}}
+      } edge from parent node[right] {P} }
       ;
-    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
+    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize A} (everything);
   \end{tikzpicture}
   }}
 \end{minipage}
@@ -545,24 +548,25 @@ Phrases may be {\color{red} discontinuous}.
 
 \scalebox{.8}{
   \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
-      every node/.append style={midway}]
+      every node/.append style={midway},
+      edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=black, circle] {}
-      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
+      child {node (John) {John} edge from parent node[left] {A}}
+      child {node {decided} edge from parent node[left] {P}}
       child {node (totakeaquickshower) [fill=black, circle] {}
       {
-        child {node {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node {to} edge from parent node[left] {F}}
         child {node [fill=black, circle] {}
         {
-          child {node {take} edge from parent node[left] {\scriptsize $C$}}
-          child {node {a} edge from parent node[right] {\scriptsize $F$}}
+          child {node {take} edge from parent node[left] {C}}
+          child {node {a} edge from parent node[right] {F}}
           child {node (quick) {quick} edge from parent[white]}
-          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
+          child {node {shower} edge from parent node[right] {C}}
+        } edge from parent node[right] {P} }
+      } edge from parent node[left] {A} }
       ;
-    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
-    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
+    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize A} (John);
+    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize D} (quick);
   \end{tikzpicture}}
 \end{frame}
 
@@ -721,27 +725,28 @@ Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color
 \vfill
 \fbox{
 \begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
-    every node/.append style={font=\rmfamily}]
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}}]
     \node[anchor=west,style={font=\sffamily}] at (0,0) {graph};
     \node(ROOT)[fill=black, circle, visible on=<1->] at (3,0) {}
-      child [visible on=<2->,alt=<2>{draw=red}{}] {node (They) {They} edge from parent node [left] {\scriptsize $A$}}
-      child [visible on=<5->,alt=<5>{draw=red}{}] {node (need) {need} edge from parent node [left] {\scriptsize $P$}}
+      child [visible on=<2->,alt=<2>{draw=red}{}] {node (They) {They} edge from parent node [left] {A}}
+      child [visible on=<5->,alt=<5>{draw=red}{}] {node (need) {need} edge from parent node [left] {P}}
       child [visible on=<9->] {node (totakealongbath) [fill=blue, circle] {}
       {
-        child [visible on=<9->] {node (to) {to} edge from parent node [left] {\scriptsize $F$}}
+        child [visible on=<9->] {node (to) {to} edge from parent node [left] {F}}
         child [visible on=<14->] {node (takeabath) [fill=red, circle] {}
         {
-          child [visible on=<14->] {node (take) {take} edge from parent node [right] {\scriptsize $C$}}
-          child [visible on=<19->,alt=<19>{draw=red}{}] {node (a) {a} edge from parent node [right] {\scriptsize $F$}}
+          child [visible on=<14->] {node (take) {take} edge from parent node [right] {C}}
+          child [visible on=<19->,alt=<19>{draw=red}{}] {node (a) {a} edge from parent node [right] {F}}
           child [visible on=<23->,alt=<23>{draw=red}{}] {node (short) {short} edge from parent [draw=none]}
-          child [visible on=<32->,alt=<32>{draw=red}{}] {node (break) {break} edge from parent node [right] {\scriptsize $C$}}
+          child [visible on=<32->,alt=<32>{draw=red}{}] {node (break) {break} edge from parent node [right] {C}}
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
-    \draw[visible on=<17->,alt=<17>{draw=red}{}] (totakealongbath) to node [left] {\scriptsize $P$} (takeabath);
-    \draw[visible on=<26->,alt=<26>{draw=red}{}] (ROOT) to node [left] {\scriptsize $A$} (totakealongbath);
-    \draw[bend left,dashed, visible on=<12->,alt=<12>{draw=red}{}] (totakealongbath) to node [auto] {\scriptsize $A$} (They);
-    \draw[bend left, visible on=<23->] (totakealongbath) to node [auto] {\scriptsize $D$} (short);
+    \draw[visible on=<17->,alt=<17>{draw=red}{}] (totakealongbath) to node [left] {\scriptsize P} (takeabath);
+    \draw[visible on=<26->,alt=<26>{draw=red}{}] (ROOT) to node [left] {\scriptsize A} (totakealongbath);
+    \draw[bend left,dashed, visible on=<12->,alt=<12>{draw=red}{}] (totakealongbath) to node [auto] {\scriptsize A} (They);
+    \draw[bend left, visible on=<23->] (totakealongbath) to node [auto] {\scriptsize D} (short);
 \end{tikzpicture}}
 \end{frame}
 
@@ -753,26 +758,27 @@ An \textit{oracle} provides the transition sequence given the correct graph:
 \centering
 \scalebox{.8}{
 \begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
-    every node/.append style={font=\rmfamily}]
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}}]
     \node(ROOT)[fill=black, circle] at (3,0) {}
-      child {node (They) {They} edge from parent node [left] {\scriptsize $A$}}
-      child {node (need) {need} edge from parent node [left] {\scriptsize $P$}}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node (need) {need} edge from parent node [left] {P}}
       child {node (totakealongbath) [fill=blue, circle] {} 
       { 
-        child {node (to) {to} edge from parent node [left] {\scriptsize $F$}}
+        child {node (to) {to} edge from parent node [left] {F}}
         child {node (takeabath) [fill=red, circle] {}
         {
-          child {node (take) {take} edge from parent node [right] {\scriptsize $C$}}      
-          child {node (a) {a} edge from parent node [right] {\scriptsize $F$}} 
+          child {node (take) {take} edge from parent node [right] {C}}      
+          child {node (a) {a} edge from parent node [right] {F}} 
           child {node (short) {short} edge from parent [draw=none]}
-          child {node (break) {break} edge from parent node [right] {\scriptsize $C$}}  
+          child {node (break) {break} edge from parent node [right] {C}}  
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
-    \draw(totakealongbath) to node [left] {\scriptsize $P$} (takeabath); 
-    \draw(ROOT) to node [left] {\scriptsize $A$} (totakealongbath);
-    \draw[bend left,dashed] (totakealongbath) to node [auto] {\scriptsize $A$} (They);
-    \draw[bend left] (totakealongbath) to node [auto] {\scriptsize $D$} (short);
+    \draw(totakealongbath) to node [left] {\scriptsize P} (takeabath); 
+    \draw(ROOT) to node [left] {\scriptsize A} (totakealongbath);
+    \draw[bend left,dashed] (totakealongbath) to node [auto] {\scriptsize A} (They);
+    \draw[bend left] (totakealongbath) to node [auto] {\scriptsize D} (short);
 \end{tikzpicture}}
 \[\Downarrow\]
 \begin{flushleft}
@@ -847,21 +853,22 @@ ordinal features (height, number of parents and children)
 \begin{minipage}{.4\textwidth}
 \scalebox{.8}{
 \begin{tikzpicture}[level distance=1cm, sibling distance=1cm, ->,
-    every node/.append style={font=\rmfamily}]
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}}]
     \node[anchor=west,style={font=\sffamily}] at (5,0) {graph};
     \draw[color=gray] (1.2,.3) rectangle (4.9,-3.2);
     \node(ROOT)[fill=black, circle, visible on=<2->] at (3,0) {}
-      child {node (They) {They} edge from parent node [left] {\scriptsize $A$}}
-      child {node {need} edge from parent node [left] {\scriptsize $P$}}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node {need} edge from parent node [left] {P}}
       child {node (totakealongbath) [fill=blue, circle] {}
       {
-        child {node {to} edge from parent node [left] {\scriptsize $F$}}
+        child {node {to} edge from parent node [left] {F}}
         child {node (takeabath) [fill=red, circle] {}
         {
-          child {node {take} edge from parent node [right] {\scriptsize $C$}}
-          child [opacity=0] {node {a} edge from parent node [right] {\scriptsize $F$}}
+          child {node {take} edge from parent node [right] {C}}
+          child [opacity=0] {node {a} edge from parent node [right] {F}}
           child [opacity=0] {node (short) {short} edge from parent [draw=none]}
-          child [opacity=0] {node {break} edge from parent node [right] {\scriptsize $C$}}
+          child [opacity=0] {node {break} edge from parent node [right] {C}}
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
@@ -935,13 +942,13 @@ Tree parsers (all transition-based):
     \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
 	They \^ need \^ to \^ take \^ a \^ short \^ break \\
     \end{deptext}
-    \depedge{2}{1}{$A$}
-    \depedge{2}{4}{$A$}
-    \depedge[dashed,edge start x offset=6pt]{4}{1}{$A$}
-    \depedge{4}{3}{$F$}
-    \depedge{4}{5}{$F$}
-    \depedge{4}{6}{$D$}
-    \depedge{4}{7}{$C$}
+    \depedge{2}{1}{A}
+    \depedge{2}{4}{A}
+    \depedge[dashed,edge start x offset=6pt]{4}{1}{A}
+    \depedge{4}{3}{F}
+    \depedge{4}{5}{F}
+    \depedge{4}{6}{D}
+    \depedge{4}{7}{C}
     \end{dependency}
     \captionof{figure}{UCCA bilexical DAG approximation (for tree, delete remote edges).}
 \end{center}
@@ -959,27 +966,28 @@ Tree parsers (all transition-based):
 
 \begin{flushright}
     \begin{tikzpicture}[level distance=13mm, sibling distance=17mm, ->,
-        every circle node/.append style={fill=black}]
+        every circle node/.append style={fill=black},
+        edge from parent/.append style={nodes={font=\scriptsize}}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node (ROOT) [circle] {}
-        child {node (After) [word] {After} edge from parent node[left] {\scriptsize $L$}}
+        child {node (After) [word] {After} edge from parent node[left] {L}}
         child {node (graduation) [circle] {}
         {
-          child {node [word] {graduation} edge from parent node[left] {\scriptsize $P$}}
-        } edge from parent node[left] {\scriptsize $H$} }
-        child {node [word] {,} edge from parent node[right] {\scriptsize $U$}}
+          child {node [word] {graduation} edge from parent node[left] {P}}
+        } edge from parent node[left] {H} }
+        child {node [word] {,} edge from parent node[right] {U}}
         child {node (moved) [circle] {}
         {
-          child {node (Joe) [word] {Joe} edge from parent node[left] {\scriptsize $A$}}
-          child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
+          child {node (Joe) [word] {Joe} edge from parent node[left] {A}}
+          child {node [word] {moved} edge from parent node[left] {P}}
           child {node [circle] {}
           {
-            child {node [word] {to} edge from parent node[left] {\scriptsize $R$}}
-            child {node [word] {Copenhagen} edge from parent node[right] {\scriptsize $C$}}
-          } edge from parent node[right] {\scriptsize $A$} }
-        } edge from parent node[right] {\scriptsize $H$} }
+            child {node [word] {to} edge from parent node[left] {R}}
+            child {node [word] {Copenhagen} edge from parent node[right] {C}}
+          } edge from parent node[right] {A} }
+        } edge from parent node[right] {H} }
         ;
-      \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (Joe);
+      \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (Joe);
     \end{tikzpicture}
 \end{flushright}
 
@@ -989,13 +997,13 @@ Tree parsers (all transition-based):
     \begin{deptext}[column sep=.7em,ampersand replacement=\^,font=\rmfamily]
 	After \^ graduation \^ , \^ Joe \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
-    \depedge{2}{1}{$L$}
-    \depedge{2}{3}{$U$}
-    \depedge[dashed]{2}{4}{$A$}
-    \depedge{5}{4}{$A$}
-    \depedge{2}{5}{$H$}
-    \depedge{7}{6}{$R$}
-    \depedge{5}{7}{$A$}
+    \depedge{2}{1}{L}
+    \depedge{2}{3}{U}
+    \depedge[dashed]{2}{4}{A}
+    \depedge{5}{4}{A}
+    \depedge{2}{5}{H}
+    \depedge{7}{6}{R}
+    \depedge{5}{7}{A}
     \end{dependency}
 \end{flushleft}
 \end{frame}
@@ -1039,46 +1047,47 @@ Comparing graphs over the same sequence of tokens,
 \vfill
 \begin{adjustbox}{frame,scale=.75,center}
     \begin{tikzpicture}[level distance=15mm, sibling distance=15mm, ->,
-        every circle node/.append style={fill=black}]
+        every circle node/.append style={fill=black},
+        edge from parent/.append style={nodes={font=\scriptsize}}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node at (-1,.7) {gold};
       \node (ROOT) at (0,0) [circle] {}
-        child {node (After) [word] {After} edge from parent node[left] {$L$}}
+        child {node (After) [word] {After} edge from parent node[left] {L}}
         child {node (graduation) [circle] {}
         {
-          child {node [word] {graduation} edge from parent node[left] {$P$}}
-        } edge from parent node[left] {$H$} }
-        child {node [word] {,} edge from parent node[right] {$U$}}
+          child {node [word] {graduation} edge from parent node[left] {P}}
+        } edge from parent node[left] {H} }
+        child {node [word] {,} edge from parent node[right] {U}}
         child {node (moved) [circle] {}
         {
-          child {node (Joe) [word] {Joe} edge from parent node[left] {$A$}}
-          child {node [word] {moved} edge from parent node[left] {$P$}}
+          child {node (Joe) [word] {Joe} edge from parent node[left] {A}}
+          child {node [word] {moved} edge from parent node[left] {P}}
           child {node [circle] {}
           {
-            child {node [word] {to} edge from parent node[left] {$R$}}
-            child {node [word] {Copenhagen} edge from parent node[right] {$C$}}
-          } edge from parent node[right] {$A$} }
-        } edge from parent node[right] {$H$} }
+            child {node [word] {to} edge from parent node[left] {R}}
+            child {node [word] {Copenhagen} edge from parent node[right] {C}}
+          } edge from parent node[right] {A} }
+        } edge from parent node[right] {H} }
         ;
-      \draw[dashed,->] (graduation) to node [auto] {$A$} (Joe);
+      \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (Joe);
       \node at (6,.7) {predicted};
       \node (ROOT_) at (7,0) [circle] {}
-        child {node (After_) [word] {After} edge from parent node[left] {$L$}}
+        child {node (After_) [word] {After} edge from parent node[left] {L}}
         child {node (graduation_) [circle] {}
         {
-          child[red] {node [word] {graduation} edge from parent node[left] {$S$}}
-        } edge from parent node[left] {$H$} }
-        child {node [word] {,} edge from parent node[right] {$U$}}
+          child[red] {node [word] {graduation} edge from parent node[left] {S}}
+        } edge from parent node[left] {H} }
+        child {node [word] {,} edge from parent node[right] {U}}
         child {node (moved) [circle,xshift=3mm,yshift=-7mm] {}
         {
-          child {node (Joe_) [word] {Joe} edge from parent node[left] {$A$}}
-          child {node [word] {moved} edge from parent node[left] {$P$}}
-          child[red] {node [word] {to} edge from parent node[left] {$F$}}
-          child[red] {node (Copenhagen_) [word] {Copenhagen} edge from parent node[right] {$A$}}
-        } edge from parent node[right] {$H$} }
+          child {node (Joe_) [word] {Joe} edge from parent node[left] {A}}
+          child {node [word] {moved} edge from parent node[left] {P}}
+          child[red] {node [word] {to} edge from parent node[left] {F}}
+          child[red] {node (Copenhagen_) [word] {Copenhagen} edge from parent node[right] {A}}
+        } edge from parent node[right] {H} }
         ;
-      \draw[bend left,dashed,->] (graduation_) to node [auto] {$A$} (Joe_);
-      \draw[bend left,dashed,->,red] (graduation_) to node [auto] {$A$} (Copenhagen_);
+      \draw[bend left,dashed,->] (graduation_) to node [auto] {\scriptsize A} (Joe_);
+      \draw[bend left,dashed,->,red] (graduation_) to node [auto] {\scriptsize A} (Copenhagen_);
     \end{tikzpicture}
 \end{adjustbox}
 \vfill
@@ -1506,26 +1515,27 @@ UD
     \end{minipage}
     \begin{minipage}{.3\pagewidth}
         \scalebox{.31}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
+    edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
       {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
         child {node [fill=Indigo, circle] {}
         {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Copenhagen} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
 \end{tikzpicture}
         }
     \end{minipage}
@@ -1693,26 +1703,27 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \begin{frame}
     \frametitle{UCCA}
       \begin{center}
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
+    edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$\;}}
+      child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
       {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
         child {node [fill=Indigo, circle] {}
         {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Copenhagen} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
 \end{tikzpicture}
       \end{center}
 \end{frame}
@@ -1723,29 +1734,30 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \centering
   \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=28mm, ->, draw=Indigo,
-        every circle node/.append style={fill=Indigo}]
+        every circle node/.append style={fill=Indigo},
+        edge from parent/.append style={nodes={font=\scriptsize}}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node[color=Indigo] at (-4,0) {UCCA:};
       \node[color=DarkBlue] at (-4,-3) {UD:};
       \node (ROOT) [circle] {}
-        child {node (After) [word] {After} edge from parent node[above] {\scriptsize $L$}}
+        child {node (After) [word] {After} edge from parent node[above] {L}}
         child {node (graduation) [circle] {}
         {
-          child {node [word] {graduation} edge from parent node[left] {\scriptsize $P$}}
-        } edge from parent node[right] {\scriptsize $H$} }
-        child {node [word] {,} edge from parent node[below] {\scriptsize $U$}}
+          child {node [word] {graduation} edge from parent node[left] {P}}
+        } edge from parent node[right] {H} }
+        child {node [word] {,} edge from parent node[below] {U}}
         child {node (moved) [circle] {}
         {
-          child {node (John) [word] {John} edge from parent node[left] {\scriptsize $A$}}
-          child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
+          child {node (John) [word] {John} edge from parent node[left] {A}}
+          child {node [word] {moved} edge from parent node[left] {P}}
           child {node [circle] {}
           {
-            child {node [word] {to} edge from parent node[left] {\scriptsize $R$}}
-            child {node [word] {Copenhagen} edge from parent node[right] {\scriptsize $C$}}
-          } edge from parent node[above] {\scriptsize $A$} }
-        } edge from parent node[right] {\scriptsize $H$} }
+            child {node [word] {to} edge from parent node[left] {R}}
+            child {node [word] {Copenhagen} edge from parent node[right] {C}}
+          } edge from parent node[above] {A} }
+        } edge from parent node[right] {H} }
         ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (John);
+      \draw[dashed,->] (graduation) to node [above] {\scriptsize A} (John);
     \end{tikzpicture}
     }
     
@@ -1768,7 +1780,8 @@ a4 ->  ["op1"' above] a4 Copenhagen;
   \begin{tikzpicture}[level distance=12mm, ->, draw=DarkBlue,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize\tt,color=DarkBlue},
       level 2/.style={sibling distance=27mm,level distance=9mm},
-      level 3/.style={sibling distance=22mm,level distance=14mm}]
+      level 3/.style={sibling distance=22mm,level distance=14mm},
+      edge from parent/.append style={nodes={font=\scriptsize}}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
       \node at (-4.75,0) {\normalsize\sffamily Converted UD:};
     \node [fill=DarkBlue,circle] {}
@@ -1826,27 +1839,28 @@ Parallel Scenes & complementation/parataxis
 \begin{minipage}{.4\textwidth}
   \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->, draw=Indigo,
-        every circle node/.append style={fill=Indigo}]
+        every circle node/.append style={fill=Indigo},
+        edge from parent/.append style={nodes={font=\scriptsize}}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node (ROOT) [circle] {}
-        child {node (After) [word] {After} edge from parent node[above] {\scriptsize $L$}}
+        child {node (After) [word] {After} edge from parent node[above] {L}}
         child {node (graduation) [circle] {}
         {
-          child {node [word] {graduation} edge from parent node[left] {\scriptsize $P$}}
-        } edge from parent node[right] {\scriptsize $H$} }
-        child {node [word] {,} edge from parent node[below] {\scriptsize $U$}}
+          child {node [word] {graduation} edge from parent node[left] {P}}
+        } edge from parent node[right] {H} }
+        child {node [word] {,} edge from parent node[below] {U}}
         child {node (moved) [circle] {}
         {
-          child {node (John) [word] {John} edge from parent node[left] {\scriptsize $A$}}
-          child {node [word] {moved} edge from parent node[left] {\scriptsize $P$}}
+          child {node (John) [word] {John} edge from parent node[left] {A}}
+          child {node [word] {moved} edge from parent node[left] {P}}
           child {node [circle] {}
           {
-            child {node [word] {to} edge from parent node[left] {\scriptsize $R$}}
-            child {node [word] {Copenhagen} edge from parent node[right] {\scriptsize $C$}}
-          } edge from parent node[above] {\scriptsize $A$} }
-        } edge from parent node[right] {\scriptsize $H$} }
+            child {node [word] {to} edge from parent node[left] {R}}
+            child {node [word] {Copenhagen} edge from parent node[right] {C}}
+          } edge from parent node[above] {A} }
+        } edge from parent node[right] {H} }
         ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize $A$} (John);
+      \draw[dashed,->] (graduation) to node [above] {\scriptsize A} (John);
     \end{tikzpicture}
     }
 \end{minipage}
