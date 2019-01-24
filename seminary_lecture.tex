@@ -449,8 +449,10 @@ Semantics-based \textbf{evaluation} of
 \frametitle{Graph Structure}
 UCCA structures are directed acyclic graphs (DAGs). \\
 Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. \\
-\textit{Remote edges} enable {\color{orange} reentrancy}. \\
-Phrases may be {\color{red} discontinuous}.
+\onslide<2->{
+  \textit{Remote edges} enable {\color{orange} reentrancy}. \\
+  Phrases may be {\color{red} discontinuous}.
+}
 
 \hspace*{1cm}
   \begin{tikzpicture}[level distance=16mm, sibling distance=28mm, ->,
@@ -461,12 +463,12 @@ Phrases may be {\color{red} discontinuous}.
     \node (ROOT) [fill=blue, circle] {}
       child {node (They) [word] {They} edge from parent node[left] {A}}
       child {node [word] {need} edge from parent node[left] {P}}
-      child {node (totakealongbath) [fill=blue, circle] {}
+      child {node (totakeashortbreak) [fill=blue, circle] {}
       {
         child {node [word] {to} edge from parent node[left] {F}}
-        child {node (takealongbath) [fill=blue, circle] {}
+        child {node (takeashortbreak) [fill=blue, circle] {}
         {
-          child {node (takeabath) [fill=blue, circle] {}
+          child {node (takeabreak) [fill=blue, circle] {}
           {
             child {node [word] {take} edge from parent node[above] {C}}
             child {node [word] {a} edge from parent node[right] {F}}
@@ -476,8 +478,8 @@ Phrases may be {\color{red} discontinuous}.
         } edge from parent node[right] {P} }
       } edge from parent node[right] {A} }
       ;
-    \draw[bend left,dashed,->,orange,very thick] (totakealongbath) to node [auto] {\scriptsize A} (They);
-    \draw[bend left,->,red,very thick] (takealongbath) to node [auto] {\scriptsize D} (short);
+    \draw[bend left,dashed,->,orange,very thick] (totakeashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,->,red,very thick] (takeashortbreak) to node [auto] {\scriptsize D} (short);
     \node[visible on=<2->] at (6,-0.4) {\Large ----- primary edge};
     \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
@@ -731,10 +733,10 @@ Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color
     \node(ROOT)[fill=black, circle, visible on=<1->] at (3,0) {}
       child [visible on=<2->,alt=<2>{draw=red}{}] {node (They) {They} edge from parent node [left] {A}}
       child [visible on=<5->,alt=<5>{draw=red}{}] {node (need) {need} edge from parent node [left] {P}}
-      child [visible on=<9->] {node (totakealongbath) [fill=blue, circle] {}
+      child [visible on=<9->] {node (totakeashortbreak) [fill=blue, circle] {}
       {
         child [visible on=<9->] {node (to) {to} edge from parent node [left] {F}}
-        child [visible on=<14->] {node (takeabath) [fill=red, circle] {}
+        child [visible on=<14->] {node (takeabreak) [fill=red, circle] {}
         {
           child [visible on=<14->] {node (take) {take} edge from parent node [right] {C}}
           child [visible on=<19->,alt=<19>{draw=red}{}] {node (a) {a} edge from parent node [right] {F}}
@@ -743,10 +745,10 @@ Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
-    \draw[visible on=<17->,alt=<17>{draw=red}{}] (totakealongbath) to node [left] {\scriptsize P} (takeabath);
-    \draw[visible on=<26->,alt=<26>{draw=red}{}] (ROOT) to node [left] {\scriptsize A} (totakealongbath);
-    \draw[bend left,dashed, visible on=<12->,alt=<12>{draw=red}{}] (totakealongbath) to node [auto] {\scriptsize A} (They);
-    \draw[bend left, visible on=<23->] (totakealongbath) to node [auto] {\scriptsize D} (short);
+    \draw[visible on=<17->,alt=<17>{draw=red}{}] (totakeashortbreak) to node [left] {\scriptsize P} (takeabreak);
+    \draw[visible on=<26->,alt=<26>{draw=red}{}] (ROOT) to node [left] {\scriptsize A} (totakeashortbreak);
+    \draw[bend left,dashed, visible on=<12->,alt=<12>{draw=red}{}] (totakeashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left, visible on=<23->] (totakeashortbreak) to node [auto] {\scriptsize D} (short);
 \end{tikzpicture}}
 \end{frame}
 
@@ -763,10 +765,10 @@ An \textit{oracle} provides the transition sequence given the correct graph:
     \node(ROOT)[fill=black, circle] at (3,0) {}
       child {node (They) {They} edge from parent node [left] {A}}
       child {node (need) {need} edge from parent node [left] {P}}
-      child {node (totakealongbath) [fill=blue, circle] {} 
+      child {node (totakeashortbreak) [fill=blue, circle] {} 
       { 
         child {node (to) {to} edge from parent node [left] {F}}
-        child {node (takeabath) [fill=red, circle] {}
+        child {node (takeabreak) [fill=red, circle] {}
         {
           child {node (take) {take} edge from parent node [right] {C}}      
           child {node (a) {a} edge from parent node [right] {F}} 
@@ -775,10 +777,10 @@ An \textit{oracle} provides the transition sequence given the correct graph:
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
-    \draw(totakealongbath) to node [left] {\scriptsize P} (takeabath); 
-    \draw(ROOT) to node [left] {\scriptsize A} (totakealongbath);
-    \draw[bend left,dashed] (totakealongbath) to node [auto] {\scriptsize A} (They);
-    \draw[bend left] (totakealongbath) to node [auto] {\scriptsize D} (short);
+    \draw(totakeashortbreak) to node [left] {\scriptsize P} (takeabreak); 
+    \draw(ROOT) to node [left] {\scriptsize A} (totakeashortbreak);
+    \draw[bend left,dashed] (totakeashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left] (totakeashortbreak) to node [auto] {\scriptsize D} (short);
 \end{tikzpicture}}
 \[\Downarrow\]
 \begin{flushleft}
@@ -860,10 +862,10 @@ ordinal features (height, number of parents and children)
     \node(ROOT)[fill=black, circle, visible on=<2->] at (3,0) {}
       child {node (They) {They} edge from parent node [left] {A}}
       child {node {need} edge from parent node [left] {P}}
-      child {node (totakealongbath) [fill=blue, circle] {}
+      child {node (totakeashortbreak) [fill=blue, circle] {}
       {
         child {node {to} edge from parent node [left] {F}}
-        child {node (takeabath) [fill=red, circle] {}
+        child {node (takeabreak) [fill=red, circle] {}
         {
           child {node {take} edge from parent node [right] {C}}
           child [opacity=0] {node {a} edge from parent node [right] {F}}
