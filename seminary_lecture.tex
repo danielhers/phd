@@ -308,7 +308,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 \begin{frame}
 \frametitle{Universal Conceptual Cognitive Annotation (UCCA)}
-Rapid and intuitive annotation of linguistic semantic phenomena. \\
+Supports rapid and intuitive annotation of linguistic semantic phenomena. \\
 \onslide<2->{
   Cross-linguistically applicable and stable \cite{sulem2015conceptual}.
 }
@@ -455,31 +455,23 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 }
 
 \hspace*{1cm}
-  \begin{tikzpicture}[level distance=16mm, sibling distance=28mm, ->,
-  level 2/.style={level distance=9mm, sibling distance=8mm},
-  level 4/.style={level distance=14mm, sibling distance=18mm},
+  \begin{tikzpicture}[level distance=16mm, sibling distance=21mm, ->,
   edge from parent/.append style={nodes={font=\scriptsize}}]
   \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=blue, circle] {}
       child {node (They) [word] {They} edge from parent node[left] {A}}
-      child {node [word] {need} edge from parent node[left] {P}}
-      child {node (totakeashortbreak) [fill=blue, circle] {}
+      child {node [word] {need} edge from parent node[left] {D}}
+      child {node [word] {to} edge from parent node[left] {F}}
+      child {node (takeashortbreak) [fill=blue, circle] {}
       {
-        child {node [word] {to} edge from parent node[left] {F}}
-        child {node (takeashortbreak) [fill=blue, circle] {}
-        {
-          child {node (takeabreak) [fill=blue, circle] {}
-          {
-            child {node [word] {take} edge from parent node[above] {C}}
-            child {node [word] {a} edge from parent node[right] {F}}
-            child {node [word] (short) {short} edge from parent[draw=none]}
-            child {node [word] {break} edge from parent node[right] {C}}
-          } edge from parent node[left] {C} }
-        } edge from parent node[right] {P} }
-      } edge from parent node[right] {A} }
+        child {node [word] {take} edge from parent node[above] {F}}
+        child {node [word] {a} edge from parent node[right] {F}}
+        child {node [word] (short) {short} edge from parent[draw=none]}
+        child {node [word] {break} edge from parent node[right] {C}}
+      } edge from parent node[right] {P} }
       ;
-    \draw[bend left,dashed,->,orange,very thick] (totakeashortbreak) to node [auto] {\scriptsize A} (They);
-    \draw[bend left,->,red,very thick] (takeashortbreak) to node [auto] {\scriptsize D} (short);
+    \draw[bend left,dashed,->,orange,very thick] (takeashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,->,red,very thick] (ROOT) to node [auto] {\scriptsize D} (short);
     \node[visible on=<2->] at (6,-0.4) {\Large ----- primary edge};
     \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
