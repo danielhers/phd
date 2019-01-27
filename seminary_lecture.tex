@@ -181,24 +181,25 @@ Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical depend
 
     \begin{adjustbox}{center}
     \begin{dependency}[line width=1.5pt]
-        \begin{deptext}[column sep=2.5em,ampersand replacement=\^,font=\rmfamily]
-    	They \^ thought \^ to \^ take \^ a \^ short \^ break \\
+        \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
+          After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
         \end{deptext}
-        \deproot[draw=DarkBlue]{2}{root}
-        \depedge[draw=DarkBlue]{2}{1}{nsubj}
-        \depedge[edge start x offset=-4pt,draw=DarkBlue]{2}{4}{xcomp}
-        \depedge[draw=DarkBlue]{2}{3}{mark}
-        \depedge[draw=DarkBlue]{4}{7}{dobj}
-        \depedge[draw=DarkBlue]{7}{5}{det}
-        \depedge[draw=DarkBlue]{7}{6}{amod}
-        \deproot[edge below,edge style={DarkRed},edge unit distance=1em]{2}{top}
-        \depedge[edge below,draw=DarkRed]{2}{4}{ARG2}
-        \depedge[edge below,draw=DarkRed]{2}{1}{ARG1}
-        \depedge[edge below,draw=DarkRed,edge unit distance=1.6em,edge start x offset=6pt]{4}{1}{ARG1}
-        \depedge[edge below,draw=DarkRed]{4}{7}{ARG2}
-        \depedge[edge below,draw=DarkRed]{5}{7}{BV}
-        \depedge[edge below,draw=DarkRed]{6}{7}{ARG1}
-    \end{dependency}
+        \depedge[edge below,draw=DarkRed,edge unit distance=3ex]{1}{2}{ARG2}
+        \depedge[edge below,draw=DarkRed,edge unit distance=3ex]{5}{4}{ARG1}
+        \depedge[edge below,draw=DarkRed,edge unit distance=2ex, edge end x offset=-2pt]{1}{5}{ARG1}
+        \deproot[edge below,draw=DarkRed,edge unit distance=3ex]{5}{top}
+        \depedge[edge below,draw=DarkRed,edge unit distance=4ex, edge start x offset=-1pt, edge end x offset=3pt]{5}{7}{ARG2}
+        \depedge[edge below,draw=DarkRed,edge unit distance=3ex, edge end x offset=5pt]{6}{5}{ARG1}
+        \depedge[edge below,draw=DarkRed,edge unit distance=3ex]{6}{7}{ARG2}
+        \depedge[draw=DarkBlue,edge unit distance=3ex]{2}{1}{case}
+        \depedge[draw=DarkBlue,edge unit distance=3ex]{2}{3}{punct}
+        \depedge[draw=DarkBlue,edge unit distance=3ex]{5}{4}{nsubj}
+        \depedge[draw=DarkBlue,edge unit distance=3ex, edge end x offset=-2pt]{5}{2}{obl}
+        \depedge[draw=DarkBlue,edge unit distance=3ex]{7}{6}{case}
+        \deproot[draw=DarkBlue,edge unit distance=4ex]{5}{root}
+        \depedge[draw=DarkBlue,edge unit distance=4ex]{5}{7}{obl}
+    \end{dependency}    
+    
     \end{adjustbox}
 \end{frame}
 
