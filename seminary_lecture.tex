@@ -320,8 +320,8 @@ Supports rapid and intuitive annotation of linguistic semantic phenomena. \\
                 every node/.append style={font=\rmfamily},
             	every circle node/.append style={fill=Indigo}]
                 \begin{scope}[frontier/.style={distance from root=23mm},
-                    edge from parent path={(\tikzparentnode.center) ..
-                	controls +(0,-.25) and +(0,.25) .. (\tikzchildnode.north)},
+                    edge from parent path={(\tikzparentnode.center)
+                	.. controls +(0,-.25) and +(0,.25) .. (\tikzchildnode.north)},
                     edge from parent/.append style={nodes={font=\scriptsize}}]
                 \Tree [.\node [circle] (root u) {};
                   \edge node [auto=right]{L}; \node (After u) {After};
@@ -707,7 +707,7 @@ These transition enable {\color{blue}non-terminal nodes}, {\color{orange}reentra
     \end{scope}
     \begin{scope}[xstep=.1,ystep=.5,color=gray]
       \only<28,30> \draw (-.01,0) grid (.1,.5);
-      \only<32->   \draw (8.89,0) grid (9,.5);
+      \only<32->   \draw (8.89,0) grid (9.01,.5);
     \end{scope}
     \only<-27>      \node[fill=black, circle] at (.3, .25) {};
     \only<25-26>    \node[fill=blue,  circle] at (1.3,.25) {};
@@ -740,20 +740,21 @@ These transition enable {\color{blue}non-terminal nodes}, {\color{orange}reentra
 \fbox{
 \begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
     every node/.append style={font=\rmfamily},
-    edge from parent/.append style={nodes={font=\scriptsize}}]
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node[anchor=west,style={font=\sffamily}] at (0,0) {graph};
     \node(ROOT)[fill=black, circle, visible on=<1->] at (3,0) {}
       child [visible on=<2->,alt=<2>{draw=red}{}] {node (They) {They} edge from parent node [left] {A}}
       child [visible on=<5->,alt=<5>{draw=red}{}] {node (thought) {thought} edge from parent node [left] {P}}
       child [visible on=<9->] {node (abouttakingashortbreak) [fill=blue, circle] {}
       {
-        child [visible on=<9->] {node (to) {about} edge from parent node [left] {R}}
+        child [visible on=<9->,alt=<9>{draw=red}{}] {node (to) {about} edge from parent node [right] {R}}
         child [visible on=<14->] {node (takingabreak) [fill=red, circle] {}
         {
-          child [visible on=<14->] {node (take) {taking} edge from parent node [right] {C}}
+          child [visible on=<14->] {node (take) {taking} edge from parent node [above] {F}}
           child [visible on=<19->,alt=<19>{draw=red}{}] {node (a) {a} edge from parent node [right] {F}}
           child [visible on=<23->,alt=<23>{draw=red}{}] {node (short) {short} edge from parent [draw=none]}
-          child [visible on=<32->,alt=<32>{draw=red}{}] {node (break) {break} edge from parent node [right] {C}}
+          child [visible on=<32->,alt=<32>{draw=red}{}] {node (break) {break} edge from parent node [above] {C}}
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
@@ -773,7 +774,8 @@ An \textit{oracle} provides the transition sequence given the correct graph:
 \scalebox{.8}{
 \begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
     every node/.append style={font=\rmfamily},
-    edge from parent/.append style={nodes={font=\scriptsize}}]
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node(ROOT)[fill=black, circle] at (3,0) {}
       child {node (They) {They} edge from parent node [left] {A}}
       child {node (thought) {thought} edge from parent node [left] {P}}
@@ -843,7 +845,7 @@ ordinal features (height, number of parents and children)
 }
 \centering
 \onslide<6>{
-\fbox{
+\fbox{\scalebox{.9}{
 \begin{minipage}{.5\textwidth}
 \begin{tikzpicture}[every node/.append style={font=\rmfamily}]
     \node[anchor=west,style={font=\sffamily}] at (-1.2,.25){stack};
@@ -868,7 +870,8 @@ ordinal features (height, number of parents and children)
 \scalebox{.8}{
 \begin{tikzpicture}[level distance=1cm, sibling distance=1cm, ->,
     every node/.append style={font=\rmfamily},
-    edge from parent/.append style={nodes={font=\scriptsize}}]
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node[anchor=west,style={font=\sffamily}] at (5,0) {graph};
     \draw[color=gray] (1.2,.3) rectangle (4.9,-3.2);
     \node(ROOT)[fill=black, circle, visible on=<2->] at (3,0) {}
@@ -889,8 +892,7 @@ ordinal features (height, number of parents and children)
 \end{tikzpicture}
 }
 \end{minipage}
-}
-}
+}}}
 \onslide<2->{
 \scalebox{.7}{
 \begin{tikzpicture}[->]
@@ -981,7 +983,8 @@ Tree parsers (all transition-based):
 \begin{flushright}
     \begin{tikzpicture}[level distance=13mm, sibling distance=17mm, ->,
         every circle node/.append style={fill=black},
-        edge from parent/.append style={nodes={font=\scriptsize}}]
+        edge from parent/.append style={nodes={font=\scriptsize}},
+        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node (ROOT) [circle] {}
         child {node (After) [word] {After} edge from parent node[left] {L}}
@@ -1062,7 +1065,8 @@ Comparing graphs over the same sequence of tokens,
 \begin{adjustbox}{frame,scale=.75,center}
     \begin{tikzpicture}[level distance=15mm, sibling distance=15mm, ->,
         every circle node/.append style={fill=black},
-        edge from parent/.append style={nodes={font=\scriptsize}}]
+        edge from parent/.append style={nodes={font=\scriptsize}},
+        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node at (-1,.7) {gold};
       \node (ROOT) at (0,0) [circle] {}
@@ -1338,7 +1342,8 @@ UD
       every node/.append style={sloped,anchor=south,auto=false,font=\tiny},
       level 1/.style={level distance=14mm,sibling distance=26mm},
       level 2/.style={level distance=13mm},
-      level 3/.style={level distance=12mm}]
+      level 3/.style={level distance=12mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node (ROOT) [draw=black,ellipse] {move-01}
       child {node [draw=black,ellipse] {after}
       {
@@ -1412,7 +1417,8 @@ UD
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=28mm},
       level 2/.style={sibling distance=14mm},
-      level 3/.style={sibling distance=12mm}]
+      level 3/.style={sibling distance=12mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [word] {moved}
       child {node [word] {After}
@@ -1436,7 +1442,8 @@ UD
   \begin{tikzpicture}[level distance=14mm, ->,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=29mm,level distance=6mm},
-      level 2/.style={sibling distance=16mm,level distance=14mm}]
+      level 2/.style={sibling distance=16mm,level distance=14mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=black,circle] {}
       child {node (after) [fill=black,circle] {}
@@ -1485,7 +1492,8 @@ UD
   \begin{tikzpicture}[level distance=15mm, ->,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=16mm},
-      level 2/.style={sibling distance=12mm}]
+      level 2/.style={sibling distance=12mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=black,circle] {}
       child {node (after) [fill=black,circle] {}
@@ -1530,7 +1538,8 @@ UD
     \begin{minipage}{.3\pagewidth}
         \scalebox{.31}{
 \begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
-    edge from parent/.append style={nodes={font=\scriptsize}}]
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
@@ -1718,7 +1727,8 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \frametitle{UCCA}
       \begin{center}
 \begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
-    edge from parent/.append style={nodes={font=\scriptsize}}]
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
@@ -1744,8 +1754,9 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 \begin{frame}
     \frametitle{UCCA}
-    \begin{tikzpicture}[level distance=19mm, sibling distance=21mm, ->, draw=Indigo,
-  edge from parent/.append style={nodes={font=\scriptsize}}]
+\begin{tikzpicture}[level distance=19mm, sibling distance=21mm, ->, draw=Indigo,
+  edge from parent/.append style={nodes={font=\scriptsize}},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
   \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (They) [word] {They} edge from parent node[left] {A}}
@@ -1770,7 +1781,8 @@ a4 ->  ["op1"' above] a4 Copenhagen;
   \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=28mm, ->, draw=Indigo,
         every circle node/.append style={fill=Indigo},
-        edge from parent/.append style={nodes={font=\scriptsize}}]
+        edge from parent/.append style={nodes={font=\scriptsize}},
+        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node[color=Indigo] at (-4,0) {UCCA:};
       \node[color=DarkBlue] at (-4,-3) {UD:};
@@ -1816,7 +1828,8 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize\tt,color=DarkBlue},
       level 2/.style={sibling distance=27mm,level distance=9mm},
       level 3/.style={sibling distance=22mm,level distance=14mm},
-      edge from parent/.append style={nodes={font=\scriptsize}}]
+      edge from parent/.append style={nodes={font=\scriptsize}},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
       \node at (-4.75,0) {\normalsize\sffamily Converted UD:};
     \node [fill=DarkBlue,circle] {}
@@ -1875,7 +1888,8 @@ Parallel Scenes & complementation/parataxis
   \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->, draw=Indigo,
         every circle node/.append style={fill=Indigo},
-        edge from parent/.append style={nodes={font=\scriptsize}}]
+        edge from parent/.append style={nodes={font=\scriptsize}},
+        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node (ROOT) [circle] {}
         child {node (After) [word] {After} edge from parent node[above] {L}}
