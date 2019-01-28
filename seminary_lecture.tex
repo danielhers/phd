@@ -205,8 +205,7 @@ Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical depend
 
 \begin{frame}
     \frametitle{Semantic Representations}
-Semantic representation schemes
-abstract away from syntactic detail that does not affect meaning:
+Abstract away from detail that does not affect meaning:
 \begin{center}
     \fbox{\textrm{rest}} $\approx$ \fbox{\textrm{take a break}}
     
@@ -482,7 +481,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
     \draw[bend left,dashed,->,orange,very thick,visible on=<2->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
     \draw[bend left,->,visible on=<-2>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
     \draw[bend left,->,red,very thick,visible on=<3>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
-    \node[visible on=<3->] at (6,-0.4) {\Large ----- primary edge};
+    \node[visible on=<3->] at (6,-.4) {\Large ----- primary edge};
     \node[visible on=<3->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
 
@@ -518,10 +517,10 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
       {
         child {node {John} edge from parent node[left] {C}}
         child {node {and} edge from parent node[left] {N}}
-        child {node {Mary} edge from parent node[left] {C}}
+        child {node {Mary} edge from parent node[right] {C}}
       } edge from parent node[left] {A} }
       child {node {went} edge from parent node[left] {P}}
-      child {node {home} edge from parent node[left] {A}}
+      child {node {home} edge from parent node[right] {A}}
       ;
   \end{tikzpicture}
   }}
@@ -540,7 +539,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
       {
       	child {node {gave} edge from parent node[left] {C}}
       	child {node (everything) {everything} edge from parent[white]}
-      	child {node {up} edge from parent node[left] {C}}
+      	child {node {up} edge from parent node[right] {C}}
       } edge from parent node[right] {P} }
       ;
     \draw[bend right,->,red,very thick] (ROOT) to[out=-20, in=180] node [left] {\scriptsize A} (everything);
@@ -568,8 +567,8 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
         child {node [fill=black, circle] {}
         {
           child {node {to} edge from parent node[left] {R}}
-          child {node {Copenhagen} edge from parent node[left] {C}}
-        } edge from parent node[left] {A} }
+          child {node {Copenhagen} edge from parent node[right] {C}}
+        } edge from parent node[right] {A} }
       } edge from parent node[right] {H} }
       ;
     \draw[dashed,->,orange,very thick] (graduation) to node [auto] {\scriptsize A} (John);
@@ -621,112 +620,124 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 
 \begin{frame}
 \frametitle{Transition-Based Parsing}
-First used for dependency parsing \cite{nivre2004incrementality}.
 
 Parse text $w_1 \ldots w_n$ to graph $G$ incrementally by applying transitions to the parser state:
 stack, buffer and constructed graph.
 
+First used for dependency parsing \cite{nivre2004incrementality}.
+
 \pause
 \vfill
 Initial state:
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}, circle]
-    \draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (1,.5);
-    \node[anchor=west,style={font=\sffamily}] at (-0.1,1.00)     {stack};
-    \node[fill=black] at (0.5,0.25) {};
-    \draw[xstep=1cm,ystep=5mm,color=gray] (3,0) grid (10,.5);
-    \node[anchor=west,style={font=\sffamily}] at (8.9,1.00) {buffer};
-    \node[anchor=west] at (3,0.25) {\small They};
-    \node[anchor=west] at (4,0.25) {\small thought};
-    \node[anchor=west] at (5,0.25) {\small to};
-    \node[anchor=west] at (6,0.25) {\small take};
-    \node[anchor=west] at (7,0.25) {\small a};
-    \node[anchor=west] at (8,0.25) {\small short};
-    \node[anchor=west] at (9,0.25) {\small break};
-\end{tikzpicture}
+\scalebox{.9}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily,
+                    anchor=west,text height=.6ex,text depth=0}, circle]
+    \draw[xstep=1,ystep=.5,color=gray] (-.01,0) grid (1,.5);
+    \node[style={font=\sffamily}] at (-.1,.8) {stack};
+    \node[fill=black] at (.3,.25) {};
+    \draw[xstep=1,ystep=.5,color=gray] (2,0) grid (9,.5);
+    \node[style={font=\sffamily}] at (8,.8) {buffer};
+    \node at (2,.2) {\small They};
+    \node at (3,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
 
 \vfill
 \pause
 \parser{} transitions:
 
-\{\textsc{Shift, Reduce, Node$_X$, Left-Edge$_X$, Right-Edge$_X$,}\\
-\hspace{5mm}\textsc{Left-Remote$_X$, Right-Remote$_X$, Swap, Finish}\}
+\{\textsc{Shift, Reduce, {\color{blue}Node$_X$}, Left-Edge$_X$, Right-Edge$_X$,}\\
+\hspace{5mm}\textsc{{\color{orange}Left-Remote$_X$}, {\color{orange}Right-Remote$_X$}, {\color{red}Swap}, Finish}\}
 
 \vfill
-Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
+These transition enable {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
 \end{frame}
 
 \begin{frame}
 \frametitle{Example}
 \begin{minipage}[t][8mm][t]{\textwidth}
     $\Rightarrow$\textsc{
-        \only<1>{Shift}\only<2>{Right-Edge$_A$}\only<3>{Shift}\only<4>{Swap}\only<5>{Right-Edge$_P$}\only<6>{Reduce}\only<7>{Shift}\only<8>{Shift}\only<9>{Node$_F$}\only<10>{Reduce}\only<11>{Shift}\only<12>{Left-Remote$_A$}\only<13>{Shift}\only<14>{Node$_C$}\only<15>{Reduce}\only<16>{Shift}\only<17>{Right-Edge$_P$}\only<18>{Shift}\only<19>{Right-Edge$_F$}\only<20>{Reduce}\only<21>{Shift}\only<22>{Swap}\only<23>{Right-Edge$_D$}\only<24>{Reduce}\only<25>{Swap}\only<26>{Right-Edge$_A$}\only<27>{Reduce}\only<28>{Reduce}\only<29>{Shift}\only<30>{Reduce}\only<31>{Shift}\only<32>{Right-Edge$_C$}\only<33>{Finish}
+        \only<1>{Shift}\only<2>{Right-Edge$_A$}\only<3>{Shift}\only<4>{Swap}\only<5>{Right-Edge$_P$}\only<6>{Reduce}\only<7>{Shift}\only<8>{Shift}\only<9>{Node$_R$}\only<10>{Reduce}\only<11>{Shift}\only<12>{Left-Remote$_A$}\only<13>{Shift}\only<14>{Node$_C$}\only<15>{Reduce}\only<16>{Shift}\only<17>{Right-Edge$_P$}\only<18>{Shift}\only<19>{Right-Edge$_F$}\only<20>{Reduce}\only<21>{Shift}\only<22>{Swap}\only<23>{Right-Edge$_D$}\only<24>{Reduce}\only<25>{Swap}\only<26>{Right-Edge$_A$}\only<27>{Reduce}\only<28>{Reduce}\only<29>{Shift}\only<30>{Reduce}\only<31>{Shift}\only<32>{Right-Edge$_C$}\only<33>{Finish}
     }
 \end{minipage}
 
 \vfill
 
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}]
-    \only<31>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (-0.01,0) grid (1,.5);
-    \only<1,7>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (.99,0) grid (2,.5);
-    \only<2,5,26>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (-0.01,0) grid (2,.5);
-    \only<3,8,11>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (1.99,0) grid (3,.5);
-    \only<13,16>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (2.99,0) grid (4,.5);
-    \only<18,21>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (3.99,0) grid (5,.5);
-    \only<17>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (1.99,0) grid (4,.5);
-    \only<19>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (2.99,0) grid (5,.5);
-    \only<4>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (4,0) grid (5,.5);
-    \only<9>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (5,0) grid (6,.5);
-    \only<14>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (6,0) grid (7,.5);
-    \only<22>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (8,0) grid (9,.5);
-    \only<25>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (7,0) grid (8,.5);
-    \only<23>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (1.99,0) grid (4,.5);
-    \only<32>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (-0.01,0) grid (2,.5);
-    \only<12>\draw[xstep=1cm,ystep=5mm,color=red,line width=1pt] (.99,0) grid (3,.5);
-    \only<28,30>\draw[xstep=1mm,ystep=5mm,color=gray] (-0.01,0) grid (0.1,.5);
-    \only<6,27,29,31->\draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (1,.5);
-    \only<-2,4-5,7,10,25-26,33>\draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (2,.5);
-    \only<3,8-9,11-12,15,24>\draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (3,.5);
-    \only<13-14,16-17,20,22-23>\draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (4,.5);
-    \only<18-19,21>\draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (5,.5);
-    \node[anchor=west,style={font=\sffamily}] at (-0.1,1.00){stack};
-    \only<-27>\node[fill=black, circle] at (0.5,0.25) {};
-    \only<25-26> \node[fill=blue, circle] at (1.5,0.25) {};
-    \only<11-24> \node[fill=blue, circle] at (2.5,0.25) {};
-    \only<31-> \node[fill=red, circle] at (0.5,0.25) {};
-    \only<16-21> \node[fill=red, circle] at (3.5,0.25) {};
-    \only<29> \node[anchor=west] at (0,0.25) {\small They};
-    \only<1-3,7-24> \node[anchor=west] at (1,0.25) {\small They};
-    \only<4-5> \node[anchor=west] at (1,0.25) {\small thought};
-    \only<3>   \node[anchor=west] at (2,0.25) {\small thought};
-    \only<8-9>  \node[anchor=west] at (2,0.25) {\small to};
-    \only<13-14> \node[anchor=west] at (3,0.25) {\small take};
-    \only<18-19> \node[anchor=west] at (4,0.25) {\small a};
-    \only<21> \node[anchor=west] at (4,0.25) {\small short};
-    \only<22-23> \node[anchor=west] at (3,0.25) {\small short};
-    \only<32-> \node[anchor=west] at (1,0.25) {\small break};
-    \only<-2,4-6>\draw[xstep=1cm,ystep=5mm,color=gray] (4,0) grid (10,.5);
-    \only<3,5-7,9-10>\draw[xstep=1cm,ystep=5mm,color=gray] (5,0) grid (10,.5);
-    \only<8,11-12,14-15>\draw[xstep=1cm,ystep=5mm,color=gray] (6,0) grid (10,.5);
-    \only<13,16-17,25-28>\draw[xstep=1cm,ystep=5mm,color=gray] (7,0) grid (10,.5);
-    \only<18-20,22-24,29-30>\draw[xstep=1cm,ystep=5mm,color=gray] (8,0) grid (10,.5);
-    \only<21,31>\draw[xstep=1cm,ystep=5mm,color=gray] (9,0) grid (10,.5);
-    \only<32->\draw[xstep=1mm,ystep=5mm,color=gray] (9.89,0) grid (10,.5);
-    \node[anchor=west,style={font=\sffamily}] at (8.9,1) {buffer};
-    \only<9-10> \node[fill=blue, circle] at (5.5,0.25) {};
-    \only<14-15> \node[fill=red, circle] at (6.5,0.25) {};
-    \only<22-30> \node[fill=red, circle] at (8.5,0.25) {};
-    \only<4-6> \node[anchor=west] at (4,0.25) {\small They};
-    \only<25-28> \node[anchor=west] at (7,0.25) {\small They};
-    \only<-2>  \node[anchor=west] at (4,0.25) {\small thought};
-    \only<-7> \node[anchor=west] at (5,0.25) {\small to};
-    \only<-12> \node[anchor=west] at (6,0.25) {\small take};
-    \only<-17> \node[anchor=west] at (7,0.25) {\small a};
-    \only<-20> \node[anchor=west] at (8,0.25) {\small short};
-    \only<-31> \node[anchor=west] at (9,0.25) {\small break};
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[style={font=\sffamily}]
+      \node at (-.1,1){stack};
+      \node at (8.9,1) {buffer};
+    \end{scope}
+    \begin{scope}[xstep=1,ystep=.5,color=red,line width=1pt]
+      \only<31>    \draw (-.01,0) grid (1,.5);
+      \only<1,7>   \draw (.99, 0) grid (2,.5);
+      \only<2,5,26>\draw (-.01,0) grid (2,.5);
+      \only<3,8,11>\draw (1.99,0) grid (3,.5);
+      \only<13,16> \draw (2.99,0) grid (4,.5);
+      \only<18,21> \draw (3.99,0) grid (5,.5);
+      \only<17>    \draw (1.99,0) grid (4,.5);
+      \only<19>    \draw (2.99,0) grid (5,.5);
+      \only<4>     \draw (4,   0) grid (5,.5);
+      \only<9>     \draw (5,   0) grid (6,.5);
+      \only<14>    \draw (6,   0) grid (7,.5);
+      \only<22>    \draw (8,   0) grid (9,.5);
+      \only<25>    \draw (7,   0) grid (8,.5);
+      \only<23>    \draw (1.99,0) grid (4,.5);
+      \only<32>    \draw (-.01,0) grid (2,.5);
+      \only<12>    \draw (.99, 0) grid (3,.5);
+    \end{scope}
+    \begin{scope}[xstep=.1,ystep=.5,color=gray]
+      \only<28,30> \draw (-.01,0) grid (.1,.5);
+      \only<32->   \draw (9.89,0) grid (10,.5);
+    \end{scope}
+    \begin{scope}[xstep=1,ystep=.5,color=gray]
+      \only<6,27,29,31->         \draw (-.01,0) grid (1, .5);
+      \only<-2,4-5,7,10,25-26,33>\draw (-.01,0) grid (2, .5);
+      \only<3,8-9,11-12,15,24>   \draw (-.01,0) grid (3, .5);
+      \only<13-14,16-17,20,22-23>\draw (-.01,0) grid (4, .5);
+      \only<18-19,21>            \draw (-.01,0) grid (5, .5);
+      \only<-2,4-6>              \draw (4,   0) grid (10,.5);
+      \only<3,5-7,9-10>          \draw (5,   0) grid (10,.5);
+      \only<8,11-12,14-15>       \draw (6,   0) grid (10,.5);
+      \only<13,16-17,25-28>      \draw (7,   0) grid (10,.5);
+      \only<18-20,22-24,29-30>   \draw (8,   0) grid (10,.5);
+      \only<21,31>               \draw (9,   0) grid (10,.5);
+    \end{scope}
+    \only<-27>      \node[fill=black, circle] at (.3, .25) {};
+    \only<25-26>    \node[fill=blue,  circle] at (1.3,.25) {};
+    \only<11-24>    \node[fill=blue,  circle] at (2.3,.25) {};
+    \only<31->      \node[fill=red,   circle] at (.3, .25) {};
+    \only<16-21>    \node[fill=red,   circle] at (3.3,.25) {};
+    \only<9-10>     \node[fill=blue,  circle] at (5.3,.25) {};
+    \only<14-15>    \node[fill=red,   circle] at (6.3,.25) {};
+    \only<22-30>    \node[fill=red,   circle] at (8.3,.25) {};
+    \only<29>       \node at (0,.2) {\small They};
+    \only<1-3,7-24> \node at (1,.2) {\small They};
+    \only<4-5>      \node at (1,.2) {\small thought};
+    \only<3>        \node at (2,.2) {\small thought};
+    \only<8-9>      \node at (2,.2) {\small about};
+    \only<13-14>    \node at (3,.2) {\small taking};
+    \only<18-19>    \node at (4,.2) {\small a};
+    \only<21>       \node at (4,.2) {\small short};
+    \only<22-23>    \node at (3,.2) {\small short};
+    \only<32->      \node at (1,.2) {\small break};
+    \only<4-6>      \node at (4,.2) {\small They};
+    \only<25-28>    \node at (7,.2) {\small They};
+    \only<-2>       \node at (4,.2) {\small thought};
+    \only<-7>       \node at (5,.2) {\small about};
+    \only<-12>      \node at (6,.2) {\small taking};
+    \only<-17>      \node at (7,.2) {\small a};
+    \only<-20>      \node at (8,.2) {\small short};
+    \only<-31>      \node at (9,.2) {\small break};
 \end{tikzpicture}
 \vfill
 \fbox{
-\begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
+\begin{tikzpicture}[level distance=15mm, sibling distance=25mm, ->,
     every node/.append style={font=\rmfamily},
     edge from parent/.append style={nodes={font=\scriptsize}}]
     \node[anchor=west,style={font=\sffamily}] at (0,0) {graph};
@@ -735,7 +746,7 @@ Support {\color{blue}non-terminal nodes}, {\color{orange}reentrancy} and {\color
       child [visible on=<5->,alt=<5>{draw=red}{}] {node (thought) {thought} edge from parent node [left] {P}}
       child [visible on=<9->] {node (abouttakingashortbreak) [fill=blue, circle] {}
       {
-        child [visible on=<9->] {node (to) {about} edge from parent node [left] {F}}
+        child [visible on=<9->] {node (to) {about} edge from parent node [left] {R}}
         child [visible on=<14->] {node (takingabreak) [fill=red, circle] {}
         {
           child [visible on=<14->] {node (take) {taking} edge from parent node [right] {C}}
@@ -767,7 +778,7 @@ An \textit{oracle} provides the transition sequence given the correct graph:
       child {node (thought) {thought} edge from parent node [left] {P}}
       child {node (abouttakingashortbreak) [fill=blue, circle] {} 
       { 
-        child {node (to) {about} edge from parent node [left] {F}}
+        child {node (to) {about} edge from parent node [left] {R}}
         child {node (takingabreak) [fill=red, circle] {}
         {
           child {node (take) {taking} edge from parent node [right] {C}}      
@@ -785,7 +796,7 @@ An \textit{oracle} provides the transition sequence given the correct graph:
 \[\Downarrow\]
 \begin{flushleft}
 \footnotesize
-\textsc{Shift}, \textsc{Right-Edge$_A$}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_P$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_F$}, \textsc{Reduce}, \textsc{Left-Remote$_A$}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_C$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_P$}, \textsc{Shift}, \textsc{Right-Edge$_F$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_D$}, \textsc{Reduce}, \textsc{Swap}, \textsc{Right-Edge$_A$}, \textsc{Reduce}, \textsc{Reduce}, \textsc{Shift}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_C$}, \textsc{Finish}
+\textsc{Shift}, \textsc{Right-Edge$_A$}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_P$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_R$}, \textsc{Reduce}, \textsc{Left-Remote$_A$}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_C$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_P$}, \textsc{Shift}, \textsc{Right-Edge$_F$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_D$}, \textsc{Reduce}, \textsc{Swap}, \textsc{Right-Edge$_A$}, \textsc{Reduce}, \textsc{Reduce}, \textsc{Shift}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_C$}, \textsc{Finish}
 \end{flushleft}
 \end{frame}
 
@@ -817,15 +828,15 @@ ordinal features (height, number of parents and children)
 
 \vspace{5mm}
 \begin{tikzpicture}
-    \draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (4,.5);
+    \draw[xstep=1cm,ystep=5mm,color=gray] (-.01,0) grid (4,.5);
     \draw[xstep=1cm,ystep=5mm,color=gray] (5,0) grid (10,.5);
-    \node[anchor=west] at (-0.1,1.00) {stack};
-    \node[anchor=west] at (8.9,1.00) {buffer};
+    \node[anchor=west] at (-.1,1) {stack};
+    \node[anchor=west] at (8.9,1) {buffer};
     \foreach \i in {0.5,8.5,9.5} {
-        \node[fill=gray, circle] at (\i,0.25) {};
+        \node[fill=gray, circle] at (\i,.25) {};
     }
     \foreach \i in {1.5,2.5,3.5,5.5,6.5,7.5} {
-        \node[fill=black, circle] at (\i,0.25) {};
+        \node[fill=black, circle] at (\i,.25) {};
     }
 \end{tikzpicture}
 }
@@ -834,22 +845,22 @@ ordinal features (height, number of parents and children)
 \fbox{
 \begin{minipage}{.5\textwidth}
 \begin{tikzpicture}[every node/.append style={font=\rmfamily}]
-    \node[anchor=west,style={font=\sffamily}] at (-1.2,0.25){stack};
-    \draw[xstep=1cm,ystep=5mm,color=gray] (-0.01,0) grid (4,.5);
-    \node[fill=black, circle] at (0.5,0.25) {};
-    \node[fill=blue, circle] at (2.5,0.25) {};
-    \node[anchor=west] at (1,0.25) {\small They};
-    \node[anchor=west] at (3,0.25) {\small take};
+    \node[anchor=west,style={font=\sffamily}] at (-1.2,.25){stack};
+    \draw[xstep=1cm,ystep=5mm,color=gray] (-.01,0) grid (4,.5);
+    \node[fill=black, circle] at (.5,.25) {};
+    \node[fill=blue, circle] at (2.5,.25) {};
+    \node[anchor=west] at (1,.25) {\small They};
+    \node[anchor=west] at (3,.25) {\small taking};
 \end{tikzpicture}
 
 \vspace{1cm}
 \begin{tikzpicture}[every node/.append style={font=\rmfamily}]
-    \node[anchor=west,style={font=\sffamily}] at (3.8,0.25){buffer};
+    \node[anchor=west,style={font=\sffamily}] at (3.8,.25){buffer};
     \draw[xstep=1cm,ystep=5mm,color=gray] (5,0) grid (9,.5);
-    \node[fill=red, circle] at (5.5,0.25) {};
-    \node[anchor=west] at (6,0.25) {\small a};
-    \node[anchor=west] at (7,0.25) {\small short};
-    \node[anchor=west] at (8,0.25) {\small break};
+    \node[fill=red, circle] at (5.5,.25) {};
+    \node[anchor=west] at (6,.25) {\small a};
+    \node[anchor=west] at (7,.25) {\small short};
+    \node[anchor=west] at (8,.25) {\small break};
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{.4\textwidth}
@@ -864,7 +875,7 @@ ordinal features (height, number of parents and children)
       child {node {thought} edge from parent node [left] {P}}
       child {node (abouttakingashortbreak) [fill=blue, circle] {}
       {
-        child {node {about} edge from parent node [left] {F}}
+        child {node {about} edge from parent node [left] {R}}
         child {node (takingabreak) [fill=red, circle] {}
         {
           child {node {taking} edge from parent node [right] {C}}
@@ -1193,15 +1204,15 @@ Comparable on out-of-domain test set:
     \node[anchor=west,style={font=\sffamily}] at (-1,.25)     {State:};
     \draw[xstep=1cm,ystep=5mm,color=gray] (1,0) grid (2,.5);
     \node[anchor=west,style={font=\sffamily}] at (.9,.75)     {stack};
-    \node[fill=black] at (1.5,0.25) {};
+    \node[fill=black] at (1.5,.25) {};
     \draw[xstep=12.5mm,ystep=5mm,color=gray] (2.5,0) grid (10,.5);
     \node[anchor=west,style={font=\sffamily}] at (2.4,.75) {buffer};
-    \node[anchor=west] at (2.5,0.25) {\small After};
-    \node[anchor=west] at (3.75,0.25) {\small gradu.};
-    \node[anchor=west] at (5,0.25) {\small John};
-    \node[anchor=west] at (6.25,0.25) {\small moved};
-    \node[anchor=west] at (7.5,0.25) {\small to};
-    \node[anchor=west] at (8.75,0.25) {\small Copenhagen};
+    \node[anchor=west] at (2.5,.25) {\small After};
+    \node[anchor=west] at (3.75,.25) {\small gradu.};
+    \node[anchor=west] at (5,.25) {\small John};
+    \node[anchor=west] at (6.25,.25) {\small moved};
+    \node[anchor=west] at (7.5,.25) {\small to};
+    \node[anchor=west] at (8.75,.25) {\small Copenhagen};
 \end{tikzpicture}
 
 \vfill
