@@ -98,25 +98,25 @@
 
 \begin{frame}
 \frametitle{Natural Language Processing: What's It Good For?}
-\onslide<1>{Machine translation:}
+\onslide<2>{Machine translation:}
 \begin{center}
-\onslide<1,4>{
+\onslide<2,5>{
   \fbox{After graduation, John moved to Copenhagen}
 
   $\downarrow$
 }
 
-\only<1,3>{
+\only<2,4>{
   \fbox{\heb{ג'ון עבר לקופנהגן אחרי שסיים את הלימודים}}
 }
-\only<2,4>{
+\only<3,5->{
   \fbox{\heb{\underline{\heb{ג'ון}} עבר ל\underline{\heb{קופנהגן}} אחרי שסיים את הלימודים}}
 }
 \end{center}
 
 \vspace{-7mm}
   
-\only<2>{
+\only<3>{
   \vspace{-5mm}
 
   Named entity \\
@@ -127,14 +127,14 @@
   \hspace{65mm} Location \hspace{2mm} Person
 }
 
-\only<3>{
+\only<4>{
   Text \\
   simplification:
   
   \vspace{-1cm}
 }
   
-\only<3,4>{  
+\only<4->{  
   \begin{center}
   $\downarrow$
   
@@ -142,7 +142,7 @@
   \end{center}
 }
 
-\only<4>{
+\only<5->{
   Sequence-to-sequence sometimes works, but lacks inductive bias.
 
   \begin{center}
@@ -171,11 +171,11 @@
 
 \begin{frame}
 \frametitle{Linguistic Structure Annotation Schemes}
-Represent structure as a graph.
+Model explicit relations between words or concepts.
 
 \vfill
 
-Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical dependencies
+Example: {\color{DarkBlue}syntactic}/{\color{DarkRed}semantic} bi-lexical dependencies.
 
 \vfill
 
@@ -578,45 +578,41 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 
 
 \begin{frame}
-\frametitle{Data}
+\frametitle{UCCA Data}
 \begin{itemize}
- \item UCCA Wikipedia corpus ($\stackrel{\text{train}}{4268}+\stackrel{\text{dev}}{454}+\stackrel{\text{test}}{503}$ sentences).
- \item Out-of-domain: English part of English-French parallel corpus,
-     \textit{Twenty Thousand Leagues Under the Sea} (506 sentences).
+ \item English Wikipedia articles (Wiki).
+ \item English-French-German parallel corpus from \\ \textit{Twenty Thousand Leagues Under the Sea} (20K).
+ \item Reviews from the English Web Treebank (EWT).
 \end{itemize}
 
 \vfill
 \begin{center}
   \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{wikipedia.png}\end{minipage}
   \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{squid.jpg}\end{minipage}
+  
+  \includegraphics[width=.3\textwidth]{five-stars.png}
 \end{center}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{UCCA Corpora}
+\frametitle{Data Statistics}
 \centering
-\begin{tabular}{l|ccc|c}
-    & \multicolumn{3}{c|}{Wiki} & 20K \\
-    & \small Train & \small Dev & \small Test & Leagues \\
+\def\arraystretch{1.5}
+\begin{tabular}{l|r|rrr|r}
+    & \multicolumn{1}{c|}{Wiki} & \multicolumn{3}{c|}{20K} & \multicolumn{1}{c}{EWT} \\
+    & \multicolumn{1}{c|}{en} & \multicolumn{1}{c}{en} & \multicolumn{1}{c}{fr} & \multicolumn{1}{c|}{de} & \multicolumn{1}{c}{en} \\
     \hline
-    \# passages & 300 & 34 & 33 & 154 \\
-    \# sentences & 4268 & 454 & 503 & 506 \\
+    \# sentences&5,141&492&492&6,514&3,520 \\
+    \# tokens&158,739&12,638&13,021&144,529&51,042 \\
+    \# nodes&201,461&16,725&17,227&189,625&68,047 \\
+    \% discontinuous&0.53&0.90&1.38&2.43&1.03 \\
+    \% reentrant&8.34&7.22&6.62&2.38&2.86 \\
     \hline
-    \# nodes & 298,993 & 33,704 & 35,718 & 29,315 \\
-    \% terminal & 42.96 & 43.54 & 42.87 & 42.09 \\
-    \% non-term. & 58.33 & 57.60 & 58.35 & 60.01 \\
-    \% \textbf{discont.} & \textbf{0.54} & \textbf{0.53} & \textbf{0.44} & \textbf{0.81} \\
-    \% \textbf{reentrant} & \textbf{2.38} & \textbf{1.88} & \textbf{2.15} & \textbf{2.03} \\
-    \hline
-    \# edges & 287,914 & 32,460 & 34,336 & 27,749 \\
-    \% primary & 98.25 & 98.75 & 98.74 & 97.73 \\
-    \% remote & 1.75 & 1.25 & 1.26 & 2.27 \\
-    \hline
-    \multicolumn{3}{l}{\footnotesize Average per non-terminal node} \\
-    \# children & 1.67 & 1.68 & 1.66 & 1.61 
+    \# edges&347,631&28,560&29,329&322,611&110,393 \\
+    \% primary&98.35&97.79&98.06&98.34&97.88 \\
+    \% remote&1.65&2.21&1.94&1.66&2.12
 \end{tabular}
-\captionof{table}{Corpus statistics.}
 \end{frame}
 
 
