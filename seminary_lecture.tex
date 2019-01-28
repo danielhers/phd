@@ -781,13 +781,13 @@ An \textit{oracle} provides the transition sequence given the correct graph:
       child {node (thought) {thought} edge from parent node [left] {P}}
       child {node (abouttakingashortbreak) [fill=blue, circle] {} 
       { 
-        child {node (to) {about} edge from parent node [left] {R}}
+        child {node (to) {about} edge from parent node [right] {R}}
         child {node (takingabreak) [fill=red, circle] {}
         {
-          child {node (take) {taking} edge from parent node [right] {C}}      
+          child {node (take) {taking} edge from parent node [above] {F}}      
           child {node (a) {a} edge from parent node [right] {F}} 
           child {node (short) {short} edge from parent [draw=none]}
-          child {node (break) {break} edge from parent node [right] {C}}  
+          child {node (break) {break} edge from parent node [above] {C}}  
         } edge from parent [draw=none]}
       } edge from parent [draw=none]}
       ;
@@ -806,28 +806,27 @@ An \textit{oracle} provides the transition sequence given the correct graph:
 \begin{frame}
 \only<-5>{
 \frametitle{\parser{} Model}
-Learn to greedily predict transition based on current state.
+Learns to greedily predict transition based on current state.
 
 Experimenting with three classifiers:
 \vspace{5mm}
 
     \begin{tabular}{ll}
-    \textbf{Sparse} & Perceptron with sparse features \cite{ZhangTDP11}. \\
-    \textbf{MLP} & Embeddings + feedforward NN \cite{chen2014fast}. \\
-    \textbf{BiLSTM} & Embeddings + \only<2->{\textbf}{deep bidirectional LSTM} + MLP \\&
-    \cite{kiperwasser2016simple}.
-    \onslide<2>{\\ \\& Effective ``lookahead'' encoded in the representation.}
+    \textbf{Sparse} & Perceptron with sparse features. \\
+    \textbf{MLP} & Embeddings + MLP. \\
+    \textbf{BiLSTM} & Embeddings + \only<2->{\textbf}{bidirectional RNN} + MLP.
     \end{tabular}
 }
-\only<2-5>{\vspace{-53mm}}
+\only<2-5>{\vspace{-4cm}}
 
 \only<1>{
-\vfill
 
-Features:
-words, POS, syntactic dependencies, existing edge labels \\
-from the stack and buffer + parents, children, grandchildren;
-ordinal features (height, number of parents and children)
+\vspace{1cm}
+
+Features include:
+
+\{words, POS, syntactic dependencies, existing edge labels\} \\
+from the stack and buffer + parents, children, grandchildren.
 
 \vspace{5mm}
 \begin{tikzpicture}
@@ -846,10 +845,10 @@ ordinal features (height, number of parents and children)
 \centering
 \onslide<6>{
 \fbox{\scalebox{.9}{
-\begin{minipage}{.5\textwidth}
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}]
-    \node[anchor=west,style={font=\sffamily}] at (-1.2,.25){stack};
-    \draw[xstep=1cm,ystep=5mm,color=gray] (-.01,0) grid (4,.5);
+\begin{minipage}{.6\textwidth}
+\begin{tikzpicture}[xscale=1.3,every node/.append style={font=\rmfamily}]
+    \node[anchor=west,style={font=\sffamily}] at (-1,.25){stack};
+    \draw[xstep=1,ystep=.5,color=gray] (-.01,0) grid (4,.5);
     \node[fill=black, circle] at (.5,.25) {};
     \node[fill=blue, circle] at (2.5,.25) {};
     \node[anchor=west] at (1,.25) {\small They};
@@ -857,24 +856,25 @@ ordinal features (height, number of parents and children)
 \end{tikzpicture}
 
 \vspace{1cm}
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}]
-    \node[anchor=west,style={font=\sffamily}] at (3.8,.25){buffer};
-    \draw[xstep=1cm,ystep=5mm,color=gray] (5,0) grid (9,.5);
-    \node[fill=red, circle] at (5.5,.25) {};
-    \node[anchor=west] at (6,.25) {\small a};
-    \node[anchor=west] at (7,.25) {\small short};
-    \node[anchor=west] at (8,.25) {\small break};
+\begin{tikzpicture}[xscale=1.3,every node/.append style={font=\rmfamily}]
+    \node[anchor=west,style={font=\sffamily}] at (-1,.25){buffer};
+    \draw[xstep=1,ystep=.5,color=gray] (-.01,0) grid (4,.5);
+    \node[fill=red, circle] at (.5,.25) {};
+    \node[anchor=west] at (1,.25) {\small a};
+    \node[anchor=west] at (2,.25) {\small short};
+    \node[anchor=west] at (3,.25) {\small break};
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{.4\textwidth}
 \scalebox{.8}{
-\begin{tikzpicture}[level distance=1cm, sibling distance=1cm, ->,
-    every node/.append style={font=\rmfamily},
+\begin{tikzpicture}[xscale=1.5,level distance=1cm, sibling distance=12mm, ->,
+    every node/.append style={font=\rmfamily,
+                    anchor=west,text height=.6ex,text depth=0},
     edge from parent/.append style={nodes={font=\scriptsize}},
     edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-    \node[anchor=west,style={font=\sffamily}] at (5,0) {graph};
-    \draw[color=gray] (1.2,.3) rectangle (4.9,-3.2);
-    \node(ROOT)[fill=black, circle, visible on=<2->] at (3,0) {}
+    \node[anchor=west,style={font=\sffamily}] at (3,0) {graph};
+    \draw[color=gray] (.2,.3) rectangle (3.9,-3.2);
+    \node(ROOT)[fill=black, circle, visible on=<2->] at (1.2,0) {}
       child {node (They) {They} edge from parent node [left] {A}}
       child {node {thought} edge from parent node [left] {P}}
       child {node (abouttakingashortbreak) [fill=blue, circle] {}
@@ -882,7 +882,7 @@ ordinal features (height, number of parents and children)
         child {node {about} edge from parent node [left] {R}}
         child {node (takingabreak) [fill=red, circle] {}
         {
-          child {node {taking} edge from parent node [right] {C}}
+          child {node {taking} edge from parent node [above] {F}}
           child [opacity=0] {node {a} edge from parent node [right] {F}}
           child [opacity=0] {node (short) {short} edge from parent [draw=none]}
           child [opacity=0] {node {break} edge from parent node [right] {C}}
@@ -894,8 +894,8 @@ ordinal features (height, number of parents and children)
 \end{minipage}
 }}}
 \onslide<2->{
-\scalebox{.7}{
-\begin{tikzpicture}[->]
+\scalebox{.65}{
+\begin{tikzpicture}[->,every node/.append style={anchor=north,text height=2ex,text depth=0}]
     \tiny
     \tikzstyle{main}=[circle, minimum size=7mm, draw=black!80, node distance=12mm]
     \foreach \i/\word in {1/{They},3/{thought},5/{about},7/{taking},9/{a},11/{short},13/{break}} {
