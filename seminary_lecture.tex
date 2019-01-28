@@ -1049,34 +1049,35 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         } edge from parent node[right] {H} }
         ;
       \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
-      \node at (8,.7) {Automatically predicted graph};
+      \node at (8,.7) {Automatically predicted graph for the same text};
       \node (ROOT_) at (7,0) [circle] {}
         child {node (After_) [word] {After} edge from parent node[left] {L}}
         child {node (graduation_) [circle] {}
         {
-          child[red] {node [word] {graduation} edge from parent node[left] {S}}
+          child[alt=<2>{red}{}] {node [word] {graduation} edge from parent node[left] {S}}
         } edge from parent node[left] {H} }
         child {node [word] {,} edge from parent node[right] {U}}
         child {node (moved) [circle,xshift=3mm,yshift=-7mm] {}
         {
           child {node (John_) [word] {John} edge from parent node[left] {A}}
           child {node [word] {moved} edge from parent node[left] {P}}
-          child[red] {node [word] {to} edge from parent node[left] {F}}
-          child[red] {node (Copenhagen_) [word] {Copenhagen} edge from parent node[right] {A}}
+          child[alt=<2>{red}{}] {node [word] {to} edge from parent node[left] {F}}
+          child[alt=<2>{red}{}] {node (Copenhagen_) [word] {Copenhagen} edge from parent node[right] {A}}
         } edge from parent node[right] {H} }
         ;
       \draw[dashed,->] (graduation_) to node [auto] {\scriptsize A} (John_);
-      \draw[bend left,dashed,->,red] (graduation_) to[in=90] node [auto] {\scriptsize A} (Copenhagen_);
+      \draw[bend left,dashed,->,alt=<2>{red}{}] (graduation_) to[in=90] node [auto] {\scriptsize A} (Copenhagen_);
     \end{tikzpicture}
 \end{adjustbox}
 \vfill
 
 \begin{enumerate}
-  \item Match primary edges by terminal yield and label.
+  \item Match primary edges between the graphs by terminal yield and label.
   \item Calculate \textbf{precision, recall and F1} scores.
   \item Repeat for remote edges.
 \end{enumerate}
 
+\pause
 \vfill
 \begin{adjustbox}{center}
     \begin{tabular}{c|c|c}
