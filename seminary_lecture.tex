@@ -1020,50 +1020,16 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \end{flushleft}
 \end{frame}
 
-\begin{frame}
-\frametitle{Evaluation}
-\textit{Mutual edges} between predicted graph $G_p=(V_p,E_p,\ell_p)$
-and gold graph $G_g=(V_g,E_g,\ell_g)$,
-both over terminals $W = \{w_1,\ldots,w_n\}$:
-\[
-M(G_p,G_g) =
-    \Bigl\{(e_1,e_2) \in E_p \times E_g \;\Big|\;
-    y(e_1) = y(e_2) \wedge \ell_p(e_1)=\ell_g(e_2)\Bigr\}
-\]
-The yield $y(e) \subseteq W$ of an edge $e=(u,v)$ in either graph
-is the set of terminals in $W$ that are descendants of $v$. \hfill
-$\ell$ is the edge label.
-
-\vfill
-Labeled precision, recall and F-score are then defined as:
-\[
-\text{LP} = \frac{|M(G_p,G_g)|}{|E_p|},\quad
-\text{LR} = \frac{|M(G_p,G_g)|}{|E_g|},
-\]
-\[
-\text{LF} = \frac{2 \cdot \text{LP} \cdot \text{LR}}{\text{LP} + \text{LR}}.
-\]
-Two variants:
-one for primary edges, and another for remote edges.
-\end{frame}
-
 
 \begin{frame}
 \frametitle{Evaluation}
-Comparing graphs over the same sequence of tokens,
-\begin{itemize}
-\item Match edges by their terminal yield and label.
-\item Calculate \textbf{labeled precision, recall and F1} scores.
-\item Separate primary and remote edges.
-\end{itemize}
-\vfill
 \begin{adjustbox}{frame,scale=.75,center}
-    \begin{tikzpicture}[level distance=15mm, sibling distance=15mm, ->,
+    \begin{tikzpicture}[level distance=12mm, sibling distance=15mm, ->,
         every circle node/.append style={fill=black},
         edge from parent/.append style={nodes={font=\scriptsize}},
         edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
-      \node at (-1,.7) {gold};
+      \node at (0,.7) {True (human-annotated) graph};
       \node (ROOT) at (0,0) [circle] {}
         child {node (After) [word] {After} edge from parent node[left] {L}}
         child {node (graduation) [circle] {}
@@ -1077,13 +1043,13 @@ Comparing graphs over the same sequence of tokens,
           child {node [word] {moved} edge from parent node[left] {P}}
           child {node [circle] {}
           {
-            child {node [word] {about} edge from parent node[left] {R}}
+            child {node [word] {to} edge from parent node[left] {R}}
             child {node [word] {Copenhagen} edge from parent node[right] {C}}
           } edge from parent node[right] {A} }
         } edge from parent node[right] {H} }
         ;
       \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
-      \node at (6,.7) {predicted};
+      \node at (8,.7) {Automatically predicted graph};
       \node (ROOT_) at (7,0) [circle] {}
         child {node (After_) [word] {After} edge from parent node[left] {L}}
         child {node (graduation_) [circle] {}
@@ -1095,25 +1061,33 @@ Comparing graphs over the same sequence of tokens,
         {
           child {node (John_) [word] {John} edge from parent node[left] {A}}
           child {node [word] {moved} edge from parent node[left] {P}}
-          child[red] {node [word] {about} edge from parent node[left] {R}}
+          child[red] {node [word] {to} edge from parent node[left] {F}}
           child[red] {node (Copenhagen_) [word] {Copenhagen} edge from parent node[right] {A}}
         } edge from parent node[right] {H} }
         ;
-      \draw[bend left,dashed,->] (graduation_) to node [auto] {\scriptsize A} (John_);
-      \draw[bend left,dashed,->,red] (graduation_) to node [auto] {\scriptsize A} (Copenhagen_);
+      \draw[dashed,->] (graduation_) to node [auto] {\scriptsize A} (John_);
+      \draw[bend left,dashed,->,red] (graduation_) to[in=90] node [auto] {\scriptsize A} (Copenhagen_);
     \end{tikzpicture}
 \end{adjustbox}
 \vfill
-\begin{adjustbox}{scale=.75,center}
-	Primary:
-    \begin{tabular}{ccc}
-        \textbf{LP} & \textbf{LR} & \textbf{LF} \\ \hline
+
+\begin{enumerate}
+  \item Match primary edges by terminal yield and label.
+  \item Calculate \textbf{precision, recall and F1} scores.
+  \item Repeat for remote edges.
+\end{enumerate}
+
+\vfill
+\begin{adjustbox}{center}
+    \begin{tabular}{c|c|c}
+        \multicolumn{3}{l}{Primary} \\
+        \textbf{P} & \textbf{R} & \textbf{F1} \\ \hline
         $\frac69=67\%$ & $\frac6{10}=60\%$ & 64\%
     \end{tabular}
     \hspace{1cm}
-	Remote:
-    \begin{tabular}{ccc}
-        \textbf{LP} & \textbf{LR} & \textbf{LF} \\ \hline
+    \begin{tabular}{c|c|c}
+        \multicolumn{3}{l}{Remote} \\
+        \textbf{P} & \textbf{R} & \textbf{F1} \\ \hline
         $\frac12=50\%$ & $\frac11=100\%$ & 67\%
     \end{tabular}
 \end{adjustbox}
