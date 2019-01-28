@@ -1096,10 +1096,10 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \begin{frame}
 \frametitle{Results}
 \onslide<1>{
-  \parser{BiLSTM} outperforms all other methods on the English \textbf{Wiki} test set:
+  \parser{BiLSTM} outperforms all other methods on the English Wiki test set:
 }
 \onslide<2>{
-  \ldots and also on the out-of-domain English \textbf{20K}:
+  \ldots and also on the \textbf{out-of-domain} English 20K:
 }
 \begin{center}
     \begin{tabular}{l|c|c}
@@ -1166,6 +1166,25 @@ with bi-lexical DAG parsers and transition-based tree parsers.
     \end{tabular}
     }
 \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interim Summary}
+\begin{itemize}
+ \item UCCA's semantic distinctions require a graph structure including {\color{blue}non-terminals}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
+ \item \parser{} is an accurate transition-based UCCA parser,
+ 	and the \textbf{first} to support UCCA and any DAG over the text tokens.
+ \item Outperforms strong conversion-based baselines.
+\end{itemize}
+
+\onslide<2->{
+Up next:
+
+\begin{itemize}
+ \item Parsing other semantic representations.
+ \item Comparing representations through conversion.
+\end{itemize}
+}
 \end{frame}
 
 
