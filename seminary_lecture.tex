@@ -1095,133 +1095,76 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 
 \begin{frame}
 \frametitle{Results}
-\parser{BiLSTM} outperforms all other methods on the English \textbf{Wiki} test set:
+\onslide<1>{
+  \parser{BiLSTM} outperforms all other methods on the English \textbf{Wiki} test set:
+}
+\onslide<2>{
+  \ldots and also on the out-of-domain English \textbf{20K}:
+}
 \begin{center}
-    \begin{tabular}{l|ccc|ccc}
-        & \multicolumn{3}{c|}{Primary edges} & \multicolumn{3}{c}{Remote edges} \\
-        & \textbf{P} & \textbf{R} & \textbf{F1} & \textbf{P} & \textbf{R} & \textbf{F1} \\
+    \begin{tabular}{l|c|c}
+        & \multicolumn{2}{c}{English Wiki} \\
+        & \tiny Primary & \tiny Remote \\
+        & \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
         \hline
-        \parser{Sparse}
-        & 64.5 & 63.7 & 64.1 & 19.8 & 13.4 & 16 \\
-        \parser{MLP}
-        & 65.2 & 64.6 & 64.9 & 23.7 & 13.2 & 16.9 \\
-        \parser{BiLSTM}
-        & 74.4 & 72.7 & \textbf{73.5} & 47.4 & 51.6 & \textbf{49.4} \\
+        \scriptsize \parser{} & \\
+        Sparse
+        & 64.1 & 16 \\
+        MLP
+        & 64.9 & 16.9 \\
+        BiLSTM
+        & \textbf{73.3} & \textbf{47.2} \\
         \hline
-        \scriptsize Baselines &&&& \\
-    	DAGParser
-        & 61.8 & 55.8 & 58.6 & 9.5 & 0.5 & 1 \\
-    	TurboParser
-        & 57.7 & 46 & 51.2 & 77.8 & 1.8 & 3.7 \\
-    	MaltParser
-        & 62.8 & 57.7 & 60.2 \\
-    	Stack LSTM
-        & 73.2 & 66.9 & 69.9 \\
-        UPARSE
-        & 60.9 & 61.2 & 61.1
+        \tiny Baselines & \\
+    	\scriptsize DAGParser
+        & 58.6 & 1 \\
+    	\scriptsize TurboParser
+        & 51.2 & 3.7 \\
+    	\scriptsize MaltParser
+        & 60.2 \\
+    	\scriptsize StackLSTM
+        & 69.9 \\
+        \scriptsize UPARSE
+        & 61.1
     \end{tabular}
-\end{center}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Results}
-\ldots and also on the out-of-domain English \textbf{20K}:
-\begin{center}
-    \begin{tabular}{l|ccc|ccc}
-        & \multicolumn{3}{c|}{Primary edges} & \multicolumn{3}{c}{Remote edges} \\
-        & \textbf{P} & \textbf{R} & \textbf{F1} & \textbf{P} & \textbf{R} & \textbf{F1} \\
-        \hline
-        \parser{Sparse}
-        & 59.6 & 59.9 & 59.8 & 22.2 & 7.7 & 11.5 \\
-        \parser{MLP}
-        & 62.3 & 62.6 & 62.5 & 20.9 & 6.3 & 9.7 \\
-        \parser{BiLSTM}
-        & 68.7 & 68.5 & \textbf{68.6} & 38.6 & 18.8 & \textbf{25.3} \\
-        \hline
-        \scriptsize Baselines &&&& \\
-    	DAGParser
-        & 56.4 & 50.6 & 53.4 \\
-    	TurboParser
-        & 50.3 & 37.7 & 43.1 & 100 & 0.4 & 0.8 \\
-    	MaltParser
-        & 57.8 & 53 & 55.3 \\
-    	Stack LSTM
-        & 66.1 & 61.1 & 63.5 \\
-        UPARSE
-        & 52.7 & 52.8 & 52.8
+    \hspace{-2mm}
+    \onslide<2->{
+    \begin{tabular}{|c|c}
+        \multicolumn{2}{|c}{English 20K} \\
+        \tiny Primary & \tiny Remote \\
+        \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
+        \hline\\
+        59.8 & 11.5 \\
+        62.5 & 9.7 \\
+        \textbf{68.2} & \textbf{23.7} \\
+        \hline\\
+        53.4 \\
+        43.1 & 0.8 \\
+        55.3 \\
+        63.5 \\
+        52.8
     \end{tabular}
-\end{center}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{TUPA}
-\begin{tikzpicture}[every node/.append style={font=\rmfamily}, circle]
-    \node[anchor=west,style={font=\sffamily}] at (-1,.25)     {State:};
-    \draw[xstep=1cm,ystep=5mm,color=gray] (1,0) grid (2,.5);
-    \node[anchor=west,style={font=\sffamily}] at (.9,.75)     {stack};
-    \node[fill=black] at (1.5,.25) {};
-    \draw[xstep=12.5mm,ystep=5mm,color=gray] (2.5,0) grid (10,.5);
-    \node[anchor=west,style={font=\sffamily}] at (2.4,.75) {buffer};
-    \node[anchor=west] at (2.5,.25) {\small After};
-    \node[anchor=west] at (3.75,.25) {\small gradu.};
-    \node[anchor=west] at (5,.25) {\small John};
-    \node[anchor=west] at (6.25,.25) {\small moved};
-    \node[anchor=west] at (7.5,.25) {\small to};
-    \node[anchor=west] at (8.75,.25) {\small Copenhagen};
-\end{tikzpicture}
-
-\vfill
-\pause
-Transitions:
-
-\{\textsc{Shift, Reduce, Node$_X$, Left-Edge$_X$, Right-Edge$_X$,}\\
-\hspace{5mm}\textsc{Left-Remote$_X$, Right-Remote$_X$, Swap, Finish}\}
-
-\vfill
-\pause
-Classifier:
-\vspace{-2.5mm}
-    \begin{center}\scalebox{.3}{\Huge
-       \begin{tikzpicture}[-{Latex[length=3mm]},thick]
-       \tikzstyle{main}=[rounded rectangle, minimum size=15mm, draw=black!80, node distance=12mm]
-       \node[main] (specific) at (10.5,12.5) {BiLSTM};
-       \foreach \i/\word in {-4/{After},4/{graduation},17/{about},25/{Copenhagen}} {
-           \node (x\i) at (\i,8.5) {\word};
-           \node[main, minimum size=8mm, fill=black, draw=none] (e\i) at (\i,10.5) {};
-           \path (x\i) edge (e\i);
-           \path (e\i) edge (specific);
-       }
-        \node (x4) at (10.5,8.5) {\ldots};
-        \node[main] (state) at (20,15) {state};
-        \node[main] (mlp) at (10.5,15) {MLP};
-        \path (specific) edge (mlp);
-        \path (state) edge node[below] {concatenate} (mlp);
-        \node (transition) at (10.5,17.8) {transition};
-        \path (mlp) edge node[right] {softmax} (transition);
-       \end{tikzpicture}}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Results}
-\centering
-\small
-\setlength\tabcolsep{3pt}
-\begin{tabular}{lcc}
-& \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
-\hline
-\small \bf English (in-domain)     & 73.6 & 51.5 \\
-\small \bf English (out-of-domain) & 69.0 & 26.7 \\
-\small \bf French (in-domain)      & 67.6 & 13.9 \\
-\small \bf German (in-domain)      & 72.5 & 27.1
-\end{tabular}
-\vfill
-
-\begin{center}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{wikipedia.png}\end{minipage}
-  \begin{minipage}{.3\textwidth}\includegraphics[width=\textwidth]{squid.jpg}\end{minipage}
+    \hspace{-2mm}
+    }
+    \onslide<3->{
+    \begin{tabular}{|c|c}
+        \multicolumn{2}{|c}{French 20K} \\
+        \tiny Primary & \tiny Remote \\
+        \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
+        \hline\\\\\\
+        67.6 & 13.9 \\
+        \hline\\\\\\\\\\\\
+    \end{tabular}
+    \hspace{-2mm}
+    \begin{tabular}{|c|c}
+        \multicolumn{2}{|c}{German 20K} \\
+        \tiny Primary & \tiny Remote \\
+        \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
+        \hline\\\\\\
+        72.5 & 27.1 \\
+        \hline\\\\\\\\\\\\
+    \end{tabular}
+    }
 \end{center}
 \end{frame}
 
