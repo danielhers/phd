@@ -933,49 +933,33 @@ from the stack and buffer + parents, children, grandchildren.
 
 \begin{frame}
 \frametitle{Baselines}
-No existing UCCA parsers $\Rightarrow$ conversion-based approximation.
-
-\vfill
-\footnotesize
-Bi-lexical DAG parsers (allow {\color{orange}reentrancy}):
-\begin{itemize}
- \item DAGParser \cite{ribeyre-villemontedelaclergerie-seddah:2014:SemEval}:
- transition-based.
- \item TurboParser \cite{almeida-martins:2015:SemEval}:
- graph-based.
-\end{itemize}
-
-Tree parsers (all transition-based):
-\begin{itemize}
- \item MaltParser \cite{nivre2007maltparser}: bi-lexical tree parser.
- \item Stack LSTM Parser \cite{dyer2015transition}: bilexical tree parser.
- \item \textsc{uparse} \cite{maier2015discontinuous}: allows {\color{blue}non-terminals}, {\color{red}discontinuity}.
-\end{itemize}
+Using conversion-based approximation as baseline, \\
+with bi-lexical DAG parsers and transition-based tree parsers.
 
 \vfill
 \begin{center}
     \begin{dependency}
     \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
-	They \^ thought \^ to \^ take \^ a \^ short \^ break \\
+	They \^ thought \^ about \^ taking \^ a \^ short \^ break \\
     \end{deptext}
     \depedge{2}{1}{A}
-    \depedge{2}{4}{A}
-    \depedge[dashed,edge start x offset=6pt]{4}{1}{A}
-    \depedge{4}{3}{F}
-    \depedge{4}{5}{F}
-    \depedge{4}{6}{D}
-    \depedge{4}{7}{C}
+    \depedge[dashed,edge start x offset=6pt,edge end x offset=-6pt,edge unit distance=3.5ex]{7}{1}{A}
+    \depedge{7}{3}{R}
+    \depedge{7}{4}{F}
+    \depedge{7}{5}{F}
+    \depedge{7}{6}{D}
+    \depedge{2}{7}{A}
     \end{dependency}
-    \captionof{figure}{UCCA bilexical DAG approximation (for tree, delete remote edges).}
+    \captionof{figure}{UCCA bi-lexical DAG approximation.}
 \end{center}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Bilexical Graph Approximation}
+\frametitle{Bi-lexical Graph Approximation}
 \begin{enumerate}
- \item Convert UCCA to bilexical dependencies.
- \item Train bilexical parsers and apply to test sentences.
+ \item Convert UCCA to bi-lexical dependencies.
+ \item Train bi-lexical parsers and apply to test sentences.
  \item Reconstruct UCCA graphs and compare with gold standard.
 \end{enumerate}
 \vfill
@@ -1140,14 +1124,14 @@ Comparing graphs over the same sequence of tokens,
         \parser{BiLSTM}
         & 74.4 & 72.7 & \textbf{73.5} & 47.4 & 51.6 & \textbf{49.4} \\
         \hline
-        \scriptsize Bilexical DAG
+        \scriptsize Bi-lexical DAG
         & & & \scriptsize (91) & & & \scriptsize (58.3) \\
     	DAGParser
         & 61.8 & 55.8 & 58.6 & 9.5 & 0.5 & 1 \\
     	TurboParser
         & 57.7 & 46 & 51.2 & 77.8 & 1.8 & 3.7 \\
         \hline
-        \scriptsize Bilexical tree
+        \scriptsize Bi-lexical tree
         & & & \scriptsize (91) & & & \scriptsize -- \\
     	MaltParser
         & 62.8 & 57.7 & 60.2 & -- & -- & -- \\
@@ -1156,7 +1140,7 @@ Comparing graphs over the same sequence of tokens,
         \hline
         \scriptsize Tree
         & & & \scriptsize (100) & & & \scriptsize -- \\
-        \textsc{uparse}
+        UPARSE
         & 60.9 & 61.2 & 61.1 & -- & -- & --
     \end{tabular}
     \captionof{table}{Results on the Wiki test set.}
@@ -1179,14 +1163,14 @@ Comparable on out-of-domain test set:
         \parser{BiLSTM}
         & 68.7 & 68.5 & \textbf{68.6} & 38.6 & 18.8 & \textbf{25.3} \\
         \hline
-        \scriptsize Bilexical DAG
+        \scriptsize Bi-lexical DAG
         & & & \scriptsize (91.3) & & & \scriptsize (43.4) \\
     	DAGParser
         & 56.4 & 50.6 & 53.4 & -- & 0 & 0 \\
     	TurboParser
         & 50.3 & 37.7 & 43.1 & 100 & 0.4 & 0.8 \\
         \hline
-        \scriptsize Bilexical tree
+        \scriptsize Bi-lexical tree
         & & & \scriptsize (91.3) & & & \scriptsize -- \\
     	MaltParser
         & 57.8 & 53 & 55.3 & -- & -- & -- \\
@@ -1195,7 +1179,7 @@ Comparable on out-of-domain test set:
         \hline
         \scriptsize Tree
         & & & \scriptsize (100) & & & \scriptsize -- \\
-        \textsc{uparse}
+        UPARSE
         & 52.7 & 52.8 & 52.8 & -- & -- & --
     \end{tabular}
     \captionof{table}{Results on the 20K Leagues out-of-domain set.}
