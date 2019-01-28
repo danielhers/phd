@@ -1252,7 +1252,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \begin{flushright}
     \begin{minipage}{.01\textwidth}
       \begin{tikzpicture}[alt=<2-3>{opacity=.3}{}]
-        \node[font=\bf\sffamily\Large,DarkRed] at (0,6) {DM};
+        \node[font=\bf\sffamily\Large,DarkRed] {DM};
       \end{tikzpicture}
     \end{minipage}
     \begin{minipage}{.6\textwidth}
@@ -1277,10 +1277,33 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 
 \begin{frame}
+\frametitle{Syntactic Representations}
+    {\color{DarkBlue}\bf\sffamily\Large UD} (Universal Dependencies)
+    
+    \begin{center}
+    \rmfamily
+    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue},
+                       label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
+    \end{deptext}
+        \depedge{2}{1}{case}
+        \depedge{2}{3}{punct}
+        \depedge{5}{4}{nsubj}
+        \depedge[edge end x offset=-2pt]{5}{2}{obl}
+        \depedge{7}{6}{case}
+        \deproot[edge unit distance=2.5ex]{5}{root}
+        \depedge{5}{7}{obl}
+    \end{dependency}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Data}
     \fbox{UCCA training data is scarce}
     \begin{center}
-    \begin{minipage}{.1\textwidth}
+    \begin{minipage}{.15\textwidth}
       (English)
     \end{minipage}
     \begin{minipage}{.7\textwidth}
@@ -1331,11 +1354,11 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 \begin{minipage}{.04\textwidth}
 \vspace{4mm}
-AMR\\
+\color{DarkGreen} AMR\\
 \vspace{13mm}
-DM\\
+\color{DarkRed} DM\\
 \vspace{14mm}
-UD
+\color{DarkBlue} UD
 \end{minipage}
 \begin{minipage}{.45\textwidth}
   \centering
@@ -1344,8 +1367,7 @@ UD
       every node/.append style={sloped,anchor=south,auto=false,font=\tiny},
       level 1/.style={level distance=14mm,sibling distance=26mm},
       level 2/.style={level distance=13mm},
-      level 3/.style={level distance=12mm},
-      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+      level 3/.style={level distance=12mm}]
     \node (ROOT) [draw=black,ellipse] {move-01}
       child {node [draw=black,ellipse] {after}
       {
@@ -1372,7 +1394,8 @@ UD
   
   \vspace{5mm}
   \scalebox{.6}{
-    \begin{dependency}[text only label, label style={above}, font=\small]
+    \begin{dependency}[text only label, font=\small, edge style={color=DarkRed},
+                       label style={above, color=DarkRed, font=\bf\ttfamily}]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
@@ -1388,7 +1411,8 @@ UD
     
   \vspace{5mm}
   \scalebox{.6}{
-    \begin{dependency}[text only label, label style={above}, font=\small]
+    \begin{dependency}[text only label, color=DarkBlue},
+                       label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
