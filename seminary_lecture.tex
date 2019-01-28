@@ -616,15 +616,13 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 
 
 
-\section{Transition-based UCCA Parsing (ACL'17)}
+\section{Transition-based UCCA Parser (ACL'17)}
 
 \begin{frame}
-\frametitle{Transition-Based Parsing}
+\frametitle{TUPA: Transition-based UCCA Parser}
 
-Parse text $w_1 \ldots w_n$ to graph $G$ incrementally by applying transitions to the parser state:
-stack, buffer and constructed graph.
-
-First used for dependency parsing \cite{nivre2004incrementality}.
+Parses text $w_1 \ldots w_n$ to graph $G$ incrementally by applying transitions to the parser state,
+consisting of: stack, buffer and constructed graph.
 
 \pause
 \vfill
@@ -658,7 +656,7 @@ These transition enable {\color{blue}non-terminal nodes}, {\color{orange}reentra
 \end{frame}
 
 \begin{frame}
-\frametitle{Example}
+\frametitle{Example: TUPA Transition Sequence}
 \begin{minipage}[t][8mm][t]{\textwidth}
     $\Rightarrow$\textsc{
         \only<1>{Shift}\only<2>{Right-Edge$_A$}\only<3>{Shift}\only<4>{Swap}\only<5>{Right-Edge$_P$}\only<6>{Reduce}\only<7>{Shift}\only<8>{Shift}\only<9>{Node$_R$}\only<10>{Reduce}\only<11>{Shift}\only<12>{Left-Remote$_A$}\only<13>{Shift}\only<14>{Node$_C$}\only<15>{Reduce}\only<16>{Shift}\only<17>{Right-Edge$_P$}\only<18>{Shift}\only<19>{Right-Edge$_F$}\only<20>{Reduce}\only<21>{Shift}\only<22>{Swap}\only<23>{Right-Edge$_D$}\only<24>{Reduce}\only<25>{Swap}\only<26>{Right-Edge$_A$}\only<27>{Reduce}\only<28>{Reduce}\only<29>{Shift}\only<30>{Reduce}\only<31>{Shift}\only<32>{Right-Edge$_C$}\only<33>{Finish}
