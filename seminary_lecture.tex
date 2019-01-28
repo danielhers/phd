@@ -958,13 +958,24 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \begin{frame}
 \frametitle{Bi-lexical Graph Approximation}
 \begin{enumerate}
- \item Convert UCCA to bi-lexical dependencies.
- \item Train bi-lexical parsers and apply to test sentences.
- \item Reconstruct UCCA graphs and compare with gold standard.
+ \item Convert UCCA to bi-lexical DAGs.
+ \item Train bi-lexical parsers.
+ \item Parse test set.
+ \item Convert to UCCA.
+ \item Evaluate.
 \end{enumerate}
-\vfill
 
-\begin{flushright}
+\vspace{-15mm}
+
+\begin{minipage}{.225\textwidth}
+  \vspace{1cm}
+  \begin{flushright}
+    \begin{tikzpicture}[<->]
+      \draw [ultra thick,red] (1,1) to[out=180,in=90] (0,0);
+    \end{tikzpicture}
+  \end{flushright}
+\end{minipage}
+\begin{minipage}{.7\textwidth}
     \begin{tikzpicture}[level distance=13mm, sibling distance=17mm, ->,
         every circle node/.append style={fill=black},
         edge from parent/.append style={nodes={font=\scriptsize}},
@@ -990,7 +1001,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         ;
       \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
     \end{tikzpicture}
-\end{flushright}
+\end{minipage}
 
 \vspace{-14mm}
 \begin{flushleft}
