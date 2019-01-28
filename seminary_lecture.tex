@@ -215,8 +215,6 @@ Abstract away from detail that does not affect meaning:
 \end{center}
 \end{frame}
 
-
-\def\semanticrepresentations{
 \begin{frame}
     \frametitle{Semantic Representations}
 
@@ -299,9 +297,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     }
     \end{minipage}
     \end{flushright}
-\end{frame}}
-
-\semanticrepresentations
+\end{frame}
 
 
 \section{Background: The UCCA Semantic Representation Scheme}
@@ -1173,36 +1169,127 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \begin{itemize}
  \item UCCA's semantic distinctions require a graph structure including {\color{blue}non-terminals}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
  \item \parser{} is an accurate transition-based UCCA parser,
- 	and the \textbf{first} to support UCCA and any DAG over the text tokens.
+ 	and the first to support UCCA and any DAG over the text tokens.
  \item Outperforms strong conversion-based baselines.
 \end{itemize}
 
-\onslide<2->{
+\pause
+\vfill
+
 Up next:
 
 \begin{itemize}
  \item Parsing other semantic representations.
  \item Comparing representations through conversion.
 \end{itemize}
-}
 \end{frame}
 
 
 
 \section{Multitask Parsing across Semantic Representations (ACL'18)}
 
-\semanticrepresentations
+
+\begin{frame}
+    \frametitle{Semantic Representations}
+
+      \begin{flushright}
+        \scalebox{.6}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo, alt=<3->{opacity=.3}{}]
+    \node[font=\bf\sffamily\Huge,Indigo] at (-3,0) {UCCA};
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {L\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
+\end{tikzpicture}
+        }
+      \end{flushright}
+    
+    \vspace{-23mm}
+    
+    \scalebox{.6}{
+\begin{tikzpicture}[alt=<2>{opacity=.3}{},alt=<4->{opacity=.3}{}]
+\node[font=\bf\sffamily\Huge,DarkGreen] at (0,6) {AMR};
+\graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
+a4 Copenhagen[as={Copenhagen}];
+a2 John[as={John}];
+a1[as={person}];
+a0[as={move-01}];
+a3[as={city}];
+a2[as={name}];
+a5[as={after}];
+a4[as={name}];
+a6[as={graduate-01}];
+
+a1 ->  ["name"' above] a2;
+a0 ->  ["ARG0"' above] a1;
+a0 ->  ["ARG2"' above] a3;
+a0 ->  ["time"' above] a5;
+a3 ->  ["name"' above] a4;
+a2 ->  ["op1"' above] a2 John;
+a5 ->  ["op1"' above] a6;
+a4 ->  ["op1"' above] a4 Copenhagen;
+};
+\draw[->, above, DarkGreen] (a6) to node[sloped] {ARG0} (a1);
+\end{tikzpicture}
+      }
+    \vspace{-15mm}
+    
+    \begin{flushright}
+    \begin{minipage}{.01\textwidth}
+      \begin{tikzpicture}[alt=<2-3>{opacity=.3}{}]
+        \node[font=\bf\sffamily\Large,DarkRed] at (0,6) {DM};
+      \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}{.6\textwidth}
+        \rmfamily
+        \scalebox{.7}{
+\begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed}, alt=<2-3>{opacity=.3}{},
+            text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
+    \begin{deptext}[column sep=1em,ampersand replacement=\^]
+	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
+    \end{deptext}
+    \deproot{5}{top}
+    \depedge{1}{2}{ARG2}
+    \depedge{1}{5}{ARG1}
+    \depedge{5}{4}{ARG1}
+    \depedge{6}{5}{ARG1}
+    \depedge{6}{7}{ARG2}
+\end{dependency}
+    }
+    \end{minipage}
+    \end{flushright}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Data}
     \fbox{UCCA training data is scarce}
     \begin{center}
+    \begin{minipage}{.1\textwidth}
+      (English)
+    \end{minipage}
+    \begin{minipage}{.7\textwidth}
     \pgfplotstableread[row sep=\\,col sep=&]{
     	corpus & total \\
         \color{DarkBlue} \textbf{UD} & 17062 \\
         \color{DarkRed} \textbf{DM} & 33964 \\
         \color{DarkGreen} \textbf{AMR} & 36521 \\
-        \color{Indigo} \textbf{UCCA} & 5225 \\
+        \color{Indigo} \textbf{UCCA} & 5141 \\
         }\english
         \begin{tikzpicture}
         \begin{axis}[
@@ -1221,6 +1308,7 @@ Up next:
         nodes near coords align={anchor=west}] table [x=total,y expr=\coordindex,meta=total] {\english};
         \end{axis}
         \end{tikzpicture}
+    \end{minipage}
     \end{center}
     
     \pause
