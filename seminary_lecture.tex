@@ -930,7 +930,7 @@ from the stack and buffer + parents, children, grandchildren.
 \end{frame}
 
 \begin{frame}
-\frametitle{Baselines}
+\frametitle{Comparing to Existing Methods}
 Using conversion-based approximation as baseline, \\
 with bi-lexical DAG parsers and transition-based tree parsers.
 
@@ -1095,7 +1095,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 
 \begin{frame}
 \frametitle{Results}
-\parser{BiLSTM} obtains the highest F-scores in all metrics:
+\parser{BiLSTM} outperforms all other methods on the English \textbf{Wiki} test set:
 \begin{center}
     \begin{tabular}{l|ccc|ccc}
         & \multicolumn{3}{c|}{Primary edges} & \multicolumn{3}{c}{Remote edges} \\
@@ -1108,33 +1108,25 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         \parser{BiLSTM}
         & 74.4 & 72.7 & \textbf{73.5} & 47.4 & 51.6 & \textbf{49.4} \\
         \hline
-        \scriptsize Bi-lexical DAG
-        & & & \scriptsize (91) & & & \scriptsize (58.3) \\
+        \scriptsize Baselines &&&& \\
     	DAGParser
         & 61.8 & 55.8 & 58.6 & 9.5 & 0.5 & 1 \\
     	TurboParser
         & 57.7 & 46 & 51.2 & 77.8 & 1.8 & 3.7 \\
-        \hline
-        \scriptsize Bi-lexical tree
-        & & & \scriptsize (91) & & & \scriptsize -- \\
     	MaltParser
-        & 62.8 & 57.7 & 60.2 & -- & -- & -- \\
+        & 62.8 & 57.7 & 60.2 \\
     	Stack LSTM
-        & 73.2 & 66.9 & 69.9 & -- & -- & -- \\
-        \hline
-        \scriptsize Tree
-        & & & \scriptsize (100) & & & \scriptsize -- \\
+        & 73.2 & 66.9 & 69.9 \\
         UPARSE
-        & 60.9 & 61.2 & 61.1 & -- & -- & --
+        & 60.9 & 61.2 & 61.1
     \end{tabular}
-    \captionof{table}{Results on the Wiki test set.}
 \end{center}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Results}
-Comparable on out-of-domain test set:
+\ldots and also on the out-of-domain English \textbf{20K}:
 \begin{center}
     \begin{tabular}{l|ccc|ccc}
         & \multicolumn{3}{c|}{Primary edges} & \multicolumn{3}{c}{Remote edges} \\
@@ -1147,26 +1139,18 @@ Comparable on out-of-domain test set:
         \parser{BiLSTM}
         & 68.7 & 68.5 & \textbf{68.6} & 38.6 & 18.8 & \textbf{25.3} \\
         \hline
-        \scriptsize Bi-lexical DAG
-        & & & \scriptsize (91.3) & & & \scriptsize (43.4) \\
+        \scriptsize Baselines &&&& \\
     	DAGParser
-        & 56.4 & 50.6 & 53.4 & -- & 0 & 0 \\
+        & 56.4 & 50.6 & 53.4 \\
     	TurboParser
         & 50.3 & 37.7 & 43.1 & 100 & 0.4 & 0.8 \\
-        \hline
-        \scriptsize Bi-lexical tree
-        & & & \scriptsize (91.3) & & & \scriptsize -- \\
     	MaltParser
-        & 57.8 & 53 & 55.3 & -- & -- & -- \\
+        & 57.8 & 53 & 55.3 \\
     	Stack LSTM
-        & 66.1 & 61.1 & 63.5 & -- & -- & -- \\
-        \hline
-        \scriptsize Tree
-        & & & \scriptsize (100) & & & \scriptsize -- \\
+        & 66.1 & 61.1 & 63.5 \\
         UPARSE
-        & 52.7 & 52.8 & 52.8 & -- & -- & --
+        & 52.7 & 52.8 & 52.8
     \end{tabular}
-    \captionof{table}{Results on the 20K Leagues out-of-domain set.}
 \end{center}
 \end{frame}
 
