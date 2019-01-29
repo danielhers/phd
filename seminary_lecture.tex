@@ -1370,25 +1370,25 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       level 1/.style={level distance=14mm,sibling distance=26mm},
       level 2/.style={level distance=13mm},
       level 3/.style={level distance=12mm}]
-    \node (ROOT) [draw=black,ellipse] {move-01}
-      child {node [draw=black,ellipse] {after}
+    \node (ROOT) [draw=DarkGreen,ellipse] {move-01}
+      child {node [draw=DarkGreen,ellipse] {city}
       {
-            child {node (graduation) [draw=black,ellipse] {graduate-01} edge from parent node {op1} }
-      } edge from parent node {time} }
-      child {node (John) [draw=black,ellipse] {person}
-      {
-        child {node [draw=black,ellipse] {name}
+        child {node [draw=DarkGreen,ellipse] {name}
         {
-            child {node [draw=black,ellipse] {"John"} edge from parent node {op1} }
-        } edge from parent node {name} }
-      } edge from parent node {ARG0} }
-      child {node [draw=black,ellipse] {city}
-      {
-        child {node [draw=black,ellipse] {name}
-        {
-            child {node [draw=black,ellipse] {"Copenhagen"} edge from parent node {op1} }
+            child {node [draw=DarkGreen,ellipse] {"Copenhagen"} edge from parent node {op1} }
         } edge from parent node {name} }
       } edge from parent node {ARG2} }
+      child {node [draw=DarkGreen,ellipse] {after}
+      {
+            child {node (graduation) [draw=DarkGreen,ellipse] {graduate-01} edge from parent node {op1} }
+      } edge from parent node {time} }
+      child {node (John) [draw=DarkGreen,ellipse] {person}
+      {
+        child {node [draw=DarkGreen,ellipse] {name}
+        {
+            child {node [draw=DarkGreen,ellipse] {"John"} edge from parent node {op1} }
+        } edge from parent node {name} }
+      } edge from parent node {ARG0} }
       ;
       \draw (graduation) to node {ARG0} (John);
   \end{tikzpicture}
@@ -1396,7 +1396,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
   
   \vspace{5mm}
   \scalebox{.6}{
-    \begin{dependency}[text only label, font=\small, edge style={color=DarkRed},
+    \begin{dependency}[theme=simple,text only label, font=\small, edge style={color=DarkRed},
                        label style={above, color=DarkRed, font=\bf\ttfamily}]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
@@ -1441,23 +1441,22 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
   \centering
   \scalebox{.6}{
-  \begin{tikzpicture}[level distance=16mm, ->,
+  \begin{tikzpicture}[level distance=16mm, ->, draw=DarkGreen,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=28mm},
       level 2/.style={sibling distance=14mm},
-      level 3/.style={sibling distance=12mm},
-      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+      level 3/.style={sibling distance=12mm}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [word] {moved}
       child {node [word] {After}
       {
             child {node (graduation) [word] {graduation} edge from parent node {op} }
       } edge from parent node {time} }
-      child {node (John) [fill=black,circle] {}
+      child {node (John) [fill=DarkGreen,circle] {}
       {
         child {node [word] {John} edge from parent node {name} }
       } edge from parent node {ARG0} }
-      child {node [fill=black,circle] {}
+      child {node [fill=DarkGreen,circle] {}
       {
         child {node [word] {Copenhagen} edge from parent node {name} }
       } edge from parent node {ARG2} }
@@ -1467,14 +1466,14 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
   \vspace{5mm}
   \scalebox{.6}{
-  \begin{tikzpicture}[level distance=14mm, ->,
+  \begin{tikzpicture}[level distance=14mm, ->, draw=DarkRed,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=29mm,level distance=6mm},
       level 2/.style={sibling distance=16mm,level distance=14mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=black,circle] {}
-      child {node (after) [fill=black,circle] {}
+    \node (ROOT) [fill=DarkRed,circle] {}
+      child {node (after) [fill=DarkRed,circle] {}
       {
         child {node [draw=none] {}
         {
@@ -1487,13 +1486,13 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       } edge from parent node {root}}
       child {node [draw=none] {}
       {
-        child {node (moved) [fill=black,circle] {}
+        child {node (moved) [fill=DarkRed,circle] {}
         {
           child {node [word] {\quad{\color{white}g} John} edge from parent node {ARG1}}
           child {node [word] {moved{\color{white}g}} edge from parent node {head}}
         } edge from parent [draw=none] }
       } edge from parent [draw=none] }
-      child {node (to) [fill=black,circle] {}
+      child {node (to) [fill=DarkRed,circle] {}
       {
         child {node [draw=none] {}
         {
@@ -1517,14 +1516,14 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
   \vspace{5mm}
   \scalebox{.6}{
-  \begin{tikzpicture}[level distance=15mm, ->,
+  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=16mm},
       level 2/.style={sibling distance=12mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=black,circle] {}
-      child {node (after) [fill=black,circle] {}
+    \node (ROOT) [fill=DarkBlue,circle] {}
+      child {node (after) [fill=DarkBlue,circle] {}
       {
         child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
         child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
@@ -1541,7 +1540,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       {
         child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
       } edge from parent [draw=none]}
-      child {node (to) [fill=black,circle] {}
+      child {node (to) [fill=DarkBlue,circle] {}
       {
           child {node [word] {to{\color{white}g}} edge from parent node {case}}
           child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
