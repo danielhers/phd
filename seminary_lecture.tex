@@ -447,14 +447,14 @@ Semantics-based \textbf{evaluation} of
 UCCA structures are directed acyclic graphs (DAGs) with labeled edges. \\
 Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. \\
 \onslide<2->{
-  \textit{Remote edges} enable {\color{orange} reentrancy}. \\
+  Phrases may be {\color{red} discontinuous}.
 }
 \onslide<3->{
-  Phrases may be {\color{red} discontinuous}.
+  \textit{Remote edges} enable {\color{orange} reentrancy}. \\
 }
 
 \hspace*{1cm}
-\begin{tikzpicture}[level distance=16mm, sibling distance=28mm, ->,
+\begin{tikzpicture}[level distance=18mm, sibling distance=28mm, ->,
   level 2/.style={sibling distance=12mm},
   level 3/.style={sibling distance=18mm},
   edge from parent/.append style={nodes={font=\scriptsize}}]
@@ -474,15 +474,15 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
         } edge from parent node[right] {P} }
       } edge from parent node[right] {A} }
       ;
-    \draw[bend left,dashed,->,visible on=<1>] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
-    \draw[bend left,dashed,->,orange,very thick,visible on=<2->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
-    \draw[bend left,->,visible on=<-2>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
-    \draw[bend left,->,red,very thick,visible on=<3>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
-    \node[visible on=<2->] at (6,-.4) {\Large ----- primary edge};
-    \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
+    \draw[bend left,dashed,->,visible on=<-2>] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,dashed,->,orange,very thick,visible on=<3->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,->,visible on=<1>,visible on=<3->] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
+    \draw[bend left,->,red,very thick,visible on=<2>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
+    \node[visible on=<3->] at (6,-.4) {\Large ----- primary edge};
+    \node[visible on=<3->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
 
-\onslide<3->{
+\onslide<2->{
   \vspace{-26mm}
   \begin{adjustbox}{margin=1pt,frame,scale=.9}
     \begin{tabular}{c>{\small\it}l}
