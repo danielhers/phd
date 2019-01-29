@@ -1748,7 +1748,123 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \end{tabular}
 \end{frame}
 
+\begin{frame}
+TUPA output: \\
+(Single-task)
 
+\vspace{-1cm}
+
+\scalebox{.6}{
+\begin{tikzpicture}[->,level distance=11mm,
+  level 1/.style={sibling distance=11cm},
+  level 2/.style={sibling distance=35mm},
+  level 3/.style={ sibling distance=9mm},
+  level 4/.style={ sibling distance=13mm},
+  level 5/.style={ sibling distance=8mm},
+  every circle node/.append style={fill=black},
+  edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.east)}]
+  \tikzstyle{word} = [font=\rmfamily,color=black,rotate=90,anchor=east]
+  \node (1_1) [circle] {}
+  {
+  child {node (1_2) [circle] {}
+    {
+    child {node (1_5) [circle] {}
+      {
+      child {node (1_10) [word] {No} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_11) [word] {transoceanic} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_12) [word] {navigational} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_13) [word] {undertaking} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}}
+    child {node (1_6) [circle] {}
+      {
+      child {node (1_14) [word] {has} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_15) [word] {been} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_16) [word] {conducted} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $P$}}
+    child {node (1_7) [circle] {}
+      {
+      child {node (1_17) [word] {with} edge from parent node[auto] {\scriptsize $R$}}
+      child {node (1_18) [circle] {}
+        {
+        child {node (1_25) [circle] {}
+          {
+          child {node (1_28) [word] {more} edge from parent node[auto] {\scriptsize $E$}}
+          child {node (1_29) [word] {ability} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $C$}}
+        child {node (1_27) [circle] {}
+          {
+          child {node (1_30) [word] {no} edge from parent node[auto] {\scriptsize $E$}}
+          child {node (1_31) [circle] {}
+            {
+            child {node (1_32) [word] {business} edge from parent node[auto] {\scriptsize $E$}}
+            child {node (1_33) [word] {dealings} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}} }edge from parent node[auto] {\scriptsize $H$}}
+  child {node (1_3) [circle] {}
+    {
+    child {node (1_8) [circle] {}
+      {
+      child {node (1_19) [word] {have} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_20) [word] {been} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_21) [word] {crowned} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $P$}}
+    child {node (1_9) [circle] {}
+      {
+      child {node (1_22) [word] {with} edge from parent node[auto] {\scriptsize $R$}}
+      child {node (1_23) [word] {greater} edge from parent node[auto] {\scriptsize $D$}}
+      child {node (1_24) [word] {success} edge from parent node[auto] {\scriptsize $P$}} }edge from parent node[auto] {\scriptsize $A$}} }edge from parent node[auto] {\scriptsize $H$}} }
+;
+\end{tikzpicture}}
+
+\vspace{-5mm}
+
+Multitask TUPA output: \\
+(+AMR+DM+UD)
+
+\vspace{-5mm}
+
+\scalebox{.6}{
+\begin{tikzpicture}[->,level distance=11mm,
+  level 1/.style={sibling distance=10cm},
+  level 2/.style={sibling distance=35mm},
+  level 3/.style={ sibling distance=9mm},
+  every circle node/.append style={fill=black},
+  edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.east)}]
+  \tikzstyle{word} = [font=\rmfamily,color=black,rotate=90,anchor=east]
+  \node (1_1) [circle] {}
+  {
+  child {node (1_2) [circle] {}
+    {
+    child {node (1_6) [circle] {}
+      {
+      child {node (1_12) [word] {No} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_13) [word] {transoceanic} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_14) [word] {navigational} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_15) [word] {undertaking} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}}
+    child {node (1_7) [circle] {}
+      {
+      child {node (1_16) [word] {has} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_17) [word] {been} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_18) [word] {conducted} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $P$}}
+    child {node (1_8) [circle] {}
+      {
+      child {node (1_19) [word] {with} edge from parent node[auto] {\scriptsize $R$}}
+      child {node (1_20) [word] {more} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_21) [word] {ability} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}} }edge from parent node[auto] {\scriptsize $H$}}
+  child {node (1_4) [circle] {}
+    {
+    child {node (1_9) [circle] {}
+      {
+      child {node (1_22) [word] {no} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_23) [word] {business} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_24) [word] {dealings} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}}
+    child {node (1_10) [circle] {}
+      {
+      child {node (1_25) [word] {have} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_26) [word] {been} edge from parent node[auto] {\scriptsize $F$}}
+      child {node (1_27) [word] {crowned} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $P$}}
+    child {node (1_11) [circle] {}
+      {
+      child {node (1_28) [word] {with} edge from parent node[auto] {\scriptsize $R$}}
+      child {node (1_29) [word] {greater} edge from parent node[auto] {\scriptsize $E$}}
+      child {node (1_30) [word] {success} edge from parent node[auto] {\scriptsize $C$}} }edge from parent node[auto] {\scriptsize $A$}} }edge from parent node[auto] {\scriptsize $H$}} }
+;
+\end{tikzpicture}}
+\end{frame}
 
 
 \section{Content Differences in Syntactic and Semantic Representations}
