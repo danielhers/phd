@@ -1,4 +1,4 @@
-\documentclass[t,xcolor={svgnames}]{beamer}
+\documentclass[t,xcolor={svgnames,table}]{beamer}
 
 \mode<presentation>
 \usetheme{Warsaw}
@@ -21,6 +21,9 @@
 \usepackage{tikz-dependency}
 \usepackage{tikz-qtree}
 \usepackage{tikz,pgfplots,pgfplotstable}
+\usepackage{pgf}
+\usepackage{collcell}
+\usepackage{booktabs}
 \usetikzlibrary{arrows.meta,graphs,graphs.standard,graphdrawing,quotes,shapes}
 \usegdlibrary{layered,trees}
 
@@ -74,6 +77,17 @@
     }
 }
 \makeatother
+
+
+% for confusion matrix
+\newcommand{\ApplyGradient}[1]{%
+  \pgfmathsetmacro{\PercentColor}{(#1-0)/14.02}%
+  \pgfmathsetmacro{\PercentInverse}{ifthenelse(\PercentColor > 70, 0, 100)}%
+  %\textcolor{black!\PercentColor}{#1}
+  \edef\x{\noexpand\cellcolor{red!\PercentColor}}\x\textcolor{black!\PercentInverse}{#1}%
+}
+\newcolumntype{R}{>{\collectcell\ApplyGradient}{c}<{\endcollectcell}}
+
 
 \MakePerPage{footnote}
 
@@ -2050,8 +2064,52 @@ Now we can evaluate by matching edges (UCCA unlabeled evaluation)
 
 \begin{frame}
 \frametitle{Confusion Matrix}
-\vspace{-1cm}
-\includegraphics[width=1.15\textwidth]{confusion_matrix.png}
+\centering
+\setlength\tabcolsep{6pt}
+\def\arraystretch{.5}
+\scalebox{.7}{
+\begin{tabular}{lRRRRRRRRRRRRRRR}
+ & \multicolumn{1}{c}{\bf{A}} & \multicolumn{1}{c}{\bf{C}}
+ & \multicolumn{1}{c}{\bf{D}} & \multicolumn{1}{c}{\bf{E}}
+ & \multicolumn{1}{c}{\bf{F}} & \multicolumn{1}{c}{\bf{G}}
+ & \multicolumn{1}{c}{\bf{H}} & \multicolumn{1}{c}{\bf{L}}
+ & \multicolumn{1}{c}{\bf{N}} & \multicolumn{1}{c}{\bf{P}}
+ & \multicolumn{1}{c}{\bf{Q}} & \multicolumn{1}{c}{\bf{R}}
+ & \multicolumn{1}{c}{\bf{S}} & \multicolumn{1}{c}{\bf{T}}
+ & \multicolumn{1}{c}{\emptyset} \\
+\tt acl & 8 &&& 101 & 2 && 15 &&&&&& 1 && 49 \\
+\tt advcl & 2 & 2 &&&&& 103 & 1 && 4 &&&&& 97 \\
+\tt advmod & 61 & 9 & 399 & 51 & 12 & 33 & 3 & 61 && 2 & 10 & 6 & 5 & 117 & 71 \\
+\tt amod & 1 & 33 & 99 & 197 & 2 && 7 &&& 3 & 27 && 97 & 2 & 60 \\
+\tt appos & 1 & 10 && 8 &&& 5 &&&& 1 && 4 && 10 \\
+\tt aux &&& 96 && 285 &&&&&&&&&& 2 \\
+\tt case & 1 & 5 & 2 & 14 & 34 &&& 48 & 6 & 1 & 1 & 489 & 50 && 75 \\
+\tt cc &&& 1 &&&&& 305 & 71 && 1 & 1 &&& 11 \\
+\tt ccomp & 78 &&&&&& 8 &&&&&& 1 && 41 \\
+\tt compound & 23 & 24 & 8 & 176 & 2 &&&&& 1 & 1 & 1 & 3 & 3 & 164 \\
+\tt conj & 2 & 88 & 1 &&&& 265 &&& 2 &&& 3 && 90 \\
+\tt cop &&&&& 333 &&&&& 3 && 1 & 24 && 3 \\
+\tt csubj & 2 &&&&&&&&&&&&&& 8 \\
+\tt dep &&&&&&&&&&&& 1 &&&\\
+\tt det & 2 & 1 & 19 & 763 & 1 & 1 &&&&& 19 & 2 &&& 26 \\
+\tt discourse && 1 &&& 1 & 6 & 13 & 3 &&&&& 1 && 1 \\
+\tt expl &&&&& 22 &&&&&&&&&& 2 \\
+\tt iobj & 19 &&&&&&&&&&&&&&\\
+\tt list && 2 &&&&& 8 &&&&&&&& 2 \\
+\tt mark && 2 & 3 && 186 & 1 && 134 & 1 &&& 53 & 1 & 1 & 18 \\
+\tt nmod & 100 & 1 & 1 & 233 &&& 6 &&&&&& 3 & 4 & 110 \\
+\tt nsubj & 993 &&&& 14 && 2 & 9 && 3 && 24 & 1 && 37 \\
+\tt nummod & 4 & 7 && 6 &&& 3 &&&& 50 &&&& 24 \\
+\tt obj & 439 & 7 & 5 & 1 & 1 && 1 & 1 && 8 & 1 & 6 && 4 & 92 \\
+\tt obl & 247 & 1 & 21 & 7 & 2 & 4 & 4 & 4 &&& 3 & 2 && 69 & 132 \\
+\tt orphan & 1 &&&&&&&&&&&&&& 1 \\
+\tt parataxis & 1 &&& 1 && 2 & 79 &&& 1 &&& 2 && 39 \\
+\tt vocative & 9 &&&&& 3 &&&&&&&&&\\
+\tt xcomp & 44 & 1 & 2 & 2 &&& 1 &&& 5 &&& 7 && 116 \\
+head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 524 \\
+\emptyset & 329 & 172 & 34 & 56 & 6 & 5 & 466 & 29 && 141 & 27 & 7 & 98 & 11
+\end{tabular}
+}
 \end{frame}
 
 \begin{frame}
