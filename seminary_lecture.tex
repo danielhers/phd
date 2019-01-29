@@ -1947,7 +1947,7 @@ Multitask TUPA output: \\
 
 
 \begin{frame}
-\frametitle{Conversion Again}
+\frametitle{Assimilating the Graph Structures}
 
 \begin{minipage}{.04\textwidth}
 \color{DarkBlue} UD
@@ -2111,6 +2111,109 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \end{tabular}
 }
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Divergences}
+\begin{flushright}
+\scalebox{.9}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=21mm, ->, draw=Indigo]
+    \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {L\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
+\end{tikzpicture}
+}
+\end{flushright}
+
+\vspace{-1cm}
+
+\scalebox{.9}{
+  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=16mm},
+      level 2/.style={sibling distance=12mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node[anchor=west,font=\sffamily\LARGE,DarkBlue] at (-4,0) {Converted UD};
+    \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [fill=DarkBlue,circle] {}
+      child {node (after) [fill=DarkBlue,circle] {}
+      {
+        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
+        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
+      } edge from parent node {obl}}
+      child {node {}
+      {
+        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node (to) [fill=DarkBlue,circle] {}
+      {
+          child {node [word] {to{\color{white}g}} edge from parent node {case}}
+          child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
+      } edge from parent node {obl}}
+      ;
+      \draw (ROOT) to node {punct} (comma);
+      \draw (ROOT) to node {nsubj} (John);
+      \draw (ROOT) to node {head} (moved);
+  \end{tikzpicture}
+  }
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Divergences}
+
+\begin{tikzpicture}[level distance=18mm, sibling distance=28mm, ->,
+  level 2/.style={sibling distance=12mm},
+  level 3/.style={sibling distance=18mm},
+  edge from parent/.append style={nodes={font=\scriptsize}}]
+  \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [fill=blue, circle] {}
+      child {node (They) [word] {They} edge from parent node[left] {A}}
+      child {node [word] {thought} edge from parent node[left] {P}}
+      child {node (abouttakingashortbreak) [fill=blue, circle] {}
+      {
+        child {node [word] {about} edge from parent node[left] {R}}
+        child {node (takingabreak) [fill=blue, circle] {}
+        {
+          child {node [word] {taking} edge from parent node[above] {F}}
+          child {node [word] {a} edge from parent node[right] {F}}
+          child {node [word] (short) {short} edge from parent[draw=none]}
+          child {node [word] {break} edge from parent node[right] {C}}
+        } edge from parent node[right] {P} }
+      } edge from parent node[right] {A} }
+      ;
+    \draw[bend left,dashed,->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left,->] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
+    \node at (6,-.4) {\Large ----- primary edge};
+    \node at (6,-1.4) {\Large - - - remote edge};
+\end{tikzpicture}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Divergences}
