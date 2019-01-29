@@ -1658,7 +1658,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     
     Multitask TUPA model:
     
-    \vspace{-5mm}
+    \vspace{-7mm}
     
     \begin{center}\scalebox{.3}{\Huge
        \begin{tikzpicture}[-{Latex[length=3mm]},thick]
@@ -1687,11 +1687,11 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \centering
 \small
 \setlength\tabcolsep{3pt}
-\begin{tabular}{lcc}
+\begin{tabular}{lrr}
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
-\multicolumn{3}{l}{\small \bf English (in-domain)} \\
-\footnotesize Single
+\multicolumn{3}{l}{\small \bf English Wiki (in-domain)} \\
+\footnotesize Single-task
 & 73.6 & 51.5 \\
 \cline{1-1}
 %\small \bf Multitask &&& \\
@@ -1708,15 +1708,15 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \footnotesize +DM+UD
 & \textbf{74.9} & 51.2 \\
 \footnotesize All
-& 74.4 & 52
+& 74.4 & 52.0
 \end{tabular}
 \hfill
-\begin{tabular}{lcc}
+\begin{tabular}{lrr}
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
-\multicolumn{3}{l}{\small \bf English (out-of-domain)} \\
-\footnotesize Single
-& 69 & 26.7 \\
+\multicolumn{3}{l}{\small \bf English 20K (out-of-domain)} \\
+\footnotesize Single-task
+& 69.0 & 26.7 \\
 \cline{1-1}
 %\small \bf Multitask &&& \\
 \footnotesize +AMR
@@ -1728,22 +1728,22 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \footnotesize +AMR+DM
 & 70.5 & 27.3 \\
 \footnotesize +AMR+UD
-& 70 & 29.4 \\
+& 70.0 & 29.4 \\
 \footnotesize +DM+UD
 & 70.6 & 28.4 \\
 \footnotesize All
-& \textbf{71} & \textbf{29.6}
+& \textbf{71.0} & \textbf{29.6}
 \end{tabular}
 \vfill
-\begin{tabular}{lcc}
+\begin{tabular}{lrr}
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
-\multicolumn{3}{l}{\small \bf French (in-domain)} \\
-\small Single & 67.6 & 13.9 \\
+\multicolumn{3}{l}{\small \bf French 20K (in-domain)} \\
+\small Single-task & 67.6 & 13.9 \\
 \small +UD & \textbf{70.1} & 20.3 \\
 \hline
-\multicolumn{3}{l}{\small \bf German (in-domain)} \\
-\small Single & 72.5 & 27.1 \\
+\multicolumn{3}{l}{\small \bf German 20K (in-domain)} \\
+\small Single-task & 72.5 & 27.1 \\
 \small +UD & \textbf{73.2} & \textbf{35.5}
 \end{tabular}
 \end{frame}
