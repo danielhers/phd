@@ -612,7 +612,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 
 
 
-\section{Transition-based UCCA Parser (ACL'17)}
+\section[Transition-based UCCA Parser]{A Transition-Based DAG Parser for UCCA (ACL'17)}
 
 \begin{frame}
 \frametitle{TUPA: Transition-based UCCA Parser}
@@ -1866,58 +1866,6 @@ Multitask TUPA output: \\
 
 
 \section[Content Differences in Syntactic and Semantic Representations]{Content Differences between Syntactic and Semantic Representations (under submission)}
-
-
-\begin{frame}
-    \frametitle{UCCA}
-      \begin{center}
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
-    edge from parent/.append style={nodes={font=\scriptsize}},
-    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-    \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {L\;}}
-      child {node (graduation) [fill=Indigo, circle] {}
-      {
-        child {node {graduation} edge from parent node[left] {P}}
-      } edge from parent node[left] {H} }
-      child {node {,} edge from parent node[right] {U}}
-      child {node (moved) [fill=Indigo, circle] {}
-      {
-        child {node (John) {John} edge from parent node[left] {A}}
-        child {node {moved} edge from parent node[left] {P}}
-        child {node [fill=Indigo, circle] {}
-        {
-          child {node {to} edge from parent node[left] {R}}
-          child {node {Copenhagen} edge from parent node[left] {C}}
-        } edge from parent node[left] {A} }
-      } edge from parent node[right] {H} }
-      ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
-\end{tikzpicture}
-      \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{UCCA}
-\begin{tikzpicture}[level distance=19mm, sibling distance=21mm, ->, draw=Indigo,
-  edge from parent/.append style={nodes={font=\scriptsize}},
-      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-  \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=Indigo, circle] {}
-      child {node (They) [word] {They} edge from parent node[left] {A}}
-      child {node [word] {thought} edge from parent node[left] {D}}
-      child {node [word] {about} edge from parent node[left] {R}}
-      child {node (takingashortbreak) [fill=Indigo, circle] {}
-      {
-        child {node [word] {taking} edge from parent node[above] {F}}
-        child {node [word] {a} edge from parent node[right] {F}}
-        child {node [word] (short) {short} edge from parent[draw=none]}
-        child {node [word] {break} edge from parent node[right] {C}}
-      } edge from parent node[right] {P} }
-      ;
-    \draw[bend left,->] (ROOT) to[out=45,in=110] node [auto] {\scriptsize D} (short);
-\end{tikzpicture}
-\end{frame}
 
 
 \begin{frame}
