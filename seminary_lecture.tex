@@ -1548,9 +1548,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
       \draw (ROOT) to node {nsubj} (John);
       \draw (ROOT) to node {head} (moved);
   \end{tikzpicture}}
-
 \end{minipage}
-
 \end{frame}
 
 
@@ -1870,93 +1868,182 @@ Multitask TUPA output: \\
 
 \begin{frame}
 \frametitle{UCCA vs. UD}
-\centering
-  \scalebox{.8}{
-    \begin{tikzpicture}[level distance=9mm, sibling distance=28mm, ->, draw=Indigo,
-        every circle node/.append style={fill=Indigo},
-        edge from parent/.append style={nodes={font=\scriptsize}},
-        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-      \tikzstyle{word} = [font=\rmfamily,color=black]
-      \node[color=Indigo] at (-4,0) {UCCA:};
-      \node[color=DarkBlue] at (-4,-3) {UD:};
-      \node (ROOT) [circle] {}
-        child {node (After) [word] {After} edge from parent node[above] {L}}
-        child {node (graduation) [circle] {}
+    \begin{minipage}[t]{.17\textwidth}
+      \onslide<2->{
+        \fbox{Many formal differences.}
+      }
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \scalebox{.8}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node[anchor=west,font=\Large] at (-3,.5) {Semantic representation:};
+    \node[anchor=west,font=\bf\sffamily\LARGE,Indigo] at (-3,0) {UCCA};
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {L\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
+        child {node [fill=Indigo, circle] {}
         {
-          child {node [word] {graduation} edge from parent node[left] {P}}
-        } edge from parent node[right] {H} }
-        child {node [word] {,} edge from parent node[below] {U}}
-        child {node (moved) [circle] {}
-        {
-          child {node (John) [word] {John} edge from parent node[left] {A}}
-          child {node [word] {moved} edge from parent node[left] {P}}
-          child {node [circle] {}
-          {
-            child {node [word] {to} edge from parent node[left] {R}}
-            child {node [word] {Copenhagen} edge from parent node[right] {C}}
-          } edge from parent node[above] {A} }
-        } edge from parent node[right] {H} }
-        ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize A} (John);
-    \end{tikzpicture}
-    }
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
+\end{tikzpicture}
+        }
+    \end{minipage}
+    \begin{minipage}{.2\textwidth}
+      \onslide<3->{
+        \fbox{What about \textit{content}?}
+        \vspace{4cm}
+      }
+    \end{minipage}
+      
+    \vspace{-14mm}
+      
+    Syntactic representation:
     
-    \begin{dependency}[text only label, label style={above,font=\tt, color=DarkBlue}, edge style={color=DarkBlue}, font=\small\rmfamily]
-    \begin{deptext}[column sep=1.8em,ampersand replacement=\^]
+    {\color{DarkBlue}\bf\sffamily\Large UD}
+    
+    \vspace{-4mm}
+    
+    \rmfamily
+    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue},
+                       label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
-        \depedge[edge unit distance=1ex]{2}{1}{case}
-        \depedge[edge unit distance=1ex]{2}{3}{punct}
-        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
-        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{5}{2}{obl}
-        \depedge[edge unit distance=1ex]{7}{6}{case}
-        \deproot[edge unit distance=1.5ex]{5}{root}
-        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
+        \depedge{2}{1}{case}
+        \depedge{2}{3}{punct}
+        \depedge{5}{4}{nsubj}
+        \depedge[edge end x offset=-2pt]{5}{2}{obl}
+        \depedge{7}{6}{case}
+        \deproot[edge unit distance=2.5ex]{5}{root}
+        \depedge{5}{7}{obl}
     \end{dependency}
-    
-    \hrulefill
-    
-  \scalebox{.7}{
-  \begin{tikzpicture}[level distance=12mm, ->, draw=DarkBlue,
-      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize\tt,color=DarkBlue},
-      level 2/.style={sibling distance=27mm,level distance=9mm},
-      level 3/.style={sibling distance=22mm,level distance=14mm},
-      edge from parent/.append style={nodes={font=\scriptsize}},
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conversion Again}
+
+\begin{minipage}{.04\textwidth}
+\color{DarkBlue} UD
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \scalebox{.6}{
+    \begin{dependency}[text only label, edge style={color=DarkBlue},
+                       label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
+    \end{deptext}
+        \depedge{2}{1}{case}
+        \depedge{2}{3}{punct}
+        \depedge{5}{4}{nsubj}
+        \depedge[edge end x offset=-2pt]{5}{2}{obl}
+        \depedge{7}{6}{case}
+        \deproot[edge unit distance=2.5ex]{5}{root}
+        \depedge{5}{7}{obl}
+    \end{dependency}
+    }
+
+\end{minipage}
+\begin{minipage}{.02\textwidth}
+\Rightarrow
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \scalebox{.6}{
+  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=16mm},
+      level 2/.style={sibling distance=12mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \tikzstyle{word} = [font=\rmfamily,color=black]
-      \node at (-4.75,0) {\normalsize\sffamily Converted UD:};
-    \node [fill=DarkBlue,circle] {}
-      child {node (ROOT) [fill=DarkBlue,circle] {}
+    \node (ROOT) [fill=DarkBlue,circle] {}
+      child {node (after) [fill=DarkBlue,circle] {}
       {
-        child {node (after) [fill=DarkBlue,circle] {}
-        {
-          child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
-          child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
-        } edge from parent node {obl}}
-        child {node {}
-        {
-          child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
-        } edge from parent [draw=none]}
-        child {node {}
-        {
-          child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
-        } edge from parent [draw=none]}
-        child {node {}
-        {
-          child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
-        } edge from parent [draw=none]}
-        child {node (to) [fill=DarkBlue,circle] {}
-        {
-            child {node [word] {to{\color{white}g}} edge from parent node {case}}
-            child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
-        } edge from parent node {obl}}
-      } edge from parent node {head}}
+        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
+        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
+      } edge from parent node {obl}}
+      child {node {}
+      {
+        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node {}
+      {
+        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      child {node (to) [fill=DarkBlue,circle] {}
+      {
+          child {node [word] {to{\color{white}g}} edge from parent node {case}}
+          child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
+      } edge from parent node {obl}}
       ;
       \draw (ROOT) to node {punct} (comma);
       \draw (ROOT) to node {nsubj} (John);
       \draw (ROOT) to node {head} (moved);
   \end{tikzpicture}}
+\end{minipage}
+
+\pause
+\vfill
+
+Now we can evaluate by matching edges (UCCA unlabeled evaluation)
+
+\pause
+\vfill
+
+\begin{minipage}{.5\textwidth}
+\scalebox{.7}{
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+    \node[anchor=west,font=\bf\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
+    \node (ROOT) [fill=Indigo, circle] {}
+      child {node (After) {After} edge from parent node[left] {L\;}}
+      child {node (graduation) [fill=Indigo, circle] {}
+      {
+        child {node {graduation} edge from parent node[left] {P}}
+      } edge from parent node[left] {H} }
+      child {node {,} edge from parent node[right] {U}}
+      child {node (moved) [fill=Indigo, circle] {}
+      {
+        child {node (John) {John} edge from parent node[left] {A}}
+        child {node {moved} edge from parent node[left] {P}}
+        child {node [fill=Indigo, circle] {}
+        {
+          child {node {to} edge from parent node[left] {R}}
+          child {node {Copenhagen} edge from parent node[left] {C}}
+        } edge from parent node[left] {A} }
+      } edge from parent node[right] {H} }
+      ;
+    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
+\end{tikzpicture}
+}
+\end{minipage}
+\pause
+\begin{minipage}[b]{.4\textwidth}
+    \large
+    \begin{tabular}{c|c|c}
+        \textbf{P} & \textbf{R} & \textbf{F1} \\ \hline
+        $\frac89=89\%$ & $\frac8{10}=80\%$ & 84\%
+    \end{tabular}
+    \vspace{1cm}
+\end{minipage}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Confusion Matrix}
@@ -1966,7 +2053,8 @@ Multitask TUPA output: \\
 
 \begin{frame}
 \frametitle{Divergences}
-\centering
+\begin{center}
+\renewcommand{\arraystretch}{.8}
 \begin{tabular}{cc}
 \bf UCCA & \bf UD \\\\
 Scene/non-Scene & POS-based distinction \\\\
@@ -1976,8 +2064,9 @@ more MWEs & less MWEs \\\\
 Participant/Elaborator/ & coordination/subordination/ \\
 Parallel Scenes & complementation/parataxis
 \end{tabular}
+\end{center}
 
-\begin{minipage}{.4\textwidth}
+\begin{minipage}{.45\textwidth}
   \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->, draw=Indigo,
         every circle node/.append style={fill=Indigo},
@@ -2006,10 +2095,9 @@ Parallel Scenes & complementation/parataxis
     \end{tikzpicture}
     }
 \end{minipage}
-\hfill
 \begin{minipage}{.5\textwidth}
     \begin{dependency}[text only label, label style={above,font=\tt\scriptsize, color=DarkBlue}, edge style={color=DarkBlue}, font=\scriptsize\rmfamily]
-    \begin{deptext}[column sep=.1em,ampersand replacement=\^]
+    \begin{deptext}[column sep=0,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
         \depedge[edge unit distance=1ex]{2}{1}{case}
