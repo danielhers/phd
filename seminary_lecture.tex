@@ -78,9 +78,7 @@
 \MakePerPage{footnote}
 
 % Outline slides
-\AtBeginSection
-{\begin{frame} \frametitle{Outline} \tableofcontents[currentsection,currentsubsection] \end{frame}}
-\AtBeginSubsection
+\AtBeginSection[]
 {\begin{frame} \frametitle{Outline} \tableofcontents[currentsection,currentsubsection] \end{frame}}
 
 
@@ -2077,15 +2075,15 @@ Parallel Scenes & complementation/parataxis
 \end{minipage}
 \end{frame}
 
+\section*{}
+
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
- \item UCCA's semantic distinctions require a graph structure including {\color{blue}non-terminals}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
- \item \parser{} is an accurate transition-based UCCA parser,
- 	and the \textbf{first} to support UCCA and any DAG over the text tokens.
- \item Outperforms strong conversion-based baselines.
-\item Multitask learning across semantic representations
-\item In-depth comparison of UCCA and UD
+ \item Natural language understanding benefits from structured semantic representation.
+ \item \parser{} is an accurate transition-based UCCA parser.
+ \item Multitask learning improves UCCA parsing.
+ \item In-depth comparison of UCCA and UD
 \end{itemize}
 \end{frame}
 
