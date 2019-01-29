@@ -478,23 +478,23 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
     \draw[bend left,dashed,->,orange,very thick,visible on=<2->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
     \draw[bend left,->,visible on=<-2>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
     \draw[bend left,->,red,very thick,visible on=<3>] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
-    \node[visible on=<3->] at (6,-.4) {\Large ----- primary edge};
-    \node[visible on=<3->] at (6,-1.4) {\Large - - - remote edge};
+    \node[visible on=<2->] at (6,-.4) {\Large ----- primary edge};
+    \node[visible on=<2->] at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
 
-\pause
-
-\vspace{-26mm}
-\begin{adjustbox}{margin=1pt,frame,scale=.9}
-  \begin{tabular}{c>{\small\it}l}
-      P & Process \\
-      A & Participant \\
-      C & Center \\
-      D & Adverbial \\
-      R & Relator \\
-      F & Function
-  \end{tabular}
-\end{adjustbox}
+\onslide<3->{
+  \vspace{-26mm}
+  \begin{adjustbox}{margin=1pt,frame,scale=.9}
+    \begin{tabular}{c>{\small\it}l}
+        P & Process \\
+        A & Participant \\
+        C & Center \\
+        D & Adverbial \\
+        R & Relator \\
+        F & Function
+    \end{tabular}
+  \end{adjustbox}
+}
 \end{frame}
 
 
