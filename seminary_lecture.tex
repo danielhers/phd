@@ -1558,12 +1558,11 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
 \begin{frame}
     \frametitle{Multitask}
-\centering
     \begin{minipage}{.05\pagewidth}
     \scalebox{6}{\{}
     \end{minipage}
     \begin{minipage}{.3\pagewidth}
-        \scalebox{.31}{
+        \scalebox{.3}{
 \begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
     edge from parent/.append style={nodes={font=\scriptsize}},
     edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
@@ -1616,9 +1615,9 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \end{tikzpicture}
       }
     \end{minipage}
-    \begin{minipage}{.22\pagewidth}
+    \begin{minipage}{.21\pagewidth}
         \rmfamily
-        \scalebox{.33}{
+        \scalebox{.3}{
 \begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed},
             text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=1.5em,ampersand replacement=\^]
@@ -1633,7 +1632,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \end{dependency}
     }
     
-        \scalebox{.33}{
+        \scalebox{.3}{
     \begin{dependency}[edge style={-{Latex[length=2mm]}, color=DarkBlue},
         text only label, label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=1.5em,ampersand replacement=\^, color=DarkBlue]
@@ -1654,7 +1653,12 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \end{minipage}
     
     \pause
+    
     \vfill
+    
+    Multitask TUPA model:
+    
+    \vspace{-5mm}
     
     \begin{center}\scalebox{.3}{\Huge
        \begin{tikzpicture}[-{Latex[length=3mm]},thick]
