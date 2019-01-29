@@ -809,8 +809,8 @@ Experimenting with three classifiers:
 
     \begin{tabular}{ll}
     \textbf{Sparse} & Perceptron with sparse features. \\
-    \textbf{MLP} & Embeddings + MLP. \\
-    \textbf{BiLSTM} & Embeddings + \only<2->{\textbf}{bidirectional RNN} + MLP.
+    \textbf{MLP} & Word embeddings + MLP. \\
+    \textbf{BiLSTM} & Word embeddings + \only<2->{\textbf}{bidirectional RNN} + MLP.
     \end{tabular}
 }
 \only<2-5>{\vspace{-4cm}}
@@ -821,7 +821,7 @@ Experimenting with three classifiers:
 
 Features include:
 
-\{words, POS, syntactic dependencies, existing edge labels\} \\
+\{words, parts of speech, syntactic dependencies, existing edge labels\} \\
 from the stack and buffer + parents, children, grandchildren.
 
 \vspace{5mm}
