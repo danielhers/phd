@@ -170,7 +170,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Linguistic Structure Annotation Schemes}
+\frametitle{Linguistic Structured Representations}
 Model explicit relations between words or concepts.
 
 \vfill
@@ -336,7 +336,7 @@ Supports rapid and intuitive annotation of linguistic semantic phenomena. \\
                     ]
                   ]
                 ]
-                \draw (graduation John u) to node[auto] {\scriptsize A} (John u);
+                \draw[dashed] (graduation John u) to node[auto] {\scriptsize A} (John u);
                 \end{scope}
                 \onslide<2->{
                   \begin{scope}[xshift=2cm,yshift=-58mm,grow'=up,level distance=9mm,
@@ -351,14 +351,15 @@ Supports rapid and intuitive annotation of linguistic semantic phenomena. \\
                       \edge node[auto=left]{F}; \node (et d) {\heb{את}};
                       \edge node[auto=right]{D}; \node (siyem d) {\heb{שסיים}};
                     ]
-                    \edge node [auto=right]{L}; \node (ahrei d) {\heb{אחרי}};
+                    \edge node [auto=left,anchor=south east]{L}; \node (ahrei d) {\heb{אחרי}};
                     \edge node[auto=right]{H};
                     [.\node [circle] (hu avar lecopenhagen d) {};
-                      \edge node[auto=left]{A}; \node (lecopenhagen d) {\heb{לקופנהגן}};
+                      \edge node[auto=left,anchor=south east]{A}; \node (lecopenhagen d) {\heb{לקופנהגן}};
                       \edge node[auto=left]{P}; \node (avar d) {\heb{עבר}};
                       \edge node[auto=right]{A}; \node (John d) {\heb{ג'ון}};
                     ]
                   ]
+                  \draw[dashed] (John siyem et halimudim d) to[out=-15,in=-150] node[above] {\scriptsize A} (John d);
                   \end{scope}
                 }\onslide<3>{
                   \begin{scope}[dashed,thick]
@@ -1411,7 +1412,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     
   \vspace{5mm}
   \scalebox{.6}{
-    \begin{dependency}[text only label, color=DarkBlue},
+    \begin{dependency}[text only label, edge style={color=DarkBlue},
                        label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
