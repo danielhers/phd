@@ -2150,7 +2150,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
       level 1/.style={sibling distance=16mm},
       level 2/.style={sibling distance=13mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-    \node[anchor=west,font=\sffamily\LARGE,DarkBlue] at (-4,.7) {Converted UD};
+    \node[anchor=west,font=\sffamily\LARGE,DarkBlue] at (-4.5,.7) {Converted UD};
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=DarkBlue,circle] {}
       child {node (after) [fill=DarkBlue,circle] {}
@@ -2214,6 +2214,74 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \end{tikzpicture}
 }
 \end{flushright}
+
+\only<1>{
+     \begin{dependency}[line width=1.5pt]
+        \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
+       They \^ thought \^ about \^ taking \^ a \^ short \^ break \\
+         \end{deptext}
+        \deproot[draw=DarkBlue]{2}{root}
+        \depedge[draw=DarkBlue]{2}{1}{nsubj}
+        \depedge[edge start x offset=-4pt,draw=DarkBlue]{2}{4}{advcl}
+        \depedge[draw=DarkBlue]{4}{3}{mark}
+        \depedge[draw=DarkBlue]{4}{7}{dobj}
+        \depedge[draw=DarkBlue]{7}{5}{det}
+        \depedge[draw=DarkBlue]{7}{6}{amod}
+    \end{dependency}
+}
+\only<2>{
+  \scalebox{.9}{
+  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
+      every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
+      level 1/.style={sibling distance=16mm},
+      level 2/.style={sibling distance=13mm},
+      edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \tikzstyle{word} = [font=\rmfamily,color=black]
+    \node (ROOT) [fill=DarkBlue, circle] {}
+      child {node (They) [word] {They} edge from parent node[left] {A}}
+      child {node [word] {thought} edge from parent node[left] {P}}
+      child {node (abouttakingashortbreak) [fill=DarkBlue, circle] {}
+      {
+        child {node [word] {about} edge from parent node[left] {R}}
+        child {node (takingabreak) [fill=DarkBlue, circle] {}
+        {
+          child {node [word] {taking} edge from parent node[above] {F}}
+          child {node [word] {a} edge from parent node[right] {F}}
+          child {node [word] (short) {short} edge from parent[draw=none]}
+          child {node [word] {break} edge from parent node[right] {C}}
+        } edge from parent node[right] {P} }
+      } edge from parent node[right] {A} }
+      ;
+%    \node (ROOT) [fill=DarkBlue,circle] {}
+%      child {node (after) [fill=DarkBlue,circle] {}
+%      {
+%        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
+%        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
+%      } edge from parent node {obl}}
+%      child {node {}
+%      {
+%        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
+%      } edge from parent [draw=none]}
+%      child {node {}
+%      {
+%        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
+%      } edge from parent [draw=none]}
+%      child {node {}
+%      {
+%        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
+%      } edge from parent [draw=none]}
+%      child {node (to) [fill=DarkBlue,circle] {}
+%      {
+%          child {node [word] {to{\color{white}g}} edge from parent node {case}}
+%          child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
+%      } edge from parent node {obl}}
+%      ;
+%      \draw (ROOT) to node {punct} (comma);
+%      \draw (ROOT) to node {nsubj} (John);
+%      \draw (ROOT) to node {head} (moved);
+  \end{tikzpicture}
+  }
+}
 \end{frame}
 
 
