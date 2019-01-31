@@ -2117,7 +2117,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \frametitle{Divergences}
 \begin{flushright}
 \scalebox{.9}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=21mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=15mm, sibling distance=21mm, ->, draw=Indigo]
     \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
@@ -2142,15 +2142,15 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 }
 \end{flushright}
 
-\vspace{-1cm}
+\vspace{-13mm}
 
 \scalebox{.9}{
   \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=16mm},
-      level 2/.style={sibling distance=12mm},
+      level 2/.style={sibling distance=13mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-    \node[anchor=west,font=\sffamily\LARGE,DarkBlue] at (-4,0) {Converted UD};
+    \node[anchor=west,font=\sffamily\LARGE,DarkBlue] at (-4,.7) {Converted UD};
     \tikzstyle{word} = [font=\rmfamily,color=black]
     \node (ROOT) [fill=DarkBlue,circle] {}
       child {node (after) [fill=DarkBlue,circle] {}
@@ -2187,18 +2187,20 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \begin{frame}
 \frametitle{Divergences}
 
-\begin{tikzpicture}[level distance=18mm, sibling distance=28mm, ->,
-  level 2/.style={sibling distance=12mm},
-  level 3/.style={sibling distance=18mm},
+\begin{flushright}
+\scalebox{.9}{
+\begin{tikzpicture}[level distance=12mm, sibling distance=28mm, ->, draw=Indigo,
+  level 2/.style={sibling distance=9mm},
+  level 3/.style={sibling distance=16mm},
   edge from parent/.append style={nodes={font=\scriptsize}}]
   \tikzstyle{word} = [font=\rmfamily,color=black]
-    \node (ROOT) [fill=blue, circle] {}
+    \node (ROOT) [fill=Indigo, circle] {}
       child {node (They) [word] {They} edge from parent node[left] {A}}
       child {node [word] {thought} edge from parent node[left] {P}}
-      child {node (abouttakingashortbreak) [fill=blue, circle] {}
+      child {node (abouttakingashortbreak) [fill=Indigo, circle] {}
       {
         child {node [word] {about} edge from parent node[left] {R}}
-        child {node (takingabreak) [fill=blue, circle] {}
+        child {node (takingabreak) [fill=Indigo, circle] {}
         {
           child {node [word] {taking} edge from parent node[above] {F}}
           child {node [word] {a} edge from parent node[right] {F}}
@@ -2209,9 +2211,9 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
       ;
     \draw[bend left,dashed,->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
     \draw[bend left,->] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
-    \node at (6,-.4) {\Large ----- primary edge};
-    \node at (6,-1.4) {\Large - - - remote edge};
 \end{tikzpicture}
+}
+\end{flushright}
 \end{frame}
 
 
