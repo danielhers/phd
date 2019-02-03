@@ -1,0 +1,32 @@
+\documentclass{beamer}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,graphs,graphs.standard,graphdrawing,quotes,shapes}
+
+\begin{document}
+
+\begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node (need) {need} edge from parent node [left] {P}}
+      child {node (totakeashortbreak) [fill=blue, circle] {} 
+      { 
+        child {node (to) {to} edge from parent node [left] {F}}
+        child {node (takeabreak) [fill=red, circle] {}
+        {
+          child {node (take) {take} edge from parent node [right] {C}}      
+          child {node (a) {a} edge from parent node [right] {F}} 
+          child {node (short) {short} edge from parent [draw=none]}
+          child {node (break) {break} edge from parent node [right] {C}}  
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+    \draw(totakeashortbreak) to node [left] {\scriptsize P} (takeabreak); 
+    \draw(ROOT) to node [left] {\scriptsize A} (totakeashortbreak);
+    \draw[bend left,dashed] (totakeashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left] (totakeashortbreak) to node [auto] {\scriptsize D} (short);
+\end{tikzpicture}
+
+\end{document}
