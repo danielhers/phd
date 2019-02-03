@@ -130,45 +130,103 @@ the approaches for semantic tasks in natural language processing.
 
 \chapter{Introduction}
 
-Semantic applications in natural language processing (e.g., machine translation)
-require understanding the meaning of text.
-Syntactic representations suffer from limitations, since they do not
-represent semantic structure directly,
-which semantic annotation schemes attempt to do.
-In order to represent the full range of semantic structures exhibited by
-natural language, three properties should be supported: reentrancy,
-representing arguments shared between predicates (Figure~\ref{fig:graduation});
-non-terminal nodes for multi-word units (Figure~\ref{fig:home});
-and discontinuity of semantic units in the text (Figure~\ref{fig:gave}).
-The only semantic annotation scheme that supports the combination of these criteria is UCCA
-\citep{abend2013universal}.
+Natural language processing (NLP) or computational linguistics (CL)
+is a sub-field of computer science with two main goals:
+(1) developing methods for performing linguistic tasks automatically
+so that solutions can be engineered for better human-computer interface
+or analysis of large amounts of natural language data;
+(2) computational modeling and study of natural language to answer linguistic questions.
 
+Applications in NLP include classifying text into categories
+(such as spam/non-spam, by topic, by author properties, or by
+the sentiment expressed in it),
+tagging it for linguistic properties (such as part-of-speech, i.e., noun/verb/etc.),
+building abstract representations for it (for linguistic research or for
+more readily integrating them into downstream applications)
+and generating new text according to some constraints (for example,
+machine translation is the task of generating
+text in a target language given source language text;
+text simplification is the task of generating simple text with approximately the same
+meaning as given complex text).
 
 Semantic tasks in natural language processing, such as machine translation and
 sentiment analysis, require understanding the meaning of text. Since text is
 merely a sequence of words, it has to be represented in a way that will convey
 its meaning. One simple approach, known as the bag-of-words model, looks only
-at which words occur in the text. This can already provide
+at which words occur in the text.
+This can already provide
 substantial information about the meaning, but it ignores the order of words,
 which clearly conveys important information as well. The n-gram model counts
 sequences of words with regard to their order, incorporating at least some of
-the meaning encoded in the text structure. These models and variations of them
-are quite successfully applied to a variety of
-tasks\cite{mikolov2013efficient}. Nevertheless, an undeniable part in the
-meaning of language resides in its hierarchical structure. Syntax is a way to
-model this structure formally. Using syntactic features can improve the
-performance in semantic tasks\cite{vandeghinste2013parse}.
+the meaning encoded in the text structure.
+Many models treat text as a simple linear structure,
+such as the popular sequence-to-sequence framework allowing neural networks
+to learn tasks in an end-to-end fashion.
 
+Specific use-cases or benchmarks can be solved with such relatively simple
+systems, which either ignore word order or make simplifying assumptions about structure.
+However, understanding human language in general
+requires a hierarchical representation of meaning,
+as an undeniable part in the
+meaning of language resides in its hierarchical structure.
+
+Indeed, a major effort in NLP is dedicated to \textit{natural language understanding},
+which aims to be able to comprehend text, reason about it, and act upon it
+in an intelligent way.
+For example, executable semantic parsing\footnote{Two conceptually distinct
+tasks are termed \textit{semantic parsing}: parsing into
+executable representations, such as SQL; and parsing into descriptive meaning
+representation, such as AMR or UCCA.
+We disambiguate by referring to the former as \textit{executable semantic parsing}.}
+is the task of generating logical meaning representations in the form of code, such as
+SQL or Python, which can then be executed against a knowledge base to perform
+tasks or answer questions.
+In general, constructing a hierarchical representation from text has been the
+goal of an extensive line of work in \textit{semantic parsing}.
+While many semantic representation schemes have been proposed,
+they share many of their basic distinctions \citep{abend2017state},
+such as between predicates
+(relations, states and events) and arguments (participants).
+
+Syntax is a way to
+model this structure formally. Using syntactic features can improve the
+performance in semantic tasks.
 However, syntactic annotations suffer from limitations, since they do not
 represent the semantic structure of text directly. Simple manipulations such as
 switching from an active construction to a passive one, which nearly do not
 alter the meaning of text, can yield a significantly different syntactic
 structure. Moreover, the same syntactic construct can express conceptually
-distinct semantic structures\cite{abend2013ucca}.
+distinct semantic structures: while ``chairmen of parliaments'' and
+``dozens of parliaments'' have the same syntactic structure, semantically
+they are quite distinct.
+
+Universal Dependencies \citep{nivre2016universal}
+is a \textit{syntactic} dependency scheme aiming for cross-lingual consistency,
+whose annotation is often similar to the common practice in semantic treebanks
+(Figure~\ref{fig:original_example_ud}).
+
+\begin{figure}[t]
+  \centering
+    \begin{dependency}[text only label, label style={above,font=\tt}, font=\small]
+    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
+    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \end{deptext}
+        \depedge[edge unit distance=1ex]{2}{1}{case}
+        \depedge[edge unit distance=1ex]{2}{3}{punct}
+        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
+        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{5}{2}{obl}
+        \depedge[edge unit distance=1ex]{7}{6}{case}
+        \deproot[edge unit distance=1.5ex]{5}{root}
+        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
+    \end{dependency}
+\caption{Example UD tree, demonstrating practices common in semantic annotation:
+linking content words to content words, and preference of lexical heads over functional ones.
+\label{fig:original_example_ud}}
+\end{figure}
 
 Semantic annotation schemes attempt to represent the meaning of natural
 language utterances directly. An example is semantic role
-labeling\cite{baker1998framenet}\cite{paass2014semantic}, which annotates
+labeling, which annotates
 predicates and their arguments, classifying them into specific roles. As
 opposed to syntactic annotation, which reflects language-specific formal
 patterns, semantic annotation corresponds to a higher level of cognitive
@@ -182,34 +240,16 @@ focusing on semantic role labeling of verbal argument structures,
 the focus has recently shifted to parsing of more elaborate representations that account
 for a wider range of phenomena. 
 Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
-%addressed in two SemEval tasks \cite{oepen2014semeval,oepen2015semeval},
-%experimenting with the Prague tectogrammatical layer \cite{sgallhp:1986,bohmova2003prague},
-%and with dependencies derived from the Enju parser\footnote{See
-%\url{http://kmcs.nii.ac.jp/enju/}.}, and Lingo ERG \cite{Flic:02}.
 It addresses a wide range of semantic phenomena,
-and supports discontinuous units and multiple parents.
-However, SDP uses
-bi-lexical dependencies, disallowing non-terminal nodes, and thus faces difficulties in supporting
+and supports discontinuous units and multiple parents \cite{oepen2016towards}.
+However, SDP uses bi-lexical dependencies
+(meaning every relation or edge is between a pair of words),
+disallowing non-terminal nodes (see below),
+and thus faces difficulties in supporting
 structures that have no clear head, such as coordination \cite{Ivanova2012who}.
 
-Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
-Within the grammar-based literature, most work relied on Combinatory Categorial Grammar (CCG)
-\cite{Steedman:00}, which allows computing semantic structure compositionally from the
-syntactic derivations. Notable examples include the Boxer parser \cite{bos2005towards}
-and the AMR parser by \cite{artzi2015broad}.
-Other examples include parsing with Hyperedge Replacement Grammars
-\cite{jones2012semantics,chiang2013parsing,peng2015synchronous} and
-graph grammars \cite{koller2015semantic}.
-A different line of work takes a discriminative, grammarless approach,
-pursuing either graph-based methods that predict the highest ranking graph
-(tree or DAG) that satisfies a given set of constraints
-\cite[for AMR parsing]{flanigan2014discriminative},
-or a transition-based method
-that builds the parse incrementally following a series of local
-decisions \cite{Nivre03anefficient}.
-
 Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
-\cite{flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
+\cite{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
 While sharing much of my work's motivation,
 AMR does not ground its units in the words and constituents of the text.
 This complicates the parsing task, as it requires
@@ -219,16 +259,36 @@ that the alignment between words and logical symbols be automatically
 but their method involved first syntactically parsing the input, and then converting
 the resulting tree into an AMR.
 
+Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
+Within the grammar-based literature, most work relied on Combinatory Categorial Grammar (CCG)
+\cite{Steedman:00}, which allows computing semantic structure compositionally from the
+syntactic derivations. Notable examples include the Boxer parser \cite{bos2005towards}
+and the AMR parser by \cite{artzi2015broad}.
+Other examples include parsing with Hyperedge Replacement Grammars
+\cite{jones2012semantics}.
+A different line of work takes a discriminative, grammarless approach,
+pursuing either graph-based methods that predict the highest ranking graph
+(tree or DAG) that satisfies a given set of constraints
+\cite[for AMR parsing]{flanigan2014discriminative},
+or a transition-based method
+that builds the parse incrementally following a series of local
+decisions \cite{Nivre03anefficient}.
+
 In order to represent the full range of semantic structures exhibited by
-natural language, there are three structural properties that should be supported.
-The first is \textbf{multiple parents},
+natural language, three properties should be supported: reentrancy,
+representing arguments shared between predicates;
+non-terminal nodes for multi-word units;
+and discontinuity of semantic units in the text.
+
+The first property, \textbf{reentrancy} (or \textbf{multiple parents}), is required for
 representing arguments and relations (semantic units) that are shared between predicates.
 For instance, in the sentence
-``After graduation, John moved to Paris'', ``John'' is an argument of both ``graduation''
+``After graduation, John moved to Paris'' (Figure~\ref{fig:graduation}),
+``John'' is an argument of both ``graduation''
 and ``moved'', yielding a DAG structure rather than a tree.
 
 The second is \textbf{non-terminal nodes} for representing units
-comprising more than one word.
+comprising more than one word (Figure~\ref{fig:home}).
 While bi-lexical dependencies partially circumvent this requirement, by
 representing complex units in terms of their headwords, they fall short
 when representing units that have no clear head.
@@ -245,8 +305,8 @@ parsing results \cite{Schwartz:12}, while the head noun can be more useful for
 information extraction purposes.
 
 Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
-``John \textit{gave} everything \textit{up}''
-(the phrasal verb ``gave ... up'' forms a single semantic unit.
+``John \textit{gave} everything \textit{up}'' (Figure~\ref{fig:gave}),
+the phrasal verb ``gave ... up'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
 expressions \cite{schneider2014discriminative}.
 
@@ -351,7 +411,9 @@ expressions \cite{schneider2014discriminative}.
   }
 \end{figure}
 
-Universal Cognitive Conceptual Annotation (UCCA)
+The only semantic annotation scheme that supports the combination of these criteria is UCCA
+\citep{abend2013universal}:
+Universal Cognitive Conceptual Annotation
 is a cross-linguistically applicable semantic representation scheme.
 It covers the predicate-argument
 structures evoked by predicates of all grammatical categories, the inter-relations between them,
@@ -360,36 +422,7 @@ UCCA has demonstrated applicability to multiple languages,
 rapid annotation \citep{abend2017uccaapp},
 stability in translation \citep{sulem2015conceptual}
 and benefit for various applications
-\citep{birch2016hume,choshen2018usim,sulem2018samsa,sulem2018simple}.
-
-While semantic representation schemes are different in form and focus,
-much of their semantic content is shared \citep{abend2017state}.
-Recent work in semantic parsing has targeted
-Abstract Meaning Representation \citep{banarescu2013abstract} and
-Semantic Dependencies \citep{oepen2016towards}.
-Universal Dependencies \citep{nivre2016universal}
-is a \textit{syntactic} dependency scheme aiming for cross-lingual consistency,
-whose annotation is often similar to the common practice in semantic treebanks
-(Figure~\ref{fig:original_example_ud}).
-
-\begin{figure}[t]
-  \centering
-    \begin{dependency}[text only label, label style={above,font=\tt}, font=\small]
-    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
-    \end{deptext}
-        \depedge[edge unit distance=1ex]{2}{1}{case}
-        \depedge[edge unit distance=1ex]{2}{3}{punct}
-        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
-        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{5}{2}{obl}
-        \depedge[edge unit distance=1ex]{7}{6}{case}
-        \deproot[edge unit distance=1.5ex]{5}{root}
-        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
-    \end{dependency}
-\caption{Example UD tree, demonstrating practices common in semantic annotation:
-linking content words to content words, and preference of lexical heads over functional ones.
-\label{fig:original_example_ud}}
-\end{figure}
+\citep{birch2016hume,choshen2018reference,sulem2018semantic,sulem2018simple}.
 
 My research is concerned with learning to parse UCCA graphs from text, representing its semantics.
 I introduce a general graph parser,
