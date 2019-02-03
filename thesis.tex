@@ -507,17 +507,8 @@ by jointly learning the tasks forming the NLP standard pipeline using
 a single neural model \citep{collobert2011natural,D17-1206},
 thereby avoiding cascading errors, common in pipelines.
 
-\paragraph{Data.}
 
-Experiments are performed on the English Wikipedia UCCA corpus (Wiki),
-the \textit{Twenty Thousand Leagues Under the Sea} UCCA corpora (20K),
-annotated in English, French and German;
-LDC2017T10 for AMR;
-the DM representation from SDP 2016;
-and all English, French and German treebanks from UD v2.1.
-
-
-\paragraph{Evaluation.}
+\subsection*{Evaluation}
 Comparing UCCA structures
 $G_p=(V_p,E_p,\ell_p)$ and $G_g=(V_g,E_g,\ell_g)$,
 over the same sequence of terminals $W = \{w_1,\ldots,w_n\}$
@@ -536,32 +527,6 @@ and F-score by taking their harmonic mean.
 Two variants are reported: one where we consider only primary edges,
 and another for remote edges
 
-
-\paragraph{Settings.}
-
-The following settings are explored:
-(1) in-domain setting in English, training and testing on Wiki;
-(2) out-of-domain setting in English, training on Wiki and testing on 20K;
-(3) French in-domain setting, where available training dataset is small,
-training and testing on 20K;
-(4) German in-domain setting on 20K, with somewhat noisy annotation.
-For multitask experiments, we use unlabeled AMR, DM and UD parsing as auxiliary tasks in English,
-and unlabeled UD parsing in French and German.
-
-\paragraph{Baselines.}
-As no direct comparison with existing parsers is possible,
-baselines are bi-lexical dependency graph parsers,
-which support reentrancy and discontinuity but not non-terminal nodes;
-and \textit{tree approximation}, converting UCCA to (bi-lexical) trees
-and evaluating constituency and dependency tree parsers on them.
-Baselines are DAGParser \citep{ribeyre-villemontedelaclergerie-seddah:2014:SemEval} and
-TurboParser \citep{almeida-martins:2015:SemEval},
-two bi-lexical dependency graph parsers;
-\textsc{uparse} \citep{maier-lichte:2016:DiscoNLP},
-a transition-based constituency parser supporting discontinuous constituents;
-and two bi-lexical tree parsers:
-MaltParser \citep{nivre2007maltparser},
-and the stack LSTM parser \citep{dyer2015transition}.
 
 
 \chapter{A Transition-Based Directed Acyclic Graph Parser for UCCA \\ (Published in ACL 2017)}
