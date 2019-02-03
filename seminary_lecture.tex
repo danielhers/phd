@@ -466,7 +466,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 }
 
 \hspace*{1cm}
-\begin{tikzpicture}[level distance=18mm, sibling distance=28mm, ->,
+\begin{tikzpicture}[level distance=18mm, sibling distance=28mm, ->, thick,
   level 2/.style={sibling distance=12mm},
   level 3/.style={sibling distance=18mm},
   edge from parent/.append style={nodes={font=\scriptsize}}]
@@ -518,7 +518,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 (1) {\color{blue} non-terminal nodes}
 
 \scalebox{.8}{
-  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->,
+  \begin{tikzpicture}[level distance=12mm, sibling distance=16mm, ->, thick,
       every node/.append style={midway},
       edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=blue, circle] {}
@@ -539,7 +539,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 (2) {\color{red} discontinuity}
 
 \scalebox{.8}{
-  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->,
+  \begin{tikzpicture}[level distance=12mm, sibling distance=2cm, ->, thick,
       every node/.append style={midway},
       edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=black, circle] {}
@@ -560,7 +560,7 @@ Text tokens are terminals, complex units are {\color{blue} non-terminal nodes}. 
 (3) {\color{orange} reentrancy}
 
 \scalebox{.8}{
-\begin{tikzpicture}[level distance=14mm, sibling distance=17mm, ->,
+\begin{tikzpicture}[level distance=14mm, sibling distance=17mm, ->, thick,
     edge from parent/.append style={nodes={font=\scriptsize}}]
     \node (ROOT) [fill=black, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
@@ -676,7 +676,7 @@ These transition enable {\color{blue}non-terminal nodes}, {\color{orange}reentra
 \vfill
 
 \scalebox{.9}{
-\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily,
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
                     anchor=west,text height=.6ex,text depth=0}]
     \begin{scope}[style={font=\sffamily}]
       \node at (-.1,.8) {stack};
@@ -780,7 +780,7 @@ An \textit{oracle} provides the transition sequence given the correct graph:
 \vfill
 \centering
 \scalebox{.8}{
-\begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->,
+\begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->, thick,
     every node/.append style={font=\rmfamily},
     edge from parent/.append style={nodes={font=\scriptsize}},
     edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
@@ -947,7 +947,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \vfill
 \begin{center}
     \begin{dependency}
-    \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
+    \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily, thick]
 	They \^ thought \^ about \^ taking \^ a \^ short \^ break \\
     \end{deptext}
     \depedge{2}{1}{A}
@@ -984,7 +984,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
   \end{flushright}
 \end{minipage}
 \begin{minipage}{.7\textwidth}
-    \begin{tikzpicture}[level distance=13mm, sibling distance=17mm, ->,
+    \begin{tikzpicture}[level distance=13mm, sibling distance=17mm, ->, thick,
         every circle node/.append style={fill=black},
         edge from parent/.append style={nodes={font=\scriptsize}},
         edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
@@ -1014,7 +1014,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \vspace{-14mm}
 \begin{flushleft}
     \begin{dependency}
-    \begin{deptext}[column sep=.7em,ampersand replacement=\^,font=\rmfamily]
+    \begin{deptext}[column sep=.7em,ampersand replacement=\^,font=\rmfamily, thick]
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
     \depedge{2}{1}{L}
@@ -1208,7 +1208,7 @@ Up next:
 
       \begin{flushright}
         \scalebox{.6}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo, alt=<3->{opacity=.3}{}]
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo, thick, alt=<3->{opacity=.3}{}]
     \node[font=\bf\sffamily\Huge,Indigo] at (-3,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
@@ -1236,7 +1236,7 @@ Up next:
     \vspace{-23mm}
     
     \scalebox{.6}{
-\begin{tikzpicture}[alt=<2>{opacity=.3}{},alt=<4->{opacity=.3}{}]
+\begin{tikzpicture}[alt=<2>{opacity=.3}{},alt=<4->{opacity=.3}{}, thick]
 \node[font=\bf\sffamily\Huge,DarkGreen] at (0,6) {AMR};
 \graph[layered layout, sibling distance=4cm, layer distance=2cm, nodes={ellipse,draw=DarkGreen}, edges={nodes={sloped}, DarkGreen}]{
 a4 Copenhagen[as={Copenhagen}];
@@ -1273,7 +1273,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
         \rmfamily
         \scalebox{.7}{
 \begin{dependency}[theme=simple,edge style={-{Latex[length=2mm]}, color=DarkRed}, alt=<2-3>{opacity=.3}{},
-            text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small]
+            text only label, label style={above, color=DarkRed, font=\bf\ttfamily}, font=\small, thick]
     \begin{deptext}[column sep=1em,ampersand replacement=\^]
 	After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
     \end{deptext}
@@ -1296,7 +1296,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     
     \begin{center}
     \rmfamily
-    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue},
+    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue}, thick,
                        label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
@@ -1363,7 +1363,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 \end{frame}
 
 \def\convertedudgraduation{
-  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue,
+  \begin{tikzpicture}[level distance=15mm, ->, draw=DarkBlue, thick,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=16mm},
       level 2/.style={sibling distance=13mm},
@@ -1490,7 +1490,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
   \centering
   \scalebox{.6}{
-  \begin{tikzpicture}[level distance=16mm, ->, draw=DarkGreen,
+  \begin{tikzpicture}[level distance=16mm, ->, draw=DarkGreen, thick,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=28mm},
       level 2/.style={sibling distance=14mm},
@@ -1515,7 +1515,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 
   \vspace{5mm}
   \scalebox{.6}{
-  \begin{tikzpicture}[level distance=14mm, ->, draw=DarkRed,
+  \begin{tikzpicture}[level distance=14mm, ->, draw=DarkRed, thick,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 1/.style={sibling distance=29mm,level distance=6mm},
       level 2/.style={sibling distance=16mm,level distance=14mm},
@@ -1576,7 +1576,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \end{minipage}
     \begin{minipage}{.3\pagewidth}
         \scalebox{.3}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo,
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo, thick,
     edge from parent/.append style={nodes={font=\scriptsize}},
     edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
     \node (ROOT) [fill=Indigo, circle] {}
@@ -1674,7 +1674,7 @@ a4 ->  ["op1"' above] a4 Copenhagen;
     \vspace{-7mm}
     
     \begin{center}\scalebox{.3}{\Huge
-       \begin{tikzpicture}[-{Latex[length=3mm]},thick]
+       \begin{tikzpicture}[-{Latex[length=3mm]},very thick]
        \tikzstyle{main}=[rounded rectangle, minimum size=35mm, draw=black!80, node distance=12mm]
        \node[main] (specific) at (0,12) {Task-specific BiLSTM};
        \node[main,color=DarkCyan] (shared) at (22,12) {Shared BiLSTM};
@@ -1892,7 +1892,7 @@ Multitask TUPA output: \\
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \scalebox{.77}{
-\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=2cm, sibling distance=25mm, ->, draw=Indigo, thick]
     \node[anchor=west,font=\Large] at (-3,.5) {Semantic representation:};
     \node[anchor=west,font=\bf\sffamily\LARGE,Indigo] at (-3,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
@@ -1999,7 +1999,7 @@ Now we can evaluate by matching edges (UCCA unlabeled evaluation)
 
 \begin{minipage}{.5\textwidth}
 \scalebox{.7}{
-\begin{tikzpicture}[level distance=17mm, sibling distance=25mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=17mm, sibling distance=25mm, ->, draw=Indigo, thick]
     \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
@@ -2090,25 +2090,25 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \frametitle{Scenes and non-Scenes, Relations and Participants}
 \begin{flushright}
 \scalebox{.9}{
-\begin{tikzpicture}[level distance=15mm, sibling distance=21mm, ->, draw=Indigo]
+\begin{tikzpicture}[level distance=15mm, sibling distance=21mm, ->, draw=Indigo, thick]
     \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (After) {After} edge from parent node[left] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
       {
-        child {node {graduation} edge from parent node[left] {P}}
-      } edge from parent node[left] {H} }
+        child {node {graduation} edge from parent [Indigo] node[left] {P}}
+      } edge from parent [alt=<2>{red}{}] node[left] {H} }
       child {node {,} edge from parent node[right] {U}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (John) {John} edge from parent node[left] {A}}
-        child {node {moved} edge from parent node[left] {P}}
+        child {node (John) {John} edge from parent [Indigo] node[left] {A}}
+        child {node {moved} edge from parent [Indigo] node[left] {P}}
         child {node [fill=Indigo, circle] {}
         {
-          child {node {to} edge from parent node[left] {R}}
-          child {node {Copenhagen} edge from parent node[left] {C}}
-        } edge from parent node[left] {A} }
-      } edge from parent node[right] {H} }
+          child {node {to} edge from parent [Indigo] node[left] {R}}
+          child {node {Copenhagen} edge from parent [Indigo] node[right] {C}}
+        } edge from parent [Indigo] node[left] {A} }
+      } edge from parent [alt=<2>{red}{}] node[above] {H} }
       ;
     \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
 \end{tikzpicture}
@@ -2130,7 +2130,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 
 \begin{flushright}
 \scalebox{.9}{
-\begin{tikzpicture}[level distance=15mm, sibling distance=28mm, ->, draw=Indigo,
+\begin{tikzpicture}[level distance=15mm, sibling distance=28mm, ->, draw=Indigo, thick,
   level 2/.style={sibling distance=16mm},
   edge from parent/.append style={nodes={font=\scriptsize}}]
   \tikzstyle{word} = [color=black]
@@ -2175,12 +2175,12 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
     \end{dependency}
 }
 \only<2>{
-  \vspace{-14mm}
+  \vspace{-16mm}
     
   {\color{DarkBlue}\Large\sffamily Converted UD}
   
   \scalebox{.9}{
-  \begin{tikzpicture}[level distance=17mm, sibling distance=28mm, ->, draw=DarkBlue,
+  \begin{tikzpicture}[level distance=17mm, sibling distance=28mm, ->, draw=DarkBlue, thick,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
       level 2/.style={sibling distance=19mm},
       edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
