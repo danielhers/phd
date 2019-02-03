@@ -1924,7 +1924,7 @@ Multitask TUPA output: \\
       }
     \end{minipage}
       
-    \vspace{-14mm}
+    \vspace{-1cm}
       
     Syntactic representation:
     
@@ -1933,7 +1933,7 @@ Multitask TUPA output: \\
     \vspace{-4mm}
     
     \rmfamily
-    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue},
+    \begin{dependency}[text only label, edge style={-{Latex[length=2mm]}, color=DarkBlue, thick},
                        label style={above, color=DarkBlue, font=\bf\ttfamily}, font=\small]
     \begin{deptext}[column sep=.8em,ampersand replacement=\^]
     After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
@@ -2093,7 +2093,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \begin{tikzpicture}[level distance=15mm, sibling distance=21mm, ->, draw=Indigo, thick]
     \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
-      child {node (After) {After} edge from parent node[left] {L\;}}
+      child {node (After) {After} edge from parent node[above] {L\;}}
       child {node (graduation) [fill=Indigo, circle] {}
       {
         child {node {graduation} edge from parent [Indigo] node[left] {P}}
@@ -2101,16 +2101,16 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
       child {node {,} edge from parent node[right] {U}}
       child {node (moved) [fill=Indigo, circle] {}
       {
-        child {node (John) {John} edge from parent [Indigo] node[left] {A}}
+        child {node (John) {John} edge from parent [alt=<3>{red}{Indigo}] node[above] {A}}
         child {node {moved} edge from parent [Indigo] node[left] {P}}
         child {node [fill=Indigo, circle] {}
         {
           child {node {to} edge from parent [Indigo] node[left] {R}}
           child {node {Copenhagen} edge from parent [Indigo] node[right] {C}}
-        } edge from parent [Indigo] node[left] {A} }
+        } edge from parent [alt=<3>{red}{Indigo}] node[right] {A} }
       } edge from parent [alt=<2>{red}{}] node[above] {H} }
       ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
+    \draw[dashed,->] (graduation) to node [auto] {A} (John);
 \end{tikzpicture}
 }
 \end{flushright}
@@ -2131,27 +2131,26 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \begin{flushright}
 \scalebox{.9}{
 \begin{tikzpicture}[level distance=15mm, sibling distance=28mm, ->, draw=Indigo, thick,
-  level 2/.style={sibling distance=16mm},
-  edge from parent/.append style={nodes={font=\scriptsize}}]
+  level 2/.style={sibling distance=16mm}]
   \tikzstyle{word} = [color=black]
     \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
-      child {node (They) [word] {They} edge from parent node[left] {A}}
+      child {node (They) [word] {They} edge from parent node[above] {A}}
       child {node [word] {thought} edge from parent node[left] {P}}
       child {node (abouttakingashortbreak) [fill=Indigo, circle] {}
       {
-        child {node [word] {about} edge from parent node[left] {R}}
+        child {node [word] {about} edge from parent [Indigo] node[left] {R}}
         child {node (takingabreak) [fill=Indigo, circle] {}
         {
-          child {node [word] {taking} edge from parent node[above] {F}}
-          child {node [word] {a} edge from parent node[right] {F}}
+          child {node [word] {taking} edge from parent [alt=<3>{red}{Indigo}] node[above] {F}}
+          child {node [word] {a} edge from parent [alt=<3>{red}{Indigo}] node[right] {F}}
           child {node [word] (short) {short} edge from parent[draw=none]}
-          child {node [word] {break} edge from parent node[right] {C}}
-        } edge from parent node[right] {P} }
-      } edge from parent node[right] {A} }
+          child {node [word] {break} edge from parent [alt=<3>{red}{Indigo}] node[right] {C}}
+        } edge from parent [alt=<4>{red}{Indigo}] node[right] {P} }
+      } edge from parent node[above] {A} }
       ;
-    \draw[bend left,dashed,->] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
-    \draw[bend left,->] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
+    \draw[bend left,dashed,->] (abouttakingashortbreak) to node [auto] {A} (They);
+    \draw[bend left,->] (abouttakingashortbreak) to node [auto] {D} (short);
 \end{tikzpicture}
 }
 \end{flushright}
@@ -2174,7 +2173,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
         \depedge[draw=DarkBlue]{7}{6}{amod}
     \end{dependency}
 }
-\only<2>{
+\only<2->{
   \vspace{-16mm}
     
   {\color{DarkBlue}\Large\sffamily Converted UD}
@@ -2195,7 +2194,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
         {
           child {node [word] {taking} edge from parent node {head}}
           child {node [word] {a} edge from parent node {det}}
-          child {node [word] (short) {short} edge from parent node {amod}}
+          child {node [word] (short) {short} edge from parent node {\;amod}}
           child {node [word] {break} edge from parent node {head}}
         } edge from parent node {dobj} }
       } edge from parent node {advcl} }
