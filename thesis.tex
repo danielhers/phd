@@ -547,45 +547,27 @@ and another for remote edges
 
 \chapter{Discussion}
 
-Task similarity is an important factor in multitask learning
-\citep{E17-2026,E17-1005}.
-Empirical comparison with UD reveals that most content differences between it and UCCA are due to:
-  \begin{enumerate}
-      \item UCCA's distinction of Scene-evoking words and phrases, absent in UD.
-      \item UCCA's distinction between primary relations, secondary relations
-        and Participants, in contrast to UD's core/non-core distinction.
-      \item Different treatment of multi-word expressions (MWEs),
-        where UCCA has a stronger tendency to explicitly mark them.
-      \item UCCA's conflation of several syntactic realizations of inter-clause linkage,
-        and disambiguation of other cases that UD treats similarly.
-   \end{enumerate}
-
-  The differences between the schemes are substantial, and suggest that
-  UCCA parsing in particular and semantic parsing in general are likely to benefit
-  downstream text understanding applications.
-  For example, only 73\% of arguments are shared between UCCA and UD,
-  i.e., many semantic participants cannot be recovered from UD.
-
-\subsection*{Challenges}
-
-\paragraph{Dataset size.}
-Models with a large number of parameters typically require very large
-training sets.
+At the initial stages of this work, dataset size was a concern.
+Models with a large number of parameters,
+such as the neural network models employed in TUPA,
+typically require very large training sets.
 Since the UCCA datasets are small in relation to other schemes,
-training neural network models on them posed a challenge.
+training neural network models on them seemed to pose a challenge.
 While the data is slowly growing and extended to more languages by further labeling efforts,
+and results seem to improve as more and more training data is available,
+the current performance of TUPA in UCCA parsing is already quite satisfactory.
+This is demonstrated by the fact that the parser has been successfully used in
+various applications \cite{choshen2018reference,sulem2018semantic,sulem2018simple}.
+Furthermore,
 multitask learning proved to be an effective method to overcome the data scarcity issue.
 
-\paragraph{Scheme comparison.}
 While many distinctions are shared between UCCA and other semantic and syntactic schemes,
 they are largely obscured by differences in representation format and convention.
+A second challenge was thus in developing a generic parsing system that would be able
+to handle more than one semantic scheme.
 Conversion to a common graph format and assimilation of superficial structures
-allowed deep inspection of content divergences and convergences.
-
-
-\subsection*{Conclusion and Future Prospects}
-
-The research effort to be included in the PhD thesis was completed on December 10, 2018.
+allowed deep inspection of content divergences and convergences,
+and addressed the generality question effectively to allow multitask learning.
 
 UCCA's merits in providing a cross-linguistically applicable,
 broad-coverage annotation will support ongoing efforts to incorporate deeper
