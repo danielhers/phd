@@ -2126,7 +2126,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 
 
 \begin{frame}
-\frametitle{Multi-word Expressions, Linkage}
+\frametitle{Multi-word Expressions, Linkage between Scenes}
 
 \begin{flushright}
 \scalebox{.9}{
@@ -2200,98 +2200,11 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
         } edge from parent node {dobj} }
       } edge from parent node {advcl} }
       ;
-%    \node (ROOT) [fill=DarkBlue,circle] {}
-%      child {node (after) [fill=DarkBlue,circle] {}
-%      {
-%        child {node [word] {After{\color{white}g}\quad\quad} edge from parent node {case}}
-%        child {node [word] {\quad graduation\quad\quad} edge from parent node {head}}
-%      } edge from parent node {obl}}
-%      child {node {}
-%      {
-%        child {node [word] (comma) {\quad,{\color{white}g}} edge from parent [draw=none]}
-%      } edge from parent [draw=none]}
-%      child {node {}
-%      {
-%        child {node [word] (John) {John{\color{white}g}} edge from parent [draw=none]}
-%      } edge from parent [draw=none]}
-%      child {node {}
-%      {
-%        child {node [word] (moved) {moved{\color{white}g}} edge from parent [draw=none]}
-%      } edge from parent [draw=none]}
-%      child {node (to) [fill=DarkBlue,circle] {}
-%      {
-%          child {node [word] {to{\color{white}g}} edge from parent node {case}}
-%          child {node [word] {Copenhagen{\color{white}g}} edge from parent node {head}}
-%      } edge from parent node {obl}}
-%      ;
-%      \draw (ROOT) to node {punct} (comma);
-%      \draw (ROOT) to node {nsubj} (John);
-%      \draw (ROOT) to node {head} (moved);
   \end{tikzpicture}
   }
 }
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Divergences}
-\begin{center}
-\renewcommand{\arraystretch}{.8}
-\begin{tabular}{cc}
-\bf UCCA & \bf UD \\\\
-Scene/non-Scene & POS-based distinction \\\\
-primary/secondary relations, & core/non-core arguments \\
-participants & \\\\
-more MWEs & less MWEs \\\\
-Participant/Elaborator/ & coordination/subordination/ \\
-Parallel Scenes & complementation/parataxis
-\end{tabular}
-\end{center}
-
-\begin{minipage}{.45\textwidth}
-  \scalebox{.8}{
-    \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->, draw=Indigo,
-        every circle node/.append style={fill=Indigo},
-        edge from parent/.append style={nodes={font=\scriptsize}},
-        edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
-      \tikzstyle{word} = [font=\rmfamily,color=black]
-      \node (ROOT) [circle] {}
-        child {node (After) [word] {After} edge from parent node[above] {L}}
-        child {node (graduation) [circle] {}
-        {
-          child {node [word] {graduation} edge from parent node[left] {P}}
-        } edge from parent node[right] {H} }
-        child {node [word] {,} edge from parent node[below] {U}}
-        child {node (moved) [circle] {}
-        {
-          child {node (John) [word] {John} edge from parent node[left] {A}}
-          child {node [word] {moved} edge from parent node[left] {P}}
-          child {node [circle] {}
-          {
-            child {node [word] {to} edge from parent node[left] {R}}
-            child {node [word] {Copenhagen} edge from parent node[right] {C}}
-          } edge from parent node[above] {A} }
-        } edge from parent node[right] {H} }
-        ;
-      \draw[dashed,->] (graduation) to node [above] {\scriptsize A} (John);
-    \end{tikzpicture}
-    }
-\end{minipage}
-\begin{minipage}{.5\textwidth}
-    \begin{dependency}[text only label, label style={above,font=\tt\scriptsize, color=DarkBlue}, edge style={color=DarkBlue}, font=\scriptsize\rmfamily]
-    \begin{deptext}[column sep=0,ampersand replacement=\^]
-    After \^ graduation \^ , \^ John \^ moved \^ to \^ Copenhagen \\
-    \end{deptext}
-        \depedge[edge unit distance=1ex]{2}{1}{case}
-        \depedge[edge unit distance=1ex]{2}{3}{punct}
-        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
-        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{5}{2}{obl}
-        \depedge[edge unit distance=1ex]{7}{6}{case}
-        \deproot[edge unit distance=1.5ex]{5}{root}
-        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
-    \end{dependency}
-\end{minipage}
-\end{frame}
 
 \section*{}
 
