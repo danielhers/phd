@@ -2134,6 +2134,7 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
   level 2/.style={sibling distance=16mm},
   edge from parent/.append style={nodes={font=\scriptsize}}]
   \tikzstyle{word} = [color=black]
+    \node[anchor=west,font=\sffamily\LARGE,Indigo] at (-4,0) {UCCA};
     \node (ROOT) [fill=Indigo, circle] {}
       child {node (They) [word] {They} edge from parent node[left] {A}}
       child {node [word] {thought} edge from parent node[left] {P}}
@@ -2155,9 +2156,11 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 }
 \end{flushright}
 
-\vspace{-4mm}
+\vspace{-12mm}
 
 \only<1>{
+    {\color{DarkBlue}\Large\sffamily UD}
+
      \begin{dependency}[line width=1.5pt]
         \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
        They \^ thought \^ about \^ taking \^ a \^ short \^ break \\
@@ -2172,7 +2175,10 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
     \end{dependency}
 }
 \only<2>{
-  \vspace{-18mm}
+  \vspace{-14mm}
+    
+  {\color{DarkBlue}\Large\sffamily Converted UD}
+  
   \scalebox{.9}{
   \begin{tikzpicture}[level distance=17mm, sibling distance=28mm, ->, draw=DarkBlue,
       every node/.append style={sloped,anchor=south,auto=false,font=\scriptsize},
