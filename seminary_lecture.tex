@@ -1124,7 +1124,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         MLP
         & 64.9 & 16.9 \\
         BiLSTM
-        & \textbf{73.3} & \textbf{47.2} \\
+        & \textbf{73.2} & \textbf{46.8} \\
         \hline
         \tiny Baselines & \\
     	\scriptsize DAGParser
@@ -1147,7 +1147,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         \hline\\
         59.8 & 11.5 \\
         62.5 & 9.7 \\
-        \textbf{68.2} & \textbf{23.7} \\
+        \textbf{67.9} & \textbf{23.0} \\
         \hline\\
         53.4 \\
         43.1 & 0.8 \\
@@ -1163,7 +1163,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         \tiny Primary & \tiny Remote \\
         \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
         \hline\\\\\\
-        67.6 & 13.9 \\
+        44.0 & 3.8 \\
         \hline\\\\\\\\\\\\
     \end{tabular}
     \hspace{-2mm}
@@ -1172,7 +1172,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
         \tiny Primary & \tiny Remote \\
         \scriptsize \textbf{F1} & \scriptsize \textbf{F1} \\
         \hline\\\\\\
-        72.5 & 27.1 \\
+        73.9 & 47.2 \\
         \hline\\\\\\\\\\\\
     \end{tabular}
     }
@@ -1706,60 +1706,42 @@ a4 ->  ["op1"' above] a4 Copenhagen;
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
 \multicolumn{3}{l}{\small \bf English Wiki (in-domain)} \\
-\footnotesize Single-task
-& 73.6 & 51.5 \\
+\footnotesize Single-task & 73.2 & 46.8 \\
 \cline{1-1}
-%\small \bf Multitask &&& \\
-\footnotesize +AMR
-& 73.7 & 49.9 \\
-\footnotesize +DM
-& 74.8 & \textbf{53.9} \\
-\footnotesize +UD
-& 74.1 & 50.8 \\
-\footnotesize +AMR+DM
-& 74.7 & 51.4 \\
-\footnotesize +AMR+UD
-& 73.8 & 48.5 \\
-\footnotesize +DM+UD
-& \textbf{74.9} & 51.2 \\
-\footnotesize All
-& 74.4 & 52.0
+\footnotesize +AMR        & 72.7 & 52.7 \\
+\footnotesize +DM         & \textbf{74.0} & \textbf{53.8} \\
+\footnotesize +UD         & 72.2 & 48.0 \\
+\footnotesize +AMR+DM     & 73.6 & 48.5 \\
+\footnotesize +AMR+UD     & 73.3 & 51.2 \\
+\footnotesize +DM+UD      & 73.9 & 52.2 \\
+\footnotesize All         & 73.8 & 52.1
 \end{tabular}
 \hfill
 \begin{tabular}{lrr}
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
 \multicolumn{3}{l}{\small \bf English 20K (out-of-domain)} \\
-\footnotesize Single-task
-& 69.0 & 26.7 \\
+\footnotesize Single-task & 67.9 & 23.0 \\
 \cline{1-1}
-%\small \bf Multitask &&& \\
-\footnotesize +AMR
-& 69.5 & 27.5 \\
-\footnotesize +DM
-& 70.7 & 25.9 \\
-\footnotesize +UD
-& 69.7 & 28.7 \\
-\footnotesize +AMR+DM
-& 70.5 & 27.3 \\
-\footnotesize +AMR+UD
-& 70.0 & 29.4 \\
-\footnotesize +DM+UD
-& 70.6 & 28.4 \\
-\footnotesize All
-& \textbf{71.0} & \textbf{29.6}
+\footnotesize +AMR        & 67.0 & 31.2 \\
+\footnotesize +DM         & \textbf{69.1} & 27.5 \\
+\footnotesize +UD         & 67.4 & 23.9 \\
+\footnotesize +AMR+DM     & 68.9 & 25.4 \\
+\footnotesize +AMR+UD     & 68.2 & \textbf{31.4} \\
+\footnotesize +DM+UD      & 68.6 & 29.1 \\
+\footnotesize All         & \textbf{69.1} & 25.8
 \end{tabular}
 \vfill
 \begin{tabular}{lrr}
 & \footnotesize \bf Primary F1 & \footnotesize \bf Remote F1 \\
 \hline
 \multicolumn{3}{l}{\small \bf French 20K (in-domain)} \\
-\small Single-task & 67.6 & 13.9 \\
-\small +UD & \textbf{70.1} & 20.3 \\
+\small Single-task & 44.0 & 3.8 \\
+\small +UD         & \textbf{49.6} & 1.6 \\
 \hline
 \multicolumn{3}{l}{\small \bf German 20K (in-domain)} \\
-\small Single-task & 72.5 & 27.1 \\
-\small +UD & \textbf{73.2} & \textbf{35.5}
+\small Single-task & 73.9 & 47.2 \\
+\small +UD         & \textbf{80.1} & \textbf{59.8}
 \end{tabular}
 \end{frame}
 
