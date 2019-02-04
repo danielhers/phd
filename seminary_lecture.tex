@@ -1182,6 +1182,7 @@ with bi-lexical DAG parsers and transition-based tree parsers.
 \begin{frame}
 \frametitle{Interim Summary}
 \begin{itemize}
+ \item Structured meaning representation benefits language understanding.
  \item UCCA's semantic distinctions require a graph structure including {\color{blue}non-terminals}, {\color{orange}reentrancy} and {\color{red}discontinuity}.
  \item \parser{} is an accurate transition-based UCCA parser,
  	and the first to support UCCA and any DAG over the text tokens.
@@ -2265,12 +2266,27 @@ head & 125 & 1402 & 152 & 37 & 91 & 18 & 652 & 2 & 1 & 961 & 18 & 9 & 353 & 1 & 
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
- \item Structured meaning representation benefits language understanding.
- \item \parser{} is an accurate parser for the UCCA semantic scheme.
- \item Multitask learning improves UCCA parsing by shared generalizations.
- \item Divergences between UCCA and UD impact the utility of syntax for semantic parsing
-       and the value of each for NLP applications.
+ \item Meaning representation is valuable for language understanding.\pause
+ \item \parser{}, an accurate UCCA parser, is suited to many representations.\pause
+ \item Multitask learning allows useful shared generalizations to emerge.\pause
+ \item Divergences limit inter-scheme gain, but highlight relative strengths.\pause
 \end{itemize}
+
+\vfill
+\pause
+
+Ongoing work:
+\begin{itemize}
+  \item Complement syntax with \textit{lexical} semantics to make up for differences.\pause
+  \item Establish cross-framework meaning representation parsing as a task.
+\end{itemize}
+
+\vfill
+\pause
+
+Long term goal: \\
+Use meaning representations to teach machines to understand language
+(and not just understand meaning representations).
 \end{frame}
 
 \begin{frame}[allowframebreaks]
