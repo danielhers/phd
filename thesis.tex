@@ -550,6 +550,14 @@ and another for remote edges
 
 \chapter{Discussion}
 
+In this thesis, I showed that meaning representation is valuable for language understanding,
+and that TUPA, an accurate UCCA parser, is suited to many meaning representations.
+Furthermore, multitask learning allows useful shared generalizations to emerge.
+While divergences between schemes may limit the gain from sharing,
+they highlight relative strengths, which are meaningful both theoretically and practically.
+
+\section*{Challenges}
+
 At the initial stages of this work, dataset size was a concern.
 Models with a large number of parameters,
 such as the neural network models employed in TUPA,
@@ -572,6 +580,8 @@ Conversion to a common graph format and assimilation of superficial structures
 allowed deep inspection of content divergences and convergences,
 and addressed the generality question effectively to allow multitask learning.
 
+\section*{Impact}
+
 UCCA's merits in providing a cross-linguistically applicable,
 broad-coverage annotation will support ongoing efforts to incorporate deeper
 semantic structures into a variety of applications, such as machine translation
@@ -580,6 +590,16 @@ The advantage of UCCA as compared to syntactic annotation schemes for machine tr
 as translation tends to preserve semantic structure more than syntactic structure \citep{sulem2015conceptual}.
 Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
 semantically similar to the source.
+
+In ongoing work, I take the comparison to Universal Dependencies further,
+looking at ways to complement syntax with \textit{lexical} semantics to make up for differences.
+Lexical semantic resources, such as STREUSLE
+\citep{schneider-thesis,envmwe,pssdisambig,gensuper},
+may provide the necessary annotation to close the gap between UD and UCCA.
+
+Establish cross-framework meaning representation parsing as a task.
+
+Long term goal: learning semantic parsing as a means to learn language.
 
 \bibliography{references}
 \bibliographystyle{apalike}
