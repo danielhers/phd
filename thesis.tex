@@ -552,8 +552,13 @@ and another for remote edges
 
 In this thesis, I showed that meaning representation is valuable for language understanding,
 and that TUPA, an accurate UCCA parser, is suited to many meaning representations.
-Furthermore, multitask learning allows useful shared generalizations to emerge.
-While divergences between schemes may limit the gain from sharing,
+Furthermore, multitask learning allows useful shared generalizations to emerge,
+improving TUPA's performance by taking advantage of its general transition-based
+architecture and flexible neural network classifier.
+As different meaning representations capture many similar distinctions,
+this approach proved effective, gaining from data annotated in each scheme
+even though they had been designed separately and with different formal properties.
+While divergences between the content of the schemes may limit the gain from sharing,
 they highlight relative strengths, which are meaningful both theoretically and practically.
 
 \section*{Challenges}
@@ -564,21 +569,24 @@ such as the neural network models employed in TUPA,
 typically require very large training sets.
 Since the UCCA datasets are small in relation to other schemes,
 training neural network models on them seemed to pose a challenge.
-While the data is slowly growing and extended to more languages by further labeling efforts,
-and results seem to improve as more and more training data is available,
+However,
 the current performance of TUPA in UCCA parsing is already quite satisfactory.
 This is demonstrated by the fact that the parser has been successfully used in
 various applications \cite{choshen2018reference,sulem2018semantic,sulem2018simple}.
 Furthermore,
 multitask learning proved to be an effective method to overcome the data scarcity issue.
+The UCCA data has also been slowly growing and extended to more languages by further labeling efforts,
+and results seem to improve as more and more training data is available.
 
 While many distinctions are shared between UCCA and other semantic and syntactic schemes,
 they are largely obscured by differences in representation format and convention.
 A second challenge was thus in developing a generic parsing system that would be able
 to handle more than one semantic scheme.
+However, the general architecture of the parser was effective in handling these
+graphs structure.
 Conversion to a common graph format and assimilation of superficial structures
-allowed deep inspection of content divergences and convergences,
-and addressed the generality question effectively to allow multitask learning.
+addressed the generality question effectively to allow multitask learning,
+and further, allowed deep inspection of content divergences and convergences.
 
 \section*{Impact}
 
@@ -591,11 +599,29 @@ as translation tends to preserve semantic structure more than syntactic structur
 Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
 semantically similar to the source.
 
-In ongoing work, I take the comparison to Universal Dependencies further,
-looking at ways to complement syntax with \textit{lexical} semantics to make up for differences.
+\section*{Ongoing Work}
+
+In the comparison between Universal Dependencies (UD) and UCCA,
+88\% of edges were found to be common between the schemes (ignoring the label),
+meaning the linguistic structures annotated by them are very similar.
+Inspecting the remaining divergenes reveals, for example, that only
+about 82\% of UCCA unanalyzable units (i.e., units without a compositional
+internal structure) are even sub-trees in UD.
+The remaining cases seem to be almost exclusively multi-word Linkers,
+such as ``even though'', ``when it comes to'' and ``just because''.
+Furthermore, only 73\% of Participants in UCCA Scenes were found to be arguments
+of syntactic predicates in UD, due to the differences in distincions between
+Scenes/non-Scenes and between main relations, secondary relations and participants.
+These gap can perhaps be closed
+by complementing syntax with \textit{lexical} semantics to make up for differences
+corresponding to semantic distinctions that are not expressed in UD.
 Lexical semantic resources, such as STREUSLE
 \citep{schneider-thesis,envmwe,pssdisambig,gensuper},
-may provide the necessary annotation to close the gap between UD and UCCA.
+may provide the necessary annotation to close the gap between UD and UCCA:
+for example, it contains labels for various types of multi-word expressions,
+even ones that are not UD sub-trees;
+and semantically categorize lexical items according to lexical category and
+supersense, distinguishing, for example, eventive from non-eventive nouns.
 
 Establish cross-framework meaning representation parsing as a task.
 
