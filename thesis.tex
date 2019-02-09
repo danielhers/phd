@@ -601,6 +601,8 @@ semantically similar to the source.
 
 \section*{Ongoing Work}
 
+\subsection*{Combining Syntax with Lexical Semantics}
+
 In the comparison between Universal Dependencies (UD) and UCCA,
 88\% of edges were found to be common between the schemes (ignoring the label),
 meaning the linguistic structures annotated by them are very similar.
@@ -612,7 +614,8 @@ such as ``even though'', ``when it comes to'' and ``just because''.
 Furthermore, only 73\% of Participants in UCCA Scenes were found to be arguments
 of syntactic predicates in UD, due to the differences in distincions between
 Scenes/non-Scenes and between main relations, secondary relations and participants.
-These gap can perhaps be closed
+
+These gaps can perhaps be closed
 by complementing syntax with \textit{lexical} semantics to make up for differences
 corresponding to semantic distinctions that are not expressed in UD.
 Lexical semantic resources, such as STREUSLE
@@ -623,7 +626,40 @@ even ones that are not UD sub-trees;
 and semantically categorize lexical items according to lexical category and
 supersense, distinguishing, for example, eventive from non-eventive nouns.
 
-Establish cross-framework meaning representation parsing as a task.
+\subsection*{Establishing the Meaning Representation Parsing Task}
+
+TUPA, the parser presented in this thesis, is the first UCCA parser.
+In other parsing tasks, years of experiments and progress have yielded very
+accurate and fine-tuned parsers.
+While TUPA is quite accurate, there can doubtlessly be countless improvements
+due to different ways of looking at the problem or a better selection of architecture
+and parameters.
+During January 2019, we (Zohar Aizenbud, Leshem Choshen, Elior Sulem, Omri Abend,
+Ari Rappoport and myself) ran a shared task as part of the
+International Workshop on Semantic Evaluation, titled
+Task 1: Cross-lingual Semantic Parsing with UCCA.
+The task presented participants with UCCA parsing challenges
+in English, German and French.
+The shared task has yielded improvements over TUPA
+in all languages and settings,
+with various approahces with resepct to the parsing system,
+machine learning architecture, and cross-lingual
+transfer.\footnote{\url{https://competitions.codalab.org/competitions/19160}}
+The task results will be presented during SemEval
+2019.\footnote{\url{http://alt.qcri.org/semeval2019/}}
+
+In even more recent work, a proposal for another shared task at
+The SIGNLL Conference on Computational Natural Language
+Learning\footnote{\url{http://www.conll.org/}} was accepted for CoNLL 2019.
+The task, organized jointly by Stephan Oepen, Omri Abend, Jan Haji\v{c},
+Tim O'Gorman, Nianwen Xue and myself,
+will involve parsing into a range of different semantic representation schemes
+(DM, PSD, EDS, UCCA and AMR), differing in both formal structure and linguistic
+approaches.
+By combining the different schemes in a single task, we
+establish cross-framework meaning representation parsing as a task,
+and hope to ``blur the boundaries'' and enable cross-fertilization between
+.
 
 Long term goal: learning semantic parsing as a means to learn language.
 
