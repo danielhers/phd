@@ -664,6 +664,9 @@ conj	76	80	78	81	80	81	80	81
 det	82	67	59	53	67	67	47	57
 acl	80	81	82	83	81	80	83	81
 amod	81	83	86	86	86	84	86	83
+}\englishwikiud
+\pgfplotstableread{
+category	single	UCCAAMR	UCCAUD	UCCADM	UCCADMUD	UCCAAMRUD	UCCAAMRDM	UCCAAMRDMUD
 aux	84	83	83	85	86	84	84	86
 obl	78	77	78	80	79	79	83	80
 advcl	81	78	81	79	82	82	82	80
@@ -676,8 +679,9 @@ parataxis	100	100	100	100	100	100	100	100
 cop	100	100	100	100	100	100	100	100
 ccomp	86	86	86	86	86	86	86	86
 xcomp	100	100	100	100	100	100	100	100
-}\englishwikiud
+}\englishwikiudb
 \pgfplotstableread{
+category	single	UCCAUD
 case	78	84
 compound	22	32
 iobj	10	18
@@ -703,6 +707,7 @@ ccomp	10	41
 xcomp	22	28
 }\frenchud
 \pgfplotstableread{
+category	single	UCCAUD
 case	6	82
 compound	74	79
 iobj	59	67
@@ -735,7 +740,7 @@ xcomp	67	67
     ybar=0pt,
     ymin=0,
     width=18cm,
-    height=8cm,
+    height=6cm,
     bar width=4pt,
     xtick=data,
     xticklabels from table={\englishwiki}{category},
@@ -744,7 +749,7 @@ xcomp	67	67
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
+    legend style={at={(axis cs:-1,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
     legend cell align={left},
     nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
     every node near coord/.append style={rotate=90,anchor=west}]
@@ -756,19 +761,18 @@ xcomp	67	67
     \addplot[fill=cyan]table[x expr=\coordindex,meta=category,y=UCCAAMRUD]{\englishwiki};
     \addplot[fill=yellow]table[x expr=\coordindex,meta=category,y=UCCAAMRDM]{\englishwiki};
     \addplot[fill=brown]table[x expr=\coordindex,meta=category,y=UCCAAMRDMUD]{\englishwiki};
-    \legend{Single,UCCA+AMR,UCCA+UD,UCCA+DM,UCCA+DM+UD,UCCA+AMR+UD,UCCA+AMR+DM,UCCA+AMR+DM+UD}
+    \legend{Single,UCCA+AMR,UCCA+UD,UCCA+DM,UCCA+DM+UD,UCCA+AMR+UD,UCCA+AMR+DM,All}
     \end{axis}
     \end{tikzpicture}
-    \caption{English Wiki, by UCCA categories}
+    \caption{English Wiki}
 \end{subfigure}
-\begin{figure}
-\begin{subfigure}{\textwidth}
+\begin{subfigure}{.475\textwidth}
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
-    height=8cm,
+    width=9cm,
+    height=6cm,
     bar width=4pt,
     xtick=data,
     xticklabels from table={\french}{category},
@@ -777,24 +781,21 @@ xcomp	67	67
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
-    legend cell align={left},
     nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
     every node near coord/.append style={rotate=90,anchor=west}]
     \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\french};
     \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\french};
-    \legend{Single,UCCA+UD}
     \end{axis}
     \end{tikzpicture}
-    \caption{French 20K, by UCCA categories}
+    \caption{French 20K}
 \end{subfigure}
-\begin{subfigure}{\textwidth}
+\begin{subfigure}{.475\textwidth}
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
-    height=8cm,
+    width=9cm,
+    height=6cm,
     bar width=4pt,
     xtick=data,
     xticklabels from table={\german}{category},
@@ -803,18 +804,127 @@ xcomp	67	67
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
-    legend cell align={left},
     nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
     every node near coord/.append style={rotate=90,anchor=west}]
     \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\german};
     \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\german};
-    \legend{Single,UCCA+UD}
     \end{axis}
     \end{tikzpicture}
-    \caption{German 20K, by UCCA categories}
+    \caption{German 20K}
 \end{subfigure}
-    \caption{TUPA's F1 per category in each single-/multitask setting.
+    \caption{TUPA's F1 per UCCA category in each single-/multitask setting.
+    \label{fig:fine_grained}}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=6cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\englishwikiud}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    legend style={at={(axis cs:-1,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
+    legend cell align={left},
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\englishwikiud};
+    \addplot[fill=blue]table[x expr=\coordindex,meta=category,y=UCCAAMR]{\englishwikiud};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\englishwikiud};
+    \addplot[fill=orange]table[x expr=\coordindex,meta=category,y=UCCADM]{\englishwikiud};
+    \addplot[fill=magenta]table[x expr=\coordindex,meta=category,y=UCCADMUD]{\englishwikiud};
+    \addplot[fill=cyan]table[x expr=\coordindex,meta=category,y=UCCAAMRUD]{\englishwikiud};
+    \addplot[fill=yellow]table[x expr=\coordindex,meta=category,y=UCCAAMRDM]{\englishwikiud};
+    \addplot[fill=brown]table[x expr=\coordindex,meta=category,y=UCCAAMRDMUD]{\englishwikiud};
+    \legend{Single,UCCA+AMR,UCCA+UD,UCCA+DM,UCCA+DM+UD,UCCA+AMR+UD,UCCA+AMR+DM,All}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{English Wiki}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=7cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\englishwikiudb}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\englishwikiudb};
+    \addplot[fill=blue]table[x expr=\coordindex,meta=category,y=UCCAAMR]{\englishwikiudb};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\englishwikiudb};
+    \addplot[fill=orange]table[x expr=\coordindex,meta=category,y=UCCADM]{\englishwikiudb};
+    \addplot[fill=magenta]table[x expr=\coordindex,meta=category,y=UCCADMUD]{\englishwikiudb};
+    \addplot[fill=cyan]table[x expr=\coordindex,meta=category,y=UCCAAMRUD]{\englishwikiudb};
+    \addplot[fill=yellow]table[x expr=\coordindex,meta=category,y=UCCAAMRDM]{\englishwikiudb};
+    \addplot[fill=brown]table[x expr=\coordindex,meta=category,y=UCCAAMRDMUD]{\englishwikiudb};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{English Wiki (cont.)}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=7cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\frenchud}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\frenchud};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\frenchud};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{French 20K}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=7cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\germanud}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\germanud};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\germanud};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{German 20K}
+\end{subfigure}
+    \caption{TUPA's F1 per UD relation in each single-/multitask setting.
     \label{fig:fine_grained}}
 \end{figure}
 
