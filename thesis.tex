@@ -627,24 +627,22 @@ Single	79	89	66	87	41	78	79	93	0	88	71
 UCCA+UD	84	90	72	89	83	86	80	93	0	85	72
 }\german
 
-\begin{figure*}[h!]
+\begin{figure}
     \begin{tikzpicture}
     \begin{axis}[
-    ybar=0pt,  
-    enlarge x limits={0.02},
-    enlarge y limits={value=0.3,upper},
+    ybar=0pt,
     ymin=0,
     width=18cm,
     height=8cm,
     bar width=4pt,
     xtick=data,
     xticklabels from table={\englishwiki}{model},
-    xticklabel style={font=\tiny,rotate=75,anchor=east},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
     xtick align=inside,
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:0,113)},anchor=north west},
+    legend style={at={(axis cs:-1,100)},anchor=north east,font=\tiny},
     legend cell align={left},
     nodes near coords={
      \scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}
@@ -662,12 +660,12 @@ UCCA+UD	84	90	72	89	83	86	80	93	0	85	72
     \addplot[fill=gray]table[x expr=\coordindex,meta=model,y=F]{\englishwiki};
     \addplot[fill=purple]table[x expr=\coordindex,meta=model,y=P]{\englishwiki};
     \addplot[fill=pink]table[x expr=\coordindex,meta=model,y=L]{\englishwiki};
-    \legend{A}
+    \legend{Participant,Center,Adverbial,Elaborator,Parallel Scene,Connector,Relator,State,Function,Process,Linker}
     \end{axis}
     \end{tikzpicture}
     \caption{TUPA's F1 per category in each single-/multitask setting.
     \label{fig:fine_grained}}
-\end{figure*}
+\end{figure}
 
 
 \section*{Ongoing Work}
