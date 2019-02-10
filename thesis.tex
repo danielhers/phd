@@ -608,23 +608,46 @@ multitask models.
 
 
 \pgfplotstableread{
-model	A	C	D	E	H	N	R	S	F	P	L
-Single	77	78	78	77	75	83	92	35	82	78	78
-UCCA+AMR	76	77	75	77	76	84	91	37	82	77	84
-UCCA+UD	77	77	77	77	75	84	91	36	80	76	82
-UCCA+DM	77	78	77	78	78	86	92	38	83	76	87
-UCCA+DM+UD	77	80	75	78	77	89	93	37	84	78	81
-UCCA+AMR+UD	77	78	76	79	75	84	92	36	85	77	82
-UCCA+AMR+DM	77	79	75	79	77	90	92	34	83	78	82
-UCCA+AMR+DM+UD	78	79	75	78	76	87	92	40	84	77	83
+category	Single	UCCA+AMR	UCCA+UD	UCCA+DM	UCCA+DM+UD	UCCA+AMR+UD	UCCA+AMR+DM	UCCA+AMR+DM+UD
+Participant	77	76	77	77	77	77	77	78
+Center	78	77	77	78	80	78	79	79
+Adverbial	78	75	77	77	75	76	75	75
+Elaborator	77	77	77	78	78	79	79	78
+ParallelScene	75	76	75	78	77	75	77	76
+Connector	83	84	84	86	89	84	90	87
+Relator	92	91	91	92	93	92	92	92
+State	35	37	36	38	37	36	34	40
+Function	82	82	80	83	84	85	83	84
+Process	78	77	76	76	78	77	78	77
+Linker	78	84	82	87	81	82	82	83
 }\englishwiki
 \pgfplotstableread{
-Single	38	77	25	21	23	78	16	0	67	0	30
-UCCA+UD	48	76	32	26	38	89	14	0	68	0	50
+category	Single	UCCA+UD
+Participant	38	48
+Center	77	76
+Adverbial	25	32
+Elaborator	21	26
+ParallelScene	23	38
+Connector	78	89
+Relator	16	14
+State	0	0
+Function	67	68
+Process	0	0
+Linker	30	50
 }\french
 \pgfplotstableread{
-Single	79	89	66	87	41	78	79	93	0	88	71
-UCCA+UD	84	90	72	89	83	86	80	93	0	85	72
+category	Single	UCCA+UD
+Participant	79	84
+Center	89	90
+Adverbial	66	72
+Elaborator	87	89
+ParallelScene	41	83
+Connector	78	86
+Relator	79	80
+State	93	93
+Function	0	0
+Process	88	85
+Linker	71	72
 }\german
 
 \begin{figure}
@@ -636,31 +659,21 @@ UCCA+UD	84	90	72	89	83	86	80	93	0	85	72
     height=8cm,
     bar width=4pt,
     xtick=data,
-    xticklabels from table={\englishwiki}{model},
+    xticklabels from table={\englishwiki}{category},
     xticklabel style={font=\tiny,rotate=50,anchor=east},
     xtick align=inside,
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:-1,100)},anchor=north east,font=\tiny},
+    legend style={at={(axis cs:-.5,100)},anchor=north east,font=\tiny},
     legend cell align={left},
     nodes near coords={
      \scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}
     },
     every node near coord/.append style={rotate=90,anchor=west}
     ]
-    \addplot[fill=green]table[x expr=\coordindex,meta=model,y=A]{\englishwiki};
-    \addplot[fill=red]table[x expr=\coordindex,meta=model,y=C]{\englishwiki};
-    \addplot[fill=blue]table[x expr=\coordindex,meta=model,y=D]{\englishwiki};
-    \addplot[fill=magenta]table[x expr=\coordindex,meta=model,y=E]{\englishwiki};
-    \addplot[fill=cyan]table[x expr=\coordindex,meta=model,y=H]{\englishwiki};
-    \addplot[fill=brown]table[x expr=\coordindex,meta=model,y=N]{\englishwiki};
-    \addplot[fill=orange]table[x expr=\coordindex,meta=model,y=R]{\englishwiki};
-    \addplot[fill=yellow]table[x expr=\coordindex,meta=model,y=S]{\englishwiki};
-    \addplot[fill=gray]table[x expr=\coordindex,meta=model,y=F]{\englishwiki};
-    \addplot[fill=purple]table[x expr=\coordindex,meta=model,y=P]{\englishwiki};
-    \addplot[fill=pink]table[x expr=\coordindex,meta=model,y=L]{\englishwiki};
-    \legend{Participant,Center,Adverbial,Elaborator,Parallel Scene,Connector,Relator,State,Function,Process,Linker}
+    \addplot[fill=green]table[x expr=\coordindex,meta=model,y=Single]{\englishwiki};
+    \legend{Single}
     \end{axis}
     \end{tikzpicture}
     \caption{TUPA's F1 per category in each single-/multitask setting.
