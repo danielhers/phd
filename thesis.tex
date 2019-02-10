@@ -599,6 +599,77 @@ as translation tends to preserve semantic structure more than syntactic structur
 Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
 semantically similar to the source.
 
+\subsection*{Benefit of Multitask Learning}
+
+To further quantify the improvements due to multitask learning, where the tasks of parsing
+multiple semantic representations are combined as auxiliary tasks for TUPA to improve UCCA
+parsing, the following offers a fine-grained analysis of the performance of different
+multitask models.
+
+
+\pgfplotstableread{
+model	A	C	D	E	H	N	R	S	F	P	L
+Single	77	78	78	77	75	83	92	35	82	78	78
+UCCA+AMR	76	77	75	77	76	84	91	37	82	77	84
+UCCA+UD	77	77	77	77	75	84	91	36	80	76	82
+UCCA+DM	77	78	77	78	78	86	92	38	83	76	87
+UCCA+DM+UD	77	80	75	78	77	89	93	37	84	78	81
+UCCA+AMR+UD	77	78	76	79	75	84	92	36	85	77	82
+UCCA+AMR+DM	77	79	75	79	77	90	92	34	83	78	82
+UCCA+AMR+DM+UD	78	79	75	78	76	87	92	40	84	77	83
+}\englishwiki
+\pgfplotstableread{
+Single	38	77	25	21	23	78	16	0	67	0	30
+UCCA+UD	48	76	32	26	38	89	14	0	68	0	50
+}\french
+\pgfplotstableread{
+Single	79	89	66	87	41	78	79	93	0	88	71
+UCCA+UD	84	90	72	89	83	86	80	93	0	85	72
+}\german
+
+\begin{figure*}[h!]
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,  
+    enlarge x limits={0.02},
+    enlarge y limits={value=0.3,upper},
+    ymin=0,
+    width=18cm,
+    height=8cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\englishwiki}{model},
+    xticklabel style={font=\tiny,rotate=75,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    legend style={at={(axis cs:0,113)},anchor=north west},
+    legend cell align={left},
+    nodes near coords={
+     \scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}
+    },
+    every node near coord/.append style={rotate=90,anchor=west}
+    ]
+    \addplot[fill=green]table[x expr=\coordindex,meta=model,y=A]{\englishwiki};
+    \addplot[fill=red]table[x expr=\coordindex,meta=model,y=C]{\englishwiki};
+    \addplot[fill=blue]table[x expr=\coordindex,meta=model,y=D]{\englishwiki};
+    \addplot[fill=magenta]table[x expr=\coordindex,meta=model,y=E]{\englishwiki};
+    \addplot[fill=cyan]table[x expr=\coordindex,meta=model,y=H]{\englishwiki};
+    \addplot[fill=brown]table[x expr=\coordindex,meta=model,y=N]{\englishwiki};
+    \addplot[fill=orange]table[x expr=\coordindex,meta=model,y=R]{\englishwiki};
+    \addplot[fill=yellow]table[x expr=\coordindex,meta=model,y=S]{\englishwiki};
+    \addplot[fill=gray]table[x expr=\coordindex,meta=model,y=F]{\englishwiki};
+    \addplot[fill=purple]table[x expr=\coordindex,meta=model,y=P]{\englishwiki};
+    \addplot[fill=pink]table[x expr=\coordindex,meta=model,y=L]{\englishwiki};
+    \legend{A}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{TUPA's F1 per category in each single-/multitask setting.
+    \label{fig:fine_grained}}
+\end{figure*}
+
+
 \section*{Ongoing Work}
 
 The ideas presented in this thesis offer many exciting opportunities for further research.
@@ -609,13 +680,13 @@ Following are two such directions, which I have started pursuing.
 In the comparison between Universal Dependencies (UD) and UCCA,
 88\% of edges were found to be common between the schemes (ignoring the label),
 meaning the linguistic structures annotated by them are very similar.
-Inspecting the remaining divergenes reveals, for example, that only
+Inspecting the remaining divergences reveals, for example, that only
 about 82\% of UCCA unanalyzable units (i.e., units without a compositional
 internal structure) are even sub-trees in UD.
 The remaining cases seem to be almost exclusively multi-word Linkers,
 such as ``even though'', ``when it comes to'' and ``just because''.
 Furthermore, only 73\% of Participants in UCCA Scenes were found to be arguments
-of syntactic predicates in UD, due to the differences in distincions between
+of syntactic predicates in UD, due to the differences in distinctions between
 Scenes/non-Scenes and between main relations, secondary relations and participants.
 
 These gaps can perhaps be closed
@@ -645,7 +716,7 @@ The task presented participants with UCCA parsing challenges
 in English, German and French.
 The shared task has yielded improvements over TUPA
 in all languages and settings,
-with various approahces with resepct to the parsing system,
+with various approaches with respect to the parsing system,
 machine learning architecture, and cross-lingual
 transfer.\footnote{\url{https://competitions.codalab.org/competitions/19160}}
 The task results will be presented during SemEval
