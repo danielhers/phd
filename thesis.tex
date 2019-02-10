@@ -608,7 +608,7 @@ multitask models.
 
 
 \pgfplotstableread{
-category	Single	UCCA+AMR	UCCA+UD	UCCA+DM	UCCA+DM+UD	UCCA+AMR+UD	UCCA+AMR+DM	UCCA+AMR+DM+UD
+category	single	UCCAAMR	UCCAUD	UCCADM	UCCADMUD	UCCAAMRUD	UCCAAMRDM	UCCAAMRDMUD
 Participant	77	76	77	77	77	77	77	78
 Center	78	77	77	78	80	78	79	79
 Adverbial	78	75	77	77	75	76	75	75
@@ -622,7 +622,7 @@ Process	78	77	76	76	78	77	78	77
 Linker	78	84	82	87	81	82	82	83
 }\englishwiki
 \pgfplotstableread{
-category	Single	UCCA+UD
+category	single	UCCAUD
 Participant	38	48
 Center	77	76
 Adverbial	25	32
@@ -636,7 +636,7 @@ Process	0	0
 Linker	30	50
 }\french
 \pgfplotstableread{
-category	Single	UCCA+UD
+category	single	UCCAUD
 Participant	79	84
 Center	89	90
 Adverbial	66	72
@@ -650,7 +650,95 @@ Process	88	85
 Linker	71	72
 }\german
 
+
+\pgfplotstableread{
+category	single	UCCAAMR	UCCAUD	UCCADM	UCCADMUD	UCCAAMRUD	UCCAAMRDM	UCCAAMRDMUD
+case	84	82	84	82	85	83	82	83
+compound	83	84	87	81	83	81	81	78
+iobj	85	82	83	84	82	83	84	86
+nmod	85	84	85	86	88	85	84	87
+nsubj	78	78	77	77	83	81	82	81
+obj	88	84	84	88	93	87	86	91
+root	86	84	84	86	86	86	85	86
+appos	84	83	86	85	85	85	83	85
+conj	76	80	78	81	80	81	80	81
+det	82	67	59	53	67	67	47	57
+acl	80	81	82	83	81	80	83	81
+amod	81	83	86	86	86	84	86	83
+aux	84	83	83	85	86	84	84	86
+obl	78	77	78	80	79	79	83	80
+advcl	81	78	81	79	82	82	82	80
+expl	64	65	60	63	62	62	59	69
+mark	44	44	44	50	44	50	44	50
+cc	80	93	80	93	93	93	93	93
+advmod	83	83	82	86	84	85	85	83
+nummod	84	90	94	87	81	90	84	94
+parataxis	100	100	100	100	100	100	100	100
+cop	100	100	100	100	100	100	100	100
+ccomp	86	86	86	86	86	86	86	86
+xcomp	100	100	100	100	100	100	100	100
+discourse	100	100	0	100	100	100	0	0
+dep	67	67	80	80	80	80	67	80
+}\englishwikiud
+\pgfplotstableread{
+case	78	84
+compound	22	32
+iobj	10	18
+nmod	34	51
+nsubj	27	34
+obj	19	38
+root	27	26
+appos	37	17
+conj	26	31
+det	87	89
+acl	11	23
+amod	48	51
+aux	47	70
+obl	27	41
+advcl	13	14
+expl	12	12
+mark	29	36
+cc	42	64
+advmod	19	26
+nummod	58	44
+parataxis	0	27
+cop	44	28
+ccomp	10	41
+xcomp	22	28
+discourse	0	0
+dep	100	0
+}\frenchud
+\pgfplotstableread{
+case	6	82
+compound	74	79
+iobj	59	67
+nmod	90	91
+nsubj	95	96
+obj	84	85
+root	62	61
+appos	89	92
+conj	79	81
+det	10	91
+acl	65	72
+amod	80	90
+aux	62	63
+obl	45	73
+advcl	75	79
+expl	74	76
+mark	76	76
+cc	73	76
+advmod	53	62
+nummod	76	74
+parataxis	78	90
+cop	90	91
+ccomp	56	79
+xcomp	67	67
+discourse	21	85
+dep	57	80
+}\germanud
+
 \begin{figure}
+\begin{subfigure}
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,
@@ -665,17 +753,23 @@ Linker	71	72
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:-.5,100)},anchor=north east,font=\tiny},
+    legend style={at={(axis cs:0,100)},anchor=south west,font=\tiny},
     legend cell align={left},
-    nodes near coords={
-     \scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}
-    },
-    every node near coord/.append style={rotate=90,anchor=west}
-    ]
-    \addplot[fill=green]table[x expr=\coordindex,meta=model,y=Single]{\englishwiki};
-    \legend{Single}
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\englishwiki};
+    \addplot[fill=blue]table[x expr=\coordindex,meta=category,y=UCCAAMR]{\englishwiki};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\englishwiki};
+    \addplot[fill=orange]table[x expr=\coordindex,meta=category,y=UCCADM]{\englishwiki};
+    \addplot[fill=magenta]table[x expr=\coordindex,meta=category,y=UCCADMUD]{\englishwiki};
+    \addplot[fill=cyan]table[x expr=\coordindex,meta=category,y=UCCAAMRUD]{\englishwiki};
+    \addplot[fill=yellow]table[x expr=\coordindex,meta=category,y=UCCAAMRDM]{\englishwiki};
+    \addplot[fill=brown]table[x expr=\coordindex,meta=category,y=UCCAAMRDMUD]{\englishwiki};
+    \legend{Single,UCCA+AMR,UCCA+UD,UCCA+DM,UCCA+DM+UD,UCCA+AMR+UD,UCCA+AMR+DM,UCCA+AMR+DM+UD}
     \end{axis}
     \end{tikzpicture}
+    \caption{English Wiki, by UCCA categories}
+\end{subfigure}
     \caption{TUPA's F1 per category in each single-/multitask setting.
     \label{fig:fine_grained}}
 \end{figure}
