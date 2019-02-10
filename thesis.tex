@@ -659,7 +659,6 @@ iobj	85	82	83	84	82	83	84	86
 nmod	85	84	85	86	88	85	84	87
 nsubj	78	78	77	77	83	81	82	81
 obj	88	84	84	88	93	87	86	91
-root	86	84	84	86	86	86	85	86
 appos	84	83	86	85	85	85	83	85
 conj	76	80	78	81	80	81	80	81
 det	82	67	59	53	67	67	47	57
@@ -677,8 +676,6 @@ parataxis	100	100	100	100	100	100	100	100
 cop	100	100	100	100	100	100	100	100
 ccomp	86	86	86	86	86	86	86	86
 xcomp	100	100	100	100	100	100	100	100
-discourse	100	100	0	100	100	100	0	0
-dep	67	67	80	80	80	80	67	80
 }\englishwikiud
 \pgfplotstableread{
 case	78	84
@@ -687,7 +684,6 @@ iobj	10	18
 nmod	34	51
 nsubj	27	34
 obj	19	38
-root	27	26
 appos	37	17
 conj	26	31
 det	87	89
@@ -705,8 +701,6 @@ parataxis	0	27
 cop	44	28
 ccomp	10	41
 xcomp	22	28
-discourse	0	0
-dep	100	0
 }\frenchud
 \pgfplotstableread{
 case	6	82
@@ -715,7 +709,6 @@ iobj	59	67
 nmod	90	91
 nsubj	95	96
 obj	84	85
-root	62	61
 appos	89	92
 conj	79	81
 det	10	91
@@ -733,12 +726,10 @@ parataxis	78	90
 cop	90	91
 ccomp	56	79
 xcomp	67	67
-discourse	21	85
-dep	57	80
 }\germanud
 
 \begin{figure}
-\begin{subfigure}
+\begin{subfigure}{\textwidth}
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,
@@ -753,7 +744,7 @@ dep	57	80
     xticklabel pos=left,
     yticklabels=none,
     tickwidth=0pt,
-    legend style={at={(axis cs:0,100)},anchor=south west,font=\tiny},
+    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
     legend cell align={left},
     nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
     every node near coord/.append style={rotate=90,anchor=west}]
@@ -769,6 +760,59 @@ dep	57	80
     \end{axis}
     \end{tikzpicture}
     \caption{English Wiki, by UCCA categories}
+\end{subfigure}
+\begin{figure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=8cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\french}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
+    legend cell align={left},
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\french};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\french};
+    \legend{Single,UCCA+UD}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{French 20K, by UCCA categories}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+    \begin{tikzpicture}
+    \begin{axis}[
+    ybar=0pt,
+    ymin=0,
+    width=18cm,
+    height=8cm,
+    bar width=4pt,
+    xtick=data,
+    xticklabels from table={\german}{category},
+    xticklabel style={font=\tiny,rotate=50,anchor=east},
+    xtick align=inside,
+    xticklabel pos=left,
+    yticklabels=none,
+    tickwidth=0pt,
+    legend style={at={(axis cs:-.5,100)},anchor=south west,font=\tiny,draw=none,legend columns=-1},
+    legend cell align={left},
+    nodes near coords={\scalebox{.4}{\pgfmathprintnumber[precision=2]{\pgfplotspointmeta}}},
+    every node near coord/.append style={rotate=90,anchor=west}]
+    \addplot[fill=green]table[x expr=\coordindex,meta=category,y=single]{\german};
+    \addplot[fill=red]table[x expr=\coordindex,meta=category,y=UCCAUD]{\german};
+    \legend{Single,UCCA+UD}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{German 20K, by UCCA categories}
 \end{subfigure}
     \caption{TUPA's F1 per category in each single-/multitask setting.
     \label{fig:fine_grained}}
