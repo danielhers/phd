@@ -618,8 +618,32 @@ semantically similar to the source.
 
 To further quantify the improvements due to multitask learning, where the tasks of parsing
 multiple semantic representations are combined as auxiliary tasks for TUPA to improve UCCA
-parsing, the following offers a fine-grained analysis of the performance of different
+parsing, Figure~\ref{fig:fine_grained} offers a fine-grained analysis of the performance of different
 multitask models.
+The benefit of the multitask models over the single-task baseline is especially apparent for
+Connectors and Linkers, demonstrating the improved capability to parse coordination structures
+correctly, which are indeed relevant for all meaning representations.
+Furthermore, while the labeled F1 for State is uniformly low due to the rarity of this category
+and its common confusion with Process, the multitask model with all auxiliary task is able to reach
+40\% labeled F1, showing it is able to generalize this difficult distinction between predicates
+describing events and attributes.
+In French and German, the improvement is again apparent for Connectors and Linkers,
+but now especially also for Parallel Scenes---these seem to be responsible for most of the improvement
+due to multitask learning in these languages.
+Again, this shows that the syntactic ability to split phrases and clauses to separate Scenes is greatly
+boosted by the auxiliary task (UD in this case).
+
+Figure~\ref{fig:fine_grained_ud} shows fine-grained analysis by UD relations.
+Surprisingly, determiners seem to suffer from multitask learning, as the single-task baseline does
+best on them.
+While determiners in UCCA are mostly Elaborators (in the version of the corpora on which the experiment
+was made), they are mostly treated as vacuous semantically in DM and AMR, which could explain their
+poor representation in models trained with these auxiliary tasks.
+UD as an auxiliary greatly helps with this category in French and German, but also seems to deteriorate
+its treatment in English.
+Prepositions in German (bearing the case relation) are greatly improved by adding UD as an auxiliary.
+This is a common relation, spread over multiple UCCA categories. Learning to represent it more accurately
+improves performance across the board.
 
 
 \pgfplotstableread{
@@ -937,7 +961,7 @@ xcomp	67	67
     \caption{German 20K}
 \end{subfigure}
     \caption{TUPA's F1 per UD relation in each single-/multitask setting.
-    \label{fig:fine_grained}}
+    \label{fig:fine_grained_ud}}
 \end{figure}
 
 
