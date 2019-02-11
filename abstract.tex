@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{pdfpages}
+\usepackage{setspace}
+
+\newfontfamily\hebfont[Script=Hebrew, Scale=MatchUppercase]{FreeSans}
+\newcommand{\heb}[1]{\bgroup\textdir TRT\hebfont #1\egroup}
+
+\title{
+\textbf{Universal Semantic Parsing \\ with Neural Networks} \\
+\textbf{\heb{ניתוח סמנטי אוניברסלי באמצעות רשתות נוירונים}}
+}
+\author{
+Daniel Hershcovich \\
+Advisors: Prof. Ari Rappoport and Dr. Omri Abend
+}
+\date{}
+
+\onehalfspacing
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Abstract}
+
+Natural language processing (NLP) is a scientific and technological field
+concerned with developing methods for performing linguistic tasks automatically.
+These include classifying text into categories,
+tagging it for linguistic properties (such as part-of-speech),
+building graphical representations for it
+and generating new text according to some constraints.
+For example, \textit{machine translation} is the task of generating
+text in a target language given source language text.
+
+A major effort in NLP is dedicated to \textit{natural language understanding},
+which aims to be able to comprehend text, reason about it, and act upon it
+in an intelligent way.
+While specific use-cases or benchmarks can be solved with relatively simple
+systems, which either ignore word order (``bag-of-words'' models) or treat
+it as a simple linear structure
+(such as the popular sequence-to-sequence framework allowing neural networks
+to learn tasks in an end-to-end fashion),
+understanding human language in general
+requires a hierarchical representation of meaning.
+Constructing this representation from text has been the goal of an extensive
+line of work in \textit{semantic parsing}.
+While many semantic representation schemes have been proposed,
+they share many of their basic distinctions, such as between predicates
+(relations, states and events) and arguments (participants).
+
+This thesis focuses on a particular semantic representation scheme called
+\textit{Universal Conceptual Cognitive Annotation} (UCCA),
+whose main design principles are support for all major linguistic semantic phenomena,
+cross-linguistic applicability and stability across translations,
+ease of annotation (even by those who are not experts in linguistics),
+and a modular architecture supporting multiple layers of semantic annotation.
+A fully automatic parser is presented, and evaluated on multiple languages
+(English, French and German).
+The parser, titled ``TUPA'' (transition-based UCCA parser),
+is able to learn very general graph structures:
+directed acyclic graphs over token sequences with non-terminal nodes for complex
+units, where these may cover discontinuous terminal yields.
+This general class of graphs covers the structures annotated in UCCA,
+as well as other representation schemes.
+TUPA is implemented as a transition-based parser, whose transition system
+supports these structural properties.
+Its transition classifier is a neural network equipped with a
+bidirectional long short-term memory (BiLSTM) module for calculating
+feature representations for the input.
+In an extensive comparison to conversion-based methods, as well as
+other classifier implementations, TUPA is shown to outperform all baselines
+in the task of UCCA parsing in both in-domain and out-of-domain settings
+in three languages.
+
+The parser is subsequently applied to two other semantic representation schemes,
+DM and AMR, and to syntactic dependencies in the Universal Dependencies (UD)
+scheme. This demonstrates that the flexible parser is usable not just for UCCA
+parsing.
+Furthermore, training TUPA in a multitask setting on all of these schemes
+improves its UCCA parsing accuracy, by effectively learning generalizations
+across the different representations.
+
+Finally, in an empirical comparison of
+the content of semantic and syntactic representations, we discover several
+aspects of divergence.  These have profound impact on the potential
+contribution of syntax to semantic parsing, and on the usefulness of each of
+the approaches for semantic tasks in natural language processing.
+
+The first three chapters of this thesis have been accepted for publication
+\cite{hershcovich2017transition,hershcovich2018multitask,hershcovich2018universal}.
+The last chapter is under submission \cite{hershcovich2019content}.
+
+\bibliography{my_papers}
+\bibliographystyle{plain}
+
+\end{document}
