@@ -75,7 +75,7 @@ whose invaluable advice has shaped my research direction in the best way possibl
 
 I sincerely appreciate the support of the ELSC staff and students,
 and particularly the members of my year,
-Adar Adamsky, Yonatan Bain, Haran Shani, Matan Holtzer, Henrike Horn, Adi Kol,
+Adar Adamsky, Jonathan Bain, Haran Shani, Matan Holtzer, Henrike Horn, Adi Kol,
 Ori Lavi Rotbain, Nimrod Levin, Oren Peles, Pnina Rappel, Benjamin Weiner, and
 Noga Zaslavsky, whose company since the early stages of my graduate studies
 has given me a sense of belonging and comfort.
@@ -282,15 +282,15 @@ the focus has recently shifted to parsing of more elaborate representations that
 for a wider range of phenomena. 
 Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
 It addresses a wide range of semantic phenomena,
-and supports discontinuous units and multiple parents \cite{oepen2016towards}.
+and supports discontinuous units and multiple parents \citep{oepen2016towards}.
 However, SDP uses bi-lexical dependencies
 (meaning every relation or edge is between a pair of words),
 disallowing non-terminal nodes (see below),
 and thus faces difficulties in supporting
-structures that have no clear head, such as coordination \cite{Ivanova2012who}.
+structures that have no clear head, such as coordination \citep{Ivanova2012who}.
 
 Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
-\cite{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
+\citep{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
 While sharing much of my work's motivation,
 AMR does not ground its units in the words and constituents of the text.
 This complicates the parsing task, as it requires
@@ -301,19 +301,19 @@ but their method involved first syntactically parsing the input, and then conver
 the resulting tree into an AMR.
 
 Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
-Within the grammar-based literature, most work relied on Combinatory Categorial Grammar (CCG)
-\cite{Steedman:00}, which allows computing semantic structure compositionally from the
-syntactic derivations. Notable examples include the Boxer parser \cite{bos2005towards}
-and the AMR parser by \cite{artzi2015broad}.
+Within the grammar-based literature, most work relied on Combinatory Categorial Grammar
+\citep[CCG]{Steedman:00}, which allows computing semantic structure compositionally from the
+syntactic derivations. Notable examples include the Boxer parser \citep{bos2005towards}
+and the AMR parser by \citep{artzi2015broad}.
 Other examples include parsing with Hyperedge Replacement Grammars
-\cite{jones2012semantics}.
+\citep{jones2012semantics}.
 A different line of work takes a discriminative, grammarless approach,
 pursuing either graph-based methods that predict the highest ranking graph
 (tree or DAG) that satisfies a given set of constraints
-\cite[for AMR parsing]{flanigan2014discriminative},
+\citep[for AMR parsing]{flanigan2014discriminative},
 or a transition-based method
 that builds the parse incrementally following a series of local
-decisions \cite{Nivre03anefficient}.
+decisions \citep{Nivre03anefficient}.
 
 In order to represent the full range of semantic structures exhibited by
 natural language, three properties should be supported: reentrancy,
@@ -340,16 +340,16 @@ and prepositional phrases.
 In these cases, dependency schemes often apply some annotation convention that
 selects one of the sub-units
 as the head, but as different head selections are needed for different purposes,
-standardization problems arise \cite{Ivanova2012who}.
+standardization problems arise \citep{Ivanova2012who}.
 For example, selecting the preposition to head prepositional phrases yields better
-parsing results \cite{Schwartz:12}, while the head noun can be more useful for
+parsing results \citep{Schwartz:12}, while the head noun can be more useful for
 information extraction purposes.
 
 Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
 ``John \textit{gave} everything \textit{up}'' (Figure~\ref{fig:gave}),
 the phrasal verb ``gave ... up'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
-expressions \cite{schneider2014discriminative}.
+expressions \citep{schneider2014discriminative}.
 
 \begin{figure}[h]\small\centering
   \begin{subfigure}{\textwidth}\centering
