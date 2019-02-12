@@ -302,9 +302,6 @@ AMR does not ground its units in the words and constituents of the text.
 This complicates the parsing task, as it requires
 that the alignment between words and logical symbols be automatically
 (and imprecisely) detected.
-\cite{wang2015transition} applied a transition-based approach to AMR parsing,
-but their method involved first syntactically parsing the input, and then converting
-the resulting tree into an AMR.
 
 Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
 Within the grammar-based literature, most work relied on Combinatory Categorial Grammar
@@ -427,13 +424,13 @@ expressions \citep{schneider2014discriminative}.
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
       child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node {decided} edge from parent node[left] {\scriptsize $P$}}
+      child {node {thought} edge from parent node[left] {\scriptsize $P$}}
       child {node (totakeaquickshower) [fill=black, circle] {}
       {
-        child {node {to} edge from parent node[left] {\scriptsize $F$}}
+        child {node {about} edge from parent node[left] {\scriptsize $R$}}
         child {node [fill=black, circle] {}
         {
-          child {node {take} edge from parent node[left] {\scriptsize $C$}}
+          child {node {taking} edge from parent node[left] {\scriptsize $C$}}
           child {node {a} edge from parent node[right] {\scriptsize $F$}}
           child {node (quick) {quick} edge from parent[white]}
           child {node {shower} edge from parent node[right] {\scriptsize $C$}}
@@ -451,7 +448,7 @@ expressions \citep{schneider2014discriminative}.
     resulting in ``John'' having two parents.
     (\subref{fig:home}) includes a coordination construction (``John and Mary'').
     (\subref{fig:gave}) includes a discontinuous unit (``gave ... up'').
-    (\subref{fig:shower}) includes both a remote edge and a discontinuous unit (``take a ... shower'').
+    (\subref{fig:shower}) includes both a remote edge and a discontinuous unit (``taking a ... shower'').
     Legend: $P$ -- Process (a Scene's main relation), $A$ -- Participant,
     $L$ -- inter-scene Linker, $H$ -- Parallel Scene, $C$ -- Center, $D$ -- Adverbial,
     $R$ -- Relator, $N$ -- Connector, $U$ -- Punctuation, $F$ -- Function unit.
