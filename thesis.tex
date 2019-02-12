@@ -121,7 +121,7 @@ they share many of their basic distinctions, such as between predicates
 This thesis focuses on a particular semantic representation scheme called
 \textit{Universal Conceptual Cognitive Annotation} (UCCA),
 whose main design principles are support for all major linguistic semantic phenomena,
-cross-linguistic applicability and stability across translations,
+cross-linguistic applicability, stability across translations,
 ease of annotation (even by those who are not experts in linguistics),
 and a modular architecture supporting multiple layers of semantic annotation.
 A fully automatic parser is presented, and evaluated on multiple languages
@@ -148,28 +148,25 @@ scheme. This demonstrates that the flexible parser is usable not just for UCCA
 parsing.
 Furthermore, training TUPA in a multitask setting on all of these schemes
 improves its UCCA parsing accuracy, by effectively learning generalizations
-across the different representations.
+across the different representations:
+a shared model is thus able to apply semantic distinctions in one task,
+which have been learned for another.
 
 Finally, in an empirical comparison of
 the content of semantic and syntactic representations, we discover several
-aspects of divergence.  These have profound impact on the potential
+aspects of divergence, i.e., differences in the content captured by these schemes.
+These have profound impact on the potential
 contribution of syntax to semantic parsing, and on the usefulness of each of
 the approaches for semantic tasks in natural language processing.
-
-Natural language processing (NLP) is a scientific and technological field
-concerned with developing methods for performing linguistic tasks automatically.
-These include classifying text into categories,
-tagging it for linguistic properties (such as part-of-speech),
-building graphical representations for it
-and generating new text according to some constraints.
-For example, \textit{machine translation} is the task of generating
-text in a target language given source language text.
 
 I see learning semantic parsing as a means for computers to learn language.
 While different representations focus on different distinctions and do so
 with formally different structures, they share an overall goal,
-which is to support both natural language processing applications and linguistic
-theory.
+which is to support natural language processing applications,
+such as classifying text into categories,
+tagging it for linguistic properties,
+and generating new text according to some constraints
+(e.g., machine translation).
 The combined datasets annotated in each of these representations are an invaluable
 resource, which, used effectively, can greatly boost our achievements in
 language understanding and processing.
