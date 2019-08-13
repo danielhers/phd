@@ -1,28 +1,73 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper,table]{report}
 \usepackage{fontspec}
 \usepackage{fullpage}
 \usepackage{hyperref}
 \usepackage{array}
 \usepackage{url}
+\usepackage{latexsym}
 \usepackage{amsmath}
+\usepackage{pgf}
+\usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \usepackage{algorithm2e}
+\usepackage{hhline}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{subcaption}
+\usepackage{cprotect}
 \usepackage{color}
 \usepackage{adjustbox}
 \usepackage{tikz}
 \usepackage{tikz-dependency}
 \usepackage{titling}
 \usepackage{pdfpages}
+\usepackage{rotating}
 \usepackage{setspace}
+\usepackage{collcell}
+\usepackage{etoolbox}
+\usepackage{booktabs}
 \usepackage[round]{natbib}
 \usetikzlibrary{shapes,fit,calc,er,positioning,intersections,decorations.shapes,mindmap,trees}
 \tikzset{decorate sep/.style 2 args={decorate,decoration={shape backgrounds,shape=circle,
       shape size=#1,shape sep=#2}}}
+\pgfplotsset{select coords between index/.style 2 args={
+    x filter/.code={
+        \ifnum\coordindex<#1\def\pgfmathresult{}\fi
+        \ifnum\coordindex>#2\def\pgfmathresult{}\fi
+    }
+}}
 
 \newfontfamily\hebfont[Script=Hebrew, Scale=MatchUppercase]{FreeSans}
 \newcommand{\heb}[1]{\bgroup\textdir TRT\hebfont #1\egroup}
+
+\newcommand{\parser}[1]{TUPA\textsubscript{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\SetKwRepeat{Do}{do}{while}
+
+% for confusion matrix
+\newcommand{\ApplyGradient}[1]{%
+  \pgfmathsetmacro{\PercentColor}{(#1-0)/63.88}%
+  \pgfmathsetmacro{\PercentInverse}{ifthenelse(\PercentColor > 70, 0, 100)}%
+  %\textcolor{black!\PercentColor}{#1}
+  \edef\x{\noexpand\cellcolor{red!\PercentColor}}\x\textcolor{black!\PercentInverse}{#1}%
+}
+\newcolumntype{R}{>{\collectcell\ApplyGradient}{c}<{\endcollectcell}}
+
+\hyphenation{SemEval}
+\hyphenation{PARSEVAL}
+\hyphenation{DAGParser}
+\hyphenation{TurboSemanticParser}
+\hyphenation{MaltParser}
+\hyphenation{UDPipe}
+\hyphenation{CoNLL-U}
+
+\renewcommand\cite{\citep}      % to get "(Author Year)" with natbib    
+\newcommand\shortcite{\citeyearpar}% to get "(Year)" with natbib    
+\newcommand\newcite{\citet}     % to get "Author (Year)" with natbib
 
 \title{
 \textbf{Universal Semantic Parsing with Neural Networks} \\
@@ -355,7 +400,7 @@ the phrasal verb ``gave ... up'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
 expressions \citep{schneider2014discriminative}.
 
-\begin{figure}[h]\small\centering
+\begin{figure}[ht]\small\centering
   \begin{subfigure}{\textwidth}\centering
   \parbox{.1\textwidth}{\caption{}\label{fig:graduation}}
   \parbox{.4\textwidth}{
@@ -576,35 +621,10 @@ Two variants are reported: one where we consider only primary edges,
 and another for remote edges
 
 
-
-\chapter{A Transition-Based Directed Acyclic Graph Parser for UCCA \\ (Published in ACL 2017)}
-
-\includepdf[pages=-]{P17-1104.pdf}
-
-\chapter*{A Transition-Based Directed Acyclic Graph Parser for UCCA \\ Supplementary Notes}
-
-\includepdf[pages=-]{P17-1104_supp.pdf}
-
-\chapter{Multitask Parsing Across Semantic Representations \\ (Published in ACL 2018)}
-
-\includepdf[pages=-]{P18-1035.pdf}
-
-\chapter*{Multitask Parsing Across Semantic Representations \\ Supplementary Notes}
-
-\includepdf[pages=-]{P18-1035_supp.pdf}
-
-\chapter{Universal Dependency Parsing with a General Transition-Based DAG Parser \\ (Published in CoNLL 2018 Shared Task)}
-
-\includepdf[pages=-]{K18-2010.pdf}
-
-\chapter{Content Differences in Syntactic and Semantic Representations \\ (Published in NAACL-HLT 2019)}
-
-\includepdf[pages=-]{divergences.pdf}
-
-\chapter*{Content Differences in Syntactic and Semantic Representation \\ Supplementary Notes}
-
-\includepdf[pages=-]{divergences_supp.pdf}
-
+\include{acl2017}
+\include{acl2018}
+\include{udst2018}
+\include{divergences}
 
 
 
@@ -1096,7 +1116,14 @@ resource, which, used effectively, can greatly boost our achievements in
 language understanding and processing.
 
 \bibliography{references}
-\bibliographystyle{apalike}
+\bibliographystyle{acl_natbib}
+
+\pagebreak
+\appendix
+
+\include{acl2017_supp}
+\include{acl2018_supp}
+\include{divergences_supp}
 
 \pagebreak
 
