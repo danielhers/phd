@@ -378,9 +378,9 @@ and discontinuity of semantic units in the text.
 The first property, \textbf{reentrancy} (or \textbf{multiple parents}), is required for
 representing arguments and relations (semantic units) that are shared between predicates.
 For instance, in the sentence
-``After graduation, John moved to Paris'' (Figure~\ref{fig:graduation}),
-``John'' is an argument of both ``graduation''
-and ``moved'', yielding a DAG structure rather than a tree.
+``Everything is delicious and cooked perfectly'' (Figure~\ref{fig:remote}),
+``Everything'' is an argument of both ``delicious''
+and ``cooked perfectly'', yielding a DAG structure rather than a tree.
 
 The second is \textbf{non-terminal nodes} for representing units
 comprising more than one word (Figure~\ref{fig:home}).
@@ -405,36 +405,92 @@ the phrasal verb ``gave ... up'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
 expressions \citep{schneider2014discriminative}.
 
-\begin{figure}[ht]\small\centering
-  \begin{subfigure}{\textwidth}\centering
-  \parbox{.1\textwidth}{\caption{}\label{fig:graduation}}
-  \parbox{.4\textwidth}{
-  \begin{tikzpicture}[level distance=10mm, ->]
-    \node (ROOT) [fill=black, circle] {}
-      child {node (After) {After} edge from parent node[left] {\scriptsize $L$}}
-      child {node (graduation) [fill=black, circle] {}
+\begin{figure}[ht]\small
+  \begin{subfigure}{\textwidth}
+  \parbox{.03\textwidth}{\caption{}\label{fig:implicit}}
+  \parbox{.8\textwidth}{
+  \begin{tikzpicture}[->,level distance=1cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=17mm},
+  level 3/.style={sibling distance=15mm},
+  level 4/.style={sibling distance=9mm},
+  every circle node/.append style={fill=black}]
+  \tikzstyle{word} = [font=\rmfamily,color=black]
+  \node (1_1) [circle] {}
+  {
+  child {node (1_2) [circle] {}
+    {
+    child {node (1_16) [word] {\textbf{IMPLICIT}}  edge from parent node[auto]  {A}}
+    child {node (1_17) [word] {Glad}  edge from parent node[auto]  {S}}
+    child {node (1_18) [circle] {}
       {
-        child {node {graduation} edge from parent node[left] {\scriptsize $P$}}
-      } edge from parent node[left] {\scriptsize $H$} }
-      child {node {,} edge from parent node[right] {\scriptsize $U$}}
-      child {node (moved) [fill=black, circle] {}
+      child {node (1_19) [word] {I}  edge from parent node[auto]  {A}}
+      child {node (1_20) [word] {called}  edge from parent node[auto]  {P}}
+      } edge from parent node[auto]  {A}}
+    } edge from parent node[auto]  {H}}
+  child {node (1_3) [word] {before}  edge from parent node[auto]  {L}}
+  child {node (1_4) [circle] {}
+    {
+    child {node (1_6) [word] {I}  edge from parent node[auto]  {A}}
+    child {node (1_7) [word] {arrived}  edge from parent node[auto]  {P}}
+    child {node (1_8) [circle] {}
       {
-        child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-        child {node {moved} edge from parent node[left] {\scriptsize $P$}}
-        child {node [fill=black, circle] {}
+      child {node (1_9) [word] {with}  edge from parent node[auto]  {R}}
+      child {node (1_10) [circle] {}
         {
-          child {node {to} edge from parent node[left] {\scriptsize $R$}}
-          child {node {Paris} edge from parent node[left] {\scriptsize $C$}}
-        } edge from parent node[left] {\scriptsize $A$} }
-      } edge from parent node[right] {\scriptsize $H$} }
-      ;
-    \draw[dashed,->] (graduation) to node [auto] {\scriptsize $A$} (John);
-  \end{tikzpicture}
+        child {node (1_15) [word] {my}  edge from parent node[auto]  {S}}
+        } edge from parent node[auto]  {E}}
+      child {node {}
+        {
+        child {node (1_11) [word] {box}  edge from parent [draw=none] {}}
+        } edge from parent [draw=none] {}}
+      child {node (1_12) [circle] {}
+        {
+        child {node (1_13) [word] {to}  edge from parent node[auto]  {F}}
+        child {node (1_14) [word] {ship}  edge from parent node[auto]  {P}}
+        child {node (1_21) [word] {.}  edge from parent node[auto]  {U}}
+        } edge from parent node[auto]  {E}}
+      } edge from parent node[auto]  {A}}
+    } edge from parent node[auto]  {H}}
+  };
+  \draw[dashed,->] (1_10) to node [auto] {A} (1_11);
+  \draw[->] (1_8) to node [auto] {C} (1_11);
+\end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{\textwidth}\centering
-  \parbox{.1\textwidth}{\caption{}\label{fig:home}}
-  \parbox{.4\textwidth}{
+  \begin{subfigure}{\textwidth}
+  \parbox{.03\textwidth}{\caption{}\label{fig:remote}}
+  \parbox{.8\textwidth}{
+  \begin{tikzpicture}[->,level distance=1cm,
+  level 1/.style={sibling distance=5cm},
+  level 2/.style={sibling distance=15mm},
+  level 3/.style={sibling distance=15mm},
+  every circle node/.append style={fill=black},
+  every node/.append style={text height=.6ex,text depth=0}]
+  \tikzstyle{word} = [font=\rmfamily,color=black]
+  \node (1_1) [circle] {}
+  {
+  child {node (1_2) [circle] {}
+    {
+    child {node (1_8) [word] {Everything}  edge from parent node[auto]  {A}}
+    child {node (1_9) [word] {is}  edge from parent node[auto]  {F}}
+    child {node (1_10) [word] {delicous}  edge from parent node[auto]  {S}}
+    } edge from parent node[auto]  {H}}
+  child {node (1_3) [word] {and}  edge from parent node[auto]  {L}}
+  child {node (1_4) [circle] {}
+    {
+    child {node (1_6) [word] {cooked}  edge from parent node[auto]  {P}}
+    child {node (1_7) [word] {perfectly}  edge from parent node[auto]  {D}}
+    child {node (1_11) [word] {.}  edge from parent node[auto]  {U}}
+    } edge from parent node[auto]  {H}}
+  };
+  \draw[dashed,->,bend left] (1_4) to node [auto] {A} (1_8);
+\end{tikzpicture}
+  }
+  \end{subfigure}
+  \begin{subfigure}{\textwidth}
+  \parbox{.03\textwidth}{\caption{}\label{fig:home}}
+  \parbox{.8\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -450,9 +506,9 @@ expressions \citep{schneider2014discriminative}.
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{\textwidth}\centering
-  \parbox{.1\textwidth}{\caption{}\label{fig:gave}}
-  \parbox{.4\textwidth}{
+  \begin{subfigure}{\textwidth}
+  \parbox{.03\textwidth}{\caption{}\label{fig:gave}}
+  \parbox{.8\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -468,9 +524,9 @@ expressions \citep{schneider2014discriminative}.
   \end{tikzpicture}
   }
   \end{subfigure}
-  \begin{subfigure}{\textwidth}\centering
-  \parbox{.1\textwidth}{\caption{}\label{fig:shower}}
-  \parbox{.4\textwidth}{
+  \begin{subfigure}{\textwidth}
+  \parbox{.03\textwidth}{\caption{}\label{fig:shower}}
+  \parbox{.8\textwidth}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
@@ -495,7 +551,8 @@ expressions \citep{schneider2014discriminative}.
   \end{subfigure}
   \caption{\label{fig:examples}
     UCCA examples.
-    (\subref{fig:graduation}) includes a remote edge (dashed),
+    (\subref{fig:implicit}) includes an implicit node, since the subject of ``Glad'' is omitted.
+    (\subref{fig:remote}) includes a remote edge (dashed),
     resulting in ``John'' having two parents.
     (\subref{fig:home}) includes a coordination construction (``John and Mary'').
     (\subref{fig:gave}) includes a discontinuous unit (``gave ... up'').
