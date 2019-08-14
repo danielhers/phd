@@ -301,18 +301,23 @@ whose annotation is often similar to the common practice in semantic treebanks
 \begin{figure}[t]
   \centering
     \begin{dependency}[text only label, label style={above,font=\tt}, font=\small]
-    \begin{deptext}[column sep=.8em,ampersand replacement=\^]
-    After \^ graduation \^ , \^ John \^ moved \^ to \^ Paris \\
+    \begin{deptext}[column sep=.8em]
+    Glad \& I    \& called \& before \& I    \& arrived \& with \& my   \& box  \& to   \& ship \& . \\
     \end{deptext}
-        \depedge[edge unit distance=1ex]{2}{1}{case}
-        \depedge[edge unit distance=1ex]{2}{3}{punct}
-        \depedge[edge unit distance=1ex]{5}{4}{nsubj}
-        \depedge[edge unit distance=1ex, edge end x offset=-2pt]{5}{2}{obl}
-        \depedge[edge unit distance=1ex]{7}{6}{case}
-        \deproot[edge unit distance=1.5ex]{5}{root}
-        \depedge[edge unit distance=1.5ex]{5}{7}{obl}
+\deproot{1}{root}
+\depedge{3}{2}{nsubj}
+\depedge{1}{3}{ccomp}
+\depedge{6}{4}{mark}
+\depedge{6}{5}{nsubj}
+\depedge{3}{6}{advcl}
+\depedge{9}{7}{case}
+\depedge{9}{8}{nmod:poss}
+\depedge{6}{9}{obl}
+\depedge{11}{10}{mark}
+\depedge{9}{11}{acl}
+\depedge[edge unit distance=1.5ex]{1}{12}{punct}
     \end{dependency}
-\caption{Example UD tree, demonstrating practices common in semantic annotation:
+\caption{Example UD tree (\texttt{reviews-372665-0003} from UD\_English-EWT), demonstrating practices common in semantic annotation:
 linking content words to content words, and preference of lexical heads over functional ones.
 \label{fig:original_example_ud}}
 \end{figure}
