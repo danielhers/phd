@@ -322,6 +322,8 @@ linking content words to content words, and preference of lexical heads over fun
 \label{fig:original_example_ud}}
 \end{figure}
 
+\section{Semantic Representations}
+
 Semantic annotation schemes attempt to represent the meaning of natural
 language utterances directly. An example is semantic role
 labeling, which annotates
@@ -371,41 +373,86 @@ decisions \citep{Nivre03anefficient}.
 
 \section{Universal Conceptual Cognitive Annotation}
 
-In order to represent the full range of semantic structures exhibited by
-natural language, three properties should be supported: reentrancy,
-representing arguments shared between predicates;
-non-terminal nodes for multi-word units;
-and discontinuity of semantic units in the text.
+Universal Cognitive Conceptual Annotation (UCCA)
+is a cross-linguistically applicable semantic representation scheme.
+It covers the predicate-argument
+structures evoked by predicates of all grammatical categories, the inter-relations between them,
+as well as other major linguistic phenomena.
+UCCA has demonstrated applicability to multiple languages,
+rapid annotation \citep{abend2017uccaapp},
+and benefit for various applications:
+evaluation of machine translation \citep{birch2016hume},
+evaluation of grammatical error correction \citep{choshen2018reference},
+evaluation of structural text simplification \citep{sulem2018semantic}
+and text simplification \citep{sulem2018simple}.
 
-The first property, \textbf{reentrancy} (or \textbf{multiple parents}), is required for
-representing arguments and relations (semantic units) that are shared between predicates.
-For instance, in the sentence
-``Everything is delicious and cooked perfectly'' (Figure~\ref{fig:remote}),
-``Everything'' is an argument of both ``delicious''
-and ``cooked perfectly'', yielding a DAG structure rather than a tree.
+UCCA is a typologically-motivated scheme for analyzing abstract semantic structures in text. It aims to abstract away from grammatical particularities of a passage 
+such that paraphrases, and translations tend to have similar UCCA structures.
+Accordingly, UCCA has been studied with respect to meaning preservation in translation \citep{sulem2015conceptual},
+and found to be more stable than phrase-structure syntactic annotation.
+UCCA corpora are available for English, French and German, and pilot studies were conducted on a few languages more.\footnote{\scriptsize\url{https://github.com/UniversalConceptualCognitiveAnnotation}}
 
-The second is \textbf{non-terminal nodes} for representing units
-comprising more than one word (Figure~\ref{fig:changetheworld}).
-While bi-lexical dependencies partially circumvent this requirement, by
-representing complex units in terms of their headwords, they fall short
-when representing units that have no clear head.
-Frequent examples of such constructions include
-coordination structures (e.g., ``\textit{You and I} will change the world''),
-some multi-word expressions (e.g., ``The Haves and the \textit{Have Nots}''),
-and prepositional phrases.
-In these cases, dependency schemes often apply some annotation convention that
-selects one of the sub-units
-as the head, but as different head selections are needed for different purposes,
-standardization problems arise \citep{Ivanova2012who}.
-For example, selecting the preposition to head prepositional phrases yields better
-parsing results \citep{Schwartz:12}, while the head noun can be more useful for
-information extraction purposes.
+   Formally, UCCA structures are directed acyclic graphs (DAGs) whose nodes (or {\it units}) correspond either to words,
+   or to elements viewed as a single entity according to some semantic or cognitive consideration.
+   Edges are labeled, indicating the role of a child in the relation the parent represents.
+   A {\it Scene} is UCCA's notion of an event or a frame, and is a description of a movement, an action or a state which persists in time. 
+   Every Scene contains one primary relation, which can be either a Process or a State. 
+   Scenes may contain any number of Participants, a category which also includes abstract participants and locations.
+   They may also contain temporal relations (Time), and secondary relations (Adverbials), 
+   which cover semantic distinctions such as manner, modality and aspect.
 
-Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
-``George \textit{called} the meeting \textit{off}'' (Figure~\ref{fig:calledoff}),
-the phrasal verb ``called ... off'' forms a single semantic unit.
-Discontinuities are also pervasive with other multi-word
-expressions \citep{schneider2014discriminative}.
+   Scenes may be \textit{linked} to one another in several ways.
+   First, a Scene can provide information about some entity,
+   in which case it is marked as an Elaborator.
+   This often occurs in the case of participles or relative clauses.
+   For example, ``(child) who went to school'' is an Elaborator Scene
+   in ``The child who went to school is John''.
+   A Scene may also be a Participant in another Scene. For example, ``John went to school'' in the sentence: ``He said John went to school''. 
+   In other cases, Scenes are annotated as Parallel Scenes (H), which are flat structures and may include a Linker (L), 
+   as in: ``When$_L$ [he arrives]$_H$, [he will call them]$_H$''.
+
+   Non-Scene units are headed by units of the category Center,
+   denoting the type of entity or thing described by the whole unit.
+   Elements in non-Scene units include Quantifiers (such as ``{\it dozens} of people'') and
+   Connectors (mostly coordinating conjunctions).
+   Other modifiers to the Center are marked as Elaborators.
+
+In UCCA, an analysis of a text passage is a DAG (directed acyclic graph)
+over semantic elements called \textbf{units}.
+A unit corresponds to (is \textit{anchored} by) one or more tokens,
+labeled with one or more semantic \textbf{categories} in relation to a parent unit.
+UCCA also supports \textbf{implicit units} which do not correspond to any tokens,
+such as the implicit semantic subject of ``Glad'' in Figure~\ref{fig:implicit}.
+The principal kind of unit is a \textbf{scene} denoting a situation mentioned in the sentence, typically involving a scene-evoking \textbf{predicate}, participants, and (perhaps) modifiers. 
+Each predicate is labeled with the category State (S) or Process (P). 
+Figure~\ref{fig:implicit} contains three scenes: one anchored by the Process \textit{took}; one anchored by the Process \textit{a repair}; and one anchored by the possessive pronoun \textit{our}, which indicates a stative possession relation.
+A Participant (A) of a scene is typically an entity or location involved. 
+Adverbials (D) modify scenes with respect to properties like negation, modality, causativity, direction, manner, etc., which do not constitute an independent situation or entity.
+Temporal modifiers are labeled Time (T).
+
+A scene can serve as a Participant within a larger scene: e.g., \textit{John$_A$ believes$_S$ [Mary$_A$ likes$_S$ him$_A$]$_A$} embeds a liking scene within a believing scene.
+A scene can also serve as an Elaborator of a non-scene unit:
+e.g., \textit{our vehicle} in Figure~\ref{fig:implicit} is an Elaborator of \textit{vehicle}.
+Other relations between scenes are called \textbf{parallel linkage}: a unit consists of Parallel Scenes (H) and possibly Linkers (L) describing how they are related. This is seen at the top level of Figure~\ref{fig:implicit}, where the taking and repair scenes are parallel and the purposive \textit{for} is a linker.
+
+Other categories only apply under \textbf{non-scene units}, i.e., units with no predicate: a semantic head---the Center (C); modifiers of Quantity (Q); and other modifiers, called Elaborators (E). 
+An Elaborator may itself be a scene, as in \textit{our vehicle}, where the scene of possession elaborates on the vehicle entity. Similarly, \textit{blue vehicles} would be analyzed with a stative scene of blueness that elaborates on the vehicles in question.
+A Connector (N) groups together multiple non-scene units into a larger unit, e.g., \textit{boys$_C$ and$_N$ girls$_C$}.
+
+Apart from the main semantic content of scenes, participants, and connectives, UCCA provides the categories: Relator (R) for grammatical markers expressing how a unit relates to its parent unit---in English, these are mainly prepositions and the possessive \textit{'s}; Function (F) for other grammatical markers with minimal semantic content, such as tense auxiliaries, light verbs, and articles; and Ground (G) for expressions expressing speaker perspective outside the propositional structure of the sentence.
+The least contentful elements---Fs, and to a lesser extent Rs---are subject to considerable variation when paraphrasing or translating a sentence. 
+For instance, consider that \textit{for$_L$ [a repair to the air conditioning]$_H$} can be paraphrased as \textit{[in order to]$_L$ [get the air conditioning repaired]$_H$}, which omits an article (F) and a preposition (R).
+Punctuation tokens are attached to units as U in the data, but are excluded from standard UCCA parsing evaluation.
+
+Note that in Figure~\ref{fig:calledoff}, the tokens of the unit \textit{called off} do not receive individual labels: this is called an \textbf{unanalyzable unit}, and is used for semantically opaque multi-word expressions.
+
+The solid edges in the UCCA graphs are called \textbf{primary edges}: the primary edges in UCCA always form a tree. 
+\textbf{Remote edges}, such as the dotted edge from the possession scene unit to ``box'' in Figure~\ref{fig:implicit}
+and the dotted A edge to ``Everything'' in Figure~\ref{fig:remote}, allow for additional relations, forming a DAG:
+multiple parents (reentrancies) are enabled exclusively by remote edges.
+Remote edges are commonly used with attributive possessives and adjectives, and relative clauses, where the head of the noun phrase doubles as a semantic participant of the modifier scene. 
+They also figure in multi-scene control constructions (\textit{John told Mary to leave}: \textit{Mary} is a primary participant of the telling scene and a remote participant of the leaving scene).
+Primary and remote edges are scored separately in standard UCCA parsing evaluation. 
 
 \begin{figure}[ht]\small\centering
   \begin{tikzpicture}[->,level distance=1cm,
@@ -522,13 +569,13 @@ expressions \citep{schneider2014discriminative}.
       child {node {George} edge from parent node[above] {A}}
       child {node [fill=black, circle] {}
       {
-      	child {node {called} edge from parent node[right] {C}}
+      	child {node {called} edge from parent node[right] {}}
       	child {node (themeeting) [fill=black, circle] {}
         {
       	  child {node {the} edge from parent [black] node[left] {F}}
       	  child {node {meeting} edge from parent [black] node[auto] {C}}
       	} edge from parent[white]}
-      	child {node {off} edge from parent node[above] {C}}
+      	child {node {off} edge from parent node[above] {}}
       } edge from parent node[above] {P} }
       ;
     \draw[bend right,->] (ROOT) to[out=-30, in=200] node [left] {A} (themeeting);
@@ -542,21 +589,47 @@ expressions \citep{schneider2014discriminative}.
   }
 \end{figure}
 
+\section{UCCA Parsing}
+
+In order to represent the full range of semantic structures exhibited by
+natural language, three properties should be supported: reentrancy,
+representing arguments shared between predicates;
+non-terminal nodes for multi-word units;
+and discontinuity of semantic units in the text.
+
+The first property, \textbf{reentrancy} (or \textbf{multiple parents}), is required for
+representing arguments and relations (semantic units) that are shared between predicates.
+For instance, in the sentence
+``Everything is delicious and cooked perfectly'' (Figure~\ref{fig:remote}),
+``Everything'' is an argument of both ``delicious''
+and ``cooked perfectly'', yielding a DAG structure rather than a tree.
+
+The second is \textbf{non-terminal nodes} for representing units
+comprising more than one word (Figure~\ref{fig:changetheworld}).
+While bi-lexical dependencies partially circumvent this requirement, by
+representing complex units in terms of their headwords, they fall short
+when representing units that have no clear head.
+Frequent examples of such constructions include
+coordination structures (e.g., ``\textit{You and I} will change the world''),
+some multi-word expressions (e.g., ``The Haves and the \textit{Have Nots}''),
+and prepositional phrases.
+In these cases, dependency schemes often apply some annotation convention that
+selects one of the sub-units
+as the head, but as different head selections are needed for different purposes,
+standardization problems arise \citep{Ivanova2012who}.
+For example, selecting the preposition to head prepositional phrases yields better
+parsing results \citep{Schwartz:12}, while the head noun can be more useful for
+information extraction purposes.
+
+Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
+``George \textit{called} the meeting \textit{off}'' (Figure~\ref{fig:calledoff}),
+the phrasal verb ``called ... off'' forms a single semantic unit.
+Discontinuities are also pervasive with other multi-word
+expressions \citep{schneider2014discriminative}.
+
 The only semantic annotation scheme that supports the combination of these criteria is UCCA
-\citep{abend2013universal}:
-Universal Cognitive Conceptual Annotation
-is a cross-linguistically applicable semantic representation scheme.
-It covers the predicate-argument
-structures evoked by predicates of all grammatical categories, the inter-relations between them,
-as well as other major linguistic phenomena.
-UCCA has demonstrated applicability to multiple languages,
-rapid annotation \citep{abend2017uccaapp},
-stability in translation \citep{sulem2015conceptual}
-and benefit for various applications:
-evaluation of machine translation \citep{birch2016hume},
-evaluation of grammatical error correction \citep{choshen2018reference},
-evaluation of structural text simplification \citep{sulem2018semantic},
-and text simplification \citep{sulem2018simple}.
+\citep{abend2013universal},
+for which no parser has existed prior to my work.
 
 My research is concerned with learning to parse UCCA graphs from text, representing its semantics.
 I introduce a general graph parser,
