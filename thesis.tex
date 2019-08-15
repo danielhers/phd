@@ -383,12 +383,12 @@ For instance, in the sentence
 and ``cooked perfectly'', yielding a DAG structure rather than a tree.
 
 The second is \textbf{non-terminal nodes} for representing units
-comprising more than one word (Figure~\ref{fig:home}).
+comprising more than one word (Figure~\ref{fig:changetheworld}).
 While bi-lexical dependencies partially circumvent this requirement, by
 representing complex units in terms of their headwords, they fall short
 when representing units that have no clear head.
 Frequent examples of such constructions include
-coordination structures (e.g., ``\textit{John and Mary} went home''),
+coordination structures (e.g., ``\textit{You and I} will change the world''),
 some multi-word expressions (e.g., ``The Haves and the \textit{Have Nots}''),
 and prepositional phrases.
 In these cases, dependency schemes often apply some annotation convention that
@@ -400,15 +400,12 @@ parsing results \citep{Schwartz:12}, while the head noun can be more useful for
 information extraction purposes.
 
 Third, semantic units may be \textbf{discontinuous} in the text. For instance, in
-``John \textit{gave} everything \textit{up}'' (Figure~\ref{fig:gave}),
-the phrasal verb ``gave ... up'' forms a single semantic unit.
+``George \textit{called} the meeting \textit{off}'' (Figure~\ref{fig:calledoff}),
+the phrasal verb ``caleed ... off'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
 expressions \citep{schneider2014discriminative}.
 
-\begin{figure}[ht]\small
-  \begin{subfigure}{\textwidth}
-  \parbox{.03\textwidth}{\caption{}\label{fig:implicit}}
-  \parbox{.8\textwidth}{
+\begin{figure}[ht]\small\centering
   \begin{tikzpicture}[->,level distance=1cm,
   level 1/.style={sibling distance=4cm},
   level 2/.style={sibling distance=17mm},
@@ -420,7 +417,7 @@ expressions \citep{schneider2014discriminative}.
   {
   child {node (1_2) [circle] {}
     {
-    child {node (1_16) [word] {\textbf{IMPLICIT}}  edge from parent node[auto]  {A}}
+    child {node (1_16) [word] {\textbf{IMPLICIT}}  edge from parent node[above]  {A}}
     child {node (1_17) [word] {Glad}  edge from parent node[auto]  {S}}
     child {node (1_18) [circle] {}
       {
@@ -431,14 +428,14 @@ expressions \citep{schneider2014discriminative}.
   child {node (1_3) [word] {before}  edge from parent node[auto]  {L}}
   child {node (1_4) [circle] {}
     {
-    child {node (1_6) [word] {I}  edge from parent node[auto]  {A}}
+    child {node (1_6) [word] {I}  edge from parent node[above]  {A}}
     child {node (1_7) [word] {arrived}  edge from parent node[auto]  {P}}
     child {node (1_8) [circle] {}
       {
-      child {node (1_9) [word] {with}  edge from parent node[auto]  {R}}
+      child {node (1_9) [word] {with}  edge from parent node[above]  {R}}
       child {node (1_10) [circle] {}
         {
-        child {node (1_15) [word] {my}  edge from parent node[auto]  {S}}
+        child {node (1_15) [word] {my}  edge from parent node[left]  {S}}
         } edge from parent node[auto]  {E}}
       child {node {}
         {
@@ -446,7 +443,7 @@ expressions \citep{schneider2014discriminative}.
         } edge from parent [draw=none] {}}
       child {node (1_12) [circle] {}
         {
-        child {node (1_13) [word] {to}  edge from parent node[auto]  {F}}
+        child {node (1_13) [word] {to}  edge from parent node[left]  {F}}
         child {node (1_14) [word] {ship}  edge from parent node[auto]  {P}}
         child {node (1_21) [word] {.}  edge from parent node[auto]  {U}}
         } edge from parent node[auto]  {E}}
@@ -456,14 +453,12 @@ expressions \citep{schneider2014discriminative}.
   \draw[dashed,->] (1_10) to node [auto] {A} (1_11);
   \draw[->] (1_8) to node [auto] {C} (1_11);
 \end{tikzpicture}
-  }
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-  \parbox{.03\textwidth}{\caption{}\label{fig:remote}}
-  \parbox{.8\textwidth}{
+\caption{UCCA example including an implicit node, where the subject of ``Glad'' is omitted.}\label{fig:implicit}
+\end{figure}
+\begin{figure}[ht]\small\centering
   \begin{tikzpicture}[->,level distance=1cm,
-  level 1/.style={sibling distance=5cm},
-  level 2/.style={sibling distance=15mm},
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=23mm},
   level 3/.style={sibling distance=15mm},
   every circle node/.append style={fill=black},
   every node/.append style={text height=.6ex,text depth=0}]
@@ -472,94 +467,76 @@ expressions \citep{schneider2014discriminative}.
   {
   child {node (1_2) [circle] {}
     {
-    child {node (1_8) [word] {Everything}  edge from parent node[auto]  {A}}
+    child {node (1_8) [word] {Everything}  edge from parent node[above]  {A}}
     child {node (1_9) [word] {is}  edge from parent node[auto]  {F}}
     child {node (1_10) [word] {delicous}  edge from parent node[auto]  {S}}
-    } edge from parent node[auto]  {H}}
+    } edge from parent node[above]  {H}}
   child {node (1_3) [word] {and}  edge from parent node[auto]  {L}}
   child {node (1_4) [circle] {}
     {
-    child {node (1_6) [word] {cooked}  edge from parent node[auto]  {P}}
+    child {node (1_6) [word] {cooked}  edge from parent node[above]  {P}}
     child {node (1_7) [word] {perfectly}  edge from parent node[auto]  {D}}
     child {node (1_11) [word] {.}  edge from parent node[auto]  {U}}
     } edge from parent node[auto]  {H}}
   };
   \draw[dashed,->,bend left] (1_4) to node [auto] {A} (1_8);
 \end{tikzpicture}
-  }
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-  \parbox{.03\textwidth}{\caption{}\label{fig:home}}
-  \parbox{.8\textwidth}{
+\caption{
+    UCCA example including a remote edge (dashed),
+    resulting in ``Everything'' having two parents.}\label{fig:remote}
+\end{figure}
+\begin{figure}[ht]\small
+  \begin{subfigure}{.45\textwidth}
   \begin{tikzpicture}[level distance=12mm, ->,
+  level 1/.style={sibling distance=16mm},
+  level 2/.style={sibling distance=23mm},
+  level 3/.style={sibling distance=15mm},
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
       child {node [fill=black, circle] {}
       {
-        child {node {John} edge from parent node[left] {\scriptsize $C$}}
-        child {node {and} edge from parent node[left] {\scriptsize $N$}}
-        child {node {Mary} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[left] {\scriptsize $A$} }
-      child {node {went} edge from parent node[left] {\scriptsize $P$}}
-      child {node {home} edge from parent node[left] {\scriptsize $A$}}
-      ;
-  \end{tikzpicture}
-  }
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-  \parbox{.03\textwidth}{\caption{}\label{fig:gave}}
-  \parbox{.8\textwidth}{
-  \begin{tikzpicture}[level distance=12mm, ->,
-      every node/.append style={midway}]
-    \node (ROOT) [fill=black, circle] {}
-      child {node {John} edge from parent node[left] {\scriptsize $A$}}
+        child {node {You} edge from parent node[above] {C}}
+        child {node {and} edge from parent node[left] {N}}
+        child {node {I} edge from parent node[above] {C}}
+      } edge from parent node[above] {A} }
+      child {node {will} edge from parent node[left] {D}}
+      child {node {change} edge from parent node[left] {P}}
       child {node [fill=black, circle] {}
       {
-      	child {node {gave} edge from parent node[left] {\scriptsize $C$}}
-      	child {node (everything) {everything} edge from parent[white]}
-      	child {node {up} edge from parent node[left] {\scriptsize $C$}}
-      } edge from parent node[right] {\scriptsize $P$} }
+        child {node {the} edge from parent node[left] {F}}
+        child {node {world} edge from parent node[left] {C}}
+      } edge from parent node[auto] {A} }
       ;
-    \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize $A$} (everything);
   \end{tikzpicture}
-  }
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-  \parbox{.03\textwidth}{\caption{}\label{fig:shower}}
-  \parbox{.8\textwidth}{
+  \caption{}\label{fig:changetheworld}
+  \end{subfigure}\hfill
+  \begin{subfigure}{.45\textwidth}
   \begin{tikzpicture}[level distance=12mm, ->,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=23mm},
+  level 3/.style={sibling distance=15mm},
       every node/.append style={midway}]
     \node (ROOT) [fill=black, circle] {}
-      child {node (John) {John} edge from parent node[left] {\scriptsize $A$}}
-      child {node {thought} edge from parent node[left] {\scriptsize $P$}}
-      child {node (totakeaquickshower) [fill=black, circle] {}
+      child {node {George} edge from parent node[above] {A}}
+      child {node [fill=black, circle] {}
       {
-        child {node {about} edge from parent node[left] {\scriptsize $R$}}
-        child {node [fill=black, circle] {}
+      	child {node {called} edge from parent node[right] {C}}
+      	child {node (themeeting) [fill=black, circle] {}
         {
-          child {node {taking} edge from parent node[left] {\scriptsize $C$}}
-          child {node {a} edge from parent node[right] {\scriptsize $F$}}
-          child {node (quick) {quick} edge from parent[white]}
-          child {node {shower} edge from parent node[right] {\scriptsize $C$}}
-        } edge from parent node[right] {\scriptsize $P$} }
-      } edge from parent node[left] {\scriptsize $A$} }
+      	  child {node {the} edge from parent [black] node[left] {F}}
+      	  child {node {meeting} edge from parent [black] node[auto] {C}}
+      	} edge from parent[white]}
+      	child {node {off} edge from parent node[above] {C}}
+      } edge from parent node[above] {P} }
       ;
-    \draw[bend left,dashed,->] (totakeaquickshower) to node [auto] {\scriptsize $A$} (John);
-    \draw[bend left,->] (totakeaquickshower) to node [auto] {\scriptsize $D$} (quick);
+    \draw[bend right,->] (ROOT) to[out=-30, in=200] node [left] {A} (themeeting);
   \end{tikzpicture}
-  }
+  \caption{}\label{fig:calledoff}
   \end{subfigure}
   \caption{\label{fig:examples}
     UCCA examples.
-    (\subref{fig:implicit}) includes an implicit node, since the subject of ``Glad'' is omitted.
-    (\subref{fig:remote}) includes a remote edge (dashed),
-    resulting in ``John'' having two parents.
-    (\subref{fig:home}) includes a coordination construction (``John and Mary'').
-    (\subref{fig:gave}) includes a discontinuous unit (``gave ... up'').
-    (\subref{fig:shower}) includes both a remote edge and a discontinuous unit (``taking a ... shower'').
-    Legend: $P$ -- Process (a Scene's main relation), $A$ -- Participant,
-    $L$ -- inter-scene Linker, $H$ -- Parallel Scene, $C$ -- Center, $D$ -- Adverbial,
-    $R$ -- Relator, $N$ -- Connector, $U$ -- Punctuation, $F$ -- Function unit.
+    (\subref{fig:changetheworld}) includes a coordination construction (``You and I'').
+    (\subref{fig:calledoff}) includes a discontinuous unit (``called ... off'').
   }
 \end{figure}
 

@@ -3,7 +3,7 @@
 %
 \chapter{Multitask Parsing Across Semantic Representations \\ Supplementary Notes}
 
-\paragraph{Features.}
+\section{Features}
 
 Table~\ref{tab:features} lists all feature used for the classifier (see \S\ref{sec:classifier}).
 Numeric features are taken as they are, whereas categorical features are mapped to real-valued embedding
@@ -77,7 +77,7 @@ $a_0, a_1$ & \texttt{eA} \\
 \end{table}
 
 
-\paragraph{Conversion to and from Unified DAG Format.}
+\section{Conversion to and from Unified DAG Format}
 
 Although all experiments reported in the paper with the auxiliary tasks
 (AMR, DM and UD) are using unlabeled parsing for these schemes,
@@ -92,7 +92,7 @@ when converted to UCCA and back.
 For UD, and conversion results in 98.5\% LAS $F_1$ on the UD English test set,
 due to multi-word tokens, not supported in the unified DAG format.
 
-\paragraph{Qualitative evaluation.}
+\section{Qualitative evaluation}
 
 Figure~\ref{fig:qualitative} shows an example sentence from the English 20K test set,
 with the outputs of both our single-task model and our best MTL model (using all auxiliaries).
