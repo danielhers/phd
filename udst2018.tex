@@ -91,10 +91,10 @@ and use it to evaluate our method.
   \caption{Example UCCA graph.}
   \label{fig:converted_example_ucca}
 \end{subfigure}}
-\fbox{\begin{subfigure}{0.57\textwidth}
+\fbox{\begin{subfigure}{0.54\textwidth}
   \centering
     \begin{dependency}[text only label, label style={above}, font=\small]
-    \begin{deptext}[column sep=.5em,ampersand replacement=\^]
+    \begin{deptext}[column sep=.4em,ampersand replacement=\^]
     We \^ were \^ made \^ to \^ feel \^ very \^ welcome \^ . \\
     \end{deptext}
         \depedge[edge start x offset=1pt]{3}{1}{nsubj:pass}
@@ -110,7 +110,9 @@ and use it to evaluate our method.
     \end{dependency}
   \caption{\label{fig:original_examples}Example UD graph.}
 \end{subfigure}}
-\fbox{\begin{subfigure}{0.47\textwidth}
+
+{\centering
+\fbox{\begin{subfigure}{\textwidth}
   \centering
   \scalebox{.95}{
     \begin{tikzpicture}[sibling distance=14mm, ->,
@@ -146,7 +148,7 @@ and use it to evaluate our method.
       \draw[dashed,->,bend left=20] (feelverywelcome) to node [midway,below,sloped] {\scriptsize nsubj} (We);
     \end{tikzpicture}}
   \captionof{figure}{UD graph after conversion to unified DAG format.}\label{fig:converted_example_ud}
-\end{subfigure}}
+\end{subfigure}}}
 
 \cprotect\caption{(a) Example UCCA annotation for the sentence
 ``We were made to feel very welcome.'',
@@ -161,17 +163,16 @@ to get a UCCA-like structure.}\label{fig:converted_examples}
 \end{figure}
 
 \begin{figure*}[!t]
-\scalebox{.7}{
 \begin{adjustbox}{width=\textwidth,margin=3pt,frame}
 \texttt{1 We we PRON PRP Case=Nom|Number=Plur|Person=1|PronType=Prs 3 nsubj:pass 3:nsubj:pass|5:nsubj:xsubj|7:nsubj:xsubj \textunderscore}
-\end{adjustbox}}
+\end{adjustbox}
 \cprotect\caption{Example line from CoNLL-U file with two enhanced dependencies:
 \verb|5:nsubj:xsubj| and \verb|7:nsubj:xsubj|.}\label{fig:enhanced_conllu}
 \end{figure*}
 
 \begin{figure*}[ht]
 \fbox{
-  \centering\scalebox{.7}{
+  \centering\scalebox{.8}{
     \begin{dependency}[text only label, label style={above}, font=\small]
     \begin{deptext}[column sep=1.15em,ampersand replacement=\^]
     he \^ went \^ straight \^ to \^ work \^ and \^ finished \^ the \^ job \^ efficiently \^ and \^ promptly \^ ! \\
@@ -202,7 +203,7 @@ containing conjoined predicates and arguments.}
 \fbox{
   \centering
     \begin{dependency}[text only label, label style={above}, font=\small]
-    \begin{deptext}[column sep=1em,ampersand replacement=\^]
+    \begin{deptext}[column sep=.6em,ampersand replacement=\^]
     I \^ wish \^ all \^ happy \^ holidays \^ , \^ and \^ moreso \^ , \^ \textbf{E9.1} \^ peace \^ on \^ earth \^ . \\
     \end{deptext}
         \depedge[edge start x offset=1pt]{2}{1}{nsubj}
@@ -225,13 +226,13 @@ containing conjoined predicates and arguments.}
         \depedge[edge start x offset=-1pt,edge unit distance=1.35ex]{2}{14}{punct}
     \end{dependency}
 }
-\cprotect\caption{\verb|newsgroup-groups.google.com_GuildWars_086f0f64ab633ab3_ENG_20041111_173500-0051| (\verb|UD_English-EWT|), containing a null node (\textbf{E9.1}) and
+\cprotect\caption{{\scriptsize\verb|newsgroup-groups.google.com_GuildWars_086f0f64ab633ab3_ENG_20041111_173500-0051|} (\verb|UD_English-EWT|), containing a null node (\textbf{E9.1}) and
 case information (nmod:on).}
 \label{fig:example_ellipsis}
 \end{figure*}
 
 \begin{figure*}[ht]
-\fbox{\begin{subfigure}{0.68\textwidth}
+\fbox{\begin{subfigure}{0.58\textwidth}
     \centering
     \begin{dependency}[text only label, label style={above}, font=\small]
     \begin{deptext}[column sep=.1em,ampersand replacement=\^]
@@ -254,7 +255,7 @@ case information (nmod:on).}
     \end{dependency}
   \caption{\label{fig:example_relcl_ud}UD.}
 \end{subfigure}}
-\fbox{\begin{subfigure}{0.48\textwidth}
+\fbox{\begin{subfigure}{0.41\textwidth}
   \centering\scalebox{.6}{
 	\begin{tikzpicture}[->,level distance=11.5mm,
 	  level 1/.style={sibling distance=5cm},
@@ -619,10 +620,7 @@ For each non-terminal node,
 we select a \textit{head terminal} for feature extraction,
 by traversing down the graph according to
 a priority order on edge labels (otherwise selecting the leftmost child).
-The priority order is:
-\begin{verbatim}
-parataxis, conj, advcl, xcomp
-\end{verbatim}
+The priority order is: \verb|parataxis, conj, advcl, xcomp|
 
 
 \begin{table}[ht]

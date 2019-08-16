@@ -452,7 +452,24 @@ TUPA also does not support node labels,
 which are ubiquitous in AMR but absent in UCCA structures (only edges are labeled in UCCA). 
 We therefore only produce edge labels and not node labels when training on AMR.
 
-\begin{figure}[t]\centering
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transition Classifier}\label{sec:classifier}
+
+To predict the next transition at each step,
+we use a BiLSTM with embeddings as inputs,
+followed by an MLP and a softmax layer for classification \cite{kiperwasser2016simple}.
+The model is illustrated in Figure~\ref{fig:single_model}.
+Inference is performed greedily,
+and training is done with an oracle that yields the set of all optimal 
+transitions at a given state (those that lead to a state from which the gold graph is still reachable).
+Out of this set, the actual transition performed in training is the one
+with the highest score given by the classifier,
+which is trained to maximize the sum of log-likelihoods of all 
+optimal transitions at each step.
+
+\begin{figure}[H]\centering
    \begin{tikzpicture}[level distance=8mm, sibling distance=1cm]
    \node[anchor=west] at (0,1.5) {Parser state};
    \draw[color=gray,dashed] (0,-1.2) rectangle (7.5,1.25);
@@ -497,22 +514,6 @@ We therefore only produce edge labels and not node labels when training on AMR.
 Top: parser state.
 Bottom: BiLTSM architecture.}\label{fig:single_model}
 \end{figure}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Transition Classifier}\label{sec:classifier}
-
-To predict the next transition at each step,
-we use a BiLSTM with embeddings as inputs,
-followed by an MLP and a softmax layer for classification \cite{kiperwasser2016simple}.
-The model is illustrated in Figure~\ref{fig:single_model}.
-Inference is performed greedily,
-and training is done with an oracle that yields the set of all optimal 
-transitions at a given state (those that lead to a state from which the gold graph is still reachable).
-Out of this set, the actual transition performed in training is the one
-with the highest score given by the classifier,
-which is trained to maximize the sum of log-likelihoods of all 
-optimal transitions at each step.
 
 
 \begin{figure}[ht]\centering
@@ -771,45 +772,6 @@ has a child for each token in the name (see the two \textit{name} nodes in Figur
 We collapse this subgraph into a single node whose children are the name tokens.
 
 
-\begin{figure}[t]\centering
-   \begin{tikzpicture}
-   \node[anchor=west] at (0,.75) {Parser state};
-   \draw[color=gray,dashed] (0,0) rectangle (7.5,.5);
-    \node (x4) at (3.75,0.25) {\ldots};
-   \end{tikzpicture}
-   
-   \begin{tikzpicture}[->]
-   \node[anchor=west] at (0,6) {Classifier};
-   \tiny
-   \tikzstyle{main}=[rounded rectangle, minimum size=7mm, draw=black!80, node distance=12mm]
-   \node[main] (specific) at (1,3.5) {\small Task-specific BiLSTM};
-   \node[main,color=blue] (shared) at (6,3.5) {\small Shared BiLSTM};
-   \node[color=blue] (embeddings) at (3.5,1.5) {\small Shared embeddings};
-   \foreach \i/\word in {0/{After},2/{graduation},5/{to},7/{Paris}} {
-       \node (x\i) at (\i,1) {\scriptsize \word};
-       \node[main,color=blue] (e\i) at (\i,2.2) {};
-       \path[color=blue] (x\i) edge (e\i);
-       \path (e\i) edge (specific);
-       \path[color=blue] (e\i) edge (shared);
-   }
-    \node (x4) at (3.5,1) {\ldots};
-    \node[main] (mlp) at (3.5,4.6) {\small Task-specific MLP};
-    \path (specific) edge (mlp);
-    \path[color=blue] (shared) edge (mlp);
-    \coordinate (state) at (6.5,6.3);
-    \path (state) edge [bend left] (mlp);
-    \node (transition) at (3.5,5.8) {transition};
-    \path (mlp) edge node[right] {softmax} (transition);
-   \end{tikzpicture}
-   \caption{MTL model.
-      Token representations are computed both by a task-specific and a shared BiLSTM.
-      Their outputs are concatenated with the parser state embedding,
-      identical to Figure~\ref{fig:single_model},
-      and fed into the task-specific MLP for selecting the next transition.
-      Shared parameters are shown in blue.}\label{fig:multi_model}
-\end{figure}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multitask Transition-based Parsing}\label{sec:multitask}
 
@@ -843,6 +805,44 @@ of auxiliary tasks (see \S\ref{sec:experimentsc}).
 This limited capacity forces the network to use the shared parameters for all tasks,
 increasing generalization \cite{E17-1005}.
 
+\begin{figure}[H]\centering
+   \begin{tikzpicture}
+   \node[anchor=west] at (0,.25) {Parser state};
+   \draw[color=gray,dashed] (0,0) rectangle (7.5,.5);
+    \node (x4) at (3.75,0.25) {\ldots};
+   \end{tikzpicture}
+   
+   \begin{tikzpicture}[->]
+   \node[anchor=west] at (0,6) {Classifier};
+   \tiny
+   \tikzstyle{main}=[rounded rectangle, minimum size=7mm, draw=black!80, node distance=12mm]
+   \node[main] (specific) at (1,3.5) {\small Task-specific BiLSTM};
+   \node[main,color=blue] (shared) at (6,3.5) {\small Shared BiLSTM};
+   \node[color=blue] (embeddings) at (3.5,1.5) {\scriptsize Shared embeddings};
+   \foreach \i/\word in {0/{After},2/{graduation},5/{to},7/{Paris}} {
+       \node (x\i) at (\i,1.25) {\scriptsize \word};
+       \node[main,color=blue] (e\i) at (\i,2.2) {};
+       \path[color=blue] (x\i) edge (e\i);
+       \path (e\i) edge (specific);
+       \path[color=blue] (e\i) edge (shared);
+   }
+    \node (x4) at (3.5,1.25) {\ldots};
+    \node[main] (mlp) at (3.5,4.6) {\small Task-specific MLP};
+    \path (specific) edge (mlp);
+    \path[color=blue] (shared) edge (mlp);
+    \coordinate (state) at (6.5,6.3);
+    \path (state) edge [bend left] (mlp);
+    \node (transition) at (3.5,5.8) {transition};
+    \path (mlp) edge node[right] {softmax} (transition);
+   \end{tikzpicture}
+   \caption{MTL model.
+      Token representations are computed both by a task-specific and a shared BiLSTM.
+      Their outputs are concatenated with the parser state embedding,
+      identical to Figure~\ref{fig:single_model},
+      and fed into the task-specific MLP for selecting the next transition.
+      Shared parameters are shown in blue.}\label{fig:multi_model}
+\end{figure}
+
 
 
 \section{Experimental Setup}\label{sec:experimentsc}
@@ -854,7 +854,7 @@ and evaluating its performance on the UCCA test sets in both in-domain and out-o
 \begin{table*}[t]
 \centering
 \tiny
-\setlength\tabcolsep{2pt}
+\setlength\tabcolsep{1.7pt}
 \begin{tabular}{l|ccc|ccc||ccc|ccc||ccc|ccc}
 & \multicolumn{6}{c||}{\footnotesize \bf English}
 & \multicolumn{6}{c||}{\footnotesize \bf French}
@@ -942,7 +942,6 @@ The model is implemented using DyNet \cite{neubig2017dynet}.\footnote{\url{http:
 \begin{table}[h]
 \centering
 \small
-\setlength\tabcolsep{2pt}
 \begin{tabular}{l|c|ccccc}
 && \multicolumn{3}{c}{\bf Multitask} \\ 
 \bf Hyperparameter &  \bf Single & \bf Main & \bf Aux & \bf Shared \\
@@ -1030,7 +1029,6 @@ by the bootstrap test \cite{berg2012empirical}, with $p<0.05$.
 \begin{table}[t]
 \centering
 \small
-\setlength\tabcolsep{3pt}
 \begin{tabular}{l|lll|lll}
 & \multicolumn{3}{c|}{\footnotesize \bf Primary} & \multicolumn{3}{c}{\footnotesize \bf Remote} \\
 & \footnotesize \textbf{LP} & \footnotesize \textbf{LR} & \footnotesize \textbf{LF}
@@ -1069,7 +1067,6 @@ HAR17: \citet{hershcovich2017a}.}\label{tab:id_results}
 \begin{table}[t]
 \centering
 \small
-\setlength\tabcolsep{3pt}
 \begin{tabular}{l|lll|lll}
 & \multicolumn{3}{c|}{\footnotesize \bf Primary} & \multicolumn{3}{c}{\footnotesize \bf Remote} \\
 & \footnotesize \textbf{LP} & \footnotesize \textbf{LR} & \footnotesize \textbf{LF}

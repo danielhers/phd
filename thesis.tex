@@ -26,6 +26,7 @@
 \usepackage{collcell}
 \usepackage{etoolbox}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage[round]{natbib}
 \usetikzlibrary{shapes,fit,calc,er,positioning,intersections,decorations.shapes,mindmap,trees}
 \tikzset{decorate sep/.style 2 args={decorate,decoration={shape backgrounds,shape=circle,
@@ -297,6 +298,7 @@ Universal Dependencies \citep{nivre2016universal}
 is a \textit{syntactic} dependency scheme aiming for cross-lingual consistency,
 whose annotation is often similar to the common practice in semantic treebanks
 (Figure~\ref{fig:original_example_ud}).
+See Table~\ref{tab:ud} for a concise description of UD relations.
 
 \begin{figure}[t]
   \centering
@@ -373,7 +375,7 @@ decisions \citep{Nivre03anefficient}.
 
 \section{Universal Conceptual Cognitive Annotation}
 
-Universal Cognitive Conceptual Annotation (UCCA)
+Universal Cognitive Conceptual Annotation \citep[UCCA;][]{abend2013universal}
 is a cross-linguistically applicable semantic representation scheme.
 It covers the predicate-argument
 structures evoked by predicates of all grammatical categories, the inter-relations between them,
@@ -391,68 +393,6 @@ such that paraphrases, and translations tend to have similar UCCA structures.
 Accordingly, UCCA has been studied with respect to meaning preservation in translation \citep{sulem2015conceptual},
 and found to be more stable than phrase-structure syntactic annotation.
 UCCA corpora are available for English, French and German, and pilot studies were conducted on a few languages more.\footnote{\scriptsize\url{https://github.com/UniversalConceptualCognitiveAnnotation}}
-
-   Formally, UCCA structures are directed acyclic graphs (DAGs) whose nodes (or {\it units}) correspond either to words,
-   or to elements viewed as a single entity according to some semantic or cognitive consideration.
-   Edges are labeled, indicating the role of a child in the relation the parent represents.
-   A {\it Scene} is UCCA's notion of an event or a frame, and is a description of a movement, an action or a state which persists in time. 
-   Every Scene contains one primary relation, which can be either a Process or a State. 
-   Scenes may contain any number of Participants, a category which also includes abstract participants and locations.
-   They may also contain temporal relations (Time), and secondary relations (Adverbials), 
-   which cover semantic distinctions such as manner, modality and aspect.
-
-   Scenes may be \textit{linked} to one another in several ways.
-   First, a Scene can provide information about some entity,
-   in which case it is marked as an Elaborator.
-   This often occurs in the case of participles or relative clauses.
-   For example, ``(child) who went to school'' is an Elaborator Scene
-   in ``The child who went to school is John''.
-   A Scene may also be a Participant in another Scene. For example, ``John went to school'' in the sentence: ``He said John went to school''. 
-   In other cases, Scenes are annotated as Parallel Scenes (H), which are flat structures and may include a Linker (L), 
-   as in: ``When$_L$ [he arrives]$_H$, [he will call them]$_H$''.
-
-   Non-Scene units are headed by units of the category Center,
-   denoting the type of entity or thing described by the whole unit.
-   Elements in non-Scene units include Quantifiers (such as ``{\it dozens} of people'') and
-   Connectors (mostly coordinating conjunctions).
-   Other modifiers to the Center are marked as Elaborators.
-
-In UCCA, an analysis of a text passage is a DAG (directed acyclic graph)
-over semantic elements called \textbf{units}.
-A unit corresponds to (is \textit{anchored} by) one or more tokens,
-labeled with one or more semantic \textbf{categories} in relation to a parent unit.
-UCCA also supports \textbf{implicit units} which do not correspond to any tokens,
-such as the implicit semantic subject of ``Glad'' in Figure~\ref{fig:implicit}.
-The principal kind of unit is a \textbf{scene} denoting a situation mentioned in the sentence, typically involving a scene-evoking \textbf{predicate}, participants, and (perhaps) modifiers. 
-Each predicate is labeled with the category State (S) or Process (P). 
-Figure~\ref{fig:implicit} contains three scenes: one anchored by the Process \textit{took}; one anchored by the Process \textit{a repair}; and one anchored by the possessive pronoun \textit{our}, which indicates a stative possession relation.
-A Participant (A) of a scene is typically an entity or location involved. 
-Adverbials (D) modify scenes with respect to properties like negation, modality, causativity, direction, manner, etc., which do not constitute an independent situation or entity.
-Temporal modifiers are labeled Time (T).
-
-A scene can serve as a Participant within a larger scene: e.g., \textit{John$_A$ believes$_S$ [Mary$_A$ likes$_S$ him$_A$]$_A$} embeds a liking scene within a believing scene.
-A scene can also serve as an Elaborator of a non-scene unit:
-e.g., \textit{our vehicle} in Figure~\ref{fig:implicit} is an Elaborator of \textit{vehicle}.
-Other relations between scenes are called \textbf{parallel linkage}: a unit consists of Parallel Scenes (H) and possibly Linkers (L) describing how they are related. This is seen at the top level of Figure~\ref{fig:implicit}, where the taking and repair scenes are parallel and the purposive \textit{for} is a linker.
-
-Other categories only apply under \textbf{non-scene units}, i.e., units with no predicate: a semantic head---the Center (C); modifiers of Quantity (Q); and other modifiers, called Elaborators (E). 
-An Elaborator may itself be a scene, as in \textit{our vehicle}, where the scene of possession elaborates on the vehicle entity. Similarly, \textit{blue vehicles} would be analyzed with a stative scene of blueness that elaborates on the vehicles in question.
-A Connector (N) groups together multiple non-scene units into a larger unit, e.g., \textit{boys$_C$ and$_N$ girls$_C$}.
-
-Apart from the main semantic content of scenes, participants, and connectives, UCCA provides the categories: Relator (R) for grammatical markers expressing how a unit relates to its parent unit---in English, these are mainly prepositions and the possessive \textit{'s}; Function (F) for other grammatical markers with minimal semantic content, such as tense auxiliaries, light verbs, and articles; and Ground (G) for expressions expressing speaker perspective outside the propositional structure of the sentence.
-The least contentful elements---Fs, and to a lesser extent Rs---are subject to considerable variation when paraphrasing or translating a sentence. 
-For instance, consider that \textit{for$_L$ [a repair to the air conditioning]$_H$} can be paraphrased as \textit{[in order to]$_L$ [get the air conditioning repaired]$_H$}, which omits an article (F) and a preposition (R).
-Punctuation tokens are attached to units as U in the data, but are excluded from standard UCCA parsing evaluation.
-
-Note that in Figure~\ref{fig:calledoff}, the tokens of the unit \textit{called off} do not receive individual labels: this is called an \textbf{unanalyzable unit}, and is used for semantically opaque multi-word expressions.
-
-The solid edges in the UCCA graphs are called \textbf{primary edges}: the primary edges in UCCA always form a tree. 
-\textbf{Remote edges}, such as the dotted edge from the possession scene unit to ``box'' in Figure~\ref{fig:implicit}
-and the dotted A edge to ``Everything'' in Figure~\ref{fig:remote}, allow for additional relations, forming a DAG:
-multiple parents (reentrancies) are enabled exclusively by remote edges.
-Remote edges are commonly used with attributive possessives and adjectives, and relative clauses, where the head of the noun phrase doubles as a semantic participant of the modifier scene. 
-They also figure in multi-scene control constructions (\textit{John told Mary to leave}: \textit{Mary} is a primary participant of the telling scene and a remote participant of the leaving scene).
-Primary and remote edges are scored separately in standard UCCA parsing evaluation. 
 
 \begin{figure}[ht]\small\centering
   \begin{tikzpicture}[->,level distance=1cm,
@@ -504,36 +444,49 @@ Primary and remote edges are scored separately in standard UCCA parsing evaluati
 \end{tikzpicture}
 \caption{UCCA example including an implicit node, where the subject of ``Glad'' is omitted.}\label{fig:implicit}
 \end{figure}
-\begin{figure}[ht]\small\centering
-  \begin{tikzpicture}[->,level distance=1cm,
-  level 1/.style={sibling distance=4cm},
-  level 2/.style={sibling distance=23mm},
-  level 3/.style={sibling distance=15mm},
-  every circle node/.append style={fill=black},
-  every node/.append style={text height=.6ex,text depth=0}]
-  \tikzstyle{word} = [font=\rmfamily,color=black]
-  \node (1_1) [circle] {}
-  {
-  child {node (1_2) [circle] {}
-    {
-    child {node (1_8) [word] {Everything}  edge from parent node[above]  {A}}
-    child {node (1_9) [word] {is}  edge from parent node[auto]  {F}}
-    child {node (1_10) [word] {delicous}  edge from parent node[auto]  {S}}
-    } edge from parent node[above]  {H}}
-  child {node (1_3) [word] {and}  edge from parent node[auto]  {L}}
-  child {node (1_4) [circle] {}
-    {
-    child {node (1_6) [word] {cooked}  edge from parent node[above]  {P}}
-    child {node (1_7) [word] {perfectly}  edge from parent node[auto]  {D}}
-    child {node (1_11) [word] {.}  edge from parent node[auto]  {U}}
-    } edge from parent node[auto]  {H}}
-  };
-  \draw[dashed,->,bend left] (1_4) to node [auto] {A} (1_8);
-\end{tikzpicture}
-\caption{
-    UCCA example including a remote edge (dashed),
-    resulting in ``Everything'' having two parents.}\label{fig:remote}
-\end{figure}
+
+   Formally, UCCA structures are directed acyclic graphs (DAGs) whose nodes (or {\it units}) correspond to (are \textit{anchored} by) words,
+   or elements viewed as a single entity according to some semantic or cognitive consideration.
+   Edges are labeled with \textit{categories}, indicating the role of a child in the relation the parent represents.
+   See Table~\ref{tab:ucca} for a concise description of UCCA categories.
+   A {\it Scene} is UCCA's notion of an event or a frame, and is a description of a movement, an action or a state which persists in time. 
+   Every Scene contains one primary relation, which can be either a Process or a State. 
+   Scenes may contain any number of Participants, a category which also includes abstract participants and locations.
+   They may also contain temporal relations (Time), and secondary relations (Adverbials), 
+   which cover semantic distinctions such as manner, modality and aspect.
+   UCCA also supports \textbf{implicit units} which do not correspond to any tokens,
+such as the implicit semantic subject of ``Glad'' in Figure~\ref{fig:implicit}.
+The principal kind of unit is a \textbf{scene} denoting a situation mentioned in the sentence, typically involving a scene-evoking \textbf{predicate}, participants, and (perhaps) modifiers. 
+
+   Scenes may be \textit{linked} to one another in several ways.
+   First, a Scene can provide information about some entity,
+   in which case it is marked as an Elaborator.
+   This often occurs in the case of participles or relative clauses.
+   For example, ``(child) who went to school'' is an Elaborator Scene
+   in ``The child who went to school is John''.
+   A Scene may also be a Participant in another Scene. For example, ``John went to school'' in the sentence: ``He said John went to school''. 
+   In other cases, Scenes are annotated as Parallel Scenes (H), which are flat structures and may include a Linker (L), 
+   as in: ``When$_L$ [he arrives]$_H$, [he will call them]$_H$''.
+
+   Non-Scene units are headed by units of the category Center,
+   denoting the type of entity or thing described by the whole unit.
+   Elements in non-Scene units include Quantifiers (such as ``{\it dozens} of people'') and
+   Connectors (mostly coordinating conjunctions).
+   Other modifiers to the Center are marked as Elaborators.
+
+Figure~\ref{fig:implicit} contains five scenes: one anchored by the State \textit{Glad}; one anchored by the Process \textit{called}; one anchored by the Process \textit{arrived}; one anchored by the Process \textit{ship}; and one anchored by the possessive pronoun \textit{my}, which indicates a stative possession relation.
+A Participant (A) of a scene is typically an entity or location involved. 
+Adverbials (D) modify scenes with respect to properties like negation, modality, causativity, direction, manner, etc., which do not constitute an independent situation or entity.
+Temporal modifiers are labeled Time (T).
+
+A scene can serve as a Participant within a larger scene: Figure~\ref{fig:implicit} embeds the ``called'' scene within the ``Glad'' scene.
+A scene can also serve as an Elaborator of a non-scene unit:
+``my'' and ``to ship'' in Figure~\ref{fig:implicit} are both Elaborators of ``box''.
+Other relations between scenes are called \textbf{parallel linkage}: a unit consists of Parallel Scenes (H) and possibly Linkers (L) describing how they are related. This is seen at the top level of Figure~\ref{fig:implicit}, where the ``Glad'' and ``arrived'' scenes are parallel and the word ``before'' is a linker.
+
+Other categories only apply under \textbf{non-scene units}, i.e., units with no predicate: a semantic head---the Center (C); modifiers of Quantity (Q); and other modifiers, called Elaborators (E).
+A Connector (N) groups together multiple non-scene units into a larger unit, e.g., ``You and I'' in Figure~\ref{fig:changetheworld}.
+
 \begin{figure}[ht]\small
   \begin{subfigure}{.45\textwidth}
   \begin{tikzpicture}[level distance=12mm, ->,
@@ -589,6 +542,50 @@ Primary and remote edges are scored separately in standard UCCA parsing evaluati
   }
 \end{figure}
 
+Apart from the main semantic content of scenes, participants, and connectives, UCCA provides the categories: Relator (R) for grammatical markers expressing how a unit relates to its parent unit---in English, these are mainly prepositions and the possessive \textit{'s}; Function (F) for other grammatical markers with minimal semantic content, such as tense auxiliaries, light verbs, and articles; and Ground (G) for expressions expressing speaker perspective outside the propositional structure of the sentence.
+The least contentful elements---Fs, and to a lesser extent Rs---are subject to considerable variation when paraphrasing or translating a sentence.
+Punctuation tokens are attached to units as U, but are generally also regarded as non-content-bearing.
+
+Note that in Figure~\ref{fig:calledoff}, the tokens of the unit \textit{called off} do not receive individual labels: this is called an \textbf{unanalyzable unit}, and is used for semantically opaque multi-word expressions.
+
+\begin{figure}[ht]\small\centering
+  \begin{tikzpicture}[->,level distance=1cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=23mm},
+  level 3/.style={sibling distance=15mm},
+  every circle node/.append style={fill=black},
+  every node/.append style={text height=.6ex,text depth=0}]
+  \tikzstyle{word} = [font=\rmfamily,color=black]
+  \node (1_1) [circle] {}
+  {
+  child {node (1_2) [circle] {}
+    {
+    child {node (1_8) [word] {Everything}  edge from parent node[above]  {A}}
+    child {node (1_9) [word] {is}  edge from parent node[auto]  {F}}
+    child {node (1_10) [word] {delicous}  edge from parent node[auto]  {S}}
+    } edge from parent node[above]  {H}}
+  child {node (1_3) [word] {and}  edge from parent node[auto]  {L}}
+  child {node (1_4) [circle] {}
+    {
+    child {node (1_6) [word] {cooked}  edge from parent node[above]  {P}}
+    child {node (1_7) [word] {perfectly}  edge from parent node[auto]  {D}}
+    child {node (1_11) [word] {.}  edge from parent node[auto]  {U}}
+    } edge from parent node[auto]  {H}}
+  };
+  \draw[dashed,->,bend left] (1_4) to node [auto] {A} (1_8);
+\end{tikzpicture}
+\caption{
+    UCCA example including a remote edge (dashed),
+    resulting in ``Everything'' having two parents.}\label{fig:remote}
+\end{figure}
+
+The solid edges in the UCCA graphs are called \textbf{primary edges}: the primary edges in UCCA always form a tree. 
+\textbf{Remote edges}, such as the dotted edge from the possession scene unit to ``box'' in Figure~\ref{fig:implicit}
+and the dotted A edge to ``Everything'' in Figure~\ref{fig:remote}, allow for additional relations, forming a DAG:
+multiple parents (reentrancies) are enabled exclusively by remote edges.
+Remote edges are commonly used with attributive possessives and adjectives, and relative clauses, where the head of the noun phrase doubles as a semantic participant of the modifier scene. 
+They also figure in multi-scene control constructions (\textit{John told Mary to leave}: \textit{Mary} is a primary participant of the telling scene and a remote participant of the leaving scene).
+
 \section{UCCA Parsing}
 
 In order to represent the full range of semantic structures exhibited by
@@ -627,13 +624,11 @@ the phrasal verb ``called ... off'' forms a single semantic unit.
 Discontinuities are also pervasive with other multi-word
 expressions \citep{schneider2014discriminative}.
 
-The only semantic annotation scheme that supports the combination of these criteria is UCCA
-\citep{abend2013universal},
-for which no parser has existed prior to my work.
-
-My research is concerned with learning to parse UCCA graphs from text, representing its semantics.
-I introduce a general graph parser,
-and investigate the relationship with other representations to find beneficial commonalities and
+The only semantic annotation scheme that has units anchored in the text and supports the combination of these criteria is UCCA,
+for which no parser has existed prior to the work presented here.
+This thesis is concerned with learning to parse UCCA graphs from text, representing its semantics.
+A general graph parser is introduced,
+and the relationship with other representations is investigated to find beneficial commonalities and
 differences highlighting the potential utility of semantic parsers for text understanding applications.
 The analysis also exposes challenges semantic parsers must address,
 and potential sources for improvement.
