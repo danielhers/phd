@@ -324,7 +324,7 @@ linking content words to content words, and preference of lexical heads over fun
 \label{fig:original_example_ud}}
 \end{figure}
 
-\section{Semantic Representations}
+\section{Semantic Representations}\label{sec:intro_semantic_reps}
 
 Semantic annotation schemes attempt to represent the meaning of natural
 language utterances directly. An example is semantic role
@@ -373,7 +373,7 @@ or a transition-based method
 that builds the parse incrementally following a series of local
 decisions \citep{Nivre03anefficient}.
 
-\section{Universal Conceptual Cognitive Annotation}
+\section{Universal Conceptual Cognitive Annotation}\label{sec:intro_ucca}
 
 Universal Cognitive Conceptual Annotation \citep[UCCA;][]{abend2013universal}
 is a cross-linguistically applicable semantic representation scheme.
@@ -586,7 +586,7 @@ multiple parents (reentrancies) are enabled exclusively by remote edges.
 Remote edges are commonly used with attributive possessives and adjectives, and relative clauses, where the head of the noun phrase doubles as a semantic participant of the modifier scene. 
 They also figure in multi-scene control constructions (\textit{John told Mary to leave}: \textit{Mary} is a primary participant of the telling scene and a remote participant of the leaving scene).
 
-\section{UCCA Parsing}
+\section{UCCA Parsing}\label{sec:intro_ucca_parsing}
 
 In order to represent the full range of semantic structures exhibited by
 natural language, three properties should be supported: reentrancy,
@@ -633,7 +633,7 @@ differences highlighting the potential utility of semantic parsers for text unde
 The analysis also exposes challenges semantic parsers must address,
 and potential sources for improvement.
 
-To summarize, this thesis has the following goals:
+This thesis has the following goals:
 developing techniques for general graph parsing, and
 specifically, devising a method for automatic prediction of UCCA
     structure given plain text;
@@ -641,6 +641,10 @@ investigating and quantifying the relationship between the content
     captured in UCCA and other semantic or syntactic representations;
 and taking advantage of the similarities to other schemes,
     to improve UCCA parsing by learning common distinctions.
+
+An automatic UCCA parser will allow large-scale annotation of text for meaning representation, in turn allowing addressing various scientific questions in semantics, such as regarding compositionality of meaning and cross-lingual divergences. It is also useful from an engineering perspective, allowing fully automatic evaluation of machine translation, grammatical error correction and text simplification, for example, as demonstrated in works cited in Section~\ref{sec:intro_ucca}; as well as serving as an infrastructure for feature extraction and calculation of neural representation for natural language processing and understanding.
+
+An extensive comparison and integration of meaning representation schemes is important for several reasons. Learning architectures that utilize complementary knowledge sources (e.g., via parameter sharing) are effective in that they take advantage of more annotated data and save annotation efforts. Learning from multiple flavors of meaning representation in tandem has hardly been explored, but it provides complementary views of the semantics of natural language, as well as regularization preventing overfitting to particular annotation choices or domains. Cross-framework parsing reduces framework-specific segregation in the field of meaning representation parsing, and is a step towards a unifying formal model over different semantic graph banks, uniform representations and scoring, systematic contrastive evaluation across frameworks, and increased cross-fertilization via transfer and multi-task learning.
 
 \chapter{Methodology}
 
