@@ -122,10 +122,8 @@ The primary edges thus form a tree structure, whereas the remote edges enable re
 forming a DAG.
 
 \begin{figure}[t]
-  \begin{subfigure}{.9\columnwidth}
-  \parbox{.05\columnwidth}{\caption{}\label{fig:graduationa}}
-  \parbox{.8\columnwidth}{
-  \scalebox{.9}{
+  \begin{subfigure}{.37\textwidth}
+  \scalebox{.7}{
   \begin{tikzpicture}[level distance=10mm, ->,
       every circle node/.append style={fill=black}]
     \node (ROOT) [circle] {}
@@ -148,13 +146,10 @@ forming a DAG.
       ;
     \draw[dashed,->] (graduation) to node [auto] {\scriptsize A} (John);
   \end{tikzpicture}
-  }}
+  }\caption{}\label{fig:graduationa}
   \end{subfigure}
-  \begin{subfigure}{.9\columnwidth}
-  \vspace{-2cm}
-  \parbox{.05\columnwidth}{\caption{}\label{fig:gavea}}
-  \parbox{.75\columnwidth}{\hspace{1cm}
-  \scalebox{.9}{
+  \begin{subfigure}{.19\textwidth}
+  \scalebox{.7}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway},
       every circle node/.append style={fill=black}]
@@ -169,29 +164,10 @@ forming a DAG.
       ;
     \draw[bend right,->] (ROOT) to[out=-20, in=180] node [left] {\scriptsize A} (everything);
   \end{tikzpicture}
-  }}
-  \parbox{.1\columnwidth}{
-  \vspace{2cm}
-  \begin{adjustbox}{width=.3\columnwidth,margin=1pt,frame}
-  \begin{tabular}{ll}
-	  P & process \\
-	  A & participant \\
-	  H & linked scene \\
-	  C & center \\
-	  R & relator \\
-	  N & connector \\
-	  L & scene linker \\
-	  U & punctuation \\
-	  F & function unit
-  \end{tabular}
-  \end{adjustbox}
-  }
+  }\caption{}\label{fig:gavea}
   \end{subfigure}
-  \begin{subfigure}{.9\columnwidth}
-  \vspace{-1cm}
-  \parbox{.05\columnwidth}{\caption{}\label{fig:homea}}
-  \parbox{.65\columnwidth}{
-  \scalebox{.9}{
+  \begin{subfigure}{.32\textwidth}
+  \scalebox{.7}{
   \begin{tikzpicture}[level distance=12mm, ->,
       every node/.append style={midway},
       every circle node/.append style={fill=black}]
@@ -207,7 +183,22 @@ forming a DAG.
       child {node {home} edge from parent node[left] {\scriptsize A}}
       ;
   \end{tikzpicture}
-  }}
+  }\caption{}\label{fig:homea}
+  \end{subfigure}
+  \begin{subfigure}{.1\textwidth}
+  \begin{adjustbox}{width=\textwidth,margin=1pt,frame}
+  \begin{tabular}{ll}
+	  P & process \\
+	  A & participant \\
+	  H & linked scene \\
+	  C & center \\
+	  R & relator \\
+	  N & connector \\
+	  L & scene linker \\
+	  U & punctuation \\
+	  F & function unit
+  \end{tabular}
+  \end{adjustbox}
   \end{subfigure}
   \caption{\label{fig:examplesa}
     UCCA structures demonstrating three structural properties exhibited by
