@@ -668,7 +668,7 @@ A classifier is used at each step to select the next transition based on feature
 that encode the parser's current state.
 During training, an oracle creates training instances for the classifier,
 based on the gold-standard annotation.
-Transition-based are also called \textit{shift-reduce} parsers, as
+Transition-based parsers are also called \textit{shift-reduce} parsers, as
 the most common transitions include \textit{Shift}, moving a node from the buffer
 to the stack, and \textit{Reduce} (-\textit{left}/-\textit{right}), possibly attaching nodes and removing them from
 the stack.
@@ -689,7 +689,13 @@ yielding improvements in the parsing of discontiguous constituents in German.
 Transition-based parsers have also been developed for dependency DAG structures
 \cite{sagae2008shift,tokgoz2015transition} and CCG parsing \cite{ambati2015incremental}.
 
-\citep{wang2015transition,wang-xue-pradhan:2015:ACL-IJCNLP,wang-EtAl:2016:SemEval,goodman2016noise,wang2017getting}
+The parser presented in this thesis, TUPA, combines techniques from transition-based discontiguous constituency parsing \cite{maier2015discontinuous}
+and transition-based dependency DAG parsing \cite{tokgoz2015transition}.
+Transition-based methods are a natural starting point for UCCA parsing,
+as the set of distinctions it represents is similar in spirit to the distinctions
+conveyed by dependency schemes.
+
+\citet{wang2015transition,wang-xue-pradhan:2015:ACL-IJCNLP,wang-EtAl:2016:SemEval,goodman2016noise,wang2017getting}
 presented a transition-based AMR parser, which requires a
 syntactic dependency tree as input.
 It operates on the input tree, transforming it into an AMR graph
@@ -699,15 +705,11 @@ as shown by \newcite{wang-xue-pradhan:2015:ACL-IJCNLP},
 who achieved the best results using the Charniak parser trained on a
 much larger and more diverse dataset---the full OntoNotes corpus,
 rather than the Stanford parser trained on the Penn TreeBank.
-Some transition-based AMR parsers
-have a transition system tailored to AMR parsing \citet{zhou2016amr,damonte-17,D17-1130}.
-
-The parser presented here, TUPA, combines techniques from transition-based discontiguous constituency parsing \cite{maier2015discontinuous}
-and transition-based dependency DAG parsing \cite{tokgoz2015transition}.
-
-Transition-based methods are a natural starting point for UCCA parsing,
-as the set of distinctions it represents is similar in spirit to the distinctions
-conveyed by dependency schemes.
+Some transition-based AMR parsers parse to AMR directly,
+without going through a dependency tree
+\citep{zhou2016amr,D17-1130,damonte-17,N18-1104}.
+Their transition systems are in principle similar to TUPA and support reentrancies,
+but are tailored to AMR parsing and rely on alignments between concepts and text tokens.
 
 \section{Neural Networks}
 
