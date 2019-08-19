@@ -778,6 +778,7 @@ or a more complicated function such as LSTM:
 \textit{Recursive} neural networks can also learn phrase representations, taking advantage
 of a pre-annotated hierarchical representation (typically syntactic trees) for
 compositionality \cite{socher2010learning}.
+These models can learn a representation that facilitates reasoning and inference \cite{bowman2014recursive}.
 A recursive neural network has a state at each node of the structure: if $C_i$ denotes the set of children of
 node $i$,
 \[
@@ -786,10 +787,13 @@ node $i$,
 where $g$ is an aggregation function, such as concatenation, addition or $\mathrm{max}$.
 It can also be a variant of the LSTM cell \cite{tai-etal-2015-improved}.
 
+
 A recursive neural network can also be used for structure prediction, or parsing
 \cite{socher2013recursive,dyer2015transition}: as the parse is being created, the model can
 be used to calculate the intermediate representation at each of the nodes already constructed,
 and to make subsequent parsing decisions based upon it.
+However, doing so efficiently requires specialized data structures \cite{bowman2016fast},
+and is not suitable for predicting complex structures such as UCCA graphs.
 
 \begin{figure}[ht!]\small
   \begin{subfigure}{\textwidth}
