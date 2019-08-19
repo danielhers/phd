@@ -417,11 +417,11 @@ rapid annotation \citep{abend2017uccaapp},
 and benefit for various applications:
 evaluation of machine translation \citep{birch2016hume},
 evaluation of grammatical error correction \citep{choshen2018reference},
+as demonstrated in Figure~\ref{fig:usim},
 evaluation of structural text simplification \citep{sulem2018semantic}
 and text simplification \citep{sulem2018simple}.
 
-
-\begin{adjustbox}{center}
+\begin{figure}\centering
             \begin{tikzpicture}[level distance=7mm, sibling distance=6mm,
                 every node/.append style={font=\rmfamily},
             	every circle node/.append style={fill=black}]
@@ -478,13 +478,81 @@ and text simplification \citep{sulem2018simple}.
                     \draw[magenta] (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
                   \end{scope}
             \end{tikzpicture}
-\end{adjustbox}
+            \caption{Illustration for the cross-linguistic applicability of UCCA.}
+\end{figure}
+\begin{figure}\centering
+                \begin{tikzpicture}[sibling distance=3mm, level distance=7mm,
+                every node/.append style={font=\rmfamily},
+            	every circle node/.append style={fill=black}]
+                \begin{scope}[frontier/.style={distance from root=15mm},
+            	edge from parent path={(\tikzparentnode.center) ..
+                    controls +(0,-.25) and +(0,.25) .. (\tikzchildnode.north)}]
+                \Tree [.\node [circle] (rootu) {};
+                \edge node [auto=right]{}; \node (Heu) {He};
+                \edge node[auto=right down]{}; \node (gve) {gve};
+                \edge node[auto=right]{};
+                [.\node [circle](an appleu) {};
+                \edge node[auto=right]{}; \node (anu) {an};
+                \edge node[auto=left]{}; \node (appleu) {apple};
+                ]
+                \edge node[auto=left]{};
+                [.\node [circle](for john) {};
+                \edge node[auto=right]{};\node (for) {for};
+                \edge node[auto=left]{}; \node (john) {john};
+                ]]
+                \end{scope}
+                \begin{scope}[yshift=-41mm,grow'=up,
+                  frontier/.style={distance from root=12mm},
+                  edge from parent path={(\tikzparentnode.center) ..
+                  controls +(0,.25) and +(0,-.25) .. (\tikzchildnode.south)}]
+                \Tree [.\node [circle] (rootd) {};
+                \edge node [auto=left]{}; \node (Hed) {He};
+                \edge node[auto=right]{}; \node (gave) {gave};
+                \edge node[auto=right]{};\node (John) {John};
+                \edge node[auto=right]{};
+                [.\node [circle] (an appled) {};
+                \edge node[auto=left]{}; \node (and) {an};
+                \edge node[auto=right]{}; \node (appled) {apple};
+                ]
+                ]
+                \end{scope}
+                \begin{scope}[dashed]
+                \draw (Heu) -- (Hed);
+                \draw (gve) -- (gave);
+                \draw (John) -- (john);
+                \draw (anu) -- (and);
+                \draw (appleu) -- (appled);
+                \end{scope}
+                \end{tikzpicture}
+                \caption{UCCA for grammatical error correction evaluation.}\label{fig:usim}
+\end{figure}
 
 UCCA is a typologically-motivated scheme for analyzing abstract semantic structures in text. It aims to abstract away from grammatical particularities of a passage 
 such that paraphrases, and translations tend to have similar UCCA structures.
 Accordingly, UCCA has been studied with respect to meaning preservation in translation \citep{sulem2015conceptual},
 and found to be more stable than phrase-structure syntactic annotation.
 UCCA corpora are available for English, French and German, and pilot studies were conducted on a few languages more.\footnote{\scriptsize\url{https://github.com/UniversalConceptualCognitiveAnnotation}}
+In English, data was annotated from Wikipedia, the book \textit{Twenty Thousand Leagues under the Sea}, and the English Web Treebank Web Reviews corpus (see Table~\ref{tab:data_english}).
+
+\begin{table}
+\centering
+\begin{tabular}{l|r|rrr|r}
+    & \multicolumn{1}{c|}{Wiki} & \multicolumn{3}{c|}{20K} & \multicolumn{1}{c}{EWT} \\
+    & \multicolumn{1}{c|}{en} & \multicolumn{1}{c}{en} & \multicolumn{1}{c}{fr} & \multicolumn{1}{c|}{de} & \multicolumn{1}{c}{en} \\
+    \hline
+    \# sentences&5,141&492&492&6,514&3,520 \\
+    \# tokens&158,739&12,638&13,021&144,529&51,042 \\
+    \hline
+    \# {\color{blue} non-terminal nodes}&62,002&4,699&5,110&51,934&18,156 \\
+    \% {\color{red}discontinuous}&1.71&3.19&4.64&8.87&3.87 \\
+    \% {\color{orange}reentrant}&1.84&0.89&0.65&0.31&0.83 \\
+    \hline
+    \# edges&208,937&16,803&17,520&187,533&60,739 \\
+    \% primary&97.40&96.79&97.02&97.32&97.32 \\
+    \% remote&2.60&3.21&2.98&2.68&2.68
+\end{tabular}
+\caption{UCCA English data statistics.}\label{tab:data_english}
+\end{table}
 
 \begin{figure}[ht]\small\centering
   \begin{tikzpicture}[->,level distance=1cm,
