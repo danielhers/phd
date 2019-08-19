@@ -358,27 +358,27 @@ However, SDP uses bi-lexical dependencies
 disallowing non-terminal nodes (see below),
 and thus faces difficulties in supporting
 structures that have no clear head, such as coordination \citep{Ivanova2012who}.
-The following example shows {\color{blue}syntactic}/{\color{red}semantic} bi-lexical dependencies for the sentence ``While driving, I listen to podcasts''.
+The following example shows {syntactic}/{semantic} bi-lexical dependencies for the sentence ``While driving, I listen to podcasts''.
 
     \begin{adjustbox}{center}
     \begin{dependency}[line width=1.5pt]
         \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
           While \^ driving \^ , \^ I \^ listen \^ to \^ podcasts \\
         \end{deptext}
-        \depedge[edge below,draw=red,edge unit distance=3ex]{1}{2}{ARG2}
-        \depedge[edge below,draw=red,edge unit distance=3ex]{5}{4}{ARG1}
-        \depedge[edge below,draw=red,edge unit distance=2ex, edge end x offset=-2pt]{1}{5}{ARG1}
-        \deproot[edge below,draw=red,edge unit distance=3ex]{5}{top}
-        \depedge[edge below,draw=red,edge unit distance=4ex, edge start x offset=-1pt, edge end x offset=3pt]{5}{7}{ARG2}
-        \depedge[edge below,draw=red,edge unit distance=3ex, edge end x offset=5pt]{6}{5}{ARG1}
-        \depedge[edge below,draw=red,edge unit distance=3ex]{6}{7}{ARG2}
-        \depedge[draw=blue,edge unit distance=3ex]{2}{1}{case}
-        \depedge[draw=blue,edge unit distance=3ex]{2}{3}{punct}
-        \depedge[draw=blue,edge unit distance=3ex]{5}{4}{nsubj}
-        \depedge[draw=blue,edge unit distance=3ex, edge end x offset=-2pt]{5}{2}{obl}
-        \depedge[draw=blue,edge unit distance=3ex]{7}{6}{case}
-        \deproot[draw=blue,edge unit distance=4ex]{5}{root}
-        \depedge[draw=blue,edge unit distance=4ex]{5}{7}{obl}
+        \depedge[edge below,edge unit distance=3ex]{1}{2}{ARG2}
+        \depedge[edge below,edge unit distance=3ex]{5}{4}{ARG1}
+        \depedge[edge below,edge unit distance=2ex, edge end x offset=-2pt]{1}{5}{ARG1}
+        \deproot[edge below,edge unit distance=3ex]{5}{top}
+        \depedge[edge below,edge unit distance=4ex, edge start x offset=-1pt, edge end x offset=3pt]{5}{7}{ARG2}
+        \depedge[edge below,edge unit distance=3ex, edge end x offset=5pt]{6}{5}{ARG1}
+        \depedge[edge below,edge unit distance=3ex]{6}{7}{ARG2}
+        \depedge[edge unit distance=3ex]{2}{1}{case}
+        \depedge[edge unit distance=3ex]{2}{3}{punct}
+        \depedge[edge unit distance=3ex]{5}{4}{nsubj}
+        \depedge[edge unit distance=3ex, edge end x offset=-2pt]{5}{2}{obl}
+        \depedge[edge unit distance=3ex]{7}{6}{case}
+        \deproot[edge unit distance=4ex]{5}{root}
+        \depedge[edge unit distance=4ex]{5}{7}{obl}
     \end{dependency}
     \end{adjustbox}
 
@@ -471,11 +471,11 @@ and text simplification \citep{sulem2018simple}.
                   \draw[dashed] (John siyem et halimudim d) to[out=-15,in=-150] node[above] {\scriptsize A} (John d);
                   \end{scope}
                   \begin{scope}[dashed,thick]
-                    \draw[red] (After u) to[out=-45,in=135] (ahrei d);
-                    \draw[green] (graduation u) to[out=-90,in=100] (John siyem et halimudim d);
-                    \draw[blue] (John u) -- (John d);
-                    \draw[orange] (moved u) to[out=-30,in=90] (avar d);
-                    \draw[magenta] (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
+                    \draw (After u) to[out=-45,in=135] (ahrei d);
+                    \draw (graduation u) to[out=-90,in=100] (John siyem et halimudim d);
+                    \draw (John u) -- (John d);
+                    \draw (moved u) to[out=-30,in=90] (avar d);
+                    \draw (to Copenhagen u) to[out=-90,in=70] (lecopenhagen d);
                   \end{scope}
             \end{tikzpicture}
             \caption{Illustration for the cross-linguistic applicability of UCCA.}
@@ -543,15 +543,15 @@ In English, data was annotated from Wikipedia, the book \textit{Twenty Thousand 
     \# sentences&5,141&492&492&6,514&3,520 \\
     \# tokens&158,739&12,638&13,021&144,529&51,042 \\
     \hline
-    \# {\color{blue} non-terminal nodes}&62,002&4,699&5,110&51,934&18,156 \\
-    \% {\color{red}discontinuous}&1.71&3.19&4.64&8.87&3.87 \\
-    \% {\color{orange}reentrant}&1.84&0.89&0.65&0.31&0.83 \\
+    \# { non-terminal nodes}&62,002&4,699&5,110&51,934&18,156 \\
+    \% {discontinuous}&1.71&3.19&4.64&8.87&3.87 \\
+    \% {reentrant}&1.84&0.89&0.65&0.31&0.83 \\
     \hline
     \# edges&208,937&16,803&17,520&187,533&60,739 \\
     \% primary&97.40&96.79&97.02&97.32&97.32 \\
     \% remote&2.60&3.21&2.98&2.68&2.68
 \end{tabular}
-\caption{UCCA English data statistics.}\label{tab:data_english}
+\caption{UCCA data statistics.}\label{tab:data_english}
 \end{table}
 
 \begin{figure}[ht]\small\centering
@@ -872,6 +872,329 @@ without going through a dependency tree
 \citep{zhou2016amr,D17-1130,damonte-17,N18-1104}.
 Their transition systems are in principle similar to TUPA and support reentrancies,
 but are tailored to AMR parsing and rely on alignments between concepts and text tokens.
+
+\begin{figure}\centering
+\begin{tikzpicture}[level distance=15mm, sibling distance=2cm, ->, thick,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node (thought) {thought} edge from parent node [left] {P}}
+      child {node (abouttakingashortbreak) [fill=black, circle] {} 
+      { 
+        child {node (to) {about} edge from parent node [right] {R}}
+        child {node (takingabreak) [fill=black, circle] {}
+        {
+          child {node (take) {taking} edge from parent node [above] {F}}      
+          child {node (a) {a} edge from parent node [right] {F}} 
+          child {node (short) {short} edge from parent [draw=none]}
+          child {node (break) {break} edge from parent node [above] {C}}  
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+    \draw(abouttakingashortbreak) to node [left] {\scriptsize P} (takingabreak); 
+    \draw(ROOT) to node [left] {\scriptsize A} (abouttakingashortbreak);
+    \draw[bend left,dashed] (abouttakingashortbreak) to node [auto] {\scriptsize A} (They);
+    \draw[bend left] (abouttakingashortbreak) to node [auto] {\scriptsize D} (short);
+\end{tikzpicture}
+\caption{UCCA graph for the sentences
+``They thought about taking a short break''.}\label{fig:theythoughtabouttakingashortbreak}
+\end{figure}
+
+The set of transitions implemented by TUPA is:
+
+\{\textsc{Shift, Reduce, {Node$_X$}, Left-Edge$_X$, Right-Edge$_X$,}
+\textsc{{Left-Remote$_X$}, {Right-Remote$_X$}, {Swap}, Finish}\}
+
+These transitions enable {non-terminal nodes}, {reentrancy} and {discontinuity}.
+To parse the sentence ``They thought about taking a short break'' (Figure~\ref{fig:theythoughtabouttakingashortbreak}),
+an oracle parser would start from the initial state depicted in Figure~\ref{fig:initial_state},
+and subsequently apply the following transition sequence:
+
+\textsc{Shift}, \textsc{Right-Edge$_A$}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_P$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_R$}, \textsc{Reduce}, \textsc{Left-Remote$_A$}, \textsc{Shift}, \textsc{Shift}, \textsc{Node$_C$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_P$}, \textsc{Shift}, \textsc{Right-Edge$_F$}, \textsc{Reduce}, \textsc{Shift}, \textsc{Swap}, \textsc{Right-Edge$_D$}, \textsc{Reduce}, \textsc{Swap}, \textsc{Right-Edge$_A$}, \textsc{Reduce}, \textsc{Reduce}, \textsc{Shift}, \textsc{Reduce}, \textsc{Shift}, \textsc{Right-Edge$_C$}, \textsc{Finish}
+
+\begin{figure}\centering
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily,
+                    anchor=west,text height=.6ex,text depth=0}, circle]
+    \draw[xstep=1,ystep=.5,color=gray] (-.01,0) grid (1,.5);
+    \node[style={font=\sffamily}] at (-.1,.8) {stack};
+    \node[fill=black] at (.3,.25) {};
+    \draw[xstep=1,ystep=.5,color=gray] (2,0) grid (9,.5);
+    \node[style={font=\sffamily}] at (8,.8) {buffer};
+    \node at (2,.2) {\small They};
+    \node at (3,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}
+\caption{Initial state for parsing the sentence from Figure~\ref{fig:theythoughtabouttakingashortbreak}.}
+\label{fig:initial_state}
+\end{figure}
+
+A few intermediate steps from this sequence are shown in Figure~\ref{fig:transition_sequence}.
+Using supervised learning, TUPA would learn to mimic this oracle transition sequence
+by training a neural network classifier with a cross-entropy loss.
+
+\begin{figure}\centering
+\begin{subfigure}{.45\textwidth}
+Shift
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (.99, 0) grid (2,.5);
+      \draw (-.01,0) grid (2, .5);
+      \draw (3,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (1,.2) {\small They};
+    \node at (3,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child [draw=none] {node (They) {They} edge from parent [draw=none] node [left] {}}
+      child [draw=none] {node (thought) {thought} edge from parent [draw=none] node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+Right-Edge$_A$
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (-.01,0) grid (2,.5);
+      \draw (-.01,0) grid (2, .5);
+      \draw (3,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (1,.2) {\small They};
+    \node at (3,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child [draw=none] {node (thought) {thought} edge from parent [draw=none] node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+
+\begin{subfigure}{.45\textwidth}
+Shift
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (1.99,0) grid (3,.5);
+      \draw (-.01,0) grid (3, .5);
+      \draw (4,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (1,.2) {\small They};
+    \node at (2,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child [draw=none] {node (thought) {thought} edge from parent [draw=none] node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+Swap
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (3,   0) grid (4,.5);
+      \draw (-.01,0) grid (2, .5);
+      \draw (3,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (3,.2) {\small They};
+    \node at (1,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child [draw=none] {node (thought) {thought} edge from parent [draw=none] node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+
+\begin{subfigure}{.45\textwidth}
+Right-Edge$_P$
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (-.01,0) grid (2,.5);
+      \draw (-.01,0) grid (2, .5);
+      \draw (3,   0) grid (9,.5);
+      \draw (4,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (3,.2) {\small They};
+    \node at (1,.2) {\small thought};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node (thought) {thought} edge from parent node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+Reduce
+
+\scalebox{.5}{
+\begin{tikzpicture}[xscale=1.4,every node/.append style={font=\rmfamily, thick,
+                    anchor=west,text height=.6ex,text depth=0}]
+    \begin{scope}[xstep=1,ystep=.5,line width=1pt]
+      \draw (-.01,0) grid (1, .5);
+      \draw (3,   0) grid (9,.5);
+      \draw (4,   0) grid (9,.5);
+    \end{scope}
+    \node[fill=black, circle] at (.3, .25) {};
+    \node at (3,.2) {\small They};
+    \node at (4,.2) {\small about};
+    \node at (5,.2) {\small taking};
+    \node at (6,.2) {\small a};
+    \node at (7,.2) {\small short};
+    \node at (8,.2) {\small break};
+\end{tikzpicture}}
+\fbox{\scalebox{.55}{
+\begin{tikzpicture}[level distance=14mm, sibling distance=26mm, ->,
+    every node/.append style={font=\rmfamily},
+    edge from parent/.append style={nodes={font=\scriptsize}},
+    edge from parent path={(\tikzparentnode.center) -- (\tikzchildnode.north)}]
+    \node(ROOT)[fill=black, circle] at (3,0) {}
+      child {node (They) {They} edge from parent node [left] {A}}
+      child {node (thought) {thought} edge from parent node [left] {}}
+      child [draw=none] {node (abouttakingashortbreak) [draw=none] {}
+      {
+        child [draw=none] {node (to) {about} edge from parent [draw=none] node [right] {}}
+        child [draw=none] {node (takingabreak) [draw=none] {}
+        {
+          child [draw=none] {node (take) {taking} edge from parent [draw=none] node [above] {}}
+          child [draw=none] {node (a) {a} edge from parent [draw=none] node [right] {}}
+          child [draw=none] {node (short) {short} edge from parent [draw=none]}
+          child [draw=none] {node (break) {break} edge from parent [draw=none] node [above] {}}
+        } edge from parent [draw=none]}
+      } edge from parent [draw=none]}
+      ;
+\end{tikzpicture}}}
+\end{subfigure}
+\caption{A few steps from a TUPA transition sequence.}\label{fig:transition_sequence}
+\end{figure}
 
 \section{Neural Networks}
 
