@@ -367,7 +367,7 @@ Other examples include parsing with Hyperedge Replacement Grammars
 \citep{jones2012semantics}.
 A different line of work takes a discriminative, grammarless approach,
 pursuing either graph-based methods that predict the highest ranking graph
-(tree or DAG) that satisfies a given set of constraints
+that satisfies a given set of constraints
 \citep[for AMR parsing]{flanigan2014discriminative},
 or a transition-based method
 that builds the parse incrementally following a series of local
@@ -582,7 +582,7 @@ Note that in Figure~\ref{fig:calledoff}, the tokens of the unit \textit{called o
 The solid edges in the UCCA graphs are called \textbf{primary edges}: the primary edges in UCCA always form a tree. 
 \textbf{Remote edges}, such as the dotted edge from the possession scene unit to ``box'' in Figure~\ref{fig:implicit}
 and the dotted A edge to ``Everything'' in Figure~\ref{fig:remote}, allow for additional relations, forming a DAG:
-multiple parents (reentrancies) are enabled exclusively by remote edges.
+multiple parents are enabled exclusively by remote edges.
 Remote edges are commonly used with attributive possessives and adjectives, and relative clauses, where the head of the noun phrase doubles as a semantic participant of the modifier scene. 
 They also figure in multi-scene control constructions (\textit{John told Mary to leave}: \textit{Mary} is a primary participant of the telling scene and a remote participant of the leaving scene).
 
@@ -648,9 +648,17 @@ An extensive comparison and integration of meaning representation schemes is imp
 
 \chapter{Methodology}
 
-\subsection*{Transition-Based Parsing}
+\section{Transition-Based Parsing}
 
-Transition-based parsers \citep{Nivre03anefficient} build trees or graphs
+Various parsing methods have been used for various frameworks,
+depending on their formal properties.
+For bi-lexical dependency trees, which have become the most commonly used
+formalism for syntactic structure representation
+(Universal Dependencies, for example, is a recent multilingual bi-lexical
+syntactic dependency tree framework), the main parsing approaches can be
+characterized as \textit{graph-based} and \textit{transition-based}.
+
+Transition-based parsers \citep{Nivre03anefficient,nivre2008algorithms} build trees or graphs
 as they scan the text incrementally.
 The parse is created by applying a \textit{transition} at each step to the parser state,
 defined using a buffer of tokens and nodes to be processed,
@@ -660,18 +668,48 @@ A classifier is used at each step to select the next transition based on feature
 that encode the parser's current state.
 During training, an oracle creates training instances for the classifier,
 based on the gold-standard annotation.
+Transition-based are also called \textit{shift-reduce} parsers, as
+the most common transitions include \textit{Shift}, moving a node from the buffer
+to the stack, and \textit{Reduce} (-\textit{left}/-\textit{right}), possibly attaching nodes and removing them from
+the stack.
 
-The transition-based approach has produced some of the best
+Despite being based on local decisions, transition-based methods have yielded excellent
+results in a variety of parsing tasks.
+In fact, the transition-based approach has produced some of the best
 results in syntactic dependency parsing
-\citep{kiperwasser2016simple,andor2016globally}, and has also demonstrated
-strong performance in a variety of other semantic and syntactic settings
-\citep{maier2015discontinuous,damonte-17}.
+\citep{dyer2015transition,ballesteros2015improved,kiperwasser2016simple,andor2016globally}, and has also demonstrated
+strong performance in a variety of other semantic and syntactic settings.
+Within syntactic dependency parsing, transition-based methods
+have been successfully applied to corpora in many languages and domains,
+including Universal Dependencies \cite{udpipe,udpipe:2017,de2017old}. 
+The approach has also yielded results comparable with the state-of-the-art when applied
+to constituency parsing \cite{sagae2005classifier,zhang2009transition,zhu2013fast}, and has been extended to
+discontinuous constituency parsing \cite{maier2015discontinuous,maier-lichte:2016:DiscoNLP}
+yielding improvements in the parsing of discontiguous constituents in German.
+Transition-based parsers have also been developed for dependency DAG structures
+\cite{sagae2008shift,tokgoz2015transition} and CCG parsing \cite{ambati2015incremental}.
+
+\citep{wang2015transition,wang-xue-pradhan:2015:ACL-IJCNLP,wang-EtAl:2016:SemEval,goodman2016noise,wang2017getting}
+presented a transition-based AMR parser, which requires a
+syntactic dependency tree as input.
+It operates on the input tree, transforming it into an AMR graph
+by a sequence of transitions.
+The accuracy of the underlying syntactic dependency parser is important,
+as shown by \newcite{wang-xue-pradhan:2015:ACL-IJCNLP},
+who achieved the best results using the Charniak parser trained on a
+much larger and more diverse dataset---the full OntoNotes corpus,
+rather than the Stanford parser trained on the Penn TreeBank.
+Some transition-based AMR parsers
+have a transition system tailored to AMR parsing \citet{zhou2016amr,damonte-17,D17-1130}.
+
+The parser presented here, TUPA, combines techniques from transition-based discontiguous constituency parsing \cite{maier2015discontinuous}
+and transition-based dependency DAG parsing \cite{tokgoz2015transition}.
+
 Transition-based methods are a natural starting point for UCCA parsing,
 as the set of distinctions it represents is similar in spirit to the distinctions
 conveyed by dependency schemes.
 
-
-\subsection*{Neural Networks}
+\section{Neural Networks}
 
 Neural networks are powerful machine learning models.
 They have yielded state-of-the-art results in many fields,
@@ -691,12 +729,24 @@ A bidirectional recurrent neural network, such as a BiLSTM,
 takes into account both the past and future.
 
 
-\subsection*{Multitask Learning}
+\section{Multitask Learning}
 
 Multitask learning \citep{caruana1998multitask} allows exploiting the overlap between tasks
 to effectively extend the training data, 
 and has greatly advanced with neural networks and representation learning.
 It has been used over the years for NLP tasks with varying degrees of similarity.
+
+Joint and multitask learning are often used
+when two or more tasks share common information.
+These techniques have been used in NLP with tasks of varying degrees of similarity---as
+regularization, or to enlarge the effective training data.
+
+In semantic role labeling, \citet{toutanova2005joint}
+learn a joint re-reranking log-linear model across arguments of the same predicate.
+\citet{Q16-1031}, 
+\citet{guo2016exploiting} applied multitask learning to transition-based
+syntactic parsing,
+both in a multilingual setting and with multiple formats in a single language.
 
 Neural multitask learning has mostly been effective in tackling formally similar
 tasks \citep{P16-2038},
@@ -713,8 +763,22 @@ by jointly learning the tasks forming the NLP standard pipeline using
 a single neural model \citep{collobert2011natural,D17-1206},
 thereby avoiding cascading errors, common in pipelines.
 
+Joint learning is also often used
+as an alternative to the pipeline approach, alleviating error propagation:
+In transition-based parsing, multitask learning has also been applied to
+tagging and parsing \cite{bohnet2012transition,Zhang2016StackpropagationIR},
+lexical and syntactic analysis \cite{constant-nivre:2016:P16-1,more2016joint},
+and semantic-syntactic analysis \cite{swayamdipta-EtAl:2016:CoNLL,henderson2013multilingual}.
 
-\subsection*{Evaluation}
+Much effort has been devoted to joint learning of syntactic
+and semantic parsing, including
+two CoNLL shared tasks \cite{surdeanu2008conll,hajivc2009conll}.
+on joint syntactic parsing and semantic role labeling.
+Despite their conceptual and practical appeal, such joint models rarely outperform
+the pipeline approach of basing semantic parsing on the output of syntactic parsers
+\cite{lluis2008joint,henderson2013multilingual,D15-1169,swayamdipta-EtAl:2016:CoNLL,swayamdipta2017frame}.
+
+\section{Evaluation}
 Comparing UCCA structures
 $G_p=(V_p,E_p,\ell_p)$ and $G_g=(V_g,E_g,\ell_g)$,
 over the same sequence of terminals $W = \{w_1,\ldots,w_n\}$
@@ -731,7 +795,8 @@ Define the set of \textit{mutual edges} between $G_p$ and $G_g$:
 Labeled precision and recall are defined by dividing $|M(G_p,G_g)|$ by $|E_p|$ and $|E_g|$, respectively,
 and F-score by taking their harmonic mean.
 Two variants are reported: one where we consider only primary edges,
-and another for remote edges
+and another for remote edges.
+In all cases, punctuation units (U) are excluded from the evaluation.
 
 
 \include{acl2017}
