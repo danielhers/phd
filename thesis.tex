@@ -40,6 +40,7 @@
 
 \newfontfamily\hebfont[Script=Hebrew, Scale=MatchUppercase]{FreeSans}
 \newcommand{\heb}[1]{\bgroup\textdir TRT\hebfont #1\egroup}
+\newcommand{\m}[1]{\mathbf{#1}}%
 
 \newcommand{\parser}[1]{TUPA\textsubscript{#1}}
 \newcommand{\secref}[1]{Section~\ref{#1}}
@@ -339,7 +340,7 @@ semantic task, due to their tighter relation to the meaning of the text.
 
 While earlier work on semantic parsing has mostly concentrated on shallow semantic analysis,
 focusing on semantic role labeling of verbal argument structures,
-the focus has recently shifted to parsing of more elaborate representations that account
+the focus has shifted to parsing of more elaborate representations that account
 for a wider range of phenomena. 
 Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
 It addresses a wide range of semantic phenomena,
@@ -654,7 +655,7 @@ Various parsing methods have been used for various frameworks,
 depending on their formal properties.
 For bi-lexical dependency trees, which have become the most commonly used
 formalism for syntactic structure representation
-(Universal Dependencies, for example, is a recent multilingual bi-lexical
+(Universal Dependencies, for example, is a multilingual bi-lexical
 syntactic dependency tree framework), the main parsing approaches can be
 characterized as \textit{graph-based} and \textit{transition-based}.
 
@@ -720,7 +721,29 @@ They have yielded state-of-the-art results in many fields,
 including natural language processing \citep{goldberg2016primer}.
 Inspired by the brain's computation mechanism,
 artificial neural networks operate on dense input representations
-by a combination of linear and non-linear transformations.
+by a combination of linear and non-linear transformations,
+organized in several layers and trained end-to-end (\textit{deep learning}).
+Deep learning and artificial neural networks have received much attention in
+several fields of computer science, including computer vision, speech
+recognition and natural language processing, due to their best performance in
+various tasks \cite{collobert2011natural}.
+In natural language processing, many of the deep learning methods rely strongly
+on \textit{distributed representation}.
+
+A common approach to meaning representation is the
+representation of words as vectors in a continuous vector space with tens or
+hundreds of dimensions \cite{turian2010word}, such that linguistic and semantic
+regularities between the words are captured in the
+vectors \cite{mikolov2013linguistic}. This kind of representation, called
+\textit{word embedding}, can be learned in an unsupervised manner, from large
+unlabeled corpora.
+Several methods have been developed for generalizing these models to create embeddings
+for multi-word phrases, sentences, and even complete documents.
+These provides complementary semantic information about the text,
+readily used in many machine learning techniques that operate on vectors of numbers.
+The more accurately these vectors represent the meaning of the text, the better semantic tasks
+can be solved using them.
+However, composing these representation so as to maintain the semantic structure remains a challenge.
 
 Language data is commonly manifested as sequences
 (e.g., sentences are sequences of words).
@@ -730,7 +753,120 @@ without ignoring the structured properties of the input.
 A specific flavor called Long Short Term Memory
 (LSTM) is very common as it learns relatively long-term dependencies.
 A bidirectional recurrent neural network, such as a BiLSTM,
-takes into account both the past and future.
+takes into account both the past and future
+\cite{hochreiter1997long,schuster1997bidirectional,graves2008supervised,irsoy2014opinion}.
+
+\textit{Recurrent} neural networks can learn semantically meaningful
+continuous vector representations of multi-word phrases and sentences,
+typically in the same space as the word embedding, and they have a relatively
+simple model that does not depend on pre-annotation of structure:
+the network \textit{state} at each time step is a function of the input and
+the state at the previous time step:
+\[
+  h_t=f(x_t,h_{t-1})
+\]
+Where $f$ could be as simple as matrix multiplication followed by a non-linearity,
+or a more complicated function such as LSTM:
+\begin{align*}
+    c_j =& c_{j-1} \odot f  + g\odot i \\
+    h_j =& \tanh(c_j) \odot o            \\
+    i =& \sigma(x_jW^{xi} + h_{j-1}W^{hi}) \\
+    f =& \sigma(x_jW^{xf} + h_{j-1}W^{hf}) \\
+    o =& \sigma(x_jW^{xo} + h_{j-1}W^{ho}) \\
+    g =& \tanh(x_jW^{xg} + h_{j-1}W^{hg})
+\end{align*}
+\textit{Recursive} neural networks can also learn phrase representations, taking advantage
+of a pre-annotated hierarchical representation (typically syntactic trees) for
+compositionality \cite{socher2010learning}.
+A recursive neural network has a state at each node of the structure: if $C_i$ denotes the set of children of
+node $i$,
+\[
+  h_i=g(\{f(c)\;|\;c\in C_i\})
+\]
+where $g$ is an aggregation function, such as concatenation, addition or $\mathrm{max}$.
+It can also be a variant of the LSTM cell \cite{tai-etal-2015-improved}.
+
+A recursive neural network can also be used for structure prediction, or parsing
+\cite{socher2013recursive,dyer2015transition}: as the parse is being created, the model can
+be used to calculate the intermediate representation at each of the nodes already constructed,
+and to make subsequent parsing decisions based upon it.
+
+\begin{figure}[ht!]\small
+  \begin{subfigure}{\textwidth}
+  \parbox{.2\textwidth}{\caption{}\label{fig:rnn}}
+  \parbox{.8\textwidth}{
+  \centering
+  \begin{tikzpicture}[shorten >=1pt,->]
+  \tikzstyle{vertex}=[circle,draw=black]
+  \foreach \name/\x in {John/1, and/3, Mary/5, Went/7, Home/9}{
+    \node[vertex] (G-\name) at (\x,1) {};
+    \node (\name) at (\x,0) {\name};
+    \draw (\name) -- (G-\name);
+  }
+  \foreach \from/\to in {John/and,and/Mary,Mary/Went,Went/Home}
+    \draw (G-\from) -- (G-\to);
+  \end{tikzpicture}
+  }
+  \end{subfigure}
+  \begin{subfigure}{\textwidth}
+  \parbox{.2\textwidth}{\caption{}\label{fig:recnn}}
+  \parbox{.8\textwidth}{
+  \centering
+  \begin{tikzpicture}[<-]
+  \tikzstyle{vertex}=[circle,draw=black]
+  \node[vertex] {}
+    child {node [vertex] {}
+    {
+      child {node {John} edge from parent node[] {}}
+      child {node {and} edge from parent node[] {}}
+      child {node {Mary} edge from parent node[] {}}
+    } edge from parent node[] {}}
+    child {node {went} edge from parent node[] {}}
+    child {node {home} edge from parent node[] {}}
+    ;
+  \end{tikzpicture}
+  }
+  \end{subfigure}
+  \caption{\label{fig:nns}
+    A recurrent neural network (a) combines distributed representations along a
+    linear structure, whereas a recursive neural network (b) does so along a
+    pre-determined hierarchical structure.
+  }
+\end{figure}
+Neural networks are typically trained by gradient descent, where the gradient for the network parameters
+is calculated using backpropagation.
+The gradients for training a recursive neural network are calculated by \textit{backpropagation
+through structure}, another variant of backpropagation, using a recursive
+``folding'' architecture that can represent a general tree or a directed acyclic
+graph (DAG) structure \cite{goller1996learning}.
+
+Training neural predictors for independent or sequential predictions is often done
+with the categorical cross-entropy loss (also referred to as \emph{negative log
+likelihood}):
+\begin{align*}
+    L(\hat{y},y) = -\sum_i y_i\log(\hat{y}_i)
+\end{align*}
+It measures the dissimilarity between the true label distribution
+$y$ and the predicted label distribution $\hat{y}$.
+
+Neural networks-based \textit{machine translation} provides some sort of
+an intermediate encoding in the form of distributed representation that can be
+encoded from the source language and then decoded into the target
+language \cite{zou2013bilingual}, or using memory and treating the text as a
+sequence to be converted to another sequence \cite{sutskever2014sequence}.
+However, the encoding is based just on averaging across words in the source
+sentence, on a flat sequence representation, or at best on a syntactic
+representation. A semantic representation like a UCCA graph would perhaps be a
+better candidate for the structure by which the encoding and decoding is
+performed.
+
+Perhaps just as critical as the successful prediction of UCCA structure, if not
+even more critical for the NLP community, is the distributed representation
+created when forming phrases using this structure. Current methods in NLP form
+multi-word representation based on averaging across words or on syntax, which
+may be sub-optimal in representing the true meaning of text. Using a more
+semantically faithful way to compose words, such as UCCA, may be a key factor
+in enabling computers to understand natural language.
 
 
 \section{Multitask Learning}
@@ -762,7 +898,7 @@ and cross-domain semantic parsing \citep{herzig-berant:2017:Short,W17-2607}.
 Sharing parameters with a low-level task
 has shown great benefit for transition-based syntactic parsing
 \citep{bohnet2012transition,Zhang2016StackpropagationIR,constant-nivre:2016:P16-1,more2016joint}.
-Recent work has achieved state-of-the-art results in multiple NLP tasks
+State-of-the-art results in multiple NLP tasks have been achieved
 by jointly learning the tasks forming the NLP standard pipeline using 
 a single neural model \citep{collobert2011natural,D17-1206},
 thereby avoiding cascading errors, common in pipelines.
@@ -1264,7 +1400,7 @@ transfer.\footnote{\url{https://competitions.codalab.org/competitions/19160}}
 The task results will be presented during SemEval
 2019.\footnote{\url{http://alt.qcri.org/semeval2019/}}
 
-More recently, a proposal for another shared task at
+A proposal for another shared task at
 The SIGNLL Conference on Computational Natural Language
 Learning\footnote{\url{http://www.conll.org/}} was accepted for CoNLL 2019.
 The task, organized jointly by Stephan Oepen, Omri Abend, Jan Haji\v{c},
