@@ -936,7 +936,9 @@ and subsequently apply the following transition sequence:
 
 A few intermediate steps from this sequence are shown in Figure~\ref{fig:transition_sequence}.
 Using supervised learning, TUPA would learn to mimic this oracle transition sequence
-by training a neural network classifier with a cross-entropy loss.
+by training a neural network classifier with a cross-entropy loss
+to produce the correct transition at each point in the transition sequence,
+given the current state of the stack, the buffer and the graph.
 
 \begin{figure}\centering
 \begin{subfigure}{.45\textwidth}
@@ -1248,7 +1250,8 @@ the state at the previous time step:
   h_t=f(x_t,h_{t-1})
 \]
 Where $f$ could be as simple as matrix multiplication followed by a non-linearity,
-or a more complicated function such as LSTM:
+or a more complicated function such as an LSTM (Long-Short Term Memory) cell,
+which supports additive gated updates for alleviating vanishing gradients:
 \begin{align*}
     c_j =& c_{j-1} \odot f  + g\odot i \\
     h_j =& \tanh(c_j) \odot o            \\
@@ -1257,6 +1260,49 @@ or a more complicated function such as LSTM:
     o =& \sigma(x_jW^{xo} + h_{j-1}W^{ho}) \\
     g =& \tanh(x_jW^{xg} + h_{j-1}W^{hg})
 \end{align*}
+A bidirectional LSTM (BiLSTM), or in general, a bidirectional recurrent neural network (BiRNN),
+applies this function to the input sequence both in the original direction and
+\textit{in reverse}, then concatenating the resulting hidden states for each position
+in the sequence, and potentially applying the same operation again in multiple layers
+(see Figure~\ref{fig:bilstm}).
+
+\begin{figure}\centering
+\begin{tikzpicture}[->,every node/.append style={anchor=north,text height=2ex,text depth=0}]
+    \tiny
+    \tikzstyle{main}=[circle, minimum size=7mm, draw=black!80, node distance=12mm]
+    \foreach \i/\word in {1/{They},3/{thought},5/{about},7/{taking},9/{a},11/{short},13/{break}} {
+        \node (x\i) at (\i,-1.3) {word};
+        \node[main, fill=white!100] (h\i) at (\i,0) {LSTM};
+        \path (x\i) edge (h\i);
+        \node[main, fill=white!100] (i\i) at (\i.5,.8) {LSTM};
+        \path (x\i) edge [bend right] (i\i);
+        \node[main, fill=white!100] (l\i) at (\i.5,2.3) {LSTM};
+        \path (h\i) edge [bend left] (l\i);
+        \path (i\i) edge (l\i);
+        \node[main, fill=white!100] (k\i) at (\i,3.1) {LSTM};
+        \path (i\i) edge [bend left] (k\i);
+        \path (h\i) edge [bend left] (k\i);
+    }
+    \foreach \current/\next in {1/3,3/5,5/7,7/9,9/11,11/13} {
+        \path (h\current) edge (h\next);
+        \path (i\next) edge (i\current);
+        \path (l\current) edge (l\next);
+        \path (k\next) edge (k\current);
+    }
+    \node[main, fill=white!100] (mlp) at (7,4.6) {MLP};
+    \foreach \i in {1,5,7,9} {
+        \path (l\i) edge (mlp);
+        \path (k\i) edge (mlp);
+    }
+\end{tikzpicture}
+\caption{BiLSTM encoder with MLP classifier.}\label{fig:bilstm}
+\end{figure}
+
+Typically, a feedforward neural network (MLP; multilayer perceptron) is applied on top
+of these representations, and a \textit{softmax} classifier defines a probability
+distribution based on the scores for each label:
+\[softmax(x)_i = \frac{e^{x_i}}{\sum_je^{x_j}}\]
+
 \textit{Recursive} neural networks can also learn phrase representations, taking advantage
 of a pre-annotated hierarchical representation (typically syntactic trees) for
 compositionality \cite{socher2010learning}.
@@ -1268,7 +1314,6 @@ node $i$,
 \]
 where $g$ is an aggregation function, such as concatenation, addition or $\mathrm{max}$.
 It can also be a variant of the LSTM cell \cite{tai-etal-2015-improved}.
-
 
 A recursive neural network can also be used for structure prediction, or parsing
 \cite{socher2013recursive,dyer2015transition}: as the parse is being created, the model can
