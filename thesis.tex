@@ -1301,7 +1301,7 @@ in the sequence, and potentially applying the same operation again in multiple l
 Typically, a feedforward neural network (MLP; multilayer perceptron) is applied on top
 of these representations, and a \textit{softmax} classifier defines a probability
 distribution based on the scores for each label:
-\[softmax(x)_i = \frac{e^{x_i}}{\sum_je^{x_j}}\]
+\[[softmax(x)]_i = \frac{e^{x_i}}{\sum_je^{x_j}}\]
 
 \textit{Recursive} neural networks can also learn phrase representations, taking advantage
 of a pre-annotated hierarchical representation (typically syntactic trees) for
