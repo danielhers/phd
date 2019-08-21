@@ -328,11 +328,7 @@ linking content words to content words, and preference of lexical heads over fun
 
 \section{Semantic Representations}\label{sec:intro_semantic_reps}
 
-Semantic annotation schemes attempt to represent the meaning of natural
-language utterances directly. An example is semantic role
-labeling, which annotates
-predicates and their arguments, classifying them into specific roles. As
-opposed to syntactic annotation, which reflects language-specific formal
+As opposed to syntactic annotation, which reflects language-specific formal
 patterns, semantic annotation corresponds to a higher level of cognitive
 processing, and the same framework can potentially apply to any language.
 Moreover, a rich semantic annotation scheme may be better than
@@ -346,11 +342,33 @@ Ideally, a semantic representation abstracts away from detail that does not affe
     \fbox{\textrm{graduation}} $\approx$ \fbox{\heb{סיים את הלימודים}}
 \end{center}
 
+While syntactic description does not suffice to discern meaning from natural language,
+some syntactic formalisms provide a theory of the \textit{syntax-semantics interface}.
+Examples include analyses using Head-driven Phrase Structure Grammar \cite[HPSG;][]{PandS:94},
+Combinatory Categorial Grammar \cite[CCG;][]{Steedman:00} and Tree-Adjoining Grammars
+\cite[TAG;][]{Joshi:97}.
+They have been used as a basis for meaning representation
+by defining compositional semantics on top of them:
+\citet{Flic:00} introduced the LinGO English Resource Grammer (ERG),
+a broad-coverage, linguistically precise HPSG-based grammar of English,
+which is semantically grounded in Minimal Recursion Semantics \cite[MRS;][]{copestake2005minimal},
+a form of flat semantic representation capable of supporting underspecification.
+\citet{bos2005towards,bos2008wide,bos2015open} introduced the Boxer parser,
+which uses syntactic analysis in the form of a CCG derivation
+to perform meaning analysis based on
+Discourse Representation Theory \cite[DRT;][]{kamp2013discourse}.
+
+Some semantic annotation schemes and parsing approaches attempt to represent the meaning of 
+natural language utterances directly.
+In semantic role labeling \cite{Baker:98,Palmer:05},
+predicates and their arguments are annotated and classified into specific roles.
 While earlier work on semantic parsing has mostly concentrated on shallow semantic analysis,
 focusing on semantic role labeling of verbal argument structures,
 the focus has shifted to parsing of more elaborate representations that account
 for a wider range of phenomena. 
-Most closely related to my work is Broad-Coverage Semantic Dependency Parsing (SDP).
+Most closely related to my work are Broad-Coverage Semantic Dependency Parsing (SDP)
+frameworks, such DM (DELPH-IN MRS), converted from
+DeepBank \cite{flickinger2012deepbank}, a corpus of hand-corrected parses from LinGO ERG.
 It addresses a wide range of semantic phenomena,
 and supports discontinuous units and multiple parents \citep{oepen2016towards}.
 However, SDP uses bi-lexical dependencies
@@ -358,10 +376,10 @@ However, SDP uses bi-lexical dependencies
 disallowing non-terminal nodes (see below),
 and thus faces difficulties in supporting
 structures that have no clear head, such as coordination \citep{Ivanova2012who}.
-The following example shows {syntactic}/{semantic} bi-lexical dependencies for the sentence ``While driving, I listen to podcasts''.
+Figure~\ref{fig:syntactic_semantic_dependencies} example shows {syntactic}/{semantic} bi-lexical dependencies for the sentence ``While driving, I listen to podcasts''.
 
-    \begin{adjustbox}{center}
-    \begin{dependency}[line width=1.5pt]
+    \begin{figure}\centering
+    \begin{dependency}
         \begin{deptext}[column sep=1.5em,ampersand replacement=\^,font=\rmfamily]
           While \^ driving \^ , \^ I \^ listen \^ to \^ podcasts \\
         \end{deptext}
@@ -380,7 +398,9 @@ The following example shows {syntactic}/{semantic} bi-lexical dependencies for t
         \deproot[edge unit distance=4ex]{5}{root}
         \depedge[edge unit distance=4ex]{5}{7}{obl}
     \end{dependency}
-    \end{adjustbox}
+    \caption{Top: syntactic dependencies in the Universal Dependencies framework.
+    Bottom: semantic dependencies in the DM (DELPH-IN MRS) framework.}\label{fig:syntactic_semantic_dependencies}
+    \end{figure}
 
 Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
 \citep{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
@@ -389,21 +409,6 @@ AMR does not ground its units in the words and constituents of the text.
 This complicates the parsing task, as it requires
 that the alignment between words and logical symbols be automatically
 (and imprecisely) detected.
-
-Semantic parsing methods can be largely partitioned into grammar-based and grammarless methods.
-Within the grammar-based literature, most work relied on Combinatory Categorial Grammar
-\citep[CCG]{Steedman:00}, which allows computing semantic structure compositionally from the
-syntactic derivations. Notable examples include the Boxer parser \citep{bos2005towards}
-and the AMR parser by \citep{artzi2015broad}.
-Other examples include parsing with Hyperedge Replacement Grammars
-\citep{jones2012semantics}.
-A different line of work takes a discriminative, grammarless approach,
-pursuing either graph-based methods that predict the highest ranking graph
-that satisfies a given set of constraints
-\citep[for AMR parsing]{flanigan2014discriminative},
-or a transition-based method
-that builds the parse incrementally following a series of local
-decisions \citep{Nivre03anefficient}.
 
 \section{Universal Conceptual Cognitive Annotation}\label{sec:intro_ucca}
 
