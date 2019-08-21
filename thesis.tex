@@ -787,7 +787,7 @@ expressions \citep{schneider2014discriminative}.
 The only semantic annotation scheme that has units anchored in the text and supports the combination of these criteria is UCCA,
 for which no parser has existed prior to the work presented here.
 This thesis is concerned with learning to parse UCCA graphs from text, representing its semantics.
-A general graph parser is introduced,
+A general transition-based graph parser is introduced (see Section~\ref{sec:transition_based}),
 and the relationship with other representations is investigated to find beneficial commonalities and
 differences highlighting the potential utility of semantic parsers for text understanding applications.
 The analysis also exposes challenges semantic parsers must address,
@@ -802,13 +802,14 @@ investigating and quantifying the relationship between the content
 and taking advantage of the similarities to other schemes,
     to improve UCCA parsing by learning common distinctions.
 
-An automatic UCCA parser will allow large-scale annotation of text for meaning representation, in turn allowing addressing various scientific questions in semantics, such as regarding compositionality of meaning and cross-lingual divergences. It is also useful from an engineering perspective, allowing fully automatic evaluation of machine translation, grammatical error correction and text simplification, for example, as demonstrated in works cited in Section~\ref{sec:intro_ucca}; as well as serving as an infrastructure for feature extraction and calculation of neural representation for natural language processing and understanding.
+An automatic UCCA parser will allow large-scale annotation of text for meaning representation, in turn allowing addressing various scientific questions in semantics, such as regarding compositionality of meaning and cross-lingual divergences. It is also useful from an engineering perspective, allowing fully automatic evaluation of machine translation, grammatical error correction and text simplification, for example, as demonstrated in works cited in Section~\ref{sec:intro_ucca}; as well as serving as an infrastructure for feature extraction and calculation of neural representation for natural language processing and understanding (see Section~\ref{sec:nn}).
 
-An extensive comparison and integration of meaning representation schemes is important for several reasons. Learning architectures that utilize complementary knowledge sources (e.g., via parameter sharing) are effective in that they take advantage of more annotated data and save annotation efforts. Learning from multiple flavors of meaning representation in tandem has hardly been explored, but it provides complementary views of the semantics of natural language, as well as regularization preventing overfitting to particular annotation choices or domains. Cross-framework parsing reduces framework-specific segregation in the field of meaning representation parsing, and is a step towards a unifying formal model over different semantic graph banks, uniform representations and scoring, systematic contrastive evaluation across frameworks, and increased cross-fertilization via transfer and multi-task learning.
+An extensive comparison and integration of meaning representation schemes is important for several reasons. Learning architectures that utilize complementary knowledge sources (e.g., via parameter sharing) are effective in that they take advantage of more annotated data and save annotation efforts. Learning from multiple flavors of meaning representation in tandem has hardly been explored, but it provides complementary views of the semantics of natural language, as well as regularization preventing overfitting to particular annotation choices or domains. Cross-framework parsing reduces framework-specific segregation in the field of meaning representation parsing, and is a step towards a unifying formal model over different semantic graph banks, uniform representations and scoring, systematic contrastive evaluation across frameworks, and increased cross-fertilization via transfer and multi-task learning
+(see Section~\ref{sec:multitask}).
 
 \chapter{Methodology}
 
-\section{Transition-Based Parsing}
+\section{Transition-Based Parsing}\label{sec:transition_based}
 
 Various parsing methods have been used for various frameworks,
 depending on their formal properties.
@@ -937,6 +938,7 @@ and subsequently apply the following transition sequence:
 A few intermediate steps from this sequence are shown in Figure~\ref{fig:transition_sequence}.
 Using supervised learning, TUPA would learn to mimic this oracle transition sequence
 by training a neural network classifier with a cross-entropy loss
+(see Section~\ref{sec:nn})
 to produce the correct transition at each point in the transition sequence,
 given the current state of the stack, the buffer and the graph.
 
@@ -1198,7 +1200,7 @@ Reduce
 \caption{A few steps from a TUPA transition sequence.}\label{fig:transition_sequence}
 \end{figure}
 
-\section{Neural Networks}
+\section{Neural Networks}\label{sec:nn}
 
 Neural networks are powerful machine learning models.
 They have yielded state-of-the-art results in many fields,
@@ -1379,6 +1381,8 @@ likelihood}):
 \end{align*}
 It measures the dissimilarity between the true label distribution
 $y$ and the predicted label distribution $\hat{y}$.
+This is the loss function we use for training the transition classifier in TUPA,
+given oracle transitions from an input gold graph.
 
 Neural networks-based \textit{machine translation} provides some sort of
 an intermediate encoding in the form of distributed representation that can be
@@ -1422,32 +1426,32 @@ semantically faithful way to compose words, such as UCCA, may be a key factor
 in enabling computers to understand natural language.
 
 
-\section{Multitask Learning}
+\section{Multitask Learning}\label{sec:multitask}
 
 Multitask learning \citep{caruana1998multitask} allows exploiting the overlap between tasks
 to effectively extend the training data, 
 and has greatly advanced with neural networks and representation learning.
 It has been used over the years for NLP tasks with varying degrees of similarity.
-
 Joint and multitask learning are often used
 when two or more tasks share common information.
 These techniques have been used in NLP with tasks of varying degrees of similarity---as
 regularization, or to enlarge the effective training data.
 
 In semantic role labeling, \citet{toutanova2005joint}
-learn a joint re-reranking log-linear model across arguments of the same predicate.
-\citet{Q16-1031}, 
-\citet{guo2016exploiting} applied multitask learning to transition-based
-syntactic parsing,
-both in a multilingual setting and with multiple formats in a single language.
+learned a joint re-reranking log-linear model across arguments of the same predicate.
+\citet{Q16-1031,guo2016exploiting} applied multitask learning to transition-based
+syntactic parsing in a multilingual setting.
+Joint learning is also often used
+as an alternative to the pipeline approach, alleviating error propagation:
+In transition-based parsing, multitask learning has also been applied to
+tagging and parsing \cite{bohnet2012transition,Zhang2016StackpropagationIR},
+lexical and syntactic analysis \cite{constant-nivre:2016:P16-1,more2016joint},
+and semantic-syntactic analysis \cite{swayamdipta-EtAl:2016:CoNLL,henderson2013multilingual}.
 
 Neural multitask learning has mostly been effective in tackling formally similar
 tasks \citep{P16-2038},
-including
-multilingual syntactic dependency parsing \citep{Q16-1031,guo2016exploiting},
-as well as multilingual \citep{duong2017multilingual},
+including multilingual semantic parsing \citep{duong2017multilingual},
 and cross-domain semantic parsing \citep{herzig-berant:2017:Short,W17-2607}.
-
 Sharing parameters with a low-level task
 has shown great benefit for transition-based syntactic parsing
 \citep{bohnet2012transition,Zhang2016StackpropagationIR,constant-nivre:2016:P16-1,more2016joint}.
@@ -1456,20 +1460,20 @@ by jointly learning the tasks forming the NLP standard pipeline using
 a single neural model \citep{collobert2011natural,D17-1206},
 thereby avoiding cascading errors, common in pipelines.
 
-Joint learning is also often used
-as an alternative to the pipeline approach, alleviating error propagation:
-In transition-based parsing, multitask learning has also been applied to
-tagging and parsing \cite{bohnet2012transition,Zhang2016StackpropagationIR},
-lexical and syntactic analysis \cite{constant-nivre:2016:P16-1,more2016joint},
-and semantic-syntactic analysis \cite{swayamdipta-EtAl:2016:CoNLL,henderson2013multilingual}.
-
 Much effort has been devoted to joint learning of syntactic
 and semantic parsing, including
-two CoNLL shared tasks \cite{surdeanu2008conll,hajivc2009conll}.
+two CoNLL shared tasks \cite{surdeanu2008conll,hajivc2009conll}
 on joint syntactic parsing and semantic role labeling.
 Despite their conceptual and practical appeal, such joint models rarely outperform
 the pipeline approach of basing semantic parsing on the output of syntactic parsers
 \cite{lluis2008joint,henderson2013multilingual,D15-1169,swayamdipta-EtAl:2016:CoNLL,swayamdipta2017frame}.
+
+This thesis revisits the idea of multitask learning for transition-based parsing
+with neural networks, combining an unprecedented diverse set of semantic parsing
+tasks and learning them with a uniform model.
+While many multitask architectures exist and have different advantages,
+the approach taken here is hard parameter sharing in the encoder layers of a neural
+network used for classification.
 
 \section{Evaluation}
 Comparing UCCA structures
