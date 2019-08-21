@@ -1948,6 +1948,21 @@ for example, it contains labels for various types of multi-word expressions,
 even ones that are not UD sub-trees;
 and semantically categorize lexical items according to lexical category and
 supersense, distinguishing, for example, eventive from non-eventive nouns.
+This will also address the need for a comparison of UD \textit{enhanced dependencies}
+and UCCA remote and implicit units, mentioned in Chapter~\ref{divergences}.
+
+\subsection{Broad-coverage Semantic Parsing}
+
+While implicit units (see Section~\ref{sec:intro_ucca}) are not supported
+by the original parser presented in Chapter~\ref{acl2017},
+in ongoing work, beyond the scope of this thesis, I will address
+the prediction of implicit arguments in UCCA and other meaning representations
+\cite{bender2011parser,cheng2018implicit,petruck2019meaning}
+with a general mechanism that can be used to augment a UCCA parser
+to support implicit unit prediction.
+Similarly, the phenomenon of elided predicates and null nodes in Universal Dependencies,
+mentioned in Chapter~\ref{udst2018}, overlaps with the phenomenon of implicit units
+(where in this case the main relation is implicit rather than an argument).
 
 \subsection{Establishing the Meaning Representation Parsing Task}
 
@@ -1987,12 +2002,21 @@ enabling cross-fertilization.
 Furthermore, the task yielded an improved understanding of the commonalities
 and differences between the schemes, by systematic contrastive evaluation
 across frameworks.
+This shared task also addresses the prospective future work referred to in Chapter~\ref{acl2018},
+since a subset of the evaluation data is annotated in all included
+meaning representation frameworks, providing a controlled experiment
+for comparison without confounds of domain and text properties.
+Additionally, the best-performing parsers submitted to the shared task provide
+uniform algorithms and architectures competitive on all parsing tasks,
+rather than focusing on a particular task and treating the others as auxiliary.
+This is a significant step in the direction of a truly universal model for semantic
+parsing.
 
 \section{Conclusion}
 
 The comparison between different traditions in linguistic representation,
 supported by the technology developed in this research
-and by the tasks proposed for future work,
+and by ongoing work,
 may contribute to linguistic theory by helping address questions such as
 how best to measure the difference in meaning expressed in translations,
 or differences between child-directed and adult language,
@@ -2007,7 +2031,7 @@ The combined datasets annotated in each of these representations are an invaluab
 resource, which, used effectively, can greatly boost our achievements in
 language understanding and processing.
 
-\bibliography{references}
+{\small\bibliography{references}}
 \bibliographystyle{acl_natbib}
 
 \pagebreak
