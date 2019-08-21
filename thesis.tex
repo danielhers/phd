@@ -1516,7 +1516,21 @@ even though they had been designed separately and with different formal properti
 While divergences between the content of the schemes may limit the gain from sharing,
 they highlight relative strengths, which are meaningful both theoretically and practically.
 
-\section*{Challenges}
+%This thesis has the following goals:
+%developing techniques for general graph parsing, and
+%specifically, devising a method for automatic prediction of UCCA
+%    structure given plain text;
+%investigating and quantifying the relationship between the content
+%    captured in UCCA and other semantic or syntactic representations;
+%and taking advantage of the similarities to other schemes,
+%    to improve UCCA parsing by learning common distinctions.
+%
+%An automatic UCCA parser will allow large-scale annotation of text for meaning representation, in turn allowing addressing various scientific questions in semantics, such as regarding compositionality of meaning and cross-lingual divergences. It is also useful from an engineering perspective, allowing fully automatic evaluation of machine translation, grammatical error correction and text simplification, for example, as demonstrated in works cited in Section~\ref{sec:intro_ucca}; as well as serving as an infrastructure for feature extraction and calculation of neural representation for natural language processing and understanding (see Section~\ref{sec:nn}).
+%
+%An extensive comparison and integration of meaning representation schemes is important for several reasons. Learning architectures that utilize complementary knowledge sources (e.g., via parameter sharing) are effective in that they take advantage of more annotated data and save annotation efforts. Learning from multiple flavors of meaning representation in tandem has hardly been explored, but it provides complementary views of the semantics of natural language, as well as regularization preventing overfitting to particular annotation choices or domains. Cross-framework parsing reduces framework-specific segregation in the field of meaning representation parsing, and is a step towards a unifying formal model over different semantic graph banks, uniform representations and scoring, systematic contrastive evaluation across frameworks, and increased cross-fertilization via transfer and multi-task learning
+%(see Section~\ref{sec:multitask}).
+
+\section{Challenges}
 
 At the initial stages of this work, dataset size was a concern.
 Models with a large number of parameters,
@@ -1543,7 +1557,7 @@ Conversion to a common graph format and assimilation of superficial structures
 addressed the generality question effectively to allow multitask learning,
 and further, allowed deep inspection of content divergences and convergences.
 
-\section*{Impact}
+\section{Impact}
 
 UCCA's merits in providing a cross-linguistically applicable,
 broad-coverage annotation will support ongoing efforts to incorporate deeper
@@ -1554,7 +1568,9 @@ as translation tends to preserve semantic structure more than syntactic structur
 Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
 semantically similar to the source.
 
-\subsection*{Benefit of Multitask Learning}
+\section{Further Analysis}
+
+\subsection{Benefit of Multitask Learning}
 
 To further quantify the improvements due to multitask learning, where the tasks of parsing
 multiple semantic representations are combined as auxiliary tasks for TUPA to improve UCCA
@@ -1715,7 +1731,7 @@ xcomp	67	67
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
+    width=17cm,
     height=6cm,
     bar width=4pt,
     xtick=data,
@@ -1798,7 +1814,7 @@ xcomp	67	67
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
+    width=17cm,
     height=5cm,
     bar width=4pt,
     xtick=data,
@@ -1830,7 +1846,7 @@ xcomp	67	67
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
+    width=17cm,
     height=5cm,
     bar width=4pt,
     xtick=data,
@@ -1859,7 +1875,7 @@ xcomp	67	67
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
+    width=17cm,
     height=5cm,
     bar width=4pt,
     xtick=data,
@@ -1882,7 +1898,7 @@ xcomp	67	67
     \begin{axis}[
     ybar=0pt,
     ymin=0,
-    width=18cm,
+    width=17cm,
     height=5cm,
     bar width=4pt,
     xtick=data,
@@ -1905,12 +1921,12 @@ xcomp	67	67
 \end{figure}
 
 
-\section*{Ongoing Work}
+\section{Ongoing Work}
 
 The ideas presented in this thesis offer many exciting opportunities for further research.
 Following are two such directions, which I have started pursuing.
 
-\subsection*{Combining Syntax with Lexical Semantics}
+\subsection{Combining Syntax with Lexical Semantics}
 
 In the comparison between Universal Dependencies (UD) and UCCA,
 88\% of edges were found to be common between the schemes (ignoring the label),
@@ -1935,7 +1951,7 @@ even ones that are not UD sub-trees;
 and semantically categorize lexical items according to lexical category and
 supersense, distinguishing, for example, eventive from non-eventive nouns.
 
-\subsection*{Establishing the Meaning Representation Parsing Task}
+\subsection{Establishing the Meaning Representation Parsing Task}
 
 TUPA, the parser presented in this thesis, is the first UCCA parser.
 In other parsing tasks, years of experiments and progress have yielded very
@@ -1954,24 +1970,27 @@ in all languages and settings,
 with various approaches with respect to the parsing system,
 machine learning architecture, and cross-lingual
 transfer.\footnote{\url{https://competitions.codalab.org/competitions/19160}}
-The task results will be presented during SemEval
+The task results were presented during SemEval
 2019.\footnote{\url{http://alt.qcri.org/semeval2019/}}
 
-A proposal for another shared task at
-The SIGNLL Conference on Computational Natural Language
-Learning\footnote{\url{http://www.conll.org/}} was accepted for CoNLL 2019.
+Subsequently, I co-organized another shared task at
+the SIGNLL Conference on Computational Natural Language
+Learning\footnote{\url{http://www.conll.org/}} (CoNLL 2019),
+on Cross-Framework Meaning Representation Parsing.\footnote{\url{http://mrp.nlpl.eu}}
 The task, organized jointly by Stephan Oepen, Omri Abend, Jan Haji\v{c},
 Tim O'Gorman, Nianwen Xue and myself,
-will involve parsing into a range of different semantic representation schemes
+involved parsing into a range of different semantic representation schemes
 (DM, PSD, EDS, UCCA and AMR), differing in both formal structure and linguistic
 approaches.
 By combining the different schemes in a single task, we
-establish cross-framework meaning representation parsing as a task,
-and hope to ``blur the boundaries'' and enable cross-fertilization between
-meaning representations.
-Furthermore, the task will yield an improved understanding of the commonalities
-and differences between the schemes, for example, by systematic contrastive evaluation
+established cross-framework meaning representation parsing as a task,
+and ``blurred the boundaries'' between meaning representations,
+enabling cross-fertilization.
+Furthermore, the task yielded an improved understanding of the commonalities
+and differences between the schemes, by systematic contrastive evaluation
 across frameworks.
+
+\section{Conclusion}
 
 The comparison between different traditions in linguistic representation,
 supported by the technology developed in this research
@@ -1981,7 +2000,7 @@ how best to measure the difference in meaning expressed in translations,
 or differences between child-directed and adult language,
 or between different domains.
 
-To conclude, I see learning semantic parsing as a means for computers to learn language.
+I see learning semantic parsing as a means for computers to learn language.
 While different representations focus on different distinctions and do so
 with formally different structures, they share an overall goal,
 which is to support the development of natural language processing systems
