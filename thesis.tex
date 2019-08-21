@@ -1422,6 +1422,15 @@ representation. A semantic representation like a UCCA graph would perhaps be a
 better candidate for the structure by which the encoding and decoding is
 performed.
 
+While for simple classification tasks such as Textual Entailment or
+Natural Language Inference \cite{dagan2005pascal,snli:emnlp2015},
+and to some degree for tasks with a complex output, such as machine translation, too,
+simple end-to-end neural networks can go a long way \cite[among others]{bowman2015tree},
+truly scalable learning of meaning and inference requires an inductive bias
+on the compositional structure of language. Without this bias,
+learned require an unbounded number of training instances in order to properly
+learn to generalize to the flexible structures exhibited by natural language.
+
   \begin{center}
     \begin{tikzpicture}[->]
     \tikzstyle{main}=[circle, minimum size=7mm, draw=black!80, node distance=12mm]
