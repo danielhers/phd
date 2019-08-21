@@ -1502,7 +1502,6 @@ In all cases, punctuation units (U) are excluded from the evaluation.
 \include{divergences}
 
 
-
 \chapter{Discussion}
 
 In this thesis, I showed that meaning representation is valuable for language understanding,
@@ -1516,19 +1515,29 @@ even though they had been designed separately and with different formal properti
 While divergences between the content of the schemes may limit the gain from sharing,
 they highlight relative strengths, which are meaningful both theoretically and practically.
 
-%This thesis has the following goals:
-%developing techniques for general graph parsing, and
-%specifically, devising a method for automatic prediction of UCCA
-%    structure given plain text;
-%investigating and quantifying the relationship between the content
-%    captured in UCCA and other semantic or syntactic representations;
-%and taking advantage of the similarities to other schemes,
-%    to improve UCCA parsing by learning common distinctions.
-%
-%An automatic UCCA parser will allow large-scale annotation of text for meaning representation, in turn allowing addressing various scientific questions in semantics, such as regarding compositionality of meaning and cross-lingual divergences. It is also useful from an engineering perspective, allowing fully automatic evaluation of machine translation, grammatical error correction and text simplification, for example, as demonstrated in works cited in Section~\ref{sec:intro_ucca}; as well as serving as an infrastructure for feature extraction and calculation of neural representation for natural language processing and understanding (see Section~\ref{sec:nn}).
-%
-%An extensive comparison and integration of meaning representation schemes is important for several reasons. Learning architectures that utilize complementary knowledge sources (e.g., via parameter sharing) are effective in that they take advantage of more annotated data and save annotation efforts. Learning from multiple flavors of meaning representation in tandem has hardly been explored, but it provides complementary views of the semantics of natural language, as well as regularization preventing overfitting to particular annotation choices or domains. Cross-framework parsing reduces framework-specific segregation in the field of meaning representation parsing, and is a step towards a unifying formal model over different semantic graph banks, uniform representations and scoring, systematic contrastive evaluation across frameworks, and increased cross-fertilization via transfer and multi-task learning
-%(see Section~\ref{sec:multitask}).
+\section{Objectives}
+
+The objective of this thesis (see Section~\ref{sec:intro_ucca_parsing}) were to
+develop techniques for graph parsing in general and UCCA in particular,
+comparing UCCA to other representation schemes,
+and hybridizing meaning representations and parsers to improve their performance.
+Indeed, in Chapter~\ref{acl2017}, an accurate and efficient UCCA parser was presented,
+and in Chapter~\ref{udst2018} its applicability was demonstrated to Universal Dependencies.
+In Chapter~\ref{acl2018} more representation frameworks were shown to be supported by
+the parser, and furthermore, transfer and multitask learning were shown to effectively
+improve parsing performance by taking advantage of shared generalizations.
+Finally, Chapter~\ref{divergences} provided a thorough qualitative and quantitative
+analysis of UCCA and Universal Dependencies, highlighting the content differences,
+the semantic divergences and points of similarity.
+
+UCCA's merits in providing a cross-linguistically applicable,
+broad-coverage annotation will support ongoing efforts to incorporate deeper
+semantic structures into a variety of applications, such as machine translation
+\citep{jones2012semantics} and summarization \citep{liu2015toward}.
+The advantage of UCCA as compared to syntactic annotation schemes for machine translation is apparent,
+as translation tends to preserve semantic structure more than syntactic structure \citep{sulem2015conceptual}.
+Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
+semantically similar to the source.
 
 \section{Challenges}
 
@@ -1556,17 +1565,6 @@ graphs structure.
 Conversion to a common graph format and assimilation of superficial structures
 addressed the generality question effectively to allow multitask learning,
 and further, allowed deep inspection of content divergences and convergences.
-
-\section{Impact}
-
-UCCA's merits in providing a cross-linguistically applicable,
-broad-coverage annotation will support ongoing efforts to incorporate deeper
-semantic structures into a variety of applications, such as machine translation
-\citep{jones2012semantics} and summarization \citep{liu2015toward}.
-The advantage of UCCA as compared to syntactic annotation schemes for machine translation is apparent,
-as translation tends to preserve semantic structure more than syntactic structure \citep{sulem2015conceptual}.
-Using UCCA as an intermediate representation is thus likely to achieve outputs that are more
-semantically similar to the source.
 
 \section{Further Analysis}
 
