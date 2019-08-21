@@ -693,7 +693,7 @@ UCCA, allowing non-terminal nodes, disambiguates this case (Figure~\ref{fig:conj
 
 \begin{figure}[th]
   \centering
-\begin{subfigure}{.4\columnwidth}
+\begin{subfigure}{.4\columnwidth}\centering
     \begin{dependency}[text only label, label style={above,font=\tt}, font=\small, edge unit distance=1.5ex]
     \begin{deptext}[column sep=.1em,ampersand replacement=\^]
     unique \^ gifts \^ and \^ cards \\
@@ -706,7 +706,7 @@ UCCA, allowing non-terminal nodes, disambiguates this case (Figure~\ref{fig:conj
     \caption{UD\label{fig:conj_ud}}
 \end{subfigure}
 \hfill
-\begin{subfigure}{.4\columnwidth}
+\begin{subfigure}{.4\columnwidth}\centering
     \scalebox{.8}{
     \begin{tikzpicture}[level distance=9mm, sibling distance=14mm, ->,
         every circle node/.append style={fill=black}]
@@ -756,13 +756,13 @@ While \textit{moment} is an oblique argument of \textit{know} in UD,
 \textit{From the moment} is analyzed as a Linker in UCCA.
 
 \begin{figure}[th]\centering
-\begin{subfigure}{\columnwidth}
+\begin{subfigure}{\columnwidth}\centering
   \begin{minipage}[c]{.12\textwidth}
     \caption{UD\label{fig:linkage_ud}}
   \end{minipage}
-  \begin{minipage}[c]{.8\textwidth}
+  \begin{minipage}[c]{.8\textwidth}\centering
     \begin{dependency}[text only label, label style={above,font=\tt}, font=\small, edge unit distance=1.8ex]
-    \begin{deptext}[column sep=.25em,ampersand replacement=\^]
+    \begin{deptext}[column sep=.6em,ampersand replacement=\^]
     From \^ the \^ moment \^ you \^ enter \^ , \^ you \^ know \\
     \end{deptext}
         \depedge[edge unit distance=2.4ex]{3}{1}{case}
@@ -777,15 +777,15 @@ While \textit{moment} is an oblique argument of \textit{know} in UD,
   \end{minipage}
 \end{subfigure}
 
-\begin{subfigure}{\columnwidth}
+\begin{subfigure}{\columnwidth}\centering
   \begin{minipage}[c]{.17\textwidth}
     \caption{UCCA\label{fig:linkage_ucca}}
   \end{minipage}
   \hspace{-8mm}
-  \begin{minipage}[c]{.8\textwidth}
+  \begin{minipage}[c]{.8\textwidth}\centering
     \scalebox{.8}{
-    \begin{tikzpicture}[level distance=9mm, sibling distance=28mm, ->,
-        level 2/.style={sibling distance=9mm},
+    \begin{tikzpicture}[level distance=9mm, sibling distance=4cm, ->,
+        level 2/.style={sibling distance=15mm},
         every circle node/.append style={fill=black}]
       \tikzstyle{word} = [font=\rmfamily,color=black]
       \node (ROOT) [circle] {}
@@ -908,8 +908,7 @@ Table~\ref{tab:results} presents TUPA's scores on the UCCA EWT development
 and test sets. Surprisingly, using UDPipe for feature extraction results in
 better scores than gold syntactic tags and dependencies.
 
-\begin{table}[h]
-\def\arraystretch{.89}
+\begin{table}[h]\centering
 \begin{tabular}{llll|lll}
 & \multicolumn{3}{c|}{\footnotesize \bf Primary} & \multicolumn{3}{c}{\footnotesize \bf Remote} \\
 \multicolumn{1}{l}{\footnotesize \bf Features}
@@ -935,7 +934,6 @@ sets, using either gold-standard UD or UDPipe for TUPA features.\label{tab:resul
 \end{table}
 
 \begin{table*}[t]
-\vspace{-1mm}
 \centering
 \scriptsize
 \setlength\tabcolsep{.3pt}

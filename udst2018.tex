@@ -467,7 +467,7 @@ encoding the parser's current state.
 During training, an oracle creates training instances for the classifier,
 based on gold-standard annotations.
 
-\begin{figure*}
+\begin{figure*}\tiny
 	\begin{adjustbox}{width=\textwidth,margin=3pt,frame}
 	\begin{tabular}{llll|l|llllc|c}
 		\multicolumn{4}{c|}{\textbf{\small Before Transition}} & \textbf{\small Transition} & \multicolumn{5}{c|}{\textbf{\small After Transition}} & \textbf{\small Condition} \\
@@ -520,6 +520,7 @@ we include these transitions.
 
 
 \begin{figure}[t]\centering
+   \scalebox{.6}{
    \begin{tikzpicture}[level distance=8mm, sibling distance=1cm]
    \node[anchor=west] at (0,1.5) {Parser state};
    \draw[color=gray,dashed] (0,-1.2) rectangle (7.5,1.25);
@@ -538,8 +539,9 @@ we include these transitions.
      {
        child {node {\small\ttfamily were} edge from parent [->] node[right] {\small aux}}
      } edge from parent [->] node[right] {\small head} };
-   \end{tikzpicture}
+   \end{tikzpicture}}
    
+   \scalebox{.6}{
    \begin{tikzpicture}[->]
    \node[anchor=west] at (0,6) {Classifier};
    \tiny
@@ -559,7 +561,7 @@ we include these transitions.
     \path (state) edge [bend left] (mlp);
     \node (transition) at (3.5,5.8) {transition};
     \path (mlp) edge node[right] {softmax} (transition);
-   \end{tikzpicture}
+   \end{tikzpicture}}
 \caption{Illustration of the TUPA model, adapted from \citet{hershcovich2018multitask}.
 Top: parser state (stack, buffer and intermediate graph).
 		Bottom: BiLTSM architecture.
@@ -625,7 +627,7 @@ The priority order is: \verb|parataxis, conj, advcl, xcomp|
 
 \begin{table}[ht]
 \centering
-\small
+\tiny
 \begin{tabular}{l|l}
 \hline
 \bf Nodes & \\
@@ -711,7 +713,7 @@ parsing \cite{hershcovich2018multitask},
 without any hyperparameter tuning on UD treebanks.
 
 
-\begin{table}[ht]
+\begin{table}[ht]\tiny
 \centering
 \begin{tabular}{l|c|ccccc}
 \hline
@@ -817,11 +819,11 @@ averaged scores on the shared task test sets,
 and Figure~\ref{fig:test_per_corpus} the (official and unofficial) LAS-F1
 scores obtained by TUPA on each of the test and development treebanks.
 
-\begin{table}
+\begin{table}\centering
 \begin{tabular}{lccc}
 \hline
-& \multirow{2}{32mm}{\bf TUPA {\small(official)}} & \multirow{2}{35mm}{\bf TUPA {\small(unofficial)}}
-& \multirow{2}{34mm}{\bf UDPipe {\small(baseline)}} \\\\
+& \multirow{2}{39mm}{\bf TUPA {\small(official)}} & \multirow{2}{39mm}{\bf TUPA {\small(unofficial)}}
+& \multirow{2}{39mm}{\bf UDPipe {\small(baseline)}} \\\\
 \hline
 All treebanks & 53.69 & 58.48 & 65.80 \\
 Big treebanks & 62.07 & 67.36 & 74.14 \\
@@ -928,6 +930,7 @@ vi_vtb
 }\corpusc
 
 \begin{figure*}[h!]
+    \scalebox{.9}{
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,  
@@ -956,8 +959,9 @@ vi_vtb
     \addplot[select coords between index={0}{27},fill=blue]table[x expr=\coordindex,meta=corpus,y=dev]{udst2018scores.txt};
     \legend{Test (official), Test (unofficial), Development}
     \end{axis}
-    \end{tikzpicture}
+    \end{tikzpicture}}
    
+    \scalebox{.9}{
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,  
@@ -983,8 +987,9 @@ vi_vtb
     \addplot[select coords between index={28}{54},fill=red]table[x expr=\coordindex,meta=corpus,y=test]{udst2018scores.txt};
     \addplot[select coords between index={28}{54},fill=blue]table[x expr=\coordindex,meta=corpus,y=dev]{udst2018scores.txt};
     \end{axis}
-    \end{tikzpicture}
+    \end{tikzpicture}}
    
+    \scalebox{.9}{
     \begin{tikzpicture}
     \begin{axis}[
     ybar=0pt,  
@@ -1010,7 +1015,7 @@ vi_vtb
     \addplot[select coords between index={55}{81},fill=red]table[x expr=\coordindex,meta=corpus,y=test]{udst2018scores.txt};
     \addplot[select coords between index={55}{81},fill=blue]table[x expr=\coordindex,meta=corpus,y=dev]{udst2018scores.txt};
     \end{axis}
-    \end{tikzpicture}
+    \end{tikzpicture}}
     \caption{TUPA's LAS-F1 per treebank: official and unofficial test scores, and development scores (where available).
     \label{fig:test_per_corpus}}
 \end{figure*}
@@ -1049,10 +1054,10 @@ However, TUPA learns them successfully, getting as much as 56.55 enhanced LAS-F1
 (on the Polish LFG test set).
 
 \catcode`\_=12
-\begin{table}[t]
+\begin{table}[t]\centering
 \begin{tabular}{l|ccc|c}
 \hline
-& \multicolumn{3}{c|}{Enhanced LAS} & \multirow{2}{11mm}{\% Enhanced} \\
+& \multicolumn{3}{c|}{Enhanced LAS} & \multirow{2}{*}{\% Enhanced} \\
 \bf Treebank & \bf P & \bf R & \bf F1 & \\
 \hline
 ar_padt & 28.51 & 16.24 & 20.69 & 5.30\\ 
@@ -1110,7 +1115,7 @@ Removing remote edges and transitions from TUPA causes a very small decrease
 in LAS-F1, and of course enhanced dependencies can then no longer be produced at all.
 
 
-\begin{table}[t]
+\begin{table}[t]\centering
 \begin{tabular}{l|cc|cc}
 \hline
 & \multicolumn{2}{c|}{\small LAS-F1} & \multicolumn{2}{c}{\small Enhanced LAS-F1} \\
