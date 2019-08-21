@@ -358,8 +358,12 @@ which uses syntactic analysis in the form of a CCG derivation
 to perform meaning analysis based on
 Discourse Representation Theory \cite[DRT;][]{kamp2013discourse}.
 
-Some semantic annotation schemes and parsing approaches attempt to represent the meaning of 
-natural language utterances directly.
+DRT is a general framework for representing the meaning of sentences and discourse,
+which can handle multiple linguistic phenomena including anaphora, presuppositions, and temporal expressions. The basic meaning-carrying
+units in DRT are Discourse Representation Structures (DRSs), which are recursive formal meaning structures that have a model-theoretic interpretation and can be translated into first-order logic. Basic DRSs consist
+of discourse referents representing entities in the discourse, and discourse conditions
+representing information about discourse referents.
+
 In semantic role labeling \cite{Baker:98,Palmer:05},
 predicates and their arguments are annotated and classified into specific roles.
 While earlier work on semantic parsing has mostly concentrated on shallow semantic analysis,
@@ -402,13 +406,30 @@ Figure~\ref{fig:syntactic_semantic_dependencies} example shows {syntactic}/{sema
     Bottom: semantic dependencies in the DM (DELPH-IN MRS) framework.}\label{fig:syntactic_semantic_dependencies}
     \end{figure}
 
-Another line of work addresses parsing into Abstract Meaning Representations (AMRs)
-\citep{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad}. 
+Another line of work addresses parsing into Abstract Meaning Representations
+\citep[AMRs;][]{banarescu2013abstract,flanigan2014discriminative,vanderwende2015amr,pust2015parsing,artzi2015broad,wang2015transition,wang-EtAl:2016:SemEval,wang-xue-pradhan:2015:ACL-IJCNLP,zhou2016amr,damonte-17,N18-1104}.
+AMR represents a rich set of semantic distinctions in a single homogeneous formalism,
+including named entity recognition and linking, semantic role labeling, and (indirectly)
+coreference resolution.
 While sharing much of my work's motivation,
 AMR does not ground its units in the words and constituents of the text.
 This complicates the parsing task, as it requires
 that the alignment between words and logical symbols be automatically
 (and imprecisely) detected.
+Furthermore, it complicates applications using the meaning representation,
+as it is not immediately clear what portion of the text corresponds to what portion
+of the meaning representation, which may be necessary for tasks such as
+rephrasing, translation or evaluation of parts of the text.
+
+While many of the parsing approaches mentioned above rely on a theory of syntax-semantics
+interface, on syntactic features or on syntactic pre-processing for semantic parsing,
+some semantic annotation schemes and parsing approaches attempt to represent the meaning of 
+natural language utterances directly.
+While the parser presented in this thesis does make use of syntactic features,
+it largely belongs to this category, as it makes no or minimal assumptions about the
+relation between the syntactic and the semantic structures.
+This ``purist'' approach is attractive, as it avoids biases and language-specific
+properties that might be introduced by using a specific syntactic framework.
 
 \section{Universal Conceptual Cognitive Annotation}\label{sec:intro_ucca}
 
