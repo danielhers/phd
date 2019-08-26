@@ -1426,10 +1426,12 @@ While for simple classification tasks such as Textual Entailment or
 Natural Language Inference \cite{dagan2005pascal,snli:emnlp2015},
 and to some degree for tasks with a complex output, such as machine translation, too,
 simple end-to-end neural networks can go a long way \cite[among others]{bowman2015tree},
-truly scalable learning of meaning and inference requires an inductive bias
-on the compositional structure of language. Without this bias,
-learning requires an unbounded number of training instances in order to properly
-learn to generalize to the flexible structures exhibited by natural language.
+combinatorical generalization in learning inevitably requires an inductive bias
+on the hypothesis class, realized as the network architecture
+\cite{mitchell1980need,battaglia2018relational}.
+Specifically, scalable learning of meaning and inference requires an inductive bias
+on the compositional structure of language.
+
 
   \begin{center}
     \begin{tikzpicture}[->]
