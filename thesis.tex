@@ -353,12 +353,12 @@ by defining compositional semantics on top of them:
 a broad-coverage, linguistically precise HPSG-based grammar of English,
 which is semantically grounded in Minimal Recursion Semantics \cite[MRS;][]{copestake2005minimal},
 a form of flat semantic representation capable of supporting underspecification.
-\citet{bos2005towards,bos2008wide,bos2015open} introduced the Boxer parser,
-which uses syntactic analysis in the form of a CCG derivation
-to perform meaning analysis based on
-Discourse Representation Theory \cite[DRT;][]{kamp2013discourse}.
 
-DRT is a general framework for representing the meaning of sentences and discourse,
+\citet{bos2005towards,bos2008wide,bos2015open} introduced the Boxer parser,
+which uses syntactic analysis in the form of CCG derivations
+to compositionally derive Discourse Representation Structures.
+Discourse Representation Theory \cite[DRT;][]{kamp2013discourse}
+is a general framework for representing the meaning of sentences and discourse,
 which can handle multiple linguistic phenomena including anaphora, presuppositions, and temporal expressions. The basic meaning-carrying
 units in DRT are Discourse Representation Structures (DRSs), which are recursive formal meaning structures that have a model-theoretic interpretation and can be translated into first-order logic. Basic DRSs consist
 of discourse referents representing entities in the discourse, and discourse conditions
